@@ -1,0 +1,6212 @@
+{
+	"source": {
+		"name": "Khronos OpenGL ES Shading Language specification",
+		"url": "https://github.com/KhronosGroup/GLSL/tree/0099bf83b0288469917fc2e2972cb0a2b74d6711",
+		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711",
+		"copyright": "Copyright 2008-2024 The Khronos Group Inc.",
+		"licenses": [
+			{
+				"id": "CC-BY-4.0",
+				"url": "https://creativecommons.org/licenses/by/4.0/"
+			}
+		],
+		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified."
+	},
+	"functions": {
+		"radians": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "degrees"
+							}
+						]
+					}
+				],
+				"doc": "Converts *degrees* to radians, i.e., `(π / 180) · degrees`."
+			}
+		],
+		"degrees": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "radians"
+							}
+						]
+					}
+				],
+				"doc": "Converts *radians* to degrees, i.e., `(180 / π) · radians`."
+			}
+		],
+		"sin": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "angle"
+							}
+						]
+					}
+				],
+				"doc": "The standard trigonometric sine function."
+			}
+		],
+		"cos": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "angle"
+							}
+						]
+					}
+				],
+				"doc": "The standard trigonometric cosine function."
+			}
+		],
+		"tan": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "angle"
+							}
+						]
+					}
+				],
+				"doc": "The standard trigonometric tangent."
+			}
+		],
+		"asin": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc sine. Returns an angle whose sine is *x*.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`.\nResults are undefined if `|x| > 1`."
+			}
+		],
+		"acos": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc cosine. Returns an angle whose cosine is *x*.\n\nThe range of values returned by this function is `[0,π]`.\nResults are undefined if `|x| > 1`."
+			}
+		],
+		"atan": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "y"
+							},
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc tangent. Returns an angle whose tangent is `y / x`.\n\nThe signs of *x* and *y* are used to determine what quadrant the angle is in.\nThe range of values returned by this function is `[-π, π]`.\nResults are undefined if *x* and *y* are both 0."
+			},
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "y_over_x"
+							}
+						]
+					}
+				],
+				"doc": "Arc tangent. Returns an angle whose tangent is *y_over_x*.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`."
+			}
+		],
+		"sinh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the hyperbolic sine function `(e^x - e^-x) / 2`."
+			}
+		],
+		"cosh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the hyperbolic cosine function `(e^x + e^-x) / 2`."
+			}
+		],
+		"tanh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the hyperbolic tangent function `sinh(x) / cosh(x)`."
+			}
+		],
+		"asinh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc hyperbolic sine; returns the inverse of **sinh**."
+			}
+		],
+		"acosh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc hyperbolic cosine. Returns the non-negative inverse of **cosh**.\n\nResults are undefined if `x < 1`."
+			}
+		],
+		"atanh": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Arc hyperbolic tangent. Returns the inverse of **tanh**.\n\nResults are undefined if `|x| ≥ 1`."
+			}
+		],
+		"pow": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns *x* raised to the *y* power, i.e., `x^y`.\n\nResults are undefined if `x < 0`.\nResults are undefined if `x = 0` and `y ≤ 0`."
+			}
+		],
+		"exp": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the natural exponentiation of *x*, i.e., `e^x`."
+			}
+		],
+		"log": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the natural logarithm of *x*, i.e., returns the value *y*\nwhich satisfies the equation `x = e^y`.\n\nResults are undefined if `x ≤ 0`."
+			}
+		],
+		"exp2": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns 2 raised to the *x* power, i.e., `2^x`."
+			}
+		],
+		"log2": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the base 2 logarithm of *x*, i.e., returns the value *y* which\nsatisfies the equation `x = 2^y`.\n\nResults are undefined if `x ≤ 0`."
+			}
+		],
+		"sqrt": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns `sqrt(x)`.\n\nResults are undefined if `x < 0`."
+			}
+		],
+		"inversesqrt": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns `1 / sqrt(x)`.\n\nResults are undefined if `x ≤ 0`."
+			}
+		],
+		"abs": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns *x* if `x ≥ 0`; otherwise it returns -*x*."
+			}
+		],
+		"sign": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns 1.0 if *x* > 0, 0.0 if *x* = 0, or -1.0 if *x* < 0."
+			}
+		],
+		"floor": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a value equal to the nearest integer that is less than or equal to *x*."
+			}
+		],
+		"trunc": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a value equal to the nearest integer to *x* whose absolute\nvalue is not larger than the absolute value of *x*."
+			}
+		],
+		"round": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a value equal to the nearest integer to *x*.\n\nThe fraction 0.5 will round in a direction chosen by the\nimplementation, presumably the direction that is fastest.\nThis includes the possibility that **round**(*x*) returns the same value\nas **roundEven**(*x*) for all values of *x*."
+			}
+		],
+		"roundEven": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a value equal to the nearest integer to *x*.\n\nA fractional part of 0.5 will round toward the nearest even integer.\n(Both 3.5 and 4.5 for x will return 4.0.)"
+			}
+		],
+		"ceil": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a value equal to the nearest integer that is greater than or equal to *x*."
+			}
+		],
+		"fract": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns *x* - **floor**(*x*)."
+			}
+		],
+		"mod": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Modulus. Returns `x - y · floor(x / y)`.\n\nNote that implementations may use a cheap approximation to the remainder,\nand the error can be large due to the discontinuity in **floor**. This can\nproduce mathematically unexpected results in some cases, such as\n**mod**(*x*,*x*) computing *x* rather than 0, and can also cause the result\nto have a different sign than the infinitely precise result."
+			}
+		],
+		"modf": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "out genFType",
+								"name": "i"
+							}
+						]
+					}
+				],
+				"doc": "Returns the fractional part of *x* and sets *i* to the integer part (as\na whole number floating-point value).\n\nBoth the return value and the output parameter will have the same sign as *x*.\n      If *x* has the value +/- Inf, the return value should be NaN and must\n      be either NaN or 0.0.\n      For **highp** non-constant expressions, the value returned must be\n      consistent."
+			}
+		],
+		"min": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "genIType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "int",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "genUType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "uint",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns *y* if *y* < *x;* otherwise it returns *x*.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
+			}
+		],
+		"max": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "genIType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "int",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "genUType",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "uint",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns *y* if *x* < *y;* otherwise it returns *x*.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
+			}
+		],
+		"clamp": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "minVal"
+							},
+							{
+								"type": "genFType",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "minVal"
+							},
+							{
+								"type": "float",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "genIType",
+								"name": "minVal"
+							},
+							{
+								"type": "genIType",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "int",
+								"name": "minVal"
+							},
+							{
+								"type": "int",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "genUType",
+								"name": "minVal"
+							},
+							{
+								"type": "genUType",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "uint",
+								"name": "minVal"
+							},
+							{
+								"type": "uint",
+								"name": "maxVal"
+							}
+						]
+					}
+				],
+				"doc": "Returns **min**(**max**(*x*, *minVal*), *maxVal*).\n\nResults are undefined if *minVal* > *maxVal*."
+			}
+		],
+		"mix": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							},
+							{
+								"type": "genFType",
+								"name": "a"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							},
+							{
+								"type": "float",
+								"name": "a"
+							}
+						]
+					}
+				],
+				"doc": "Returns the linear blend of *x* and *y*, i.e., `x · (1 - a) + y · a`."
+			},
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							},
+							{
+								"type": "genBType",
+								"name": "a"
+							}
+						]
+					},
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "x"
+							},
+							{
+								"type": "genIType",
+								"name": "y"
+							},
+							{
+								"type": "genBType",
+								"name": "a"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "x"
+							},
+							{
+								"type": "genUType",
+								"name": "y"
+							},
+							{
+								"type": "genBType",
+								"name": "a"
+							}
+						]
+					},
+					{
+						"returns": "genBType",
+						"params": [
+							{
+								"type": "genBType",
+								"name": "x"
+							},
+							{
+								"type": "genBType",
+								"name": "y"
+							},
+							{
+								"type": "genBType",
+								"name": "a"
+							}
+						]
+					}
+				],
+				"doc": "Selects which vector each returned component comes from.\n\nFor a component of *a* that is **false**, the corresponding component of *x* is returned.\n\nFor a component of *a* that is **true**, the corresponding component of *y* is returned.\n\nComponents of *x* and *y* that are not selected are allowed to be\ninvalid floating-point values and will have no effect on the results.\nThus, this provides different functionality than, for example, +\ngenFType **mix**(genFType *x*, genFType *y*, genFType(*a*)) +\nwhere *a* is a Boolean vector."
+			}
+		],
+		"step": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "edge"
+							},
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "float",
+								"name": "edge"
+							},
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns 0.0 if *x* < *edge;* otherwise it returns 1.0."
+			}
+		],
+		"smoothstep": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "edge0"
+							},
+							{
+								"type": "genFType",
+								"name": "edge1"
+							},
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "float",
+								"name": "edge0"
+							},
+							{
+								"type": "float",
+								"name": "edge1"
+							},
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns 0.0 if `x ≤ edge0` and 1.0 if `x ≥ edge1`, and\nperforms smooth Hermite interpolation between 0 and 1 when `edge0 < x < edge1`.\n\nThis is useful in cases where you would want a threshold function with a smooth transition.\n\nThis is equivalent to:\n\n```glsl\ngenFType t;\nt = clamp ((x - edge0) / (edge1 - edge0), 0, 1);\nreturn t * t * (3 - 2 * t);\n```\n\n(And similarly for doubles.) Results are undefined if `edge0 ≥ edge1`."
+			}
+		],
+		"isnan": [
+			{
+				"signatures": [
+					{
+						"returns": "genBType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if *x* holds a NaN. Returns **false** otherwise.\n\nAlways returns **false** if NaNs are not implemented."
+			}
+		],
+		"isinf": [
+			{
+				"signatures": [
+					{
+						"returns": "genBType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if *x* holds a positive infinity or negative infinity. Returns **false** otherwise."
+			}
+		],
+		"floatBitsToInt": [
+			{
+				"signatures": [
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "highp genFType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe **float** value's bit-level representation is preserved."
+			}
+		],
+		"floatBitsToUint": [
+			{
+				"signatures": [
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "highp genFType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe **float** value's bit-level representation is preserved."
+			}
+		],
+		"intBitsToFloat": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "highp genIType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a\nfloating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is\nunspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0.\nOtherwise, the bit-level representation is preserved."
+			}
+		],
+		"uintBitsToFloat": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "highp genUType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a\nfloating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is\nunspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0.\nOtherwise, the bit-level representation is preserved."
+			}
+		],
+		"fma": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "a"
+							},
+							{
+								"type": "genFType",
+								"name": "b"
+							},
+							{
+								"type": "genFType",
+								"name": "c"
+							}
+						]
+					}
+				],
+				"doc": "Computes and returns `a * b + c`.\n\nIn uses where the return value is eventually consumed by a variable declared as **precise**:\n\n- **fma**() is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared **precise** is considered two\n    operations.\n- The precision of **fma**() can differ from the precision of the expression\n    `a * b + c`.\n- **fma**() will be computed with the same precision as any other **fma**()\n    consumed by a precise variable, giving invariant results for the same\n    input values of *a*, *b*, and *c*.\n\nOtherwise, in the absence of **precise** consumption, there are no special\nconstraints on the number of operations or difference in precision between\n**fma**() and the expression `a * b + c`."
+			}
+		],
+		"frexp": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "highp genFType",
+								"name": "x"
+							},
+							{
+								"type": "out highp genIType",
+								"name": "exp"
+							}
+						]
+					}
+				],
+				"doc": "Splits *x* into a floating-point significand in the range\n`[0.5,1.0]`, and an integral exponent of two, such that\n\n`x = significand · 2^exponent`\n\nThe significand is returned by the function and the exponent is\nreturned in the parameter *exp*. For a floating-point value of zero, the\nsignificand and exponent are both zero.\n\nIf an implementation supports signed zero, an input value of minus\nzero should return a significand of minus zero. For a floating-point value that\nis an infinity or is not a number, the results are undefined.\n\nIf the input *x* is a vector, this operation is performed in a\ncomponent-wise manner; the value returned by the function and the\nvalue written to *exp* are vectors with the same number of components as *x*."
+			}
+		],
+		"ldexp": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "highp genFType",
+								"name": "x"
+							},
+							{
+								"type": "highp genIType",
+								"name": "exp"
+							}
+						]
+					}
+				],
+				"doc": "Builds a floating-point number from *x* and the corresponding integral\nexponent of two in *exp*, returning:\n\n`significand · 2^exponent`\n\nIf this product is too large to be represented in the floating-point\ntype, the result is undefined.\n\nIf *exp* is greater than +128, the value returned is undefined.\nIf *exp* is less than -126, the value returned may be flushed to zero.\n\nAdditionally, splitting the value into a significand and exponent\nusing **frexp**() and then reconstructing a floating-point value using\n**ldexp**() should yield the original input for zero and all finite\nnon-subnormal values.\n\nIf the input *x* is a vector, this operation is performed in a\ncomponent-wise manner; the value passed in *exp* and returned by the\nfunction are vectors with the same number of components as *x*."
+			}
+		],
+		"packUnorm2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+			}
+		],
+		"packSnorm2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+			}
+		],
+		"packUnorm4x8": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+			}
+		],
+		"packSnorm4x8": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+			}
+		],
+		"unpackUnorm2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "highp vec2",
+						"params": [
+							{
+								"type": "highp uint",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+			}
+		],
+		"unpackSnorm2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "highp vec2",
+						"params": [
+							{
+								"type": "highp uint",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+			}
+		],
+		"unpackUnorm4x8": [
+			{
+				"signatures": [
+					{
+						"returns": "mediump vec4",
+						"params": [
+							{
+								"type": "highp uint",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+			}
+		],
+		"unpackSnorm4x8": [
+			{
+				"signatures": [
+					{
+						"returns": "mediump vec4",
+						"params": [
+							{
+								"type": "highp uint",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+			}
+		],
+		"packHalf2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "mediump vec2",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "Returns an unsigned integer obtained by converting the components of a\ntwo-component floating-point vector to the 16-bit floating-point\nrepresentation of the  API, and\nthen packing these two 16-bit integers into a 32-bit unsigned integer.\n\nThe first vector component specifies the 16 least-significant bits of\nthe result; the second component specifies the 16 most-significant\nbits."
+			}
+		],
+		"unpackHalf2x16": [
+			{
+				"signatures": [
+					{
+						"returns": "mediump vec2",
+						"params": [
+							{
+								"type": "highp uint",
+								"name": "v"
+							}
+						]
+					}
+				],
+				"doc": "Returns a two-component floating-point vector with components obtained\nby unpacking a 32-bit unsigned integer into a pair of 16-bit values,\ninterpreting those values as 16-bit floating-point numbers according\nto the  API, and converting them to\n32-bit floating-point values.\n\nThe first component of the vector is obtained from the 16\nleast-significant bits of *v*; the second component is obtained from\nthe 16 most-significant bits of *v*."
+			}
+		],
+		"length": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the length of vector *x*, i.e., `sqrt( x_0^2 + x_1^2 + ... )`."
+			}
+		],
+		"distance": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "p0"
+							},
+							{
+								"type": "genFType",
+								"name": "p1"
+							}
+						]
+					}
+				],
+				"doc": "Returns the distance between *p0* and *p1*, i.e., **length**(*p0* - *p1*)"
+			}
+		],
+		"dot": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							},
+							{
+								"type": "genFType",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the dot product of *x* and *y*, i.e., `x_0 · y_0 + x_1 · y_1 + ...`"
+			}
+		],
+		"cross": [
+			{
+				"signatures": [
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "x"
+							},
+							{
+								"type": "vec3",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the cross product of *x* and *y*, i.e.,\n      `(x_1 · y_2 - y_1 · x_2, x_2 · y_0 - y_2 · x_0, x_0 · y_1 - y_0 · x_1)`."
+			}
+		],
+		"normalize": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns a vector in the same direction as *x* but with a length of 1, i.e. *x* / **length**(x)."
+			}
+		],
+		"faceforward": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "N"
+							},
+							{
+								"type": "genFType",
+								"name": "I"
+							},
+							{
+								"type": "genFType",
+								"name": "Nref"
+							}
+						]
+					}
+				],
+				"doc": "If **dot**(*Nref*, *I*) < 0 return *N*, otherwise return -*N*."
+			}
+		],
+		"reflect": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "I"
+							},
+							{
+								"type": "genFType",
+								"name": "N"
+							}
+						]
+					}
+				],
+				"doc": "For the incident vector *I* and surface orientation *N*, returns the reflection direction:\n`I - 2 · dot(N, I) · N`. *N* must already be normalized in order to achieve\nthe desired result."
+			}
+		],
+		"refract": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "I"
+							},
+							{
+								"type": "genFType",
+								"name": "N"
+							},
+							{
+								"type": "float",
+								"name": "eta"
+							}
+						]
+					}
+				],
+				"doc": "For the incident vector *I* and surface normal *N*, and the ratio of indices of refraction\n*eta*, return the refraction vector. The result is computed by the refraction equation shown below.\n\n```\nk = 1.0 - eta * eta * (1.0 - \\textbf{dot}(N,I) \\cdot \\textbf{dot}(N,I))\n```\n\n```\n\\begin{aligned}\nresult &=\n  \\begin{cases}\n    genFType(0.0), & k < 0.0 \\\\\n    eta * I - (eta * \\textbf{dot}(N,I) + \\sqrt { k }) * N, & \\textbf{otherwise}\n  \\end{cases}\n\\end{aligned}\n```\n\nThe input parameters for the incident vector *I* and the surface normal *N* must already be\nnormalized to get the desired results."
+			}
+		],
+		"matrixCompMult": [
+			{
+				"signatures": [
+					{
+						"returns": "mat",
+						"params": [
+							{
+								"type": "mat",
+								"name": "x"
+							},
+							{
+								"type": "mat",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Multiply matrix *x* by matrix *y* component-wise, i.e., `result[i][j]`\nis the scalar product of `x[i][j]` and `y[i][j]`.\n\n**Note:** To get linear algebraic matrix multiplication, use the multiply operator (`*`)."
+			}
+		],
+		"outerProduct": [
+			{
+				"signatures": [
+					{
+						"returns": "mat2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "c"
+							},
+							{
+								"type": "vec2",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "c"
+							},
+							{
+								"type": "vec3",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "c"
+							},
+							{
+								"type": "vec4",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat2x3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "c"
+							},
+							{
+								"type": "vec2",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat3x2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "c"
+							},
+							{
+								"type": "vec3",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat2x4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "c"
+							},
+							{
+								"type": "vec2",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat4x2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "c"
+							},
+							{
+								"type": "vec4",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat3x4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "c"
+							},
+							{
+								"type": "vec3",
+								"name": "r"
+							}
+						]
+					},
+					{
+						"returns": "mat4x3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "c"
+							},
+							{
+								"type": "vec4",
+								"name": "r"
+							}
+						]
+					}
+				],
+				"doc": "Treats the first parameter *c* as a column vector (matrix with one\ncolumn) and the second parameter *r* as a row vector (matrix with one\nrow) and does a linear algebraic matrix multiply *c* * *r*, yielding a\nmatrix whose number of rows is the number of components in *c* and\nwhose number of columns is the number of components in *r*."
+			}
+		],
+		"transpose": [
+			{
+				"signatures": [
+					{
+						"returns": "mat2",
+						"params": [
+							{
+								"type": "mat2",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat3",
+						"params": [
+							{
+								"type": "mat3",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat4",
+						"params": [
+							{
+								"type": "mat4",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat2x3",
+						"params": [
+							{
+								"type": "mat3x2",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat3x2",
+						"params": [
+							{
+								"type": "mat2x3",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat2x4",
+						"params": [
+							{
+								"type": "mat4x2",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat4x2",
+						"params": [
+							{
+								"type": "mat2x4",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat3x4",
+						"params": [
+							{
+								"type": "mat4x3",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat4x3",
+						"params": [
+							{
+								"type": "mat3x4",
+								"name": "m"
+							}
+						]
+					}
+				],
+				"doc": "Returns a matrix that is the transpose of *m*.\n\nThe input matrix *m* is not modified."
+			}
+		],
+		"determinant": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "mat2",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "mat3",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "mat4",
+								"name": "m"
+							}
+						]
+					}
+				],
+				"doc": "Returns the determinant of *m*."
+			}
+		],
+		"inverse": [
+			{
+				"signatures": [
+					{
+						"returns": "mat2",
+						"params": [
+							{
+								"type": "mat2",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat3",
+						"params": [
+							{
+								"type": "mat3",
+								"name": "m"
+							}
+						]
+					},
+					{
+						"returns": "mat4",
+						"params": [
+							{
+								"type": "mat4",
+								"name": "m"
+							}
+						]
+					}
+				],
+				"doc": "Returns a matrix that is the inverse of *m*.\n\nThe input matrix *m* is not modified.\n\nThe values in the returned matrix are undefined if *m* is singular or\npoorly-conditioned (nearly singular)."
+			}
+		],
+		"lessThan": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x < y`."
+			}
+		],
+		"lessThanEqual": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x ≤ y`."
+			}
+		],
+		"greaterThan": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x > y`."
+			}
+		],
+		"greaterThanEqual": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x ≥ y`."
+			}
+		],
+		"equal": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "bvec",
+								"name": "x"
+							},
+							{
+								"type": "bvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x == y`."
+			}
+		],
+		"notEqual": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "vec",
+								"name": "x"
+							},
+							{
+								"type": "vec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "ivec",
+								"name": "x"
+							},
+							{
+								"type": "ivec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "uvec",
+								"name": "x"
+							},
+							{
+								"type": "uvec",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "bvec",
+								"name": "x"
+							},
+							{
+								"type": "bvec",
+								"name": "y"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise compare of `x ≠ y`."
+			}
+		],
+		"any": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "bvec",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if any component of *x* is **true**."
+			}
+		],
+		"all": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "bvec",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** only if all components of *x* are **true**."
+			}
+		],
+		"not": [
+			{
+				"signatures": [
+					{
+						"returns": "bvec",
+						"params": [
+							{
+								"type": "bvec",
+								"name": "x"
+							}
+						]
+					}
+				],
+				"doc": "Returns the component-wise logical complement of *x*."
+			}
+		],
+		"uaddCarry": [
+			{
+				"signatures": [
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "highp genUType",
+								"name": "x"
+							},
+							{
+								"type": "highp genUType",
+								"name": "y"
+							},
+							{
+								"type": "out lowp genUType",
+								"name": "carry"
+							}
+						]
+					}
+				],
+				"doc": "Adds 32-bit unsigned integers *x* and *y*, returning the sum modulo 2^32.\n\nThe value *carry* is set to zero if the sum was less than 2^32, or one otherwise."
+			}
+		],
+		"usubBorrow": [
+			{
+				"signatures": [
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "highp genUType",
+								"name": "x"
+							},
+							{
+								"type": "highp genUType",
+								"name": "y"
+							},
+							{
+								"type": "out lowp genUType",
+								"name": "borrow"
+							}
+						]
+					}
+				],
+				"doc": "Subtracts the 32-bit unsigned integer *y* from *x*, returning the difference if non-negative, or\n2^32 plus the difference otherwise.\n\nThe value *borrow* is set to zero if `x ≥ y`, or one otherwise."
+			}
+		],
+		"bitfieldExtract": [
+			{
+				"signatures": [
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "value"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "value"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				],
+				"doc": "Extracts bits `[offset, offset + bits - 1]` from *value*, returning them in the least\nsignificant bits of the result.\n\nFor unsigned data types, the most significant bits of the result will be set to zero.\nFor signed data types, the most significant bits will be set to the value of bit\n`offset + bits - 1`.\n\nIf *bits* is zero, the result will be zero. The result will be undefined if *offset* or *bits* is\nnegative, or if the sum of *offset* and *bits* is greater than the number of bits used to store the\noperand.\n\nNote that for vector versions of **bitfieldExtract**(), a single pair of *offset* and *bits* values\nis shared for all components."
+			}
+		],
+		"bitfieldInsert": [
+			{
+				"signatures": [
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "base"
+							},
+							{
+								"type": "genIType",
+								"name": "insert"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "base"
+							},
+							{
+								"type": "genUType",
+								"name": "insert"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				],
+				"doc": "Inserts the *bits* least significant bits of *insert* into *base*.\n\nThe result will have bits `[offset, offset + bits - 1]` taken from bits `[0, bits - 1]` of\n*insert*, and all other bits taken directly from the corresponding bits of *base*.\nIf *bits* is zero, the result will simply be *base*. The result will be undefined if *offset* or\n*bits* is negative, or if the sum of *offset* and *bits* is greater than the number of bits used\nto store the operand.\n\nNote that for vector versions of **bitfieldInsert**(), a single pair of *offset* and *bits* values is\nshared for all components."
+			}
+		],
+		"bitfieldReverse": [
+			{
+				"signatures": [
+					{
+						"returns": "genIType",
+						"params": [
+							{
+								"type": "highp genIType",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "genUType",
+						"params": [
+							{
+								"type": "highp genUType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Reverses the bits of *value*.\n\nThe bit numbered *n* of the result will be taken from bit `(bits -1) - n` of *value*, where\n*bits* is the total number of bits used to represent *value*."
+			}
+		],
+		"bitCount": [
+			{
+				"signatures": [
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns the number of one bits in the binary representation of *value*."
+			}
+		],
+		"findLSB": [
+			{
+				"signatures": [
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "genIType",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "genUType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns the bit number of the least significant one bit in the binary representation of *value*.\n\nIf *value* is zero, -1 will be returned."
+			}
+		],
+		"findMSB": [
+			{
+				"signatures": [
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "highp genIType",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "lowp genIType",
+						"params": [
+							{
+								"type": "highp genUType",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns the bit number of the most significant bit in the binary representation of *value*.\n\nFor positive integers, the result will be the bit number of the most significant one bit.\nFor negative integers, the result will be the bit number of the most significant zero bit.\nFor a *value* of zero or negative one, -1 will be returned."
+			}
+		],
+		"textureSize": [
+			{
+				"signatures": [
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "gsamplerCube",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "samplerCubeShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "in",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "gsamplerCubeArray",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "samplerCubeArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "gsamplerBuffer",
+								"name": "sampler"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "gsampler2DMS",
+								"name": "sampler"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "gsampler2DMSArray",
+								"name": "sampler"
+							}
+						]
+					}
+				],
+				"doc": "Returns the dimensions of level *lod* (if present) for the texture bound to *sampler*, as described\nin section 11.1.3.4 “Texture Queries” of the OpenGL ES Specification.\n\nThe components in the return value are filled in, in order, with the width, height, and depth of\nthe texture.\n\nFor the array forms, the last component of the return value is the number of layers in the texture\narray, or the number of cubes in the texture cube map array."
+			}
+		],
+		"texture": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCube",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "samplerCubeShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCubeArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "samplerCubeArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "compare"
+							}
+						]
+					}
+				],
+				"doc": "Use the texture coordinate *P* to do a texture lookup in the texture currently bound to *sampler*.\n\nFor shadow forms: When *compare* is present, it is used as *D_ref* and the array layer comes from\nthe last component of *P*. When *compare* is not present, the last component of *P* is used as\n*D_ref* and the array layer comes from the second to last component of *P*.\n\nFor non-shadow forms: the array layer comes from the last component of *P*."
+			}
+		],
+		"textureProj": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup with projection.\n\nThe texture coordinates consumed from *P*, not including the last component of *P*, are divided by\nthe last component of *P* to form projected coordinates *P'*. The resulting third component of *P*\nin the shadow forms is used as *D_ref*. The third component of *P* is ignored when *sampler* has\ntype **gsampler2D** and *P* has type **vec4**. After these values are computed, texture lookup proceeds\nas in **texture**."
+			}
+		],
+		"textureLod": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCube",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCubeArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup as in **texture** but with explicit level-of-detail; *lod* specifies\n`λ_base]` and sets the partial derivatives as follows:\n\n(See section 8.14 “Texture Minification” and equations 8.4-8.6 of the OpenGL ES Specification.)\n\n`∂u / ∂x = ∂v / ∂x = ∂w / ∂x = 0`\n\n`∂u / ∂y = ∂v / ∂y = ∂w / ∂y = 0`"
+			}
+		],
+		"textureOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup as in **texture** but with *offset* added to the `(u,v,w)` texel coordinates\nbefore looking up each texel. The offset value must be a constant expression. A limited range of\noffset values are supported; the minimum and maximum offset values are implementation-dependent and\ngiven by *gl_MinProgramTexelOffset* and *gl_MaxProgramTexelOffset*, respectively.\n\nNote that *offset* does not apply to the layer coordinate for texture arrays.\n\nThis is explained in detail in section 8.14.2 “Coordinate Wrapping and Texel Selection” of the\nOpenGL ES Specification, where *offset* is `(δ_u, δ_v, δ_w)`.\n\nNote that texel offsets are also not supported for cube maps."
+			}
+		],
+		"texelFetch": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec2",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerBuffer",
+								"name": "sampler"
+							},
+							{
+								"type": "int",
+								"name": "P"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DMS",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec2",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DMSArray",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					}
+				],
+				"doc": "Use integer texture coordinate *P* to lookup a single texel from *sampler*. The array layer comes\nfrom the last component of *P* for the array forms. The level-of-detail *lod* (if present) is as\ndescribed in sections 11.1.3.2 “Texel Fetches” and 8.14.1 “Scale Factor and Level of Detail” of\nthe OpenGL ES Specification."
+			}
+		],
+		"texelFetchOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec2",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "ivec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Fetch a single texel as in **texelFetch**, offset by *offset* as described in **textureOffset**."
+			}
+		],
+		"textureProjOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					}
+				],
+				"doc": "Do a projective texture lookup as described in **textureProj**, offset by *offset* as described in\n**textureOffset**."
+			}
+		],
+		"textureLodOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Do an offset texture lookup with explicit level-of-detail. See **textureLod** and **textureOffset**."
+			}
+		],
+		"textureProjLod": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					}
+				],
+				"doc": "Do a projective texture lookup with explicit level-of-detail. See **textureProj** and **textureLod**."
+			}
+		],
+		"textureProjLodOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Do an offset projective texture lookup with explicit level-of-detail. See **textureProj**,\n**textureLod**, and **textureOffset**."
+			}
+		],
+		"textureGrad": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCube",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "samplerCubeShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCubeArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup as in **texture** but with  explicit gradients as shown\nbelow. The partial derivatives of *P* are with respect to window *x* and window *y*.\n\nFor the cube version, the partial derivatives of *P* are assumed to be in the coordinate system\nused before texture coordinates are projected onto the appropriate cube face."
+			}
+		],
+		"textureGradOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup with both explicit gradient and offset, as described in **textureGrad** and\n**textureOffset**."
+			}
+		],
+		"textureProjGrad": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup both projectively, as described in **textureProj**, and with explicit gradient as\ndescribed in **textureGrad**. The partial derivatives *dPdx* and *dPdy* are assumed to be already\nprojected."
+			}
+		],
+		"textureProjGradOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec3",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Do a texture lookup projectively and with explicit gradient as described in **textureProjGrad**, as\nwell as with offset, as described in **textureOffset**."
+			}
+		],
+		"textureGather": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCube",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsamplerCubeArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCubeShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCubeArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec4",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							}
+						]
+					}
+				],
+				"doc": "Returns the value\n\n```glsl\nvec4(Sample_i0_j1(P, base).comp,\n     Sample_i1_j1(P, base).comp,\n     Sample_i1_j0(P, base).comp,\n     Sample_i0_j0(P, base).comp)\n```\n\nIf specified, the value of *comp* must be a constant integer expression with\na value of 0, 1, 2, or 3, identifying the *x*, *y*, *z*, or *w*\npost-swizzled component of the four-component vector lookup result for each\ntexel, respectively.\n\nIf *comp* is not specified, it is treated as 0, selecting the *x* component\nof each texel to generate the result."
+			}
+		],
+		"textureGatherOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							},
+							{
+								"type": "ivec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Perform a texture gather operation as in **textureGather** by *offset* as described in\n**textureOffset** except that the *offset* can be variable (non constant) and the\nimplementation-dependent minimum and maximum offset values are given by\nMIN_PROGRAM_TEXTURE_GATHER_OFFSET and MAX_PROGRAM_TEXTURE_GATHER_OFFSET, respectively."
+			}
+		],
+		"textureGatherOffsets": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "ivec2[4]",
+								"name": "offsets"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "ivec2[4]",
+								"name": "offsets"
+							},
+							{
+								"type": "int",
+								"name": "comp",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec2",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							},
+							{
+								"type": "ivec2[4]",
+								"name": "offsets"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "sampler2DArrayShadow",
+								"name": "sampler"
+							},
+							{
+								"type": "vec3",
+								"name": "P"
+							},
+							{
+								"type": "float",
+								"name": "refZ"
+							},
+							{
+								"type": "ivec2[4]",
+								"name": "offsets"
+							}
+						]
+					}
+				],
+				"doc": "Operate identically to **textureGatherOffset** except that *offsets* is used to determine the\nlocation of the four texels to sample. Each of the four texels is obtained by applying the\ncorresponding offset in *offsets* as a (*u*, *v*) coordinate offset to *P*, identifying the\nfour-texel LINEAR footprint, and then selecting the texel *i_0 j_0* of that footprint. The\nspecified values in *offsets* must be constant integral expressions."
+			}
+		],
+		"atomicCounterIncrement": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "atomic_uint",
+								"name": "c"
+							}
+						]
+					}
+				],
+				"doc": "Atomically\n\n  . increments the counter for *c*, and\n  . returns its value prior to the increment operation.\n\nThese two steps are done atomically with respect to the atomic counter\nfunctions in this table."
+			}
+		],
+		"atomicCounterDecrement": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "atomic_uint",
+								"name": "c"
+							}
+						]
+					}
+				],
+				"doc": "Atomically\n\n  . decrements the counter for *c*, and\n  . returns the value resulting from the decrement operation.\n\nThese two steps are done atomically with respect to the atomic counter\nfunctions in this table."
+			}
+		],
+		"atomicCounter": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "atomic_uint",
+								"name": "c"
+							}
+						]
+					}
+				],
+				"doc": "Returns the counter value for *c*."
+			}
+		],
+		"atomicAdd": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by adding the value of *data* to the contents *mem*."
+			}
+		],
+		"atomicMin": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by taking the minimum of the value of *data* and the contents of *mem*."
+			}
+		],
+		"atomicMax": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by taking the maximum of the value of *data* and the contents of *mem*."
+			}
+		],
+		"atomicAnd": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise AND of the value of *data* and the contents of *mem*."
+			}
+		],
+		"atomicOr": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise OR of the value of *data* and the contents of *mem*."
+			}
+		],
+		"atomicXor": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of *data* and the contents\nof *mem*."
+			}
+		],
+		"atomicExchange": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by simply copying the value of *data*."
+			}
+		],
+		"atomicCompSwap": [
+			{
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "inout uint",
+								"name": "mem"
+							},
+							{
+								"type": "uint",
+								"name": "compare"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "inout int",
+								"name": "mem"
+							},
+							{
+								"type": "int",
+								"name": "compare"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Compares the value of *compare* and the contents of *mem*. If the values are equal, the new value\nis given by *data*; otherwise, it is taken from the original contents of *mem*."
+			}
+		],
+		"imageSize": [
+			{
+				"signatures": [
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "readonly writeonly gimage2D",
+								"name": "_image"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "readonly writeonly gimage3D",
+								"name": "_image"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec2",
+						"params": [
+							{
+								"type": "readonly writeonly gimageCube",
+								"name": "_image"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "readonly writeonly gimageCubeArray",
+								"name": "_image"
+							}
+						]
+					},
+					{
+						"returns": "highp ivec3",
+						"params": [
+							{
+								"type": "readonly writeonly gimage2DArray",
+								"name": "_image"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "readonly writeonly gimageBuffer",
+								"name": "_image"
+							}
+						]
+					}
+				],
+				"doc": "Returns the dimensions of the image bound to *image*. For arrayed images, the last component of the\nreturn value will hold the size of the array. Cube images only return the dimensions of one face,\nand the number of cubes in the cube map array, if arrayed.\n\n**Note:** The qualification **readonly writeonly** accepts a variable qualified with **readonly**,\n      **writeonly**, both, or neither. It means the formal argument will be used for neither reading\n      nor writing to the underlying memory."
+			}
+		],
+		"imageLoad": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "readonly",
+								"name": "IMAGE_PARAMS"
+							}
+						]
+					}
+				],
+				"doc": "Loads the texel at the coordinate *P* from the image unit *image* (in *IMAGE_PARAMS*).\n\nWhen *image* and *P*\nidentify a valid texel, the bits used to represent the selected texel in memory are converted to a\n**vec4**, **ivec4**, or **uvec4** in the manner described in section\n8.23\n“Texture Image Loads and Stores” of the OpenGL ES Specification and returned."
+			}
+		],
+		"imageStore": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": [
+							{
+								"type": "writeonly",
+								"name": "IMAGE_PARAMS"
+							},
+							{
+								"type": "gvec4",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Stores *data* into the texel at the coordinate *P* from the image specified by *image*.\nWhen *image* and *P*\nidentify a valid texel, the bits used to represent *data* are converted to the format of the image\nunit in the manner described in section\n8.23\n“Texture Image Loads and Stores” of the OpenGL ES Specification and stored to the specified\ntexel."
+			}
+		],
+		"imageAtomicAdd": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by adding the value of *data* to the contents of the selected texel."
+			}
+		],
+		"imageAtomicMin": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by taking the minimum of the value of *data* and the contents of the selected\ntexel."
+			}
+		],
+		"imageAtomicMax": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by taking the maximum of the value *data* and the contents of the selected\ntexel."
+			}
+		],
+		"imageAtomicAnd": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise AND of the value of *data* and the contents of the\nselected texel."
+			}
+		],
+		"imageAtomicOr": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise OR of the value of *data* and the contents of the\nselected texel."
+			}
+		],
+		"imageAtomicXor": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of *data* and the contents\nof the selected texel."
+			}
+		],
+		"imageAtomicExchange": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp float",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "float",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Computes a new value by simply copying the value of *data*."
+			}
+		],
+		"imageAtomicCompSwap": [
+			{
+				"signatures": [
+					{
+						"returns": "highp uint",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "uint",
+								"name": "compare"
+							},
+							{
+								"type": "uint",
+								"name": "data"
+							}
+						]
+					},
+					{
+						"returns": "highp int",
+						"params": [
+							{
+								"type": "IMAGE_PARAMS",
+								"name": ""
+							},
+							{
+								"type": "int",
+								"name": "compare"
+							},
+							{
+								"type": "int",
+								"name": "data"
+							}
+						]
+					}
+				],
+				"doc": "Compares the value of *compare* and the contents of the selected texel. If the values are equal,\nthe new value is given by *data*; otherwise, it is taken from the original value loaded from the\ntexel."
+			}
+		],
+		"EmitVertex": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Emits the current values of output variables to the current output primitive.\n\nOn return from this call, the values of output variables are undefined."
+			}
+		],
+		"EndPrimitive": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Completes the current output primitive and starts a new one.\n\nNo vertex is emitted."
+			}
+		],
+		"dFdx": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "Returns the derivative in x using local differencing for the input argument *p*."
+			}
+		],
+		"dFdy": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "Returns the derivative in y using local differencing for the input argument *p*.\n\nThese two functions are commonly used to estimate the filter width used to anti-alias procedural\ntextures. We are assuming that the expression is being evaluated in parallel on a SIMD array so\nthat at any given point in time the value of the function is known at the grid points represented\nby the SIMD array. Local differencing between SIMD array elements can therefore be used to derive\n**dFdx**, **dFdy**, etc."
+			}
+		],
+		"fwidth": [
+			{
+				"signatures": [
+					{
+						"returns": "genFType",
+						"params": [
+							{
+								"type": "genFType",
+								"name": "p"
+							}
+						]
+					}
+				],
+				"doc": "Returns the sum of the absolute derivative in x and y using local differencing for the input\nargument *p*, i.e., **abs**(**dFdx**(*p*)) + **abs**(**dFdy**(*p*));"
+			}
+		],
+		"interpolateAtCentroid": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "float",
+								"name": "interpolant"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "interpolant"
+							}
+						]
+					},
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "interpolant"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "interpolant"
+							}
+						]
+					}
+				],
+				"doc": "Returns the value of the input *interpolant* sampled at a location inside both the pixel and the\nprimitive being processed. The value obtained would be the same value assigned to the input\nvariable if declared with the **centroid** qualifier."
+			}
+		],
+		"interpolateAtSample": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "float",
+								"name": "interpolant"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "interpolant"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					},
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "interpolant"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "interpolant"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					}
+				],
+				"doc": "Returns the value of the input *interpolant* variable at the location of sample number *sample*.\nIf multisample buffers are not available, the input variable will be evaluated at the center of the\npixel. If sample *sample* does not exist, the position used to interpolate the input variable is undefined."
+			}
+		],
+		"interpolateAtOffset": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "float",
+								"name": "interpolant"
+							},
+							{
+								"type": "vec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "interpolant"
+							},
+							{
+								"type": "vec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "interpolant"
+							},
+							{
+								"type": "vec2",
+								"name": "offset"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "interpolant"
+							},
+							{
+								"type": "vec2",
+								"name": "offset"
+							}
+						]
+					}
+				],
+				"doc": "Returns the value of the input *interpolant* variable sampled at an offset from the center of the\npixel specified by *offset*. The two floating-point components of *offset*, give the offset in\npixels in the *x* and *y* directions, respectively.\n\nAn offset of (0, 0) identifies the center of the pixel. The range and granularity of offsets\nsupported by this function is implementation-dependent."
+			}
+		],
+		"barrier": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "For any given static instance of **barrier**(), all tessellation control shader invocations for a\nsingle input patch must enter it before any will be allowed to continue beyond it, or all compute\nshader invocations for a single workgroup must enter it before any will continue beyond it.\n\nThe function **barrier**() provides a partially defined order of execution\nbetween shader invocations.\nThe ensures that, for some types of memory accesses, values written by one\ninvocation prior to a given static instance of **barrier**() can be safely read\nby other invocations after their call to the same static instance **barrier**().\nBecause invocations may execute in an undefined order between these barrier\ncalls, the values of a per-vertex or per-patch output variable for tessellation\ncontrol shaders, or the values of **shared** variables for compute shaders will be\nundefined in a number of cases enumerated in\n“Output Variables” (for tessellation control shaders)\nand “Shared Variables” (for compute shaders).\n\nFor tessellation control shaders, the **barrier**() function may only be\nplaced inside the function **main**() of the shader and may not be called\nwithin any control flow.\nBarriers are also disallowed after a return statement in the function\n**main**().\nAny such misplaced barriers result in a compile-time error.\n\nA **barrier**() affects control flow but only synchronizes memory accesses\nto **shared** variables and tessellation control output variables.\nFor other memory accesses, it does not ensure that values written by one invocation\nprior to a given static instance of **barrier**() can be safely read by other\ninvocations after their call to the same static instance of **barrier**().\nTo achieve this requires the use of both **barrier**() and a memory barrier.\n\nFor compute shaders, the **barrier**() function may be placed within control\nflow, but that control flow must be uniform control flow.\nThat is, all the controlling expressions that lead to execution of the\nbarrier must be dynamically uniform expressions.\nThis ensures that if any shader invocation enters a conditional statement,\nthen all invocations will enter it.\nWhile compilers are encouraged to give warnings if they can detect this\nmight not happen, compilers cannot completely determine this.\nHence, it is the author's responsibility to ensure **barrier**() only exists\ninside uniform control flow.\nOtherwise, some shader invocations will stall indefinitely, waiting for a\nbarrier that is never reached by other invocations."
+			}
+		],
+		"memoryBarrier": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of memory transactions issued by a single shader invocation."
+			}
+		],
+		"memoryBarrierAtomicCounter": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of accesses to atomic-counter variables issued by a single shader invocation."
+			}
+		],
+		"memoryBarrierBuffer": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of memory transactions to buffer variables issued within a single shader invocation."
+			}
+		],
+		"memoryBarrierShared": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of memory transactions to shared variables issued within a single shader\ninvocation, as viewed by other invocations in the same workgroup.\n\nOnly available in compute shaders."
+			}
+		],
+		"memoryBarrierImage": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of memory transactions to images issued within a single shader invocation."
+			}
+		],
+		"groupMemoryBarrier": [
+			{
+				"signatures": [
+					{
+						"returns": "void",
+						"params": []
+					}
+				],
+				"doc": "Control the ordering of all memory transactions issued within a single shader invocation, as viewed\nby other invocations in the same workgroup.\n\nOnly available in compute shaders."
+			}
+		],
+		"subpassLoad": [
+			{
+				"signatures": [
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsubpassInput",
+								"name": "subpass"
+							}
+						]
+					},
+					{
+						"returns": "gvec4",
+						"params": [
+							{
+								"type": "gsubpassInputMS",
+								"name": "subpass"
+							},
+							{
+								"type": "int",
+								"name": "sample"
+							}
+						]
+					}
+				],
+				"doc": "Read from a subpass input, from the implicit location *(x, y, layer)* of the current fragment\ncoordinate."
+			}
+		],
+		"anyInvocation": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "bool",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if and only if *value* is **true** for at least one active invocation in the group."
+			}
+		],
+		"allInvocations": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "bool",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if and only if *value* is **true** for all active invocations in the group."
+			}
+		],
+		"allInvocationsEqual": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "bool",
+								"name": "value"
+							}
+						]
+					}
+				],
+				"doc": "Returns **true** if *value* is the same for all active invocations in the group."
+			}
+		]
+	},
+	"variables": {
+		"gl_VertexID": [
+			{
+				"stage": "vertex",
+				"decl": "in highp int gl_VertexID; // only present when not targeting Vulkan",
+				"doc": "The variable *gl_VertexID* is a vertex shader input variable that holds an\ninteger index for the vertex, as defined under “Shader Inputs” in section\n11.1.3.9 “Shader Inputs” of the OpenGL ES Specification.\nIt is only present when not targeting Vulkan.\nEven when present, the value of *gl_VertexID* is not always defined."
+			}
+		],
+		"gl_InstanceID": [
+			{
+				"stage": "vertex",
+				"decl": "in highp int gl_InstanceID; // only present when not targeting Vulkan",
+				"doc": "The variable *gl_InstanceID* is a vertex shader input variable that holds\nthe instance number of the current primitive in an instanced draw call (see\n“Shader Inputs” in section 11.1.3.9 “Shader Inputs” of the\nOpenGL ES Specification).\nIt is only present when not targeting Vulkan.\nIf the current primitive does not come from an instanced draw call, the\nvalue of *gl_InstanceID* is zero."
+			}
+		],
+		"gl_VertexIndex": [
+			{
+				"stage": "vertex",
+				"decl": "in highp int gl_VertexIndex; // only present when targeting Vulkan",
+				"doc": "The variable *gl_VertexIndex* is a vertex language input variable that\nholds an integer index for the vertex, relative to a base.\nIt is only present when targeting Vulkan.\nEven when present, the value of *gl_VertexIndex* is not always defined."
+			}
+		],
+		"gl_InstanceIndex": [
+			{
+				"stage": "vertex",
+				"decl": "in highp int gl_InstanceIndex; // only present when targeting Vulkan",
+				"doc": "The variable *gl_InstanceIndex* is a vertex language input variable that\nholds the instance number of the current primitive in an instanced draw\ncall, relative to a base.\nIt is only present when targeting Vulkan.\nIf the current primitive does not come from an instanced draw call,\nthe value of gl_InstanceIndex is zero."
+			}
+		],
+		"gl_Position": [
+			{
+				"stage": "vertex",
+				"decl": "out highp vec4 gl_Position;",
+				"doc": "The variable *gl_Position* is intended for writing the homogeneous vertex\nposition.\nIt can be written at any time during shader execution.\nThis value will be used by primitive assembly, clipping, culling, and other\nfixed functionality operations, if present, that operate on primitives after\nvertex processing has occurred.\nIts value is undefined after the vertex processing stage if the vertex\nshader executable does not write *gl_Position*."
+			},
+			{
+				"stage": "tessellation control",
+				"decl": "out highp vec4 gl_Position;",
+				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "out highp vec4 gl_Position;",
+				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+			},
+			{
+				"stage": "geometry",
+				"decl": "out highp vec4 gl_Position;",
+				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+			}
+		],
+		"gl_PointSize": [
+			{
+				"stage": "vertex",
+				"decl": "out highp float gl_PointSize;",
+				"doc": "The variable *gl_PointSize* is intended for a shader to write the size of\nthe point to be rasterized.\nIt is measured in pixels.\nIf *gl_PointSize* is not written to, its value is undefined in subsequent\npipe stages."
+			}
+		],
+		"gl_PerVertex": [
+			{
+				"stage": "vertex",
+				"decl": "out gl_PerVertex {\n    out highp vec4 gl_Position;\n    out highp float gl_PointSize;\n};",
+				"doc": ""
+			},
+			{
+				"stage": "tessellation control",
+				"decl": "out gl_PerVertex {\n    highp vec4 gl_Position;\n} gl_out[];",
+				"doc": ""
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "out gl_PerVertex {\n    highp vec4 gl_Position;\n};",
+				"doc": ""
+			},
+			{
+				"stage": "geometry",
+				"decl": "out gl_PerVertex {\n    highp vec4 gl_Position;\n};",
+				"doc": ""
+			}
+		],
+		"gl_in": [
+			{
+				"stage": "tessellation control",
+				"decl": "in gl_PerVertex {\n    highp vec4 gl_Position;\n} gl_in[gl_MaxPatchVertices];",
+				"doc": ""
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "in gl_PerVertex {\n    highp vec4 gl_Position;\n} gl_in[gl_MaxPatchVertices];",
+				"doc": ""
+			},
+			{
+				"stage": "geometry",
+				"decl": "in gl_PerVertex {\n    highp vec4 gl_Position;\n} gl_in[];",
+				"doc": ""
+			}
+		],
+		"gl_PatchVerticesIn": [
+			{
+				"stage": "tessellation control",
+				"decl": "in highp int gl_PatchVerticesIn;",
+				"doc": "*gl_PatchVerticesIn* contains the number of vertices in the input patch\nbeing processed by the shader.\nA single shader can read patches of differing sizes, so the value of\n*gl_PatchVerticesIn* may differ between patches."
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "in highp int gl_PatchVerticesIn;",
+				"doc": "*gl_PatchVerticesIn* and *gl_PrimitiveID* are defined in the same fashion as\nthe corresponding input variables in the tessellation control shader."
+			}
+		],
+		"gl_PrimitiveID": [
+			{
+				"stage": "tessellation control",
+				"decl": "in highp int gl_PrimitiveID;",
+				"doc": "*gl_PrimitiveID* contains the number of primitives processed by the shader\nsince the current set of rendering primitives was started."
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "in highp int gl_PrimitiveID;",
+				"doc": "*gl_PatchVerticesIn* and *gl_PrimitiveID* are defined in the same fashion as\nthe corresponding input variables in the tessellation control shader."
+			},
+			{
+				"stage": "geometry",
+				"decl": "out highp int gl_PrimitiveID;",
+				"doc": "*gl_PrimitiveID* is filled with a single integer that serves as a primitive\nidentifier to the fragment shader.\nThis is then available to fragment shaders, which will select the written\nprimitive ID from the provoking vertex of the primitive being shaded.\nIf a fragment shader using *gl_PrimitiveID* is active and a geometry shader\nis also active, the geometry shader must write to *gl_PrimitiveID* or the\nfragment shader input *gl_PrimitiveID* is undefined.\nSee section 11.3.4.4 “Geometry Shader Outputs” of the\nOpenGL ES Specification for more information."
+			},
+			{
+				"stage": "fragment",
+				"decl": "in highp int gl_PrimitiveID;",
+				"doc": "The input variable *gl_PrimitiveID* is filled with the value written to the\n*gl_PrimitiveID* geometry shader output, if a geometry shader is present.\nOtherwise, it is filled with the number of primitives processed by the\nshader since the current set of rendering primitives was started."
+			}
+		],
+		"gl_InvocationID": [
+			{
+				"stage": "tessellation control",
+				"decl": "in highp int gl_InvocationID;",
+				"doc": "*gl_InvocationID* contains the number of the output patch vertex assigned to\nthe tessellation control shader invocation.\nIt is assigned integer values in the range [0, N-1], where N is the number\nof output patch vertices per primitive."
+			},
+			{
+				"stage": "geometry",
+				"decl": "in highp int gl_InvocationID;",
+				"doc": "*gl_InvocationID* contains the invocation number assigned to the geometry\nshader invocation.\nIt is assigned integer values in the range [0, N-1], where N is the number\nof geometry shader invocations per primitive."
+			}
+		],
+		"gl_out": [
+			{
+				"stage": "tessellation control",
+				"decl": "out gl_PerVertex {\n    highp vec4 gl_Position;\n} gl_out[];",
+				"doc": ""
+			}
+		],
+		"gl_TessLevelOuter": [
+			{
+				"stage": "tessellation control",
+				"decl": "patch out highp float gl_TessLevelOuter[4];",
+				"doc": "The values written to *gl_TessLevelOuter* and *gl_TessLevelInner* are\nassigned to the corresponding outer and inner tessellation levels of the\noutput patch.\nThey are used by the tessellation primitive generator to control primitive\ntessellation and may be read by tessellation evaluation shaders."
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "patch in highp float gl_TessLevelOuter[4];",
+				"doc": "*gl_TessLevelOuter* and *gl_TessLevelInner* are filled with the\ncorresponding outputs written by the active tessellation control shader."
+			}
+		],
+		"gl_TessLevelInner": [
+			{
+				"stage": "tessellation control",
+				"decl": "patch out highp float gl_TessLevelInner[2];",
+				"doc": "The values written to *gl_TessLevelOuter* and *gl_TessLevelInner* are\nassigned to the corresponding outer and inner tessellation levels of the\noutput patch.\nThey are used by the tessellation primitive generator to control primitive\ntessellation and may be read by tessellation evaluation shaders."
+			},
+			{
+				"stage": "tessellation evaluation",
+				"decl": "patch in highp float gl_TessLevelInner[2];",
+				"doc": "*gl_TessLevelOuter* and *gl_TessLevelInner* are filled with the\ncorresponding outputs written by the active tessellation control shader."
+			}
+		],
+		"gl_BoundingBox": [
+			{
+				"stage": "tessellation control",
+				"decl": "patch out highp vec4 gl_BoundingBox[2];",
+				"doc": "The values written to *gl_BoundingBox* specify the minimum and maximum\nclip-space extents of a bounding box containing all primitives generated\nfrom the patch by the primitive generator, geometry shader, and clipping.\nFragments may or may not be generated for portions of these primitives\nthat extend outside the window-coordinate projection of this bounding\nbox."
+			}
+		],
+		"gl_TessCoord": [
+			{
+				"stage": "tessellation evaluation",
+				"decl": "in highp vec3 gl_TessCoord;",
+				"doc": "*gl_TessCoord* specifies a three-component *(u,v,w)* vector identifying the\nposition of the vertex being processed by the shader relative to the\nprimitive being tessellated.\nIts values will obey the properties\n\n```glsl\ngl_TessCoord.x == 1.0 - (1.0 - gl_TessCoord.x) // two operations performed\ngl_TessCoord.y == 1.0 - (1.0 - gl_TessCoord.y) // two operations performed\ngl_TessCoord.z == 1.0 - (1.0 - gl_TessCoord.z) // two operations performed\n```\n\nto aid in replicating subdivision computations."
+			}
+		],
+		"gl_PrimitiveIDIn": [
+			{
+				"stage": "geometry",
+				"decl": "in highp int gl_PrimitiveIDIn;",
+				"doc": "*gl_PrimitiveIDIn* contains the number of primitives processed by the shader\nsince the current set of rendering primitives was started."
+			}
+		],
+		"gl_Layer": [
+			{
+				"stage": "geometry",
+				"decl": "out highp int gl_Layer;",
+				"doc": "*gl_Layer* is used to select a specific layer (or face and layer of a cube\nmap) of a multi-layer framebuffer attachment.\nThe actual layer used will come from one of the vertices in the primitive\nbeing shaded.\nWhich vertex the layer comes from is determined as discussed in section\n11.3.4.4 of the OpenGL ES Specification\nbut may be undefined, so it is best to write the same layer value for all\nvertices of a primitive.\nIf a shader statically assigns a value to *gl_Layer*, layered rendering mode\nis enabled.\nSee section 11.3.4.4 “Geometry Shader Outputs” and section 9.8 \"`Layered Framebuffers`\" of the OpenGL ES Specification for more information.\nIf a shader statically assigns a value to *gl_Layer*, and there is an\nexecution path through the shader that does not set *gl_Layer*, then the\nvalue of *gl_Layer* is undefined for executions of the shader that take that\npath.\n\nThe output variable *gl_Layer* takes on a special value when used with an\narray of cube map textures.\nInstead of only referring to the layer, it is used to select a cube map face\nand a layer.\nSetting *gl_Layer* to the value *layer*6+face* will render to face *face* of\nthe cube defined in layer *layer*.\nThe face values are defined in table 8.25 of the OpenGL ES Specification,\nbut repeated below for clarity.\n\nFor example, to render to the positive *y* cube map face located in the 5th\nlayer of the cube map array, *gl_Layer* should be set to *5 * 6 + 2*."
+			},
+			{
+				"stage": "fragment",
+				"decl": "in highp int gl_Layer;",
+				"doc": "The input variable *gl_Layer* is filled with the value written to the\n*gl_Layer* geometry shader output, if a geometry shader is present.\nIf the geometry stage does not dynamically assign a value to *gl_Layer*, the\nvalue of *gl_Layer* in the fragment stage will be undefined.\nIf the geometry stage makes no static assignment to *gl_Layer*, the input\nvalue in the fragment stage will be zero.\nOtherwise, the fragment stage will read the same value written by the\ngeometry stage, even if that value is out of range.\nIf a fragment shader contains a static access to *gl_Layer*, it will count\nagainst the implementation defined limit for the maximum number of inputs to\nthe fragment stage."
+			}
+		],
+		"gl_FragCoord": [
+			{
+				"stage": "fragment",
+				"decl": "in highp vec4 gl_FragCoord;",
+				"doc": "The fixed functionality computed depth for a fragment may be obtained by\nreading *gl_FragCoord.z*, described below.\n\nThe variable *gl_FragCoord* is available as an input variable from within\nfragment shaders and it holds the window relative coordinates (*x*, *y*,\n*z*, *1/w*) values for the fragment.\nIf multi-sampling, this value can be for any location within the pixel, or\none of the fragment samples.\nThe use of **centroid** does not further restrict this value to be inside the\ncurrent primitive.\nThis value is the result of the fixed functionality that interpolates\nprimitives after vertex processing to generate fragments.\nThe *z* component is the depth value that would be used for the fragment's\ndepth if no shader contained any writes to *gl_FragDepth*.\nThis is useful for invariance if a shader conditionally computes\n*gl_FragDepth* but otherwise wants the fixed functionality fragment depth."
+			}
+		],
+		"gl_FrontFacing": [
+			{
+				"stage": "fragment",
+				"decl": "in bool gl_FrontFacing;",
+				"doc": "Fragment shaders have access to the input built-in variable\n*gl_FrontFacing*, whose value is **true** if the fragment belongs to a\nfront-facing primitive.\nOne use of this is to emulate two-sided lighting by selecting one of two\ncolors calculated by a vertex or geometry shader."
+			}
+		],
+		"gl_FragDepth": [
+			{
+				"stage": "fragment",
+				"decl": "out highp float gl_FragDepth;",
+				"doc": "Writing to *gl_FragDepth* will establish the depth value for the fragment\nbeing processed.\nIf depth buffering is enabled, and no shader writes *gl_FragDepth*, then the\nfixed function value for depth will be used as the fragment's depth value.\nIf a shader statically assigns a value to *gl_FragDepth*, and there is an\nexecution path through the shader that does not set *gl_FragDepth*, then the\nvalue of the fragment's depth may be undefined for executions of the shader\nthat take that path.\nThat is, if the set of linked fragment shaders statically contain a write to\n*gl_FragDepth*, then it is responsible for always writing it.\n\nIf a shader executes the **discard** keyword, the fragment is discarded, and\nthe values of any user-defined fragment outputs, *gl_FragDepth*, and\n*gl_SampleMask* become irrelevant."
+			}
+		],
+		"gl_PointCoord": [
+			{
+				"stage": "fragment",
+				"decl": "in mediump vec2 gl_PointCoord;",
+				"doc": "The values in *gl_PointCoord* are two-dimensional coordinates indicating\nwhere within a point primitive the current fragment is located, when point\nsprites are enabled.\nThey range from 0.0 to 1.0 across the point.\nIf the current primitive is not a point, or if point sprites are not\nenabled, then the values read from *gl_PointCoord* are undefined."
+			}
+		],
+		"gl_HelperInvocation": [
+			{
+				"stage": "fragment",
+				"decl": "in bool gl_HelperInvocation;",
+				"doc": "The value *gl_HelperInvocation* is **true** if the fragment shader invocation\nis considered a *helper invocation* and is **false** otherwise.\nA helper invocation is a fragment shader invocation that is created solely\nfor the purposes of evaluating derivatives for use in non-helper fragment\nshader invocations.\nSuch derivatives are computed implicitly in the built-in function\n**texture**() (see “Texture Functions”), and\nexplicitly in the derivative functions in\n“Derivative Functions”, for example **dFdx**() and\n**dFdy**().\n\nFragment shader helper invocations execute the same shader code as\nnon-helper invocations, but will not have side effects that modify the\nframebuffer or other shader-accessible memory.\nIn particular:\n\n- Fragments corresponding to helper invocations are discarded when shader\n    execution is complete, without updating the framebuffer.\n- Stores to image and buffer variables performed by helper invocations\n    have no effect on the underlying image or buffer memory.\n- Atomic operations to image, buffer, or atomic counter variables\n    performed by helper invocations have no effect on the underlying image\n    or buffer memory.\n    The values returned by such atomic operations are undefined.\n\nHelper invocations may be generated for pixels not covered by a primitive\nbeing rendered.\nWhile fragment shader inputs qualified with **centroid** are normally required\nto be sampled in the intersection of the pixel and the primitive, the\nrequirement is ignored for such pixels since there is no intersection\nbetween the pixel and primitive.\n\nHelper invocations may also be generated for fragments that are covered by a\nprimitive being rendered when the fragment is killed by early fragment tests\n(using the **early_fragment_tests** qualifier) or where the implementation is\nable to determine that executing the fragment shader would have no effect\nother than assisting in computing derivatives for other fragment shader\ninvocations.\n\nThe set of helper invocations generated when processing any set of\nprimitives is implementation-dependent."
+			}
+		],
+		"gl_SampleID": [
+			{
+				"stage": "fragment",
+				"decl": "in lowp int gl_SampleID;",
+				"doc": "The input variable *gl_SampleID* is filled with the sample number of the\nsample currently being processed.\nThis variable is in the range *0* to *gl_NumSamples-1*, where\n*gl_NumSamples* is the total number of samples in the framebuffer, or 1 if\nrendering to a non-multisample framebuffer.\nAny static use of this variable in a fragment shader causes the entire\nshader to be evaluated per-sample."
+			}
+		],
+		"gl_SamplePosition": [
+			{
+				"stage": "fragment",
+				"decl": "in mediump vec2 gl_SamplePosition;",
+				"doc": "The input variable *gl_SamplePosition* contains the position of the current\nsample within the multisample draw buffer.\nThe *x* and *y* components of *gl_SamplePosition* contain the sub-pixel\ncoordinate of the current sample and will have values in the range 0.0 to\n1.0.\nAny static use of this variable in a fragment shader causes the entire\nshader to be evaluated per sample."
+			}
+		],
+		"gl_SampleMaskIn": [
+			{
+				"stage": "fragment",
+				"decl": "in highp int gl_SampleMaskIn[(gl_MaxSamples+31)/32];",
+				"doc": "For both the input array *gl_SampleMaskIn[]* and the output array\n*gl_SampleMask[]*, bit *B* of mask *M* (*gl_SampleMaskIn[M]* or\n*gl_SampleMask[M]*) corresponds to sample *32*M+B*.\nThese arrays have **ceil**(*s*/32) elements, where *s* is the maximum number\nof color samples supported by the implementation.\n\nThe input variable *gl_SampleMaskIn* indicates the set of samples covered by\nthe primitive generating the fragment during multisample rasterization.\nIt has a sample bit set if and only if the sample is considered covered for\nthis fragment shader invocation."
+			}
+		],
+		"gl_SampleMask": [
+			{
+				"stage": "fragment",
+				"decl": "out highp int gl_SampleMask[(gl_MaxSamples+31)/32];",
+				"doc": "If a shader executes the **discard** keyword, the fragment is discarded, and\nthe values of any user-defined fragment outputs, *gl_FragDepth*, and\n*gl_SampleMask* become irrelevant.\n\nFor both the input array *gl_SampleMaskIn[]* and the output array\n*gl_SampleMask[]*, bit *B* of mask *M* (*gl_SampleMaskIn[M]* or\n*gl_SampleMask[M]*) corresponds to sample *32*M+B*.\nThese arrays have **ceil**(*s*/32) elements, where *s* is the maximum number\nof color samples supported by the implementation.\n\nThe output array *gl_SampleMask[]* sets the sample mask for the fragment\nbeing processed.\nCoverage for the current fragment will become the logical AND of the\ncoverage mask and the output *gl_SampleMask*.\nThis array must be sized in the fragment shader either implicitly or\nexplicitly, to be no larger than the implementation-dependent maximum\nsample-mask (as an array of 32bit elements), determined by the maximum\nnumber of samples..\nIf the fragment shader statically assigns a value to *gl_SampleMask*, the\nsample mask will be undefined for any array elements of any fragment shader\ninvocations that fail to assign a value.\nIf a shader does not statically assign a value to *gl_SampleMask*, the\nsample mask has no effect on the processing of a fragment."
+			}
+		],
+		"gl_NumWorkGroups": [
+			{
+				"stage": "compute",
+				"decl": "in uvec3 gl_NumWorkGroups;",
+				"doc": "The built-in variable *gl_NumWorkGroups* is a compute-shader input variable\ncontaining the number of workgroups in each dimension of the dispatch that\nwill execute the compute shader.\nIts content is equal to the values specified in the *num_groups_x*,\n*num_groups_y*, and *num_groups_z* parameters passed to the\n*DispatchCompute* API entry point."
+			}
+		],
+		"gl_WorkGroupSize": [
+			{
+				"stage": "compute",
+				"decl": "const uvec3 gl_WorkGroupSize;",
+				"doc": "The built-in constant *gl_WorkGroupSize* is a compute-shader constant\ncontaining the workgroup size of the shader.\nThe size of the workgroup in the *X*, *Y*, and *Z* dimensions is stored in\nthe *x*, *y*, and *z* components.\nThe constant values in *gl_WorkGroupSize* will match those specified in the\nrequired **local_size_x**, **local_size_y**, and **local_size_z** layout\nqualifiers for the current shader.\nThis is a constant so that it can be used to size arrays of memory that can\nbe shared within the workgroup.\nIt is a compile-time error to use *gl_WorkGroupSize* in a shader that does\nnot declare a fixed workgroup size, or before that shader has declared a\nfixed workgroup size, using **local_size_x**, **local_size_y**, and\n**local_size_z**. Use of variables whose values are derived from\n*gl_WorkGroupSize*, however, is not constrained to follow a declaration of the\nfixed workgroup size."
+			}
+		],
+		"gl_WorkGroupID": [
+			{
+				"stage": "compute",
+				"decl": "in uvec3 gl_WorkGroupID;",
+				"doc": "The built-in variable *gl_WorkGroupID* is a compute-shader input variable\ncontaining the three-dimensional index of the workgroup that the\ncurrent invocation is executing in.\nThe possible values range across the parameters passed into\n*DispatchCompute*, i.e., from (0, 0, 0) to (*gl_NumWorkGroups.x* - 1,\n*gl_NumWorkGroups.y* - 1, *gl_NumWorkGroups.z* -1)."
+			}
+		],
+		"gl_LocalInvocationID": [
+			{
+				"stage": "compute",
+				"decl": "in uvec3 gl_LocalInvocationID;",
+				"doc": "The built-in variable *gl_LocalInvocationID* is a compute-shader input\nvariable containing the three-dimensional index of the current work item\nwithin the workgroup.\nThe possible values for this variable range across the workgroup\nsize, i.e., (0,0,0) to (*gl_WorkGroupSize.x* - 1, *gl_WorkGroupSize.y* - 1,\n*gl_WorkGroupSize.z* - 1). Use of *gl_LocalInvocationID* is allowed\nbefore declarations of **local_size_x**, **local_size_y**, and **local_size_z**.\n\nThe built-in variable *gl_LocalInvocationIndex* is a compute shader input\nvariable that contains the one-dimensional representation of the\n*gl_LocalInvocationID*.\nThis is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```"
+			}
+		],
+		"gl_GlobalInvocationID": [
+			{
+				"stage": "compute",
+				"decl": "in uvec3 gl_GlobalInvocationID;",
+				"doc": "The built-in variable *gl_GlobalInvocationID* is a compute shader input\nvariable containing the global index of the current work item.\nThis value uniquely identifies this invocation from all other invocations\nacross all workgroups initiated by the current *DispatchCompute* call.\nThis is computed as:\n\n```glsl\ngl_GlobalInvocationID =\n    gl_WorkGroupID * gl_WorkGroupSize + gl_LocalInvocationID;\n```"
+			}
+		],
+		"gl_LocalInvocationIndex": [
+			{
+				"stage": "compute",
+				"decl": "in uint gl_LocalInvocationIndex;",
+				"doc": "The built-in variable *gl_LocalInvocationIndex* is a compute shader input\nvariable that contains the one-dimensional representation of the\n*gl_LocalInvocationID*.\nThis is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```\n\nUse of *gl_LocalInvocationIndex* is allowed before declarations of\n**local_size_x**, **local_size_y**, and **local_size_z**."
+			}
+		],
+		"gl_MaxVertexAttribs": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexAttribs = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexUniformVectors": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexUniformVectors = 256;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexOutputVectors": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexOutputVectors = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexImageUniforms = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexAtomicCounters = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxVertexAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxVertexAtomicCounterBuffers = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlInputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlInputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlOutputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlOutputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlUniformComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlUniformComponents = 1024;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlTotalOutputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlTotalOutputComponents = 2048;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlImageUniforms = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlAtomicCounters = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessControlAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessControlAtomicCounterBuffers = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessPatchComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessPatchComponents = 120;",
+				"doc": ""
+			}
+		],
+		"gl_MaxPatchVertices": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxPatchVertices = 32;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessGenLevel": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessGenLevel = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationInputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationInputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationOutputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationOutputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationUniformComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationUniformComponents = 1024;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationImageUniforms = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationAtomicCounters = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTessEvaluationAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTessEvaluationAtomicCounterBuffers = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryInputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryInputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryOutputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryOutputComponents = 64;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryImageUniforms = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryOutputVertices": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryOutputVertices = 256;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryTotalOutputComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryTotalOutputComponents = 1024;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryUniformComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryUniformComponents = 1024;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryAtomicCounters = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxGeometryAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxGeometryAtomicCounterBuffers = 0;",
+				"doc": ""
+			}
+		],
+		"gl_MaxFragmentInputVectors": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxFragmentInputVectors = 15;",
+				"doc": ""
+			}
+		],
+		"gl_MaxFragmentImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxFragmentImageUniforms = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxFragmentUniformVectors": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxFragmentUniformVectors = 256;",
+				"doc": ""
+			}
+		],
+		"gl_MaxFragmentAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxFragmentAtomicCounters = 8;",
+				"doc": ""
+			}
+		],
+		"gl_MaxFragmentAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxFragmentAtomicCounterBuffers = 1;",
+				"doc": ""
+			}
+		],
+		"gl_MaxDrawBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxDrawBuffers = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MinProgramTexelOffset": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MinProgramTexelOffset = -8;",
+				"doc": ""
+			}
+		],
+		"gl_MaxProgramTexelOffset": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxProgramTexelOffset = 7;",
+				"doc": ""
+			}
+		],
+		"gl_MaxImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxImageUnits = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxSamples": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxSamples = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxComputeImageUniforms = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeWorkGroupCount": [
+			{
+				"stage": "constant",
+				"decl": "const highp ivec3 gl_MaxComputeWorkGroupCount = ivec3(65535, 65535, 65535);",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeWorkGroupSize": [
+			{
+				"stage": "constant",
+				"decl": "const highp ivec3 gl_MaxComputeWorkGroupSize = ivec3(128, 128, 64);",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeUniformComponents": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxComputeUniformComponents = 1024;",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxComputeTextureImageUnits = 16;",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxComputeAtomicCounters = 8;",
+				"doc": ""
+			}
+		],
+		"gl_MaxComputeAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxComputeAtomicCounterBuffers = 1;",
+				"doc": ""
+			}
+		],
+		"gl_MaxCombinedTextureImageUnits": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxCombinedTextureImageUnits = 96;",
+				"doc": ""
+			}
+		],
+		"gl_MaxCombinedImageUniforms": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxCombinedImageUniforms = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxCombinedShaderOutputResources": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxCombinedShaderOutputResources = 4;",
+				"doc": ""
+			}
+		],
+		"gl_MaxCombinedAtomicCounters": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxCombinedAtomicCounters = 8;",
+				"doc": ""
+			}
+		],
+		"gl_MaxCombinedAtomicCounterBuffers": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxCombinedAtomicCounterBuffers = 1;",
+				"doc": ""
+			}
+		],
+		"gl_MaxAtomicCounterBindings": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxAtomicCounterBindings = 1;",
+				"doc": ""
+			}
+		],
+		"gl_MaxAtomicCounterBufferSize": [
+			{
+				"stage": "constant",
+				"decl": "const mediump int gl_MaxAtomicCounterBufferSize = 32;",
+				"doc": ""
+			}
+		],
+		"gl_MaxInputAttachments": [
+			{
+				"stage": "constant",
+				"decl": "const highp int gl_MaxInputAttachments = 1; // only present when targeting Vulkan",
+				"doc": ""
+			}
+		],
+		"gl_DepthRangeParameters": [
+			{
+				"stage": "uniform",
+				"decl": "struct gl_DepthRangeParameters {\n    highp float near; // n\n    highp float far;  // f\n    highp float diff; // f - n\n};",
+				"doc": ""
+			}
+		],
+		"gl_DepthRange": [
+			{
+				"stage": "uniform",
+				"decl": "uniform gl_DepthRangeParameters gl_DepthRange;",
+				"doc": ""
+			}
+		],
+		"gl_NumSamples": [
+			{
+				"stage": "uniform",
+				"decl": "uniform lowp int gl_NumSamples;",
+				"doc": ""
+			}
+		]
+	}
+}

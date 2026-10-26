@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Godot Shader",
+	"scopeName": "source.gdshader",
+	"patterns": [
+		{
+			"match": "\\b(shader_type)\\s+(\\w+)",
+			"captures": {
+				"1": {
+					"name": "keyword.other.shader-type.gdshader"
+				},
+				"2": {
+					"name": "entity.name.type.shader-type.gdshader"
+				}
+			}
+		},
+		{
+			"begin": "\\b(render_mode|stencil_mode)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.mode.gdshader"
+				}
+			},
+			"end": ";",
+			"patterns": [
+				{
+					"match": "\\b(alpha_to_coverage_and_one|compare_greater_or_equal|ambient_light_disabled|ensure_correct_normals|compare_less_or_equal|skip_vertex_transform|diffuse_lambert_wrap|specular_schlick_ggx|use_quarter_res_pass|collision_use_scale|debug_shadow_splits|depth_prepass_alpha|depth_test_disabled|depth_test_inverted|world_vertex_coords|write_if_depth_fail|blend_premul_alpha|depth_test_default|alpha_to_coverage|compare_not_equal|depth_draw_always|depth_draw_opaque|shadow_to_opacity|specular_disabled|use_half_res_pass|depth_draw_never|disable_velocity|shadows_disabled|compare_greater|diffuse_lambert|particle_trails|vertex_lighting|blend_disabled|compare_always|diffuse_burley|compare_equal|cull_disabled|disable_force|specular_toon|sss_mode_skin|compare_less|diffuse_toon|fog_disabled|disable_fog|cull_front|light_only|blend_add|blend_mix|blend_mul|blend_sub|cull_back|keep_data|wireframe|unshaded|write|read)\\b",
+					"name": "support.constant.mode.gdshader"
+				},
+				{
+					"match": "\\b\\d+\\b",
+					"name": "constant.numeric.gdshader"
+				}
+			]
+		},
+		{
+			"match": "\\b(group_uniforms|global|instance)\\b",
+			"name": "storage.modifier.gdshader"
+		},
+		{
+			"match": "\\b(filter_nearest_mipmap_anisotropic|filter_linear_mipmap_anisotropic|hint_normal_roughness_texture|hint_default_transparent|filter_nearest_mipmap|hint_roughness_normal|filter_linear_mipmap|hint_roughness_gray|hint_screen_texture|hint_default_black|hint_default_white|hint_depth_texture|hint_roughness_a|hint_roughness_b|hint_roughness_g|hint_roughness_r|hint_anisotropy|filter_nearest|repeat_disable|filter_linear|repeat_enable|source_color|hint_normal|hint_range|no_storage|hint_enum|no_editor)\\b",
+			"name": "support.constant.hint.gdshader"
+		},
+		{
+			"match": "\\b(SPECULAR_SHININESS_TEXTURE|ALPHA_TEXTURE_COORDINATE|MAIN_CAM_INV_VIEW_MATRIX|ALPHA_ANTIALIASING_EDGE|ALPHA_SCISSOR_THRESHOLD|MODELVIEW_NORMAL_MATRIX|SSS_TRANSMITTANCE_BOOST|SSS_TRANSMITTANCE_COLOR|SSS_TRANSMITTANCE_DEPTH|CAMERA_DIRECTION_WORLD|CAMERA_POSITION_WORLD|CAMERA_VISIBLE_LAYERS|INV_PROJECTION_MATRIX|LIGHT_IS_DIRECTIONAL|AT_QUARTER_RES_PASS|CLEARCOAT_ROUGHNESS|FLAG_EMIT_ROT_SCALE|MODEL_NORMAL_MATRIX|NODE_POSITION_WORLD|PREMUL_ALPHA_FACTOR|EMISSION_TRANSFORM|FLAG_EMIT_POSITION|FLAG_EMIT_VELOCITY|INTERPOLATE_TO_END|NODE_POSITION_VIEW|SPECULAR_SHININESS|TEXTURE_PIXEL_SIZE|PROJECTION_MATRIX|QUARTER_RES_COLOR|RESTART_ROT_SCALE|SCREEN_PIXEL_SIZE|ALPHA_HASH_SCALE|AT_HALF_RES_PASS|COLLISION_NORMAL|EMITTER_VELOCITY|FLAG_EMIT_CUSTOM|LIGHTX_DIRECTION|MODELVIEW_MATRIX|NORMAL_MAP_DEPTH|RESTART_POSITION|RESTART_VELOCITY|ANISOTROPY_FLOW|AO_LIGHT_AFFECT|AT_CUBEMAP_PASS|ATTRACTOR_FORCE|BENT_NORMAL_MAP|COLLISION_DEPTH|FLAG_EMIT_COLOR|INSTANCE_CUSTOM|INV_VIEW_MATRIX|LIGHT_DIRECTION|OBJECT_POSITION|SHADOW_MODULATE|SPECULAR_AMOUNT|CLIP_SPACE_FAR|HALF_RES_COLOR|IN_SHADOW_PASS|LIGHT_POSITION|LIGHTX_ENABLED|NORMAL_TEXTURE|OUTPUT_IS_SRGB|RESTART_CUSTOM|SCREEN_TEXTURE|SPECULAR_LIGHT|VIEW_MONO_LEFT|WORLD_POSITION|AT_LIGHT_PASS|CANVAS_MATRIX|DEPTH_TEXTURE|DIFFUSE_LIGHT|LIGHTX_ENERGY|RESTART_COLOR|SCREEN_MATRIX|SHADOW_VERTEX|VIEWPORT_SIZE|AMOUNT_RATIO|BONE_INDICES|BONE_WEIGHTS|FRONT_FACING|IS_MULTIVIEW|LIGHT_ENERGY|LIGHT_VERTEX|LIGHTX_COLOR|MODEL_MATRIX|SSS_STRENGTH|Z_CLIP_SCALE|ATTENUATION|INSTANCE_ID|LIGHT_COLOR|LIGHTX_SIZE|POINT_COORD|RANDOM_SEED|REGION_RECT|VIEW_MATRIX|ANISOTROPY|EYE_OFFSET|IRRADIANCE|NORMAL_MAP|POINT_SIZE|SKY_COORDS|VIEW_INDEX|VIEW_RIGHT|BACKLIGHT|CLEARCOAT|FRAGCOORD|ROUGHNESS|SCREEN_UV|TRANSFORM|USERDATAX|VERTEX_ID|BINORMAL|COLLIDED|EMISSION|LIFETIME|METALLIC|MODULATE|POSITION|RADIANCE|RIM_TINT|SPECULAR|VELOCITY|CUSTOM0|CUSTOM1|CUSTOM2|CUSTOM3|DENSITY|RESTART|TANGENT|TEXTURE|ACTIVE|ALBEDO|COLOR0|COLOR1|COLOR2|COLOR3|CUSTOM|EYEDIR|NORMAL|NUMBER|VERTEX|ALPHA|COLOR|DELTA|DEPTH|INDEX|LIGHT|MASS|SIZE|TIME|VIEW|FOG|RIM|SDF|TAU|UV2|UVW|AO|PI|UV|E)\\b",
+			"name": "support.variable.gdshader"
+		},
+		{
+			"match": "\\b(texture_sdf_normal|textureQueryLevels|emit_subparticle|greaterThanEqual|screen_uv_to_sdf|sdf_to_screen_uv|bitfieldExtract|bitfieldReverse|floatBitsToUint|textureProjGrad|textureQueryLod|uintBitsToFloat|unpackSnorm2x16|unpackUnorm2x16|bitfieldInsert|floatBitsToInt|intBitsToFloat|matrixCompMult|textureProjLod|unpackHalf2x16|unpackSnorm4x8|unpackUnorm4x8|lessThanEqual|packSnorm2x16|packUnorm2x16|textureGather|fwidthCoarse|imulExtended|outerProduct|packHalf2x16|packSnorm4x8|packUnorm4x8|umulExtended|determinant|faceforward|greaterThan|inversesqrt|texture_sdf|textureGrad|textureProj|textureSize|dFdxCoarse|dFdyCoarse|fwidthFine|smoothstep|texelFetch|textureLod|usubBorrow|normalize|roundEven|transpose|uaddCarry|bitCount|dFdxFine|dFdyFine|distance|lessThan|notEqual|degrees|findLSB|findMSB|inverse|radians|reflect|refract|texture|fwidth|length|acosh|asinh|atanh|clamp|cross|equal|floor|fract|frexp|isinf|isnan|ldexp|round|trunc|acos|asin|atan|ceil|cosh|dFdx|dFdy|exp2|log2|modf|sign|sinh|sqrt|step|tanh|abs|all|any|cos|dot|exp|fma|log|max|min|mix|mod|not|pow|sin|tan)\\b",
+			"name": "support.function.gdshader"
+		},
+		{
+			"include": "source.glsl"
+		}
+	]
+}

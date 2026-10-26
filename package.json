@@ -1,7 +1,7 @@
 {
   "name": "glsl-vscode",
   "displayName": "GLSL",
-  "description": "Syntax highlighting and LSP support (glsl_analyzer or other)",
+  "description": "GLSL and Godot shader support: highlighting, hover docs, completion, signature help, outline, go to definition",
   "version": "1.0.0",
   "publisher": "1hue",
   "license": "MIT",
@@ -17,11 +17,13 @@
   ],
   "keywords": [
     "glsl",
+    "essl",
     "shader",
     "opengl",
-    "lsp"
+    "godot",
+    "gdshader"
   ],
-  "main": "./extension.js",
+  "main": "./out/src/extension.js",
   "activationEvents": [],
   "contributes": {
     "languages": [
@@ -39,6 +41,7 @@
           ".vsh",
           ".fsh",
           ".gsh",
+          ".csh",
           ".vshader",
           ".fshader",
           ".gshader",
@@ -59,7 +62,21 @@
           ".glsl",
           ".glslv",
           ".glslf",
-          ".glslg"
+          ".glslg",
+          ".glsl.inc",
+          ".glslinc"
+        ],
+        "configuration": "./glsl.configuration.json"
+      },
+      {
+        "id": "gdshader",
+        "aliases": [
+          "Godot Shader",
+          "gdshader"
+        ],
+        "extensions": [
+          ".gdshader",
+          ".gdshaderinc"
         ],
         "configuration": "./glsl.configuration.json"
       }
@@ -69,6 +86,11 @@
         "language": "glsl",
         "scopeName": "source.glsl",
         "path": "./syntaxes/glsl.tmLanguage"
+      },
+      {
+        "language": "gdshader",
+        "scopeName": "source.gdshader",
+        "path": "./syntaxes/gdshader.tmLanguage.json"
       },
       {
         "scopeName": "text.html.glsl",
@@ -90,68 +112,30 @@
           "source.glsl": "glsl"
         }
       }
-    ],
-    "commands": [
-      {
-        "command": "glsl.restartLanguageServer",
-        "title": "Restart Language Server",
-        "category": "GLSL"
-      }
-    ],
-    "configuration": {
-      "title": "GLSL",
-      "properties": {
-        "glsl.languageServer.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Start a language server for GLSL files."
-        },
-        "glsl.languageServer.path": {
-          "type": "string",
-          "default": "glsl_analyzer",
-          "scope": "machine-overridable",
-          "markdownDescription": "Language server executable. Either a name looked up on `PATH` or an absolute path (`~` is expanded). Defaults to [glsl_analyzer](https://github.com/nolanderc/glsl_analyzer)."
-        },
-        "glsl.languageServer.args": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": [],
-          "scope": "machine-overridable",
-          "markdownDescription": "Arguments passed to the language server. The server must speak LSP over stdio."
-        },
-        "glsl.languageServer.env": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "default": {},
-          "scope": "machine-overridable",
-          "description": "Extra environment variables for the language server process."
-        },
-        "glsl.trace.server": {
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Trace communication between VS Code and the language server."
-        }
-      }
+    ]
+  },
+  "config": {
+    "glslSpec": {
+      "repo": "KhronosGroup/GLSL",
+      "commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711"
+    },
+    "godotDocs": {
+      "repo": "godotengine/godot-docs",
+      "commit": "26e5388e04433da47804a50234a11a43dea237b1"
     }
   },
   "scripts": {
-    "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate",
+    "compile": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "gen:defs": "npm run compile && node out/scripts/gen-defs.js",
+    "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
     "package": "mkdir -p build && vsce package --out build/"
   },
-  "dependencies": {
-    "vscode-languageclient": "^9.0.1"
-  },
   "devDependencies": {
-    "@vscode/vsce": "^4.0.0"
+    "@types/node": "^26.6.5",
+    "@types/vscode": "~1.82.0",
+    "@vscode/vsce": "^4.0.0",
+    "typescript": "^7.0.2"
   },
   "overrides": {
     "@azure/msal-node": "^7.1.1"

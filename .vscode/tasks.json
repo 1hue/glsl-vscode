@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "compile",
+      "type": "shell",
+      "command": "podman run --rm --network=none --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w docker.io/library/node:latest npm run compile",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$tsc"
+    }
+  ]
+}

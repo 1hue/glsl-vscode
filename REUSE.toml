@@ -20,3 +20,23 @@ path = [
 precedence = "override"
 SPDX-FileCopyrightText = "2015 Stef Levesque"
 SPDX-License-Identifier = "MIT"
+
+# Generated from the Khronos GLSL specification source, https://github.com/KhronosGroup/GLSL
+# (commit in package.json config.glslSpec). Converted to JSON/Markdown, markup simplified.
+[[annotations]]
+path = ["data/glsl.json", "data/essl.json"]
+precedence = "override"
+SPDX-FileCopyrightText = "2008-2024 The Khronos Group Inc."
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Generated from the Godot documentation, https://github.com/godotengine/godot-docs
+# (commit in package.json config.godotDocs). Converted to JSON/Markdown, markup simplified.
+# Function descriptions are Godot's adaptation of the Khronos OpenGL reference pages (OPL v1.0).
+[[annotations]]
+path = "data/godot.json"
+precedence = "override"
+SPDX-FileCopyrightText = [
+  "Juan Linietsky, Ariel Manzur and the Godot community",
+  "2010-2014 Khronos Group",
+]
+SPDX-License-Identifier = "CC-BY-3.0 AND OPUBL-1.0"

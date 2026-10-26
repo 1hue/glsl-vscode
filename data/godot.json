@@ -1,0 +1,5782 @@
+{
+	"source": {
+		"name": "Godot Engine documentation",
+		"url": "https://github.com/godotengine/godot-docs/tree/26e5388e04433da47804a50234a11a43dea237b1/tutorials/shaders/shader_reference",
+		"commit": "26e5388e04433da47804a50234a11a43dea237b1",
+		"copyright": "Juan Linietsky, Ariel Manzur and the Godot community. Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999",
+		"licenses": [
+			{
+				"id": "CC-BY-3.0",
+				"url": "https://creativecommons.org/licenses/by/3.0/"
+			},
+			{
+				"id": "OPUBL-1.0",
+				"url": "https://opencontent.org/openpub/"
+			}
+		],
+		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages (https://registry.khronos.org/OpenGL-Refpages/gl4/)."
+	},
+	"functions": {
+		"radians": [
+			{
+				"doc": "*Component-wise function.*\n\nConverts a quantity specified in degrees into radians, with the formula\n`degrees * (PI / 180)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/radians.xhtml)",
+				"params": {
+					"degrees": "The quantity, in degrees, to be converted to radians."
+				},
+				"returns": "The input `degrees` converted to radians.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "degrees"
+							}
+						]
+					}
+				]
+			}
+		],
+		"degrees": [
+			{
+				"doc": "*Component-wise function.*\n\nConverts a quantity specified in radians into degrees, with the formula\n`radians * (180 / PI)`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/degrees.xhtml)",
+				"params": {
+					"radians": "The quantity, in radians, to be converted to degrees."
+				},
+				"returns": "The input `radians` converted to degrees.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "radians"
+							}
+						]
+					}
+				]
+			}
+		],
+		"sin": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the trigonometric sine of `angle`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sin.xhtml)",
+				"params": {
+					"angle": "The quantity, in radians, of which to return the sine."
+				},
+				"returns": "The sine of `angle`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "angle"
+							}
+						]
+					}
+				]
+			}
+		],
+		"cos": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the trigonometric cosine of `angle`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/cos.xhtml)",
+				"params": {
+					"angle": "The quantity, in radians, of which to return the cosine."
+				},
+				"returns": "The cosine of `angle`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "angle"
+							}
+						]
+					}
+				]
+			}
+		],
+		"tan": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the trigonometric tangent of `angle`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/tan.xhtml)",
+				"params": {
+					"angle": "The quantity, in radians, of which to return the tangent."
+				},
+				"returns": "The tangent of `angle`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "angle"
+							}
+						]
+					}
+				]
+			}
+		],
+		"asin": [
+			{
+				"doc": "*Component-wise function.*\n\nArc sine, or inverse sine.\nCalculates the angle whose sine is `x` and is in the range `[-PI/2, PI/2]`.\nThe result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/asin.xhtml)",
+				"params": {
+					"x": "The value whose arc sine to return."
+				},
+				"returns": "The angle whose trigonometric sine is `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"acos": [
+			{
+				"doc": "*Component-wise function.*\n\nArc cosine, or inverse cosine.\nCalculates the angle whose cosine is `x` and is in the range `[0, PI]`.\n\nThe result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acos.xhtml)",
+				"params": {
+					"x": "The value whose arc cosine to return."
+				},
+				"returns": "The angle whose trigonometric cosine is `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"atan": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the arc tangent given a tangent value of `y/x`.\n\n**Note:** Because of the sign ambiguity, the function cannot determine with certainty in\nwhich quadrant the angle falls only by its tangent value. If you need to know the\nquadrant, use atan(vec_type y, vec_type x).\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atan.xhtml)",
+				"params": {
+					"y_over_x": "The fraction whose arc tangent to return."
+				},
+				"returns": "The trigonometric arc-tangent of `y_over_x` and is\nin the range `[-PI/2, PI/2]`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "y_over_x"
+							}
+						]
+					}
+				]
+			},
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the arc tangent given a numerator and denominator. The signs of\n`y` and `x` are used to determine the quadrant that the angle lies in.\nThe result is undefined if `x == 0`.\n\nEquivalent to atan2() in GDScript.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atan.xhtml)",
+				"params": {
+					"y": "The numerator of the fraction whose arc tangent to return.",
+					"x": "The denominator of the fraction whose arc tangent to return."
+				},
+				"returns": "The trigonometric arc tangent of `y/x` and is in\nthe range `[-PI, PI]`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "y"
+							},
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"sinh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the hyperbolic sine using `(e^x - e^-x)/2`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sinh.xhtml)",
+				"params": {
+					"x": "The value whose hyperbolic sine to return."
+				},
+				"returns": "The hyperbolic sine of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"cosh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the hyperbolic cosine using `(e^x + e^-x)/2`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/cosh.xhtml)",
+				"params": {
+					"x": "The value whose hyperbolic cosine to return."
+				},
+				"returns": "The hyperbolic cosine of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"tanh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the hyperbolic tangent using `sinh(x)/cosh(x)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/tanh.xhtml)",
+				"params": {
+					"x": "The value whose hyperbolic tangent to return."
+				},
+				"returns": "The hyperbolic tangent of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"asinh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic sine of `x`, or the inverse of `sinh`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/asinh.xhtml)",
+				"params": {
+					"x": "The value whose arc hyperbolic sine to return."
+				},
+				"returns": "The arc hyperbolic sine of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"acosh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic cosine of `x`, or the non-negative inverse of `cosh`.\nThe result is undefined if `x < 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acosh.xhtml)",
+				"params": {
+					"x": "The value whose arc hyperbolic cosine to return."
+				},
+				"returns": "The arc hyperbolic cosine of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"atanh": [
+			{
+				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic tangent of `x`, or the inverse of `tanh`.\nThe result is undefined if `abs(x) > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atanh.xhtml)",
+				"params": {
+					"x": "The value whose arc hyperbolic tangent to return."
+				},
+				"returns": "The arc hyperbolic tangent of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"pow": [
+			{
+				"doc": "*Component-wise function.*\n\nRaises `x` to the power of `y`.\n\nThe result is undefined if `x < 0`, or if `x == 0` and `y <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/pow.xhtml)",
+				"params": {
+					"x": "The value to be raised to the power `y`.",
+					"y": "The power to which `x` will be raised."
+				},
+				"returns": "The value of `x` raised to the `y` power.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"exp": [
+			{
+				"doc": "*Component-wise function.*\n\nRaises `e` to the power of `x`. Also known as the natural exponentiation.\n\nEquivalent to `pow(e, x)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/exp.xhtml)",
+				"params": {
+					"x": "The value to exponentiate."
+				},
+				"returns": "The natural exponentiation of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"exp2": [
+			{
+				"doc": "*Component-wise function.*\n\nRaises `2` to the power of `x`.\n\nEquivalent to `pow(2.0, x)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/exp2.xhtml)",
+				"params": {
+					"x": "The value of the power to which `2` will be raised."
+				},
+				"returns": "`2` raised to the power of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"log": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the natural logarithm of `x`, i.e. the value `y` which satisfies `x == pow(e, y)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log.xhtml)",
+				"params": {
+					"x": "The value of which to take the natural logarithm."
+				},
+				"returns": "The natural logarithm of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"log2": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the base-2 logarithm of `x`, i.e. the value `y` which satisfies `x == pow(2, y)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log2.xhtml)",
+				"params": {
+					"x": "The value of which to take the base-2 logarithm."
+				},
+				"returns": "The base-2 logarithm of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"sqrt": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the square root of `x`.\nThe result is undefined if `x < 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sqrt.xhtml)",
+				"params": {
+					"x": "The value of which to take the square root."
+				},
+				"returns": "The square root of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"inversesqrt": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the inverse of the square root of `x`, or `1.0 / sqrt(x)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/inversesqrt.xhtml)",
+				"params": {
+					"x": "The value of which to take the inverse of the square root."
+				},
+				"returns": "The inverse of the square root of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"abs": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the absolute value of `x`. Returns `x` if `x` is positive, otherwise returns `-1 * x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/abs.xhtml)",
+				"params": {
+					"x": "The value of which to return the absolute."
+				},
+				"returns": "The absolute value of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"sign": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns `-1` if `x < 0`, `0` if `x == 0`, and `1` if `x > 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sign.xhtml)",
+				"params": {
+					"x": "The value from which to extract the sign."
+				},
+				"returns": "The sign of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"floor": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns a value equal to the nearest integer that is less than or equal to `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/floor.xhtml)",
+				"params": {
+					"x": "The value to floor."
+				},
+				"returns": "The nearest integer that is less than or equal to `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"round": [
+			{
+				"doc": "*Component-wise function.*\n\nRounds `x` to the nearest integer.\n\n**Note:** Rounding of values with a fractional part of `0.5` is implementation-dependent.\nThis includes the possibility that `round(x)` returns the same value as\n`roundEven(x)` for all values of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/round.xhtml)",
+				"params": {
+					"x": "The value to round."
+				},
+				"returns": "The rounded value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"roundEven": [
+			{
+				"doc": "*Component-wise function.*\n\nRounds `x` to the nearest integer. A value with a fractional part of `0.5`\nwill always round toward the nearest even integer.\nFor example, both `3.5` and `4.5` will round to `4.0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/roundEven.xhtml)",
+				"params": {
+					"x": "The value to round."
+				},
+				"returns": "The rounded value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"trunc": [
+			{
+				"doc": "*Component-wise function.*\n\nTruncates `x`. Returns a value equal to the nearest integer to `x` whose\nabsolute value is not larger than the absolute value of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/trunc.xhtml)",
+				"params": {
+					"x": "The value to evaluate."
+				},
+				"returns": "The truncated value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"ceil": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns a value equal to the nearest integer that is greater than or equal to `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/ceil.xhtml)",
+				"params": {
+					"x": "The value to evaluate."
+				},
+				"returns": "The ceiling-ed value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fract": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the fractional part of `x`.\n\nThis is calculated as `x - floor(x)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fract.xhtml)",
+				"params": {
+					"x": "The value to evaluate."
+				},
+				"returns": "The fractional part of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"mod": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the value of `x modulo y`.\nThis is also sometimes called the remainder.\n\nThis is computed as `x - y * floor(x/y)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mod.xhtml)",
+				"params": {
+					"x": "The value to evaluate."
+				},
+				"returns": "The value of `x modulo y`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"modf": [
+			{
+				"doc": "*Component-wise function.*\n\nSeparates a floating-point value `x` into its integer and fractional parts.\n\nThe fractional part of the number is returned from the function.\nThe integer part (as a floating-point quantity) is returned in the output parameter `i`.\n\n:param out i:\nA variable that receives the integer part of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/modf.xhtml)",
+				"params": {
+					"x": "The value to separate."
+				},
+				"returns": "The fractional part of the number.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "out vec_type",
+								"name": "i"
+							}
+						]
+					}
+				]
+			}
+		],
+		"min": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the minimum of two values `a` and `b`.\n\nReturns `b` if `b < a`, otherwise returns `a`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/min.xhtml)",
+				"params": {
+					"a": "The first value to compare.",
+					"b": "The second value to compare."
+				},
+				"returns": "The minimum value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "float",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_int_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "a"
+							},
+							{
+								"type": "int",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "a"
+							},
+							{
+								"type": "uint",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"max": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the maximum of two values `a` and `b`.\n\nIt returns `b` if `b > a`, otherwise it returns `a`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/max.xhtml)",
+				"params": {
+					"a": "The first value to compare.",
+					"b": "The second value to compare."
+				},
+				"returns": "The maximum value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "float",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "a"
+							},
+							{
+								"type": "uint",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_int_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "a"
+							},
+							{
+								"type": "int",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"clamp": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the value of `x` constrained to the range `minVal` to `maxVal`.\n\nThe returned value is computed as `min(max(x, minVal), maxVal)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/clamp.xhtml)",
+				"params": {
+					"x": "The value to constrain.",
+					"minVal": "The lower end of the range into which to constrain `x`.",
+					"maxVal": "The upper end of the range into which to constrain `x`."
+				},
+				"returns": "The clamped value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "minVal"
+							},
+							{
+								"type": "vec_type",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "float",
+								"name": "minVal"
+							},
+							{
+								"type": "float",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_int_type",
+								"name": "minVal"
+							},
+							{
+								"type": "vec_int_type",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							},
+							{
+								"type": "int",
+								"name": "minVal"
+							},
+							{
+								"type": "int",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "minVal"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "maxVal"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							},
+							{
+								"type": "uint",
+								"name": "minVal"
+							},
+							{
+								"type": "uint",
+								"name": "maxVal"
+							}
+						]
+					}
+				]
+			}
+		],
+		"mix": [
+			{
+				"doc": "*Component-wise function.*\n\nPerforms a linear interpolation between `a` and `b` using `c` to weight between them.\n\nComputed as `a * (1 - c) + b * c`.\n\nEquivalent to lerp() in GDScript.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mix.xhtml)",
+				"params": {
+					"a": "The start of the range in which to interpolate.",
+					"b": "The end of the range in which to interpolate.",
+					"c": "The value to use to interpolate between `a` and `b`."
+				},
+				"returns": "The interpolated value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							},
+							{
+								"type": "vec_type",
+								"name": "c"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							},
+							{
+								"type": "float",
+								"name": "c"
+							}
+						]
+					}
+				]
+			},
+			{
+				"doc": "Selects either value `a` or value `b` based on the value of `c`.\nFor a component of `c` that is false, the corresponding component of `a` is returned.\nFor a component of `c` that is true, the corresponding component of `b` is returned.\nComponents of `a` and `b` that are not selected are allowed to be invalid floating-point values and will have no effect on the results.\n\nIf `a`, `b`, and `c` are vector types the operation is performed component-wise.\nFor example, `mix(vec2(42, 314), vec2(9.8, 6e23), bvec2(true, false)))` will return `vec2(9.8, 314)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mix.xhtml)",
+				"params": {
+					"a": "Value returned when `c` is false.",
+					"b": "Value returned when `c` is true.",
+					"c": "The value used to select between `a` and `b`."
+				},
+				"returns": "The interpolated value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							},
+							{
+								"type": "vec_bool_type",
+								"name": "c"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fma": [
+			{
+				"doc": "*Component-wise function.*\n\nPerforms, where possible, a fused multiply-add operation, returning `a * b + c`. In use cases where the\nreturn value is eventually consumed by a variable declared as precise:\n\n- `fma()` is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared as precise is considered two operations.\n\n- The precision of `fma()` can differ from the precision of the expression `a * b + c`.\n\n- `fma()` will be computed with the same precision as any other `fma()` consumed by a precise variable,\ngiving invariant results for the same input values of `a`, `b`, and `c`.\n\nOtherwise, in the absence of precise consumption, there are no special constraints on the number of operations\nor difference in precision between `fma()` and the expression `a * b + c`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fma.xhtml)",
+				"params": {
+					"a": "The first value to be multiplied.",
+					"b": "The second value to be multiplied.",
+					"c": "The value to be added to the result."
+				},
+				"returns": "The value of `a * b + c`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							},
+							{
+								"type": "vec_type",
+								"name": "c"
+							}
+						]
+					}
+				]
+			}
+		],
+		"step": [
+			{
+				"doc": "*Component-wise function.*\n\nGenerates a step function by comparing `b` to `a`.\n\nEquivalent to `if (b < a) { return 0.0; } else { return 1.0; }`.\nFor element `i` of the return value, `0.0` is returned if `b[i] < a[i]`, and `1.0` is returned otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/step.xhtml)",
+				"params": {
+					"a": "The location of the edge of the step function.",
+					"b": "The value to be used to generate the step function."
+				},
+				"returns": "`0.0` or `1.0`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "float",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"smoothstep": [
+			{
+				"doc": "*Component-wise function.*\n\nPerforms smooth Hermite interpolation between `0` and `1` when a < c < b.\nThis is useful in cases where a threshold function with a smooth transition is desired.\n\nSmoothstep is equivalent to:\n\n::\n\nvec_type t;\nt = clamp((c - a) / (b - a), 0.0, 1.0);\nreturn t * t * (3.0 - 2.0 * t);\n\nResults are undefined if `a >= b`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml)",
+				"params": {
+					"a": "The value of the lower edge of the Hermite function.",
+					"b": "The value of the upper edge of the Hermite function.",
+					"c": "The source value for interpolation."
+				},
+				"returns": "The interpolated value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							},
+							{
+								"type": "vec_type",
+								"name": "c"
+							}
+						]
+					},
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "float",
+								"name": "a"
+							},
+							{
+								"type": "float",
+								"name": "b"
+							},
+							{
+								"type": "vec_type",
+								"name": "c"
+							}
+						]
+					}
+				]
+			}
+		],
+		"isnan": [
+			{
+				"doc": "*Component-wise function.*\n\nFor each element `i` of the result, returns `true` if `x[i]` is a positive\nor negative floating-point `NaN` (Not a Number) and `false` otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isnan.xhtml)",
+				"params": {
+					"x": "The value to test for `NaN`."
+				},
+				"returns": "`true` or `false`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"isinf": [
+			{
+				"doc": "*Component-wise function.*\n\nFor each element i of the result, returns `true` if x[i] is positive or negative\nfloating-point infinity and false otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isinf.xhtml)",
+				"params": {
+					"x": "The value to test for infinity."
+				},
+				"returns": "`true` or `false`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"floatBitsToInt": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the encoding of the floating-point parameters as `int`.\n\nThe floating-point bit-level representation is preserved.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/floatBitsToInt.xhtml)",
+				"params": {
+					"x": "The value whose floating-point encoding to return."
+				},
+				"returns": "The floating-point encoding of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"floatBitsToUint": [
+			{
+				"doc": "*Component-wise function.*\n\nReturns the encoding of the floating-point parameters as `uint`.\n\nThe floating-point bit-level representation is preserved.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/floatBitsToInt.xhtml)",
+				"params": {
+					"x": "The value whose floating-point encoding to return."
+				},
+				"returns": "The floating-point encoding of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"intBitsToFloat": [
+			{
+				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToInt<shader_func_floatBitsToInt>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is\nthe corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
+				"params": {
+					"x": "The bit encoding to return as a floating-point value."
+				},
+				"returns": "A floating-point value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"uintBitsToFloat": [
+			{
+				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToUint<shader_func_floatBitsToUint>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is\nthe corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
+				"params": {
+					"x": "The bit encoding to return as a floating-point value."
+				},
+				"returns": "A floating-point value.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"length": [
+			{
+				"doc": "Returns the length of the vector, i.e.,\n`sqrt(x[0] * x[0] + x[1] * x[1] + ... + x[n] * x[n])`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/length.xhtml)",
+				"params": {
+					"x": "The vector"
+				},
+				"returns": "The length of the vector.",
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"distance": [
+			{
+				"doc": "Returns the distance between the two points `a` and `b`, i.e.,\n`length(b - a);`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/distance.xhtml)",
+				"params": {
+					"a": "The first point.",
+					"b": "The second point."
+				},
+				"returns": "The scalar distance between the points",
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dot": [
+			{
+				"doc": "Returns the dot product of two vectors, `a` and `b`, i.e.,\n`a.x * b.x + a.y * b.y + ...`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dot.xhtml)",
+				"params": {
+					"a": "The first vector.",
+					"b": "The second vector."
+				},
+				"returns": "The dot product.",
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "a"
+							},
+							{
+								"type": "vec_type",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"cross": [
+			{
+				"doc": "Returns the cross product of two vectors, i.e.:\n\n```glsl\nvec3( a.y * b.z - b.y * a.z,\n      a.z * b.x - b.z * a.x,\n      a.x * b.y - b.x * a.y)\n```\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/cross.xhtml)",
+				"params": {
+					"a": "The first vector.",
+					"b": "The second vector."
+				},
+				"returns": "The cross product of `a` and `b`.",
+				"signatures": [
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "a"
+							},
+							{
+								"type": "vec3",
+								"name": "b"
+							}
+						]
+					}
+				]
+			}
+		],
+		"normalize": [
+			{
+				"doc": "Returns a vector with the same direction as `x` but with length `1.0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/normalize.xhtml)",
+				"params": {
+					"x": "The vector to normalize."
+				},
+				"returns": "The normalized vector.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"reflect": [
+			{
+				"doc": "Calculate the reflection direction for an incident vector.\n\nFor a given incident vector `I` and surface normal `N` reflect returns the reflection direction calculated as `I - 2.0 * dot(N, I) * N`.\n\n**Note:** `N` should be normalized in order to achieve the desired result.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/reflect.xhtml)",
+				"params": {
+					"I": "The incident vector.",
+					"N": "The normal vector."
+				},
+				"returns": "The reflection vector.",
+				"signatures": [
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "I"
+							},
+							{
+								"type": "vec3",
+								"name": "N"
+							}
+						]
+					}
+				]
+			}
+		],
+		"refract": [
+			{
+				"doc": "Calculate the refraction direction for an incident vector.\n\nFor a given incident vector `I`, surface normal `N` and ratio of indices of refraction, `eta`, refract returns the refraction vector, `R`.\n\n`R` is calculated as:\n\n```glsl\nk = 1.0 - eta * eta * (1.0 - dot(N, I) * dot(N, I));\nif (k < 0.0)\n    R = genType(0.0);       // or genDType(0.0)\nelse\n    R = eta * I - (eta * dot(N, I) + sqrt(k)) * N;\n```\n\n**Note:** The input parameters I and N should be normalized in order to achieve the desired result.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/refract.xhtml)",
+				"params": {
+					"I": "The incident vector.",
+					"N": "The normal vector.",
+					"eta": "The ratio of indices of refraction."
+				},
+				"returns": "The refraction vector.",
+				"signatures": [
+					{
+						"returns": "vec3",
+						"params": [
+							{
+								"type": "vec3",
+								"name": "I"
+							},
+							{
+								"type": "vec3",
+								"name": "N"
+							},
+							{
+								"type": "float",
+								"name": "eta"
+							}
+						]
+					}
+				]
+			}
+		],
+		"faceforward": [
+			{
+				"doc": "Returns a vector pointing in the same direction as another.\n\nOrients a vector to point away from a surface as defined by its normal.\nIf `dot(Nref, I) < 0` faceforward returns `N`, otherwise it returns `-N`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/faceforward.xhtml)",
+				"params": {
+					"N": "The vector to orient.",
+					"I": "The incident vector.",
+					"Nref": "The reference vector."
+				},
+				"returns": "The oriented vector.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "N"
+							},
+							{
+								"type": "vec_type",
+								"name": "I"
+							},
+							{
+								"type": "vec_type",
+								"name": "Nref"
+							}
+						]
+					}
+				]
+			}
+		],
+		"matrixCompMult": [
+			{
+				"doc": "Perform a component-wise multiplication of two matrices.\n\nPerforms a component-wise multiplication of two matrices, yielding a result\nmatrix where each component, `result[i][j]` is computed as the scalar\nproduct of `x[i][j]` and `y[i][j]`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/matrixCompMult.xhtml)",
+				"params": {
+					"x": "The first matrix multiplicand.",
+					"y": "The second matrix multiplicand."
+				},
+				"returns": "The resultant matrix.",
+				"signatures": [
+					{
+						"returns": "mat_type",
+						"params": [
+							{
+								"type": "mat_type",
+								"name": "x"
+							},
+							{
+								"type": "mat_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"outerProduct": [
+			{
+				"doc": "Calculate the outer product of a pair of vectors.\n\nDoes a linear algebraic matrix multiply `column * row`, yielding a matrix whose number of\nrows is the number of components in `column` and whose number of columns is the number of\ncomponents in `row`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/outerProduct.xhtml)",
+				"params": {
+					"column": "The column vector for multiplication.",
+					"row": "The row vector for multiplication."
+				},
+				"returns": "The outer product matrix.",
+				"signatures": [
+					{
+						"returns": "mat_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "column"
+							},
+							{
+								"type": "vec_type",
+								"name": "row"
+							}
+						]
+					}
+				]
+			}
+		],
+		"transpose": [
+			{
+				"doc": "Calculate the transpose of a matrix.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/transpose.xhtml)",
+				"params": {
+					"m": "The matrix to transpose."
+				},
+				"returns": "A new matrix that is the transpose of the input matrix `m`.",
+				"signatures": [
+					{
+						"returns": "mat_type",
+						"params": [
+							{
+								"type": "mat_type",
+								"name": "m"
+							}
+						]
+					}
+				]
+			}
+		],
+		"determinant": [
+			{
+				"doc": "Calculate the determinant of a matrix.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/determinant.xhtml)",
+				"params": {
+					"m": "The matrix."
+				},
+				"returns": "The determinant of the input matrix `m`.",
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "mat_type",
+								"name": "m"
+							}
+						]
+					}
+				]
+			}
+		],
+		"inverse": [
+			{
+				"doc": "Calculate the inverse of a matrix.\n\nThe values in the returned matrix are undefined if `m` is singular or poorly-conditioned (nearly singular).\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/inverse.xhtml)",
+				"params": {
+					"m": "The matrix of which to take the inverse."
+				},
+				"returns": "A new matrix which is the inverse of the input matrix `m`.",
+				"signatures": [
+					{
+						"returns": "mat_type",
+						"params": [
+							{
+								"type": "mat_type",
+								"name": "m"
+							}
+						]
+					}
+				]
+			}
+		],
+		"lessThan": [
+			{
+				"doc": "Performs a component-wise less-than comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/lessThan.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] < y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"greaterThan": [
+			{
+				"doc": "Performs a component-wise greater-than comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/greaterThan.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] > y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"lessThanEqual": [
+			{
+				"doc": "Performs a component-wise less-than-or-equal comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/lessThanEqual.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] <= y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"greaterThanEqual": [
+			{
+				"doc": "Performs a component-wise greater-than-or-equal comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/greaterThanEqual.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] >= y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"equal": [
+			{
+				"doc": "Performs a component-wise equal-to comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/equal.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] == y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"notEqual": [
+			{
+				"doc": "Performs a component-wise not-equal-to comparison of two vectors.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/notEqual.xhtml)",
+				"params": {
+					"x": "The first vector to compare.",
+					"y": "The second vector to compare."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `x[i] != y[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_type",
+								"name": "y"
+							}
+						]
+					}
+				]
+			}
+		],
+		"any": [
+			{
+				"doc": "Returns `true` if any element of a boolean vector is `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool any(bvec x) {     // bvec can be bvec2, bvec3 or bvec4\nbool result = false;\nint i;\nfor (i = 0; i < x.length(); ++i) {\nresult |= x[i];\n}\nreturn result;\n}\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/any.xhtml)",
+				"params": {
+					"x": "The vector to be tested for truth."
+				},
+				"returns": "`true` if any element of `x` is `true` and `false` otherwise.",
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "vec_bool_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"all": [
+			{
+				"doc": "Returns `true` if all elements of a boolean vector are `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool all(bvec x)       // bvec can be bvec2, bvec3 or bvec4\n{\nbool result = true;\nint i;\nfor (i = 0; i < x.length(); ++i)\n{\nresult &= x[i];\n}\nreturn result;\n}\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/all.xhtml)",
+				"params": {
+					"x": "The vector to be tested for truth."
+				},
+				"returns": "`true` if all elements of `x` are `true` and `false` otherwise.",
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "vec_bool_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"not": [
+			{
+				"doc": "Logically inverts a boolean vector.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/not.xhtml)",
+				"params": {
+					"x": "The vector to be inverted."
+				},
+				"returns": "A boolean vector in which each element `i` is computed as `!x[i]`.",
+				"signatures": [
+					{
+						"returns": "vec_bool_type",
+						"params": [
+							{
+								"type": "vec_bool_type",
+								"name": "x"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureSize": [
+			{
+				"doc": "Retrieves the dimensions of a level of a texture.\n\nReturns the dimensions of level `lod` (if present) of the texture bound to sampler.\n\nThe components in the return value are filled in, in order, with the width, height and depth\nof the texture. For the array forms, the last component of the return value is\nthe number of layers in the texture array.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureSize.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture whose dimensions to retrieve is bound.",
+					"lod": "The level of the texture for which to retrieve the dimensions."
+				},
+				"returns": "The dimensions of level `lod` (if present) of the texture bound to sampler.",
+				"signatures": [
+					{
+						"returns": "ivec2",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "ivec2",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "ivec2",
+						"params": [
+							{
+								"type": "samplerCubeArray",
+								"name": "s"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "ivec3",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "ivec3",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureQueryLod": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\n\nCompute the level-of-detail that would be used to sample from a texture.\n\nThe mipmap array(s) that would be accessed is returned in the x component of\nthe return value. The computed level-of-detail relative to the base level is\nreturned in the y component of the return value.\n\nIf called on an incomplete texture, the result of the operation is undefined.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureQueryLod.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture whose level-of-detail will be queried is bound.",
+					"p": "The texture coordinates at which the level-of-detail will be queried."
+				},
+				"returns": "See description.",
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							}
+						]
+					},
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureQueryLevels": [
+			{
+				"doc": "Compute the number of accessible mipmap levels of a texture.\n\nIf called on an incomplete texture, or if no texture is associated with sampler, `0` is returned.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureQueryLevels.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture whose mipmap level count will be queried is bound."
+				},
+				"returns": "The number of accessible mipmap levels in the texture, or `0`.",
+				"signatures": [
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							}
+						]
+					},
+					{
+						"returns": "int",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							}
+						]
+					}
+				]
+			}
+		],
+		"texture": [
+			{
+				"doc": "Retrieves texels from a texture.\n\nSamples texels from the texture bound to `s` at texture coordinate `p`. An optional bias, specified in `bias` is\nincluded in the level-of-detail computation that is used to choose mipmap(s) from which to sample.\n\nFor shadow forms, the last component of `p` is used as Dsub and the array layer is specified in the second to last\ncomponent of `p`. (The second component of `p` is unused for 1D shadow lookups.)\n\nFor non-shadow variants, the array layer comes from the last component of P.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/texture.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"bias": "An optional bias to be applied during level-of-detail computation."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCubeArray",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerExternalOES",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureProj": [
+			{
+				"doc": "Performs a texture lookup with projection.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. The resulting 3rd component of `p` in the shadow\nforms is used as Dref. After these values are computed, the texture lookup proceeds as in\ntexture.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProj.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"bias": "Optional bias to be applied during level-of-detail computation."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "bias",
+								"optional": true
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureLod": [
+			{
+				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with\nan explicit level-of-detail as specified in `lod`. `lod` specifies λbase and sets the\npartial derivatives as follows:\n\n::\n\nδu/δx=0, δv/δx=0, δw/δx=0\nδu/δy=0, δv/δy=0, δw/δy=0\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureLod.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"lod": "The explicit level-of-detail."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCubeArray",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureProjLod": [
+			{
+				"doc": "Performs a texture lookup with projection from an explicitly specified level-of-detail.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. The resulting 3rd component of `p` in the shadow\nforms is used as Dref. After these values are computed, the texture lookup proceeds as in\ntextureLod, with `lod` used to specify the level-of-detail from\nwhich the texture will be sampled.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjLod.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"lod": "The explicit level-of-detail from which to fetch texels."
+				},
+				"returns": "a texel",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "float",
+								"name": "lod"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureGrad": [
+			{
+				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with explicit texture coordinate gradients as specified in `dPdx` and `dPdy`. Set:\n- `δs/δx=δp/δx` for a 1D texture, `δp.s/δx` otherwise\n- `δs/δy=δp/δy` for a 1D texture, `δp.s/δy` otherwise\n- `δt/δx=0.0` for a 1D texture, `δp.t/δx` otherwise\n- `δt/δy=0.0` for a 1D texture, `δp.t/δy` otherwise\n- `δr/δx=0.0` for a 1D or 2D texture, `δp.p/δx` otherwise\n- `δr/δy=0.0` for a 1D or 2D texture, `δp.p/δy` otherwise\n\nFor the cube version, the partial derivatives of `p` are assumed to be in the coordinate system used before texture coordinates are projected onto the appropriate cube face.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGrad.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"dPdx": "The partial derivative of P with respect to window x.",
+					"dPdy": "The partial derivative of P with respect to window y."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCubeArray",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureProjGrad": [
+			{
+				"doc": "Performs a texture lookup with projection and explicit gradients.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. After these values are computed, the texture lookup proceeds as in\ntextureGrad, passing `dPdx` and `dPdy` as gradients.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjGrad.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"dPdx": "The partial derivative of `p` with respect to window x.",
+					"dPdy": "The partial derivative of `p` with respect to window y."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec2",
+								"name": "dPdy"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "vec4",
+								"name": "p"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdx"
+							},
+							{
+								"type": "vec3",
+								"name": "dPdy"
+							}
+						]
+					}
+				]
+			}
+		],
+		"texelFetch": [
+			{
+				"doc": "Performs a lookup of a single texel from texture coordinate `p` in the texture bound to sampler.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/texelFetch.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"lod": "Specifies the level-of-detail within the texture from which the texel will be fetched."
+				},
+				"returns": "A texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "ivec2",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "ivec3",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler3D",
+								"name": "s"
+							},
+							{
+								"type": "ivec3",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "lod"
+							}
+						]
+					}
+				]
+			}
+		],
+		"textureGather": [
+			{
+				"doc": "Gathers four texels from a texture.\n\nReturns the value:\n\n::\n\nvec4(Sample_i0_j1(p, base).comps,\nSample_i1_j1(p, base).comps,\nSample_i1_j0(p, base).comps,\nSample_i0_j0(p, base).comps);\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGather.xhtml)",
+				"params": {
+					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
+					"p": "The texture coordinates at which texture will be sampled.",
+					"comps": "*optional* the component of the source texture (0 -> x, 1 -> y, 2 -> z, 3 -> w) that will be used to generate the resulting vector. Zero if not specified."
+				},
+				"returns": "The gathered texel.",
+				"signatures": [
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2D",
+								"name": "s"
+							},
+							{
+								"type": "vec2",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "comps",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "gvec4_type",
+						"params": [
+							{
+								"type": "gsampler2DArray",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "comps",
+								"optional": true
+							}
+						]
+					},
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "samplerCube",
+								"name": "s"
+							},
+							{
+								"type": "vec3",
+								"name": "p"
+							},
+							{
+								"type": "int",
+								"name": "comps",
+								"optional": true
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdx": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window x coordinate using local differencing.\n\nReturns either dFdxCoarse or dFdxFine.\nThe implementation may choose which calculation to perform based upon factors\nsuch as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdxCoarse": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window x coordinate.\n\nCalculates derivatives using local differencing based on the value of `p`\nfor the current fragment's neighbors, and will possibly, but not necessarily,\ninclude the value for the current fragment. That is, over a given area, the\nimplementation can compute derivatives in fewer unique locations than would\nbe allowed for the corresponding dFdxFine function.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore\n    expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdxFine": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window x coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment and its immediate neighbor(s).\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdy": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window y coordinate using local differencing.\n\nReturns either dFdyCoarse or dFdyFine.\nThe implementation may choose which calculation to perform based upon factors\nsuch as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdyCoarse": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window y coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment's neighbors, and will possibly,\nbut not necessarily, include the value for the current fragment. That is, over a given area, the implementation can compute derivatives in fewer unique locations than\nwould be allowed for the corresponding dFdyFine and dFdyFine functions.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))` have undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"dFdyFine": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window y coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment and its immediate neighbor(s).\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))` have undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
+				},
+				"returns": "The partial derivative of `p`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fwidth": [
+			{
+				"doc": "Returns the sum of the absolute value of derivatives in x and y.\n\nUses local differencing for the input argument `p`.\n\nEquivalent to `abs(dFdx(p)) + abs(dFdy(p))`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fwidth.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative."
+				},
+				"returns": "The partial derivative.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fwidthCoarse": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the sum of the absolute value of derivatives in x and y.\n\nUses local differencing for the input argument p.\n\nEquivalent to `abs(dFdxCoarse(p)) + abs(dFdyCoarse(p))`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fwidth.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative."
+				},
+				"returns": "The partial derivative.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fwidthFine": [
+			{
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the sum of the absolute value of derivatives in x and y.\n\nUses local differencing for the input argument p.\n\nEquivalent to `abs(dFdxFine(p)) + abs(dFdyFine(p))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/fwidth.xhtml)",
+				"params": {
+					"p": "The expression of which to take the partial derivative."
+				},
+				"returns": "The partial derivative.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "p"
+							}
+						]
+					}
+				]
+			}
+		],
+		"packHalf2x16": [
+			{
+				"doc": "Converts two 32-bit floating-point quantities to 16-bit floating-point\nquantities and packs them into a single 32-bit integer.\n\nReturns an unsigned integer obtained by converting the components of a two-component floating-point vector to\nthe 16-bit floating-point representation found in the OpenGL Specification, and then packing these two\n16-bit integers into a 32-bit unsigned integer. The first vector component specifies the 16 least-significant\nbits of the result; the second component specifies the 16 most-significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packHalf2x16.xhtml)",
+				"params": {
+					"v": "A vector of two 32-bit floating-point values that are to be converted to 16-bit representation and packed into the result."
+				},
+				"returns": "The packed value.",
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"unpackHalf2x16": [
+			{
+				"doc": "Inverse of packHalf2x16.\n\nUnpacks a 32-bit integer into two 16-bit floating-point values, converts them to 32-bit floating-point values, and puts them into a vector.\nThe first component of the vector is obtained from the 16 least-significant bits of `v`; the second component is obtained from the\n16 most-significant bits of `v`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackHalf2x16.xhtml)",
+				"params": {
+					"v": "A single 32-bit unsigned integer containing 2 packed 16-bit floating-point values."
+				},
+				"returns": "Two unpacked floating-point values.",
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "uint",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"packUnorm2x16": [
+			{
+				"doc": "Pack floating-point values into an unsigned integer.\n\nConverts each component of the normalized floating-point value v into 16-bit integer values and then packs the results into a 32-bit unsigned integer.\n\nThe conversion for component c of `v` to fixed-point is performed as follows:\n\n::\n\nround(clamp(c, 0.0, 1.0) * 65535.0)\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packUnorm.xhtml)",
+				"params": {
+					"v": "A vector of values to be packed into an unsigned integer."
+				},
+				"returns": "Unsigned 32 bit integer containing the packed encoding of the vector.",
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"unpackUnorm2x16": [
+			{
+				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into a pair of 16-bit unsigned integers.\nThen, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 65535.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"params": {
+					"v": "An unsigned integer containing packed floating-point values."
+				},
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "uint",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"packSnorm2x16": [
+			{
+				"doc": "Packs floating-point values into an unsigned integer.\n\nConvert each component of the normalized floating-point value `v` into 16-bit integer values and then packs the results into a 32-bit unsigned integer.\n\nThe conversion for component c of `v` to fixed-point is performed as follows:\n\n::\n\nround(clamp(c, -1.0, 1.0) * 32767.0)\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packUnorm.xhtml)",
+				"params": {
+					"v": "A vector of values to be packed into an unsigned integer."
+				},
+				"returns": "Unsigned 32 bit integer containing the packed encoding of the vector.",
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"unpackSnorm2x16": [
+			{
+				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into a pair of 16-bit signed integers.\nThen, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 32727.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"params": {
+					"v": "An unsigned integer containing packed floating-point values."
+				},
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "uint",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"packUnorm4x8": [
+			{
+				"doc": "Packs floating-point values into an unsigned integer.\n\nConverts each component of the normalized floating-point value `v` into 16-bit integer values and then packs the results into a 32-bit unsigned integer.\n\nThe conversion for component c of `v` to fixed-point is performed as follows:\n\n::\n\nround(clamp(c, 0.0, 1.0) * 255.0)\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packUnorm.xhtml)",
+				"params": {
+					"v": "A vector of values to be packed into an unsigned integer."
+				},
+				"returns": "Unsigned 32 bit integer containing the packed encoding of the vector.",
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"unpackUnorm4x8": [
+			{
+				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into four 8-bit unsigned integers.\nThen, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 255.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"params": {
+					"v": "An unsigned integer containing packed floating-point values."
+				},
+				"signatures": [
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "uint",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"packSnorm4x8": [
+			{
+				"doc": "Packs floating-point values into an unsigned integer.\n\nConvert each component of the normalized floating-point value `v` into 16-bit integer values and then packs the results into a 32-bit unsigned integer.\n\nThe conversion for component c of `v` to fixed-point is performed as follows:\n\n::\n\nround(clamp(c, -1.0, 1.0) * 127.0)\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packUnorm.xhtml)",
+				"params": {
+					"v": "A vector of values to be packed into an unsigned integer."
+				},
+				"returns": "Unsigned 32 bit integer containing the packed encoding of the vector.",
+				"signatures": [
+					{
+						"returns": "uint",
+						"params": [
+							{
+								"type": "vec4",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"unpackSnorm4x8": [
+			{
+				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into four 8-bit signed integers.\nThen, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 127.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"params": {
+					"v": "An unsigned integer containing packed floating-point values."
+				},
+				"signatures": [
+					{
+						"returns": "vec4",
+						"params": [
+							{
+								"type": "uint",
+								"name": "v"
+							}
+						]
+					}
+				]
+			}
+		],
+		"bitfieldExtract": [
+			{
+				"doc": "Extracts a subset of the bits of `value` and returns it in the least significant bits of the result.\nThe range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits of the result will be set to zero.\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
+				"params": {
+					"value": "The integer from which to extract bits.",
+					"offset": "The index of the first bit to extract.",
+					"bits": "The number of bits to extract."
+				},
+				"returns": "Integer with the requested bits.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "value"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				]
+			},
+			{
+				"doc": "*Component-wise function.*\n\nExtracts a subset of the bits of `value` and returns it in the least significant bits of the result.\nThe range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits will be set to the value of `offset + base - 1` (i.e., it is sign extended to the width of the return type).\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
+				"params": {
+					"value": "The integer from which to extract bits.",
+					"offset": "The index of the first bit to extract.",
+					"bits": "The number of bits to extract."
+				},
+				"returns": "Integer with the requested bits.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				]
+			},
+			{
+				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and\nall other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
+				"params": {
+					"base": "The integer into which to insert `insert`.",
+					"insert": "The value of the bits to insert.",
+					"offset": "The index of the first bit to insert.",
+					"bits": "The number of bits to insert."
+				},
+				"returns": "`base` with inserted bits.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				]
+			}
+		],
+		"bitfieldInsert": [
+			{
+				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and\nall other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
+				"params": {
+					"base": "The integer into which to insert `insert`.",
+					"insert": "The value of the bits to insert.",
+					"offset": "The index of the first bit to insert.",
+					"bits": "The number of bits to insert."
+				},
+				"returns": "`base` with inserted bits.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "base"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "insert"
+							},
+							{
+								"type": "int",
+								"name": "offset"
+							},
+							{
+								"type": "int",
+								"name": "bits"
+							}
+						]
+					}
+				]
+			}
+		],
+		"bitfieldReverse": [
+			{
+				"doc": "*Component-wise function.*\n\nReverse the order of bits in an integer.\n\nThe bit numbered `n` will be taken from bit `(bits - 1) - n` of `value`, where bits is the total number of bits used to represent `value`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldReverse.xhtml)",
+				"params": {
+					"value": "The value whose bits to reverse."
+				},
+				"returns": "`value` but with its bits reversed.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							}
+						]
+					}
+				]
+			}
+		],
+		"bitCount": [
+			{
+				"doc": "*Component-wise function.*\n\nCounts the number of 1 bits in an integer.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitCount.xhtml)",
+				"params": {
+					"value": "The value whose bits to count."
+				},
+				"returns": "The number of bits that are set to 1 in the binary representation of `value`.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							}
+						]
+					}
+				]
+			}
+		],
+		"findLSB": [
+			{
+				"doc": "*Component-wise function.*\n\nFind the index of the least significant bit set to `1`.\n\n**Note:** If `value` is zero, `-1` will be returned.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/findLSB.xhtml)",
+				"params": {
+					"value": "The value whose bits to scan."
+				},
+				"returns": "The bit number of the least significant bit that is set to 1 in the binary representation of value.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							}
+						]
+					}
+				]
+			}
+		],
+		"findMSB": [
+			{
+				"doc": "*Component-wise function.*\n\nFind the index of the most significant bit set to 1.\n\n**Note:** For signed integer types, the sign bit is checked first and then:\n - For positive integers, the result will be the bit number of the most significant bit that is set to 1.\n - For negative integers, the result will be the bit number of the most significant bit set to 0.\n\n**Note:** For a value of zero or negative 1, -1 will be returned.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/findMSB.xhtml)",
+				"params": {
+					"value": "The value whose bits to scan."
+				},
+				"returns": "The bit number of the most significant bit that is set to 1 in the binary representation of value.",
+				"signatures": [
+					{
+						"returns": "vec_int_type",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "value"
+							}
+						]
+					},
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "value"
+							}
+						]
+					}
+				]
+			}
+		],
+		"imulExtended": [
+			{
+				"doc": "*Component-wise function.*\n\nPerform 32-bit by 32-bit signed multiplication to produce a 64-bit result.\n\nThe 32 least significant bits of this product are returned in `lsb` and the 32 most significant bits are returned in `msb`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/umulExtended.xhtml)",
+				"params": {
+					"x": "The first multiplicand.",
+					"y": "The second multiplicand.",
+					"msb": "The variable to receive the most significant word of the product.",
+					"lsb": "The variable to receive the least significant word of the product."
+				},
+				"signatures": [
+					{
+						"returns": "void",
+						"params": [
+							{
+								"type": "vec_int_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_int_type",
+								"name": "y"
+							},
+							{
+								"type": "out vec_int_type",
+								"name": "msb"
+							},
+							{
+								"type": "out vec_int_type",
+								"name": "lsb"
+							}
+						]
+					}
+				]
+			}
+		],
+		"umulExtended": [
+			{
+				"doc": "*Component-wise function.*\n\nPerform 32-bit by 32-bit unsigned multiplication to produce a 64-bit result.\n\nThe 32 least significant bits of this product are returned in `lsb` and the 32 most significant bits are returned in `msb`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/umulExtended.xhtml)",
+				"params": {
+					"x": "The first multiplicand.",
+					"y": "The second multiplicand.",
+					"msb": "The variable to receive the most significant word of the product.",
+					"lsb": "The variable to receive the least significant word of the product."
+				},
+				"signatures": [
+					{
+						"returns": "void",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "y"
+							},
+							{
+								"type": "out vec_uint_type",
+								"name": "msb"
+							},
+							{
+								"type": "out vec_uint_type",
+								"name": "lsb"
+							}
+						]
+					}
+				]
+			}
+		],
+		"uaddCarry": [
+			{
+				"doc": "*Component-wise function.*\n\nAdds two 32-bit unsigned integer values (scalars or vectors)\nand returns a 32-bit unsigned integer, along with a carry output stored in `carry`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/uaddCarry.xhtml)",
+				"params": {
+					"x": "The first operand.",
+					"y": "The second operand.",
+					"carry": "`0` if the sum is less than 2^32, otherwise `1`."
+				},
+				"returns": "`(x + y) % 2^32`.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "y"
+							},
+							{
+								"type": "out vec_uint_type",
+								"name": "carry"
+							}
+						]
+					}
+				]
+			}
+		],
+		"usubBorrow": [
+			{
+				"doc": "*Component-wise function.*\n\nSubtract unsigned integers and generate borrow.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/usubBorrow.xhtml)",
+				"params": {
+					"x": "The first operand.",
+					"y": "The second operand.",
+					"borrow": "`0` if `x >= y`, otherwise `1`."
+				},
+				"returns": "The difference of `x` and `y` if non-negative, or 2^32 plus that difference otherwise.",
+				"signatures": [
+					{
+						"returns": "vec_uint_type",
+						"params": [
+							{
+								"type": "vec_uint_type",
+								"name": "x"
+							},
+							{
+								"type": "vec_uint_type",
+								"name": "y"
+							},
+							{
+								"type": "out vec_uint_type",
+								"name": "borrow"
+							}
+						]
+					}
+				]
+			}
+		],
+		"ldexp": [
+			{
+				"doc": "*Component-wise function.*\n\nAssembles a floating-point number from a value and exponent.\n\n**Warning:** If this product is too large to be represented in the floating-point\ntype, the result is undefined.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/ldexp.xhtml)",
+				"params": {
+					"x": "The value to be used as a source of significand.",
+					"exp": "The value to be used as a source of exponent."
+				},
+				"returns": "`x * 2^exp`",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "out vec_int_type",
+								"name": "exp"
+							}
+						]
+					}
+				]
+			}
+		],
+		"frexp": [
+			{
+				"doc": "*Component-wise function.*\n\nExtracts `x` into a floating-point significand in the range `[0.5, 1.0)` and in integral exponent of two, such that:\n\n::\n\nx = significand * 2 ^ exponent\n\nFor a floating-point value of `0.0`, the significand and exponent are both `0.0`.\n\n**Warning:** For a floating-point value that is an infinity or a floating-point `NaN`, the results are undefined.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/frexp.xhtml)",
+				"params": {
+					"x": "The value from which significand and exponent are to be extracted.",
+					"exp": "The variable into which to place the exponent of `x`."
+				},
+				"returns": "The significand of `x`.",
+				"signatures": [
+					{
+						"returns": "vec_type",
+						"params": [
+							{
+								"type": "vec_type",
+								"name": "x"
+							},
+							{
+								"type": "out vec_int_type",
+								"name": "exp"
+							}
+						]
+					}
+				]
+			}
+		],
+		"texture_sdf": [
+			{
+				"signatures": [
+					{
+						"returns": "float",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "sdf_pos"
+							}
+						]
+					}
+				],
+				"doc": "Performs an SDF texture lookup.",
+				"shaderType": "canvas_item"
+			}
+		],
+		"texture_sdf_normal": [
+			{
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "sdf_pos"
+							}
+						]
+					}
+				],
+				"doc": "Calculates a normal from the SDF texture.",
+				"shaderType": "canvas_item"
+			}
+		],
+		"sdf_to_screen_uv": [
+			{
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "sdf_pos"
+							}
+						]
+					}
+				],
+				"doc": "Converts an SDF to screen UV.",
+				"shaderType": "canvas_item"
+			}
+		],
+		"screen_uv_to_sdf": [
+			{
+				"signatures": [
+					{
+						"returns": "vec2",
+						"params": [
+							{
+								"type": "vec2",
+								"name": "uv"
+							}
+						]
+					}
+				],
+				"doc": "Converts screen UV to an SDF.",
+				"shaderType": "canvas_item"
+			}
+		],
+		"emit_subparticle": [
+			{
+				"signatures": [
+					{
+						"returns": "bool",
+						"params": [
+							{
+								"type": "mat4",
+								"name": "xform"
+							},
+							{
+								"type": "vec3",
+								"name": "velocity"
+							},
+							{
+								"type": "vec4",
+								"name": "color"
+							},
+							{
+								"type": "vec4",
+								"name": "custom"
+							},
+							{
+								"type": "uint",
+								"name": "flags"
+							}
+						]
+					}
+				],
+				"doc": "Emits a particle from a sub-emitter.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		]
+	},
+	"variables": {
+		"TIME": [
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "spatial",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "canvas_item",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "particles",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "sky",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "fog",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TIME",
+				"doc": "Global time since the engine has started, in seconds. It repeats after every `3,600` seconds (which can be changed with the rollover setting). It's affected by time_scale but not by pausing. If you need a `TIME` variable that is not affected by time scale, add your own global shader uniform and update it each frame.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"PI": [
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "spatial",
+				"stage": "global"
+			},
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "canvas_item",
+				"stage": "global"
+			},
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "particles",
+				"stage": "global"
+			},
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "sky",
+				"stage": "global"
+			},
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "fog",
+				"stage": "global"
+			},
+			{
+				"decl": "in float PI",
+				"doc": "A `PI` constant (`3.141592`). The ratio of a circle's circumference to its diameter and the number of radians in a half turn.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"TAU": [
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). Equivalent to `PI * 2` and the number of radians in a full turn.",
+				"shaderType": "spatial",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). Equivalent to `PI * 2` and the number of radians in a full turn.",
+				"shaderType": "canvas_item",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). Equivalent to `PI * 2` and the number of radians in a full turn.",
+				"shaderType": "particles",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). Equivalent to `PI * 2` and the number of radians in a full turn.",
+				"shaderType": "sky",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). Equivalent to `PI * 2` and the number of radians in a full turn.",
+				"shaderType": "fog",
+				"stage": "global"
+			},
+			{
+				"decl": "in float TAU",
+				"doc": "A `TAU` constant (`6.283185`). An equivalent of `PI * 2` and amount of radians in full turn.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"E": [
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number, the base of the natural logarithm.",
+				"shaderType": "spatial",
+				"stage": "global"
+			},
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number, the base of the natural logarithm.",
+				"shaderType": "canvas_item",
+				"stage": "global"
+			},
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number, the base of the natural logarithm.",
+				"shaderType": "particles",
+				"stage": "global"
+			},
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number, the base of the natural logarithm.",
+				"shaderType": "sky",
+				"stage": "global"
+			},
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number, the base of the natural logarithm.",
+				"shaderType": "fog",
+				"stage": "global"
+			},
+			{
+				"decl": "in float E",
+				"doc": "An `E` constant (`2.718281`). Euler's number and a base of the natural logarithm.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"OUTPUT_IS_SRGB": [
+			{
+				"decl": "in bool OUTPUT_IS_SRGB",
+				"doc": "`true` when output is in sRGB color space (this is `true` in the Compatibility renderer, `false` in Forward+ and Mobile).",
+				"shaderType": "spatial",
+				"stage": "global"
+			}
+		],
+		"CLIP_SPACE_FAR": [
+			{
+				"decl": "in float CLIP_SPACE_FAR",
+				"doc": "Clip space far `z` value. In the Forward+ or Mobile renderers, it's `0.0`. In the Compatibility renderer, it's `-1.0`.",
+				"shaderType": "spatial",
+				"stage": "global"
+			}
+		],
+		"IS_MULTIVIEW": [
+			{
+				"decl": "in bool IS_MULTIVIEW",
+				"doc": "`true` when output is stereoscopic (XR), `false` when output is monoscopic.",
+				"shaderType": "spatial",
+				"stage": "global"
+			}
+		],
+		"IN_SHADOW_PASS": [
+			{
+				"decl": "in bool IN_SHADOW_PASS",
+				"doc": "`true` when the shader is being rendered in a shadow mapping pass, `false` otherwise. This can be used to render objects differently in shadow maps compared to their regular rendering.",
+				"shaderType": "spatial",
+				"stage": "global"
+			}
+		],
+		"VIEWPORT_SIZE": [
+			{
+				"decl": "in vec2 VIEWPORT_SIZE",
+				"doc": "Size of viewport (in pixels).",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 VIEWPORT_SIZE",
+				"doc": "Size of viewport (in pixels).",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec2 VIEWPORT_SIZE",
+				"doc": "Size of viewport (in pixels).",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"VIEW_MATRIX": [
+			{
+				"decl": "in mat4 VIEW_MATRIX",
+				"doc": "World space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat4 VIEW_MATRIX",
+				"doc": "World space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in mat4 VIEW_MATRIX",
+				"doc": "World space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"INV_VIEW_MATRIX": [
+			{
+				"decl": "in mat4 INV_VIEW_MATRIX",
+				"doc": "View space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat4 INV_VIEW_MATRIX",
+				"doc": "View space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in mat4 INV_VIEW_MATRIX",
+				"doc": "View space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"MAIN_CAM_INV_VIEW_MATRIX": [
+			{
+				"decl": "in mat4 MAIN_CAM_INV_VIEW_MATRIX",
+				"doc": "View space to world space transform of the camera used to draw the current viewport.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"INV_PROJECTION_MATRIX": [
+			{
+				"decl": "in mat4 INV_PROJECTION_MATRIX",
+				"doc": "Clip space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat4 INV_PROJECTION_MATRIX",
+				"doc": "Clip space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in mat4 INV_PROJECTION_MATRIX",
+				"doc": "Clip space to view space transform.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"NODE_POSITION_WORLD": [
+			{
+				"decl": "in vec3 NODE_POSITION_WORLD",
+				"doc": "Node position, in world space.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 NODE_POSITION_WORLD",
+				"doc": "Node position, in world space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"NODE_POSITION_VIEW": [
+			{
+				"decl": "in vec3 NODE_POSITION_VIEW",
+				"doc": "Node position, in view space.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 NODE_POSITION_VIEW",
+				"doc": "Node position, in view space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"CAMERA_POSITION_WORLD": [
+			{
+				"decl": "in vec3 CAMERA_POSITION_WORLD",
+				"doc": "Camera position, in world space. Represents the midpoint of the two eyes when in multiview/stereo rendering.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 CAMERA_POSITION_WORLD",
+				"doc": "Camera position, in world space. Represents the midpoint of the two eyes when in multiview/stereo rendering.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"CAMERA_DIRECTION_WORLD": [
+			{
+				"decl": "in vec3 CAMERA_DIRECTION_WORLD",
+				"doc": "Camera direction, in world space.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 CAMERA_DIRECTION_WORLD",
+				"doc": "Camera direction, in world space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"CAMERA_VISIBLE_LAYERS": [
+			{
+				"decl": "in uint CAMERA_VISIBLE_LAYERS",
+				"doc": "Cull layers of the camera rendering the current pass.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in uint CAMERA_VISIBLE_LAYERS",
+				"doc": "Cull layers of the camera rendering the current pass.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"INSTANCE_ID": [
+			{
+				"decl": "in int INSTANCE_ID",
+				"doc": "Instance ID for instancing.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in int INSTANCE_ID",
+				"doc": "Instance ID for instancing.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"INSTANCE_CUSTOM": [
+			{
+				"decl": "in vec4 INSTANCE_CUSTOM",
+				"doc": "Instance custom data (for particles, mostly).",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 INSTANCE_CUSTOM",
+				"doc": "Instance custom data.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"VIEW_INDEX": [
+			{
+				"decl": "in int VIEW_INDEX",
+				"doc": "The view that we are rendering. `VIEW_MONO_LEFT` (`0`) for Mono (not multiview) or left eye, `VIEW_RIGHT` (`1`) for right eye.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in int VIEW_INDEX",
+				"doc": "The view that we are rendering. Used to distinguish between views in multiview/stereo rendering. `VIEW_MONO_LEFT` (`0`) for Mono (not multiview) or left eye, `VIEW_RIGHT` (`1`) for right eye.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"VIEW_MONO_LEFT": [
+			{
+				"decl": "in int VIEW_MONO_LEFT",
+				"doc": "Constant for Mono or left eye, always `0`.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in int VIEW_MONO_LEFT",
+				"doc": "Constant for Mono or left eye, always `0`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"VIEW_RIGHT": [
+			{
+				"decl": "in int VIEW_RIGHT",
+				"doc": "Constant for right eye, always `1`.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in int VIEW_RIGHT",
+				"doc": "Constant for right eye, always `1`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"EYE_OFFSET": [
+			{
+				"decl": "in vec3 EYE_OFFSET",
+				"doc": "Position offset for the eye being rendered, in view space. Only applicable for multiview rendering.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 EYE_OFFSET",
+				"doc": "Position offset for the eye being rendered, in view space. Only applicable for multiview rendering.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"VERTEX": [
+			{
+				"decl": "inout vec3 VERTEX",
+				"doc": "Position of the vertex, in model space. In world space if `world_vertex_coords` is used.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 VERTEX",
+				"doc": "Position of the fragment (pixel), in view space. It is the `VERTEX` value from `vertex()` interpolated between the face's vertices and transformed into view space. If `skip_vertex_transform` is enabled, it may not be in view space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "inout vec2 VERTEX",
+				"doc": "Vertex position, in local space.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout vec2 VERTEX",
+				"doc": "Pixel position in screen space.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"VERTEX_ID": [
+			{
+				"decl": "in int VERTEX_ID",
+				"doc": "The index of the current vertex in the vertex buffer.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in int VERTEX_ID",
+				"doc": "The index of the current vertex in the vertex buffer.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"NORMAL": [
+			{
+				"decl": "inout vec3 NORMAL",
+				"doc": "Normal in model space. In world space if `world_vertex_coords` is used.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout vec3 NORMAL",
+				"doc": "Normal that comes from the `vertex()` function, in view space. If `skip_vertex_transform` is enabled, it may not be in view space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec3 NORMAL",
+				"doc": "Normal vector, in view space.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "inout vec3 NORMAL",
+				"doc": "Normal read from `NORMAL_TEXTURE`. Writable.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 NORMAL",
+				"doc": "Input normal.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"TANGENT": [
+			{
+				"decl": "inout vec3 TANGENT",
+				"doc": "Tangent in model space. In world space if `world_vertex_coords` is used.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout vec3 TANGENT",
+				"doc": "Tangent that comes from the `vertex()` function, in view space. If `skip_vertex_transform` is enabled, it may not be in view space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"BINORMAL": [
+			{
+				"decl": "inout vec3 BINORMAL",
+				"doc": "Binormal in model space. In world space if `world_vertex_coords` is used.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout vec3 BINORMAL",
+				"doc": "Binormal that comes from the `vertex()` function, in view space. If `skip_vertex_transform` is enabled, it may not be in view space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"POSITION": [
+			{
+				"decl": "out vec4 POSITION",
+				"doc": "If written to on any branch, overrides final vertex position in clip space.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 POSITION",
+				"doc": "Camera position, in world space.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"UV": [
+			{
+				"decl": "inout vec2 UV",
+				"doc": "UV main channel.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 UV",
+				"doc": "UV that comes from the `vertex()` function.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec2 UV",
+				"doc": "UV that comes from the `vertex()` function.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "inout vec2 UV",
+				"doc": "Normalized texture coordinates. Range from `0.0` to `1.0`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 UV",
+				"doc": "UV from the `vertex()` function. For a Sprite2D with region enabled, this will sample the entire texture. Use `REGION_RECT` instead to sample only the region defined in the Sprite2D's properties.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 UV",
+				"doc": "UV from the `vertex()` function, equivalent to the UV in the `fragment()` function.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec2 UV",
+				"doc": "UV from the `vertex()` function. This is set to sample all of a source texture.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"UV2": [
+			{
+				"decl": "inout vec2 UV2",
+				"doc": "UV secondary channel.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 UV2",
+				"doc": "UV2 that comes from the `vertex()` function.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec2 UV2",
+				"doc": "UV2 that comes from the `vertex()` function.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"COLOR": [
+			{
+				"decl": "inout vec4 COLOR",
+				"doc": "Color from vertices. Limited to values between `0.0` and `1.0` for each channel and 8 bits per channel precision (256 possible levels). Alpha channel is supported. Values outside the allowed range are clamped, and values may be rounded due to precision limitations. Use `CUSTOM0`-`CUSTOM3` to pass data with more precision if needed.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 COLOR",
+				"doc": "COLOR that comes from the `vertex()` function.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "inout vec4 COLOR",
+				"doc": "Color from vertex primitive multiplied by the CanvasItem's modulate multiplied by CanvasItem's self_modulate.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout vec4 COLOR",
+				"doc": "`COLOR` from the `vertex()` function multiplied by the `TEXTURE` color. Also output color value.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 COLOR",
+				"doc": "Input color. This is the output of the `fragment()` function.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			},
+			{
+				"decl": "inout vec4 COLOR",
+				"doc": "Particle color, can be written to and accessed in the mesh's vertex function.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			},
+			{
+				"decl": "out vec3 COLOR",
+				"doc": "Output color.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"ROUGHNESS": [
+			{
+				"decl": "out float ROUGHNESS",
+				"doc": "Roughness for vertex lighting.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "out float ROUGHNESS",
+				"doc": "Roughness (range `[0.0, 1.0]`).",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in float ROUGHNESS",
+				"doc": "Roughness.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"POINT_SIZE": [
+			{
+				"decl": "inout float POINT_SIZE",
+				"doc": "Point size for point rendering.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "inout float POINT_SIZE",
+				"doc": "Point size for point drawing.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"MODELVIEW_MATRIX": [
+			{
+				"decl": "inout mat4 MODELVIEW_MATRIX",
+				"doc": "Model/local space to view space transform (use if possible).",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"MODELVIEW_NORMAL_MATRIX": [
+			{
+				"decl": "inout mat3 MODELVIEW_NORMAL_MATRIX",
+				"doc": "",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"MODEL_MATRIX": [
+			{
+				"decl": "in mat4 MODEL_MATRIX",
+				"doc": "Model/local space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat4 MODEL_MATRIX",
+				"doc": "Model/local space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in mat4 MODEL_MATRIX",
+				"doc": "Model/local space to world space transform.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "in mat4 MODEL_MATRIX",
+				"doc": "Local space to world space transform. World space is the coordinates you normally use in the editor.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"MODEL_NORMAL_MATRIX": [
+			{
+				"decl": "in mat3 MODEL_NORMAL_MATRIX",
+				"doc": "",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat3 MODEL_NORMAL_MATRIX",
+				"doc": "Model/local space to world space transform for normals. This is the same as `MODEL_MATRIX` by default unless the object is scaled non-uniformly, in which case this is set to `transpose(inverse(mat3(MODEL_MATRIX)))`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"PROJECTION_MATRIX": [
+			{
+				"decl": "inout mat4 PROJECTION_MATRIX",
+				"doc": "View space to clip space transform.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in mat4 PROJECTION_MATRIX",
+				"doc": "View space to clip space transform.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in mat4 PROJECTION_MATRIX",
+				"doc": "View space to clip space transform.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"BONE_INDICES": [
+			{
+				"decl": "in uvec4 BONE_INDICES",
+				"doc": "",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"BONE_WEIGHTS": [
+			{
+				"decl": "in vec4 BONE_WEIGHTS",
+				"doc": "",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"CUSTOM0": [
+			{
+				"decl": "in vec4 CUSTOM0",
+				"doc": "Custom value from vertex primitive. When using extra UVs, `xy` is UV3 and `zw` is UV4.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 CUSTOM0",
+				"doc": "Custom value from vertex primitive.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"CUSTOM1": [
+			{
+				"decl": "in vec4 CUSTOM1",
+				"doc": "Custom value from vertex primitive. When using extra UVs, `xy` is UV5 and `zw` is UV6.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 CUSTOM1",
+				"doc": "Custom value from vertex primitive.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"CUSTOM2": [
+			{
+				"decl": "in vec4 CUSTOM2",
+				"doc": "Custom value from vertex primitive. When using extra UVs, `xy` is UV7 and `zw` is UV8.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"CUSTOM3": [
+			{
+				"decl": "in vec4 CUSTOM3",
+				"doc": "Custom value from vertex primitive.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"Z_CLIP_SCALE": [
+			{
+				"decl": "out float Z_CLIP_SCALE",
+				"doc": "If written to on any branch, scales the vertex towards the camera to avoid clipping into things like walls. Lighting and shadows will continue to work correctly when this is written to, but screen-space effects like SSAO and SSR may break with lower scales. Try to keep this value as close to `1.0` as possible.",
+				"shaderType": "spatial",
+				"stage": "vertex"
+			}
+		],
+		"FRAGCOORD": [
+			{
+				"decl": "in vec4 FRAGCOORD",
+				"doc": "Coordinate of pixel center in screen space. `xy` specifies position in window. Upper-left of the viewport is the origin, `(0.0, 0.0)`. Bottom-right of the viewport is `VIEWPORT_SIZE`. `z` specifies fragment depth. It is also used as the output value for the fragment depth unless `DEPTH` is written to.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec4 FRAGCOORD",
+				"doc": "Coordinate of pixel center in screen space. `xy` specifies position in window. Upper-left of the viewport is the origin, `(0.0, 0.0)`. Bottom-right of the viewport is `VIEWPORT_SIZE`. `z` specifies fragment depth. It is also used as the output value for the fragment depth unless `DEPTH` is written to.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec4 FRAGCOORD",
+				"doc": "Coordinate of pixel center, in pixels. `xy` specifies position in viewport. Upper-left of the viewport is the origin, `(0, 0)`. Multiply by `SCREEN_PIXEL_SIZE` for values from `0.0` to `1.0`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 FRAGCOORD",
+				"doc": "Coordinate of pixel center. In screen space. `xy` specifies position in viewport. Upper-left of the viewport is the origin, `(0.0, 0.0)`. Bottom-right of the viewport is `(1.0, 1.0)`.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec4 FRAGCOORD",
+				"doc": "Coordinate of pixel center, in screen space. `xy` specifies position in viewport in pixels from the upper-left.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"FRONT_FACING": [
+			{
+				"decl": "in bool FRONT_FACING",
+				"doc": "`true` if current face is front facing, `false` otherwise.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"VIEW": [
+			{
+				"decl": "in vec3 VIEW",
+				"doc": "Normalized vector from fragment position to camera (in view space). This is the same for both perspective and orthogonal cameras.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec3 VIEW",
+				"doc": "View vector, in view space.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"POINT_COORD": [
+			{
+				"decl": "in vec2 POINT_COORD",
+				"doc": "Point coordinate for drawing points with `POINT_SIZE`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec2 POINT_COORD",
+				"doc": "Coordinate for drawing points in the 0.0 to 1.0 range.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 POINT_COORD",
+				"doc": "UV for Point Sprite.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"LIGHT_VERTEX": [
+			{
+				"decl": "inout vec3 LIGHT_VERTEX",
+				"doc": "A writable version of `VERTEX` that can be used to alter light and shadows. Writing to this will not change the position of the fragment.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "inout vec3 LIGHT_VERTEX",
+				"doc": "Same as `VERTEX` but can be written to alter lighting. Z component represents height.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec3 LIGHT_VERTEX",
+				"doc": "Pixel position, in screen space as modified in the `fragment()` function.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"SCREEN_TEXTURE": [
+			{
+				"decl": "sampler2D SCREEN_TEXTURE",
+				"doc": "Removed in Godot 4. Use a `sampler2D` with `hint_screen_texture` instead.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "sampler2D SCREEN_TEXTURE",
+				"doc": "Removed in Godot 4. Use a `sampler2D` with `hint_screen_texture` instead.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"SCREEN_UV": [
+			{
+				"decl": "in vec2 SCREEN_UV",
+				"doc": "Screen UV coordinate for the current pixel.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec2 SCREEN_UV",
+				"doc": "Screen UV coordinate for the current pixel.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec2 SCREEN_UV",
+				"doc": "Screen UV coordinate for the current pixel.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 SCREEN_UV",
+				"doc": "Screen UV coordinate for the current pixel.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec2 SCREEN_UV",
+				"doc": "Screen UV coordinate for the current pixel. Used to map a texture to the full screen.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"DEPTH_TEXTURE": [
+			{
+				"decl": "sampler2D DEPTH_TEXTURE",
+				"doc": "Removed in Godot 4. Use a `sampler2D` with `hint_depth_texture` instead.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"DEPTH": [
+			{
+				"decl": "out float DEPTH",
+				"doc": "Custom depth value (range `[0.0, 1.0]`). If `DEPTH` is written to in any shader branch, then you are responsible for setting `DEPTH` for **all** other branches. Otherwise, the graphics API will leave them uninitialized.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"NORMAL_MAP": [
+			{
+				"decl": "out vec3 NORMAL_MAP",
+				"doc": "Set normal here in tangent space if reading normal from a texture instead of `NORMAL`. The blue channel is ignored, as it's reconstructed in the engine instead. This allows normal maps with RGTC compression to work.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "out vec3 NORMAL_MAP",
+				"doc": "Configures normal maps meant for 3D for use in 2D. If used, overrides `NORMAL`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"NORMAL_MAP_DEPTH": [
+			{
+				"decl": "out float NORMAL_MAP_DEPTH",
+				"doc": "Depth from `NORMAL_MAP`. Defaults to `1.0`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "out float NORMAL_MAP_DEPTH",
+				"doc": "Normal map depth for scaling.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"BENT_NORMAL_MAP": [
+			{
+				"decl": "out vec3 BENT_NORMAL_MAP",
+				"doc": "Set bent normal map here in tangent space to enable bent normals. This is used to improve specular occlusion, and requires a specially authored bent normal map. The blue channel is ignored, as it's reconstructed in the engine instead. This allows bent normal maps with RGTC compression to work.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ALBEDO": [
+			{
+				"decl": "out vec3 ALBEDO",
+				"doc": "Albedo (default white). Base color.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec3 ALBEDO",
+				"doc": "Base albedo.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "out vec3 ALBEDO",
+				"doc": "Output base color value, interacts with light to produce final color. Only written to fog volume if used.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"ALPHA": [
+			{
+				"decl": "out float ALPHA",
+				"doc": "Alpha (range `[0.0, 1.0]`). If read from or written to, the material will go to the transparent pipeline.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "out float ALPHA",
+				"doc": "Alpha (range `[0.0, 1.0]`). If written to on any branch, the material will go through the transparent pipeline.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "out float ALPHA",
+				"doc": "Output alpha value, can only be used in subpasses.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"ALPHA_SCISSOR_THRESHOLD": [
+			{
+				"decl": "out float ALPHA_SCISSOR_THRESHOLD",
+				"doc": "If written to on any branch, values below a certain amount of alpha are discarded.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ALPHA_HASH_SCALE": [
+			{
+				"decl": "out float ALPHA_HASH_SCALE",
+				"doc": "Alpha hash scale when using the alpha hash transparency mode. Defaults to `1.0`. Higher values result in more visible pixels in the dithering pattern.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ALPHA_ANTIALIASING_EDGE": [
+			{
+				"decl": "out float ALPHA_ANTIALIASING_EDGE",
+				"doc": "The threshold below which alpha to coverage antialiasing should be used. Defaults to `0.0`. Requires the `alpha_to_coverage` render mode. Should be set to a value lower than `ALPHA_SCISSOR_THRESHOLD` to be effective.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ALPHA_TEXTURE_COORDINATE": [
+			{
+				"decl": "out vec2 ALPHA_TEXTURE_COORDINATE",
+				"doc": "The texture coordinate to use for alpha-to-coverge antialiasing. Requires the `alpha_to_coverage` render mode. Typically set to `UV * vec2(albedo_texture_size)` where `albedo_texture_size` is the size of the albedo texture in pixels.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"PREMUL_ALPHA_FACTOR": [
+			{
+				"decl": "out float PREMUL_ALPHA_FACTOR",
+				"doc": "Premultiplied alpha factor. Only effective if `render_mode blend_premul_alpha;` is used. This should be written to when using a *shaded* material with premultiplied alpha blending for interaction with lighting. This is not required for unshaded materials.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"METALLIC": [
+			{
+				"decl": "out float METALLIC",
+				"doc": "Metallic (range `[0.0, 1.0]`).",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in float METALLIC",
+				"doc": "Metallic.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"SPECULAR": [
+			{
+				"decl": "out float SPECULAR",
+				"doc": "Specular (not physically accurate to change). Defaults to `0.5`. `0.0` disables reflections.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"RIM": [
+			{
+				"decl": "out float RIM",
+				"doc": "Rim (range `[0.0, 1.0]`). If used, Godot calculates rim lighting. Rim size depends on `ROUGHNESS`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"RIM_TINT": [
+			{
+				"decl": "out float RIM_TINT",
+				"doc": "Rim Tint, range from `0.0` (white) to `1.0` (albedo). If used, Godot calculates rim lighting.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"CLEARCOAT": [
+			{
+				"decl": "out float CLEARCOAT",
+				"doc": "Small specular blob added on top of the existing one. If used, Godot calculates clearcoat.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"CLEARCOAT_ROUGHNESS": [
+			{
+				"decl": "out float CLEARCOAT_ROUGHNESS",
+				"doc": "The roughness of the clearcoat. If used, Godot calculates clearcoat.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ANISOTROPY": [
+			{
+				"decl": "out float ANISOTROPY",
+				"doc": "For distorting the specular blob according to tangent space.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"ANISOTROPY_FLOW": [
+			{
+				"decl": "out vec2 ANISOTROPY_FLOW",
+				"doc": "Distortion direction, use with flowmaps.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"SSS_STRENGTH": [
+			{
+				"decl": "out float SSS_STRENGTH",
+				"doc": "Strength of subsurface scattering. If used, subsurface scattering will be applied to the object.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"SSS_TRANSMITTANCE_COLOR": [
+			{
+				"decl": "out vec4 SSS_TRANSMITTANCE_COLOR",
+				"doc": "Color of subsurface scattering transmittance. If used, subsurface scattering transmittance will be applied to the object.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"SSS_TRANSMITTANCE_DEPTH": [
+			{
+				"decl": "out float SSS_TRANSMITTANCE_DEPTH",
+				"doc": "Depth of subsurface scattering transmittance. Higher values allow the effect to reach deeper into the object.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"SSS_TRANSMITTANCE_BOOST": [
+			{
+				"decl": "out float SSS_TRANSMITTANCE_BOOST",
+				"doc": "Boosts the subsurface scattering transmittance if set above `0.0`. This makes the effect show up even on directly lit surfaces.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"BACKLIGHT": [
+			{
+				"decl": "inout vec3 BACKLIGHT",
+				"doc": "Color of backlighting (works like direct light, but it's received even if the normal is slightly facing away from the light). If used, backlighting will be applied to the object. Can be used as a cheaper approximation of subsurface scattering.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "in vec3 BACKLIGHT",
+				"doc": "",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"AO": [
+			{
+				"decl": "out float AO",
+				"doc": "Strength of ambient occlusion. For use with pre-baked AO.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"AO_LIGHT_AFFECT": [
+			{
+				"decl": "out float AO_LIGHT_AFFECT",
+				"doc": "How much ambient occlusion affects direct light (range `[0.0, 1.0]`, default `0.0`).",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"EMISSION": [
+			{
+				"decl": "out vec3 EMISSION",
+				"doc": "Emission color (can go over `(1.0, 1.0, 1.0)` for HDR).",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "out vec3 EMISSION",
+				"doc": "Output emission color value, added to color during light pass to produce final color. Only written to fog volume if used.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"FOG": [
+			{
+				"decl": "out vec4 FOG",
+				"doc": "If written to on any branch, blends final pixel color with `FOG.rgb` based on `FOG.a`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "out vec4 FOG",
+				"doc": "",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"RADIANCE": [
+			{
+				"decl": "out vec4 RADIANCE",
+				"doc": "If written to on any branch, blends environment map radiance with `RADIANCE.rgb` based on `RADIANCE.a`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			},
+			{
+				"decl": "samplerCube RADIANCE",
+				"doc": "Radiance cubemap. Can only be read from during the background pass. Check `!AT_CUBEMAP_PASS` before using.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"IRRADIANCE": [
+			{
+				"decl": "out vec4 IRRADIANCE",
+				"doc": "If written to on any branch, blends environment map irradiance with `IRRADIANCE.rgb` based on `IRRADIANCE.a`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"LIGHT": [
+			{
+				"decl": "in vec3 LIGHT",
+				"doc": "Light vector, in view space.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "inout vec4 LIGHT",
+				"doc": "Output color for this class_Light2D.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"LIGHT_COLOR": [
+			{
+				"decl": "in vec3 LIGHT_COLOR",
+				"doc": "Light color multiplied by light energy multiplied by `PI`. The `PI` multiplication is present because physically-based lighting models include a division by `PI`.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "in vec4 LIGHT_COLOR",
+				"doc": "Color of the class_Light2D. If the light is a class_PointLight2D, it's multiplied by the light's texture.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"SPECULAR_AMOUNT": [
+			{
+				"decl": "in float SPECULAR_AMOUNT",
+				"doc": "For class_OmniLight3D and class_SpotLight3D, `2.0` multiplied by light_specular. For class_DirectionalLight3D, `1.0`.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"LIGHT_IS_DIRECTIONAL": [
+			{
+				"decl": "in bool LIGHT_IS_DIRECTIONAL",
+				"doc": "`true` if this pass is a class_DirectionalLight3D.",
+				"shaderType": "spatial",
+				"stage": "light"
+			},
+			{
+				"decl": "in bool LIGHT_IS_DIRECTIONAL",
+				"doc": "`true` if this pass is a class_DirectionalLight2D.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"ATTENUATION": [
+			{
+				"decl": "in float ATTENUATION",
+				"doc": "Attenuation based on distance or shadow.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"DIFFUSE_LIGHT": [
+			{
+				"decl": "out vec3 DIFFUSE_LIGHT",
+				"doc": "Diffuse light result.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"SPECULAR_LIGHT": [
+			{
+				"decl": "out vec3 SPECULAR_LIGHT",
+				"doc": "Specular light result.",
+				"shaderType": "spatial",
+				"stage": "light"
+			}
+		],
+		"CANVAS_MATRIX": [
+			{
+				"decl": "in mat4 CANVAS_MATRIX",
+				"doc": "World space to canvas space transform. In canvas space the origin is the upper-left corner of the screen and coordinates range from `(0.0, 0.0)` to viewport size.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"SCREEN_MATRIX": [
+			{
+				"decl": "in mat4 SCREEN_MATRIX",
+				"doc": "Canvas space to clip space transform. In clip space coordinates range from `(-1.0, -1.0)` to `(1.0, 1.0).`",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"AT_LIGHT_PASS": [
+			{
+				"decl": "in bool AT_LIGHT_PASS",
+				"doc": "Always `false`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in bool AT_LIGHT_PASS",
+				"doc": "Always `false`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"TEXTURE_PIXEL_SIZE": [
+			{
+				"decl": "in vec2 TEXTURE_PIXEL_SIZE",
+				"doc": "Normalized pixel size of the default 2D texture. For a Sprite2D with a texture of size 64×32 pixels, `TEXTURE_PIXEL_SIZE` = `vec2(1.0 / 64.0, 1.0 / 32.0)`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 TEXTURE_PIXEL_SIZE",
+				"doc": "Normalized pixel size of the default 2D texture. For a Sprite2D with a texture of size 64×32 pixels, `TEXTURE_PIXEL_SIZE` = `vec2(1.0 / 64.0, 1.0 / 32.0)`.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec2 TEXTURE_PIXEL_SIZE",
+				"doc": "Normalized pixel size of `TEXTURE`. For a Sprite2D with a `TEXTURE` of size 64×32 pixels, `TEXTURE_PIXEL_SIZE` = `vec2(1.0 / 64.0, 1.0 / 32.0)`.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"SCREEN_PIXEL_SIZE": [
+			{
+				"decl": "in vec2 SCREEN_PIXEL_SIZE",
+				"doc": "Size of individual pixels. Equal to the inverse of resolution.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"REGION_RECT": [
+			{
+				"decl": "in vec4 REGION_RECT",
+				"doc": "Visible area of the sprite region in format `(x, y, width, height)`. Varies according to Sprite2D's `region_enabled` property. Values are normalized; for example, a 600×400 region on a 1000×800 texture with a 100×100 offset would be `vec4(0.1, 0.125, 0.6, 0.5)`. Values may exceed the 0.0 to 1.0 range if the X/Y offset is negative, or if the size exceeds the texture's size.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"TEXTURE": [
+			{
+				"decl": "sampler2D TEXTURE",
+				"doc": "Default 2D texture.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "sampler2D TEXTURE",
+				"doc": "Current texture in use for the CanvasItem.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"SPECULAR_SHININESS_TEXTURE": [
+			{
+				"decl": "sampler2D SPECULAR_SHININESS_TEXTURE",
+				"doc": "Specular shininess texture of this object.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"SPECULAR_SHININESS": [
+			{
+				"decl": "in vec4 SPECULAR_SHININESS",
+				"doc": "Specular shininess color, as sampled from the texture.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			},
+			{
+				"decl": "in vec4 SPECULAR_SHININESS",
+				"doc": "Specular shininess, as set in the object's texture.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"NORMAL_TEXTURE": [
+			{
+				"decl": "sampler2D NORMAL_TEXTURE",
+				"doc": "Default 2D normal texture.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"SHADOW_VERTEX": [
+			{
+				"decl": "inout vec2 SHADOW_VERTEX",
+				"doc": "Same as `VERTEX` but can be written to alter shadows.",
+				"shaderType": "canvas_item",
+				"stage": "vertex"
+			}
+		],
+		"LIGHT_ENERGY": [
+			{
+				"decl": "in float LIGHT_ENERGY",
+				"doc": "Energy multiplier of the class_Light2D.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"LIGHT_POSITION": [
+			{
+				"decl": "in vec3 LIGHT_POSITION",
+				"doc": "Position of the class_Light2D in screen space. If using a class_DirectionalLight2D this is always `(0.0, 0.0, 0.0)`.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"LIGHT_DIRECTION": [
+			{
+				"decl": "in vec3 LIGHT_DIRECTION",
+				"doc": "Direction of the class_Light2D in screen space.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"SHADOW_MODULATE": [
+			{
+				"decl": "out vec4 SHADOW_MODULATE",
+				"doc": "Multiply shadows cast at this point by this color.",
+				"shaderType": "canvas_item",
+				"stage": "light"
+			}
+		],
+		"LIFETIME": [
+			{
+				"decl": "in float LIFETIME",
+				"doc": "Particle lifetime.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"DELTA": [
+			{
+				"decl": "in float DELTA",
+				"doc": "Delta process time.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"NUMBER": [
+			{
+				"decl": "in uint NUMBER",
+				"doc": "Unique number since emission start.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"INDEX": [
+			{
+				"decl": "in uint INDEX",
+				"doc": "Particle index (from total particles).",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"EMISSION_TRANSFORM": [
+			{
+				"decl": "in mat4 EMISSION_TRANSFORM",
+				"doc": "Emitter transform (used for non-local systems).",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"RANDOM_SEED": [
+			{
+				"decl": "in uint RANDOM_SEED",
+				"doc": "Random seed used as a base for randomness.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"ACTIVE": [
+			{
+				"decl": "inout bool ACTIVE",
+				"doc": "`true` when the particle is active, can be set to `false`.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"VELOCITY": [
+			{
+				"decl": "inout vec3 VELOCITY",
+				"doc": "Particle velocity, can be modified.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"TRANSFORM": [
+			{
+				"decl": "inout mat4 TRANSFORM",
+				"doc": "Particle transform.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"CUSTOM": [
+			{
+				"decl": "inout vec4 CUSTOM",
+				"doc": "Custom particle data. Accessible from the mesh's shader as `INSTANCE_CUSTOM`.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"MASS": [
+			{
+				"decl": "inout float MASS",
+				"doc": "Particle mass, intended to be used with attractors. `1.0` by default.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"USERDATAX": [
+			{
+				"decl": "in vec4 USERDATAX",
+				"doc": "Vector that enables the integration of supplementary user-defined data into the particle process shader. `USERDATAX` are six built-ins identified by number, `X` can be numbers between 1 and 6, for example `USERDATA3`.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"FLAG_EMIT_POSITION": [
+			{
+				"decl": "in uint FLAG_EMIT_POSITION",
+				"doc": "A flag for the last argument of the `emit_subparticle()` function to assign a position to a new particle's transform.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"FLAG_EMIT_ROT_SCALE": [
+			{
+				"decl": "in uint FLAG_EMIT_ROT_SCALE",
+				"doc": "A flag for the last argument of the `emit_subparticle()` function to assign a rotation and scale to a new particle's transform.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"FLAG_EMIT_VELOCITY": [
+			{
+				"decl": "in uint FLAG_EMIT_VELOCITY",
+				"doc": "A flag for the last argument of the `emit_subparticle()` function to assign a velocity to a new particle.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"FLAG_EMIT_COLOR": [
+			{
+				"decl": "in uint FLAG_EMIT_COLOR",
+				"doc": "A flag for the last argument of the `emit_subparticle()` function to assign a color to a new particle.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"FLAG_EMIT_CUSTOM": [
+			{
+				"decl": "in uint FLAG_EMIT_CUSTOM",
+				"doc": "A flag for the last argument of the `emit_subparticle()` function to assign a custom data vector to a new particle.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"EMITTER_VELOCITY": [
+			{
+				"decl": "in vec3 EMITTER_VELOCITY",
+				"doc": "Velocity of the Particles2D (3D) node.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"INTERPOLATE_TO_END": [
+			{
+				"decl": "in float INTERPOLATE_TO_END",
+				"doc": "Value of the interp_to_end (3D) property of the Particles node.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"AMOUNT_RATIO": [
+			{
+				"decl": "in uint AMOUNT_RATIO",
+				"doc": "Value of the amount_ratio (3D) property of the Particles node.",
+				"shaderType": "particles",
+				"stage": "start, process"
+			}
+		],
+		"RESTART_POSITION": [
+			{
+				"decl": "in bool RESTART_POSITION",
+				"doc": "`true` if particle is restarted, or emitted without a custom position (i.e. this particle was created by `emit_subparticle()` without the `FLAG_EMIT_POSITION` flag).",
+				"shaderType": "particles",
+				"stage": "start"
+			}
+		],
+		"RESTART_ROT_SCALE": [
+			{
+				"decl": "in bool RESTART_ROT_SCALE",
+				"doc": "`true` if particle is restarted, or emitted without a custom rotation or scale (i.e. this particle was created by `emit_subparticle()` without the `FLAG_EMIT_ROT_SCALE` flag).",
+				"shaderType": "particles",
+				"stage": "start"
+			}
+		],
+		"RESTART_VELOCITY": [
+			{
+				"decl": "in bool RESTART_VELOCITY",
+				"doc": "`true` if particle is restarted, or emitted without a custom velocity (i.e. this particle was created by `emit_subparticle()` without the `FLAG_EMIT_VELOCITY` flag).",
+				"shaderType": "particles",
+				"stage": "start"
+			}
+		],
+		"RESTART_COLOR": [
+			{
+				"decl": "in bool RESTART_COLOR",
+				"doc": "`true` if particle is restarted, or emitted without a custom color (i.e. this particle was created by `emit_subparticle()` without the `FLAG_EMIT_COLOR` flag).",
+				"shaderType": "particles",
+				"stage": "start"
+			}
+		],
+		"RESTART_CUSTOM": [
+			{
+				"decl": "in bool RESTART_CUSTOM",
+				"doc": "`true` if particle is restarted, or emitted without a custom property (i.e. this particle was created by `emit_subparticle()` without the `FLAG_EMIT_CUSTOM` flag).",
+				"shaderType": "particles",
+				"stage": "start"
+			}
+		],
+		"RESTART": [
+			{
+				"decl": "in bool RESTART",
+				"doc": "`true` if the current process frame is the first for the particle.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		],
+		"COLLIDED": [
+			{
+				"decl": "in bool COLLIDED",
+				"doc": "`true` when the particle has collided with a particle collider.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		],
+		"COLLISION_NORMAL": [
+			{
+				"decl": "in vec3 COLLISION_NORMAL",
+				"doc": "A normal of the last collision. If there is no collision detected it is equal to `(0.0, 0.0, 0.0)`.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		],
+		"COLLISION_DEPTH": [
+			{
+				"decl": "in float COLLISION_DEPTH",
+				"doc": "A length of the normal of the last collision. If there is no collision detected it is equal to `0.0`.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		],
+		"ATTRACTOR_FORCE": [
+			{
+				"decl": "in vec3 ATTRACTOR_FORCE",
+				"doc": "A combined force of the attractors at the moment on that particle.",
+				"shaderType": "particles",
+				"stage": "process"
+			}
+		],
+		"AT_HALF_RES_PASS": [
+			{
+				"decl": "in bool AT_HALF_RES_PASS",
+				"doc": "`true` when rendering to the half resolution pass.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"AT_QUARTER_RES_PASS": [
+			{
+				"decl": "in bool AT_QUARTER_RES_PASS",
+				"doc": "`true` when rendering to the quarter resolution pass.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"AT_CUBEMAP_PASS": [
+			{
+				"decl": "in bool AT_CUBEMAP_PASS",
+				"doc": "`true` when rendering to the radiance cubemap.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"LIGHTX_ENABLED": [
+			{
+				"decl": "in bool LIGHTX_ENABLED",
+				"doc": "`true` if `LIGHTX` is visible and in the scene. If `false`, other light properties may be garbage.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"LIGHTX_ENERGY": [
+			{
+				"decl": "in float LIGHTX_ENERGY",
+				"doc": "Energy multiplier for `LIGHTX`.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"LIGHTX_DIRECTION": [
+			{
+				"decl": "in vec3 LIGHTX_DIRECTION",
+				"doc": "Direction that `LIGHTX` is facing.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"LIGHTX_COLOR": [
+			{
+				"decl": "in vec3 LIGHTX_COLOR",
+				"doc": "Color of `LIGHTX`.",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"LIGHTX_SIZE": [
+			{
+				"decl": "in float LIGHTX_SIZE",
+				"doc": "Angular diameter of `LIGHTX` in the sky. Expressed in radians. For reference, the sun from earth is about .0087 radians (0.5 degrees).",
+				"shaderType": "sky",
+				"stage": "global"
+			}
+		],
+		"EYEDIR": [
+			{
+				"decl": "in vec3 EYEDIR",
+				"doc": "Normalized direction of the current pixel. Use this as your basic direction for procedural effects.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"SKY_COORDS": [
+			{
+				"decl": "in vec2 SKY_COORDS",
+				"doc": "Sphere UV. Used to map a panorama texture to the sky.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"HALF_RES_COLOR": [
+			{
+				"decl": "in vec4 HALF_RES_COLOR",
+				"doc": "Color value of the corresponding pixel from the half resolution pass. Uses linear filter.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"QUARTER_RES_COLOR": [
+			{
+				"decl": "in vec4 QUARTER_RES_COLOR",
+				"doc": "Color value of the corresponding pixel from the quarter resolution pass. Uses linear filter.",
+				"shaderType": "sky",
+				"stage": "sky"
+			}
+		],
+		"WORLD_POSITION": [
+			{
+				"decl": "in vec3 WORLD_POSITION",
+				"doc": "Position of current froxel cell in world space.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"OBJECT_POSITION": [
+			{
+				"decl": "in vec3 OBJECT_POSITION",
+				"doc": "Position of the center of the current FogVolume in world space.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"UVW": [
+			{
+				"decl": "in vec3 UVW",
+				"doc": "3-dimensional UV, used to map a 3D texture to the current FogVolume.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"SIZE": [
+			{
+				"decl": "in vec3 SIZE",
+				"doc": "Size of the current FogVolume when its shape has a size.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"SDF": [
+			{
+				"decl": "in vec3 SDF",
+				"doc": "Signed distance field to the surface of the FogVolume. Negative if inside volume, positive otherwise.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"DENSITY": [
+			{
+				"decl": "out float DENSITY",
+				"doc": "Output density value. Can be negative to allow subtracting one volume from another. Density must be used for fog shader to write anything at all.",
+				"shaderType": "fog",
+				"stage": "fog"
+			}
+		],
+		"MODULATE": [
+			{
+				"decl": "in vec4 MODULATE",
+				"doc": "`MODULATE` color passed in by RenderingServer API.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"COLOR0": [
+			{
+				"decl": "out vec4 COLOR0",
+				"doc": "Output color to blended with the DrawableTexture target. Initialized to `(0.0, 0.0, 0.0, 0.0)`.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"COLOR1": [
+			{
+				"decl": "out vec4 COLOR1",
+				"doc": "Output color to blended with an extra DrawableTexture target. Initialized to `(0.0, 0.0, 0.0, 0.0)`.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"COLOR2": [
+			{
+				"decl": "out vec4 COLOR2",
+				"doc": "Output color to blended with an extra DrawableTexture target. Initialized to `(0.0, 0.0, 0.0, 0.0)`.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		],
+		"COLOR3": [
+			{
+				"decl": "out vec4 COLOR3",
+				"doc": "Output color to blended with an extra DrawableTexture target. Initialized to `(0.0, 0.0, 0.0, 0.0)`.",
+				"shaderType": "texture_blit",
+				"stage": "global"
+			}
+		]
+	},
+	"renderModes": {
+		"spatial": {
+			"blend_mix": "Mix blend mode (alpha is transparency), default.",
+			"blend_add": "Additive blend mode.",
+			"blend_sub": "Subtractive blend mode.",
+			"blend_mul": "Multiplicative blend mode.",
+			"blend_premul_alpha": "Premultiplied alpha blend mode (fully transparent = add, fully opaque = mix).",
+			"depth_draw_opaque": "Only draw depth for opaque geometry (not transparent).",
+			"depth_draw_always": "Always draw depth (opaque and transparent).",
+			"depth_draw_never": "Never draw depth.",
+			"depth_prepass_alpha": "Do opaque depth pre-pass for transparent geometry.",
+			"depth_test_disabled": "Disable depth testing.",
+			"depth_test_default": "Depth test will discard the pixel if it is behind other pixels. In Forward+ only, the pixel is also discarded if it's at the exact same depth as another pixel.",
+			"depth_test_inverted": "Depth test will discard the pixel if it is in front of other pixels. Useful for stencil effects.",
+			"sss_mode_skin": "Subsurface Scattering mode for skin (optimizes visuals for human skin, e.g. boosted red channel).",
+			"cull_back": "Cull back-faces (default).",
+			"cull_front": "Cull front-faces.",
+			"cull_disabled": "Culling disabled (double sided).",
+			"unshaded": "Result is just albedo. No lighting/shading happens in material, making it faster to render.",
+			"wireframe": "Geometry draws using lines (useful for troubleshooting). When using the Compatibility renderer, you must call `RenderingServer.set_debug_generate_wireframes(true)` *before* the mesh is loaded for wireframe rendering to work. In the Compatibility renderer, backface culling is always disabled in wireframe mode, while in the Forward+ and Mobile renderers, the cull mode is respected.",
+			"debug_shadow_splits": "Directional shadows are drawn using different colors for each split (useful for troubleshooting).",
+			"diffuse_burley": "Burley (Disney PBS) for diffuse (default).",
+			"diffuse_lambert": "Lambert shading for diffuse.",
+			"diffuse_lambert_wrap": "Lambert-wrap shading (roughness-dependent) for diffuse.",
+			"diffuse_toon": "Toon shading for diffuse.",
+			"specular_schlick_ggx": "Schlick-GGX for direct light specular lobes (default).",
+			"specular_toon": "Toon for direct light specular lobes.",
+			"specular_disabled": "Disable direct light specular lobes. Doesn't affect reflected light (use `SPECULAR = 0.0` instead).",
+			"skip_vertex_transform": "`VERTEX`, `NORMAL`, `TANGENT`, and `BITANGENT` need to be transformed manually in the `vertex()` function.",
+			"world_vertex_coords": "`VERTEX`, `NORMAL`, `TANGENT`, and `BITANGENT` are modified in world space instead of model space.",
+			"ensure_correct_normals": "Use when non-uniform scale is applied to mesh *(note: currently unimplemented)*.",
+			"shadows_disabled": "Disable computing shadows in shader. The shader will not receive shadows, but can still cast them.",
+			"ambient_light_disabled": "Disable contribution from ambient light and radiance map.",
+			"shadow_to_opacity": "Lighting modifies the alpha so shadowed areas are opaque and non-shadowed areas are transparent. Useful for overlaying shadows onto a camera feed in AR.",
+			"vertex_lighting": "Use vertex-based lighting instead of per-pixel lighting.",
+			"particle_trails": "Enables the trails when used on particle geometry.",
+			"alpha_to_coverage": "Alpha antialiasing mode, see [here](https://github.com/godotengine/godot/pull/40364) for more.",
+			"alpha_to_coverage_and_one": "Alpha antialiasing mode, see [here](https://github.com/godotengine/godot/pull/40364) for more.",
+			"fog_disabled": "Disable receiving depth-based or volumetric fog. Useful for `blend_add` materials like particles."
+		},
+		"canvas_item": {
+			"blend_mix": "Mix blend mode (alpha is transparency), default.",
+			"blend_add": "Additive blend mode.",
+			"blend_sub": "Subtractive blend mode.",
+			"blend_mul": "Multiplicative blend mode.",
+			"blend_premul_alpha": "Pre-multiplied alpha blend mode.",
+			"blend_disabled": "Disable blending, values (including alpha) are written as-is.",
+			"unshaded": "Result is just albedo. No lighting/shading happens in material.",
+			"light_only": "Only draw in the light pass.",
+			"skip_vertex_transform": "`VERTEX` needs to be transformed manually in the `vertex()` function.",
+			"world_vertex_coords": "`VERTEX` is modified in world coordinates instead of local."
+		},
+		"particles": {
+			"keep_data": "Do not clear previous data on restart.",
+			"disable_force": "Disable attractor force.",
+			"disable_velocity": "Ignore `VELOCITY` value.",
+			"collision_use_scale": "Scale the particle's size for collisions."
+		},
+		"sky": {
+			"use_half_res_pass": "Allows the shader to write to and access the half resolution pass.",
+			"use_quarter_res_pass": "Allows the shader to write to and access the quarter resolution pass.",
+			"disable_fog": "If used, fog will not affect the sky."
+		},
+		"texture_blit": {
+			"blend_disabled": "Disable blending, values (including alpha) are written as-is. Default.",
+			"blend_mix": "Mix blend mode (alpha is transparency).",
+			"blend_add": "Additive blend mode.",
+			"blend_sub": "Subtractive blend mode.",
+			"blend_mul": "Multiplicative blend mode."
+		}
+	},
+	"stencilModes": {
+		"spatial": {
+			"read": "Read from the stencil buffer.",
+			"write": "Write reference value to the stencil buffer.",
+			"write_if_depth_fail": "Write reference value to the stencil buffer if the depth test fails.",
+			"compare_always": "Always pass stencil test.",
+			"compare_equal": "Pass stencil test if the reference value is equal to the stencil buffer value.",
+			"compare_not_equal": "Pass stencil test if the reference value is not equal to the stencil buffer value.",
+			"compare_less": "Pass stencil test if the reference value is less than the stencil buffer value.",
+			"compare_less_or_equal": "Pass stencil test if the reference value is less than or equal to the stencil buffer value.",
+			"compare_greater": "Pass stencil test if the reference value is greater than the stencil buffer value.",
+			"compare_greater_or_equal": "Pass stencil test if the reference value is greater than or equal to the stencil buffer value."
+		}
+	},
+	"hints": {
+		"source_color": {
+			"types": "sampler2D",
+			"doc": "Used as albedo color.",
+			"label": "source_color"
+		},
+		"hint_enum": {
+			"types": "int",
+			"doc": "Displays int input as a dropdown widget in the editor.",
+			"label": "hint_enum(\"String1\", \"String2\")"
+		},
+		"hint_range": {
+			"types": "int, float",
+			"doc": "Restricted to values in a range (with min/max/step).",
+			"label": "hint_range(min, max[, step])"
+		},
+		"hint_normal": {
+			"types": "sampler2D",
+			"doc": "Used as normalmap.",
+			"label": "hint_normal"
+		},
+		"hint_default_white": {
+			"types": "sampler2D",
+			"doc": "As value or albedo color, default to opaque white.",
+			"label": "hint_default_white"
+		},
+		"hint_default_black": {
+			"types": "sampler2D",
+			"doc": "As value or albedo color, default to opaque black.",
+			"label": "hint_default_black"
+		},
+		"hint_default_transparent": {
+			"types": "sampler2D",
+			"doc": "As value or albedo color, default to transparent black.",
+			"label": "hint_default_transparent"
+		},
+		"hint_anisotropy": {
+			"types": "sampler2D",
+			"doc": "As flowmap, default to right.",
+			"label": "hint_anisotropy"
+		},
+		"hint_roughness_r": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_r"
+		},
+		"hint_roughness_g": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_g"
+		},
+		"hint_roughness_b": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_b"
+		},
+		"hint_roughness_a": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_a"
+		},
+		"hint_roughness_normal": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_normal"
+		},
+		"hint_roughness_gray": {
+			"types": "sampler2D",
+			"doc": "Used for roughness limiter on import (attempts reducing specular aliasing). `_normal` is a normal map that guides the roughness limiter, with roughness increasing in areas that have high-frequency detail.",
+			"label": "hint_roughness_gray"
+		},
+		"filter_nearest": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_nearest"
+		},
+		"filter_linear": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_linear"
+		},
+		"filter_nearest_mipmap": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_nearest_mipmap"
+		},
+		"filter_linear_mipmap": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_linear_mipmap"
+		},
+		"filter_nearest_mipmap_anisotropic": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_nearest_mipmap_anisotropic"
+		},
+		"filter_linear_mipmap_anisotropic": {
+			"types": "sampler2D",
+			"doc": "Enabled specified texture filtering.",
+			"label": "filter_linear_mipmap_anisotropic"
+		},
+		"repeat_enable": {
+			"types": "sampler2D",
+			"doc": "Enabled texture repeating.",
+			"label": "repeat_enable"
+		},
+		"repeat_disable": {
+			"types": "sampler2D",
+			"doc": "Enabled texture repeating.",
+			"label": "repeat_disable"
+		},
+		"hint_screen_texture": {
+			"types": "sampler2D",
+			"doc": "Texture is the screen texture.",
+			"label": "hint_screen_texture"
+		},
+		"hint_depth_texture": {
+			"types": "sampler2D",
+			"doc": "Texture is the depth texture.",
+			"label": "hint_depth_texture"
+		},
+		"hint_normal_roughness_texture": {
+			"types": "sampler2D",
+			"doc": "Texture is the normal roughness texture (only supported in Forward+).",
+			"label": "hint_normal_roughness_texture"
+		},
+		"no_storage": {
+			"types": "any",
+			"doc": "The value of the uniform is not saved to the class_ShaderMaterial resource file. Useful for uniforms that are set at runtime, especially from a `@tool` script. This is the equivalent of disabling PROPERTY_USAGE_STORAGE in GDScript.",
+			"label": "no_storage"
+		},
+		"no_editor": {
+			"types": "any",
+			"doc": "The uniform is not shown in the editor's inspector. Useful for uniforms that are intended to only be set through code. This is the equivalent of disabling PROPERTY_USAGE_EDITOR in GDScript.",
+			"label": "no_editor"
+		}
+	},
+	"types": {
+		"void": "Void datatype, useful only for functions that return nothing.",
+		"bool": "Boolean datatype, can only contain `true` or `false`.",
+		"bvec2": "Two-component vector of booleans.",
+		"bvec3": "Three-component vector of booleans.",
+		"bvec4": "Four-component vector of booleans.",
+		"int": "32 bit signed scalar integer.",
+		"ivec2": "Two-component vector of signed integers.",
+		"ivec3": "Three-component vector of signed integers.",
+		"ivec4": "Four-component vector of signed integers.",
+		"uint": "Unsigned scalar integer; can't contain negative numbers.",
+		"uvec2": "Two-component vector of unsigned integers.",
+		"uvec3": "Three-component vector of unsigned integers.",
+		"uvec4": "Four-component vector of unsigned integers.",
+		"float": "32 bit floating-point scalar.",
+		"vec2": "Two-component vector of floating-point values.",
+		"vec3": "Three-component vector of floating-point values.",
+		"vec4": "Four-component vector of floating-point values.",
+		"mat2": "2x2 matrix, in column major order.",
+		"mat3": "3x3 matrix, in column major order.",
+		"mat4": "4x4 matrix, in column major order.",
+		"sampler2D": "Sampler type for binding 2D textures, which are read as float.",
+		"isampler2D": "Sampler type for binding 2D textures, which are read as signed integer.",
+		"usampler2D": "Sampler type for binding 2D textures, which are read as unsigned integer.",
+		"sampler2DArray": "Sampler type for binding 2D texture arrays, which are read as float.",
+		"isampler2DArray": "Sampler type for binding 2D texture arrays, which are read as signed integer.",
+		"usampler2DArray": "Sampler type for binding 2D texture arrays, which are read as unsigned integer.",
+		"sampler3D": "Sampler type for binding 3D textures, which are read as float.",
+		"isampler3D": "Sampler type for binding 3D textures, which are read as signed integer.",
+		"usampler3D": "Sampler type for binding 3D textures, which are read as unsigned integer.",
+		"samplerCube": "Sampler type for binding Cubemaps, which are read as float.",
+		"samplerCubeArray": "Sampler type for binding Cubemap arrays, which are read as float. Only supported in Forward+ and Mobile, not Compatibility.",
+		"samplerExternalOES": "External sampler type. Only supported in Compatibility/Android platform."
+	},
+	"qualifiers": {
+		"flat": "The value is not interpolated.",
+		"smooth": "The value is interpolated in a perspective-correct fashion. This is the default."
+	}
+}

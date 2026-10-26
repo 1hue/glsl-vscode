@@ -3,6 +3,12 @@
 *.vsix
 build/**
 scripts/**
+src/**
+out/scripts/**
+out/**/*.map
+node_modules/**
+tsconfig.json
+LICENSES/**
 package-lock.json
 REUSE.toml
 *.glsl
