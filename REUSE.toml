@@ -8,8 +8,9 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 1hue"
 SPDX-License-Identifier = "MIT"
 
-# Copied (reformatted only) from https://github.com/stef-levesque/vscode-shader
+# Copied from https://github.com/stef-levesque/vscode-shader
 # (commit f1c804839f9f58a6749c9a840187c5527b76b053), see LICENSE-vscode-shader.md
+# Reformatted; syntaxes/glsl.tmLanguage also has an `#include` rule added.
 [[annotations]]
 path = [
   "glsl.configuration.json",

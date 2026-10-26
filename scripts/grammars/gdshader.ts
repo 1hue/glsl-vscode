@@ -19,6 +19,14 @@ export function gdshaderGrammar(godot: Definitions): object {
 		name: 'Godot Shader',
 		scopeName: 'source.gdshader',
 		patterns: [
+			// Before GLSL's rules, which have no strings and would take `//` in `res://` for a comment
+			{
+				match: '^\\s*(#\\s*include)\\s+("[^"]*")',
+				captures: {
+					1: { name: 'keyword.directive.preprocessor.gdshader' },
+					2: { name: 'string.quoted.double.include.gdshader' },
+				},
+			},
 			{
 				match: '\\b(shader_type)\\s+(\\w+)',
 				captures: {

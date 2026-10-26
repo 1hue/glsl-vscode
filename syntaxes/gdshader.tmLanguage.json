@@ -4,6 +4,17 @@
 	"scopeName": "source.gdshader",
 	"patterns": [
 		{
+			"match": "^\\s*(#\\s*include)\\s+(\"[^\"]*\")",
+			"captures": {
+				"1": {
+					"name": "keyword.directive.preprocessor.gdshader"
+				},
+				"2": {
+					"name": "string.quoted.double.include.gdshader"
+				}
+			}
+		},
+		{
 			"match": "\\b(shader_type)\\s+(\\w+)",
 			"captures": {
 				"1": {

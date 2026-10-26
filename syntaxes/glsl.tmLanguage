@@ -35,6 +35,23 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<key>match</key>
+			<string>^\s*(#\s*include)\s+("[^"]*"|&lt;[^&gt;]*&gt;)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.directive.preprocessor.glsl</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string.quoted.include.glsl</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
 			<key>include</key>
 			<string>#literal</string>
 		</dict>
