@@ -21,7 +21,7 @@ export const signatureHelpProvider: vscode.SignatureHelpProvider = {
 		help.signatures = signatures;
 		help.activeParameter = call.argument;
 
-		// First overload that has enough parameters for the argument being typed.
+		// First overload with enough params for current argument
 		const fitting = signatures.findIndex((s) => s.parameters.length > call.argument);
 		help.activeSignature = Math.max(0, fitting);
 
@@ -33,7 +33,7 @@ function signatureInformation(name: string, signature: Signature, group?: Functi
 	const label = signatureLabel(name, signature);
 	const info = new vscode.SignatureInformation(label, group?.doc ? markdown(group.doc) : undefined);
 
-	// Parameter ranges are offsets into the label so VS Code highlights the right one.
+	// Param ranges as label offsets so VS Code highlights the right one
 	let searchFrom = label.indexOf('(') + 1;
 	for (const param of signature.params) {
 		const text = `${param.type} ${param.name}`.trim();
@@ -61,7 +61,7 @@ function builtinSignatures(document: vscode.TextDocument, position: vscode.Posit
 	);
 }
 
-/** User functions: parameters are read back from the declaration text. */
+/** User functions: params read from declaration text */
 function userSignatures(document: vscode.TextDocument, position: vscode.Position, name: string) {
 	const symbol = visibleSymbols(scanDocument(document), document.offsetAt(position)).find(
 		(s) => s.name === name && s.kind === 'function',

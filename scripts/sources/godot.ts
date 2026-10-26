@@ -100,15 +100,16 @@ function parseSubstitutions(text: string): Record<string, string> {
 	return substitutions;
 }
 
-/** reStructuredText inline markup to Markdown. */
+/** reStructuredText inline markup to Markdown */
 function inline(text: string, substitutions: Record<string, string>): string {
 	const codeSpans: string[] = [];
-	const protect = (code: string) => `\u0000${codeSpans.push(code) - 1}\u0000`;
+	// Code span to placeholder (`replace` passes the match and its capture)
+	const protect = (_match: string, code: string) => `\u0000${codeSpans.push('`' + code + '`') - 1}\u0000`;
 	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
 	const markdown = text
-		.replace(/``(.+?)``/g, (_, code) => protect('`' + code + '`'))
-		.replace(/:math:`([^`]+)`/g, (_, math) => protect('`' + math + '`'))
+		.replace(/``(.+?)``/g, protect)
+		.replace(/:math:`([^`]+)`/g, protect)
 		.replace(/\|(\w+)\|/g, (match, name) => substitutions[name] ?? match)
 		.replace(/:abbr:`(\S+) \([^)]*\)`/g, '$1')
 		.replace(/:ref:`([^`<]+?)\s*<[^>]+>`/g, '$1')
@@ -125,7 +126,7 @@ function indentOf(line: string): number {
 	return line.length - line.trimStart().length;
 }
 
-/** Lines after `start` indented deeper than `indent`, dedented. Blank lines are kept. */
+/** Lines after `start` indented past `indent`, dedented with blank lines kept */
 function indentedBlock(lines: string[], start: number, indent: number): { lines: string[]; end: number } {
 	const body: string[] = [];
 	let end = start;
@@ -195,7 +196,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 		paragraph = [];
 	};
 
-	// Text on the directive/field line plus its indented continuation
+	// Directive/field line text plus indented continuation
 	const content = (i: number, firstLine: string) => {
 		const block = indentedBlock(lines, i + 1, indentOf(lines[i]));
 		const text = [firstLine, ...block.lines].join('\n').trim();
@@ -251,7 +252,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 	};
 }
 
-/** Section headings: a text line followed by an underline of one repeated character. */
+/** Headings: text line underlined with one repeated character */
 function isHeading(lines: string[], i: number): boolean {
 	const text = lines[i];
 	const underline = lines[i + 1] ?? '';
@@ -263,7 +264,7 @@ function isHeading(lines: string[], i: number): boolean {
 	);
 }
 
-/** Top-level (unindented) grid tables with the heading they appear under. */
+/** Unindented grid tables with their heading */
 function* gridTables(text: string): Generator<{ heading: string; table: GridTable }> {
 	const lines = text.split('\n');
 	let heading = '';
@@ -329,7 +330,7 @@ function parseGridTable(lines: string[]): GridTable {
 
 		const cells = cellsOf(line);
 
-		// Some rows are missing their separator: a new bold name in the first column starts a new row.
+		// Rows missing a separator: new bold name in first column starts a row
 		const startsNewEntry = current.length && /\*\*/.test(cells[0]) && current[0].some((l) => /\*\*/.test(l));
 		if (startsNewEntry) {
 			flushRow();
@@ -354,7 +355,7 @@ function stageFor(heading: string, current: string | undefined): string | undefi
 	return current;
 }
 
-/** Built-ins, functions, render modes and stencil modes of one shader type page. */
+/** Built-ins, functions, render/stencil modes of one shader type page */
 function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: string, substitutions: Record<string, string>) {
 	let stage: string | undefined;
 	let lastHeading = '';
@@ -411,7 +412,7 @@ function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: 
 	}
 }
 
-/** Data types, interpolation qualifiers and uniform hints. */
+/** Data types, interpolation qualifiers, uniform hints */
 function addLanguagePage(definitions: GodotDefinitions, text: string, substitutions: Record<string, string>) {
 	for (const { table } of gridTables(text)) {
 		const [first, second, third] = table.header;

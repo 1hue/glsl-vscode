@@ -1,4 +1,4 @@
-// Keywords and types for completion. Built-in functions and variables come from data/*.json.
+// Keywords and types for completion; built-in functions and variables in data/*.json.
 
 import { Construct, GLSL_CONSTRUCTS } from './constructs';
 
@@ -7,12 +7,13 @@ function namesOf(kinds: Construct['kind'][]): string[] {
 	return [...new Set(constructs.flatMap((construct) => construct.names))];
 }
 
-const STATEMENT_KEYWORDS = namesOf(['statement']);
+export const STATEMENT_KEYWORDS = namesOf(['statement']);
 
-const GODOT_KEYWORDS = [
-	'shader_type', 'render_mode', 'stencil_mode', 'group_uniforms', 'global', 'instance',
-	'uniform', 'varying', 'const', 'in', 'out', 'inout', 'flat', 'smooth', 'lowp', 'mediump', 'highp',
+export const GDSHADER_QUALIFIERS = [
+	'global', 'instance', 'uniform', 'varying', 'const', 'in', 'out', 'inout', 'flat', 'smooth', 'lowp', 'mediump', 'highp',
 ];
+
+const GODOT_KEYWORDS = ['shader_type', 'render_mode', 'stencil_mode', 'group_uniforms', ...GDSHADER_QUALIFIERS];
 
 function vectorAndMatrixTypes(): string[] {
 	const types = ['void', 'bool', 'int', 'uint', 'float', 'double', 'atomic_uint'];
@@ -48,14 +49,18 @@ function opaqueTypes(): string[] {
 }
 
 export const GLSL_KEYWORDS = namesOf(['statement', 'qualifier']);
+export const GLSL_QUALIFIERS = namesOf(['qualifier']);
 export const GLSL_TYPES = [...vectorAndMatrixTypes(), ...opaqueTypes()];
 
 export const GDSHADER_KEYWORDS = [...STATEMENT_KEYWORDS, ...GODOT_KEYWORDS];
 
+// Godot's preprocessor, with `#include`
+export const GDSHADER_DIRECTIVES = ['#define', '#undef', '#if', '#ifdef', '#ifndef', '#elif', '#else', '#endif', '#include', '#pragma', '#error'];
+
 // Godot `shader_type` values
 export const GDSHADER_SHADER_TYPES = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
 
-// Godot processing functions; built-ins are scoped to these.
+// Godot processing functions; built-ins scoped to these
 export const GDSHADER_STAGE_FUNCTIONS = ['vertex', 'fragment', 'light', 'start', 'process', 'sky', 'fog', 'blit'];
 
 // GLSL stage by file extension

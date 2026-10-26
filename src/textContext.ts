@@ -1,6 +1,7 @@
-// What surrounds the cursor: the word under it and the statement it's in.
+// Word and statement around the cursor.
 
 import * as vscode from 'vscode';
+import { DeclarationScope } from './constructs';
 import { stripComments } from './symbols';
 
 export type StatementKind = 'shaderType' | 'renderMode' | 'stencilMode' | 'hint' | undefined;
@@ -13,13 +14,13 @@ export function wordAt(document: vscode.TextDocument, position: vscode.Position)
 	return { word: document.getText(range), range };
 }
 
-/** `v.xyz` or `s.member`: built-in lookups don't apply after a dot. */
+/** `v.xyz`, `s.member`: no built-ins after a dot */
 export function isMemberAccess(document: vscode.TextDocument, start: vscode.Position): boolean {
 	const before = document.lineAt(start.line).text.slice(0, start.character);
 	return /\.\s*$/.test(before);
 }
 
-/** Text of the current statement up to the cursor, comments removed. */
+/** Current statement up to cursor without comments */
 export function statementBefore(document: vscode.TextDocument, position: vscode.Position): string {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 2000);
@@ -29,7 +30,7 @@ export function statementBefore(document: vscode.TextDocument, position: vscode.
 	return text.slice(boundary + 1);
 }
 
-/** Godot statements whose words are modes, shader types or uniform hints rather than identifiers. */
+/** Godot statements of modes, shader types or uniform hints rather than identifiers */
 export function statementKind(statement: string): StatementKind {
 	if (/^\s*shader_type\b/.test(statement)) {
 		return 'shaderType';
@@ -41,14 +42,113 @@ export function statementKind(statement: string): StatementKind {
 		return 'stencilMode';
 	}
 
-	// `uniform vec4 color : source_color, filter_linear = ...` between the colon and `=`
+	// `uniform vec4 color : source_color, filter_linear = ...`, between `:` and `=`
 	if (/^\s*(?:(?:global|instance)\s+)?uniform\b[^:=]*:[^=]*$/.test(statement)) {
 		return 'hint';
 	}
 	return undefined;
 }
 
-/** Innermost unclosed call before the cursor: function name and active argument index. */
+export type CursorContext =
+	| { kind: 'directive' } // `#ver|`
+	| { kind: 'layout' } // `layout(std|`
+	| { kind: 'declaration'; scope: DeclarationScope; qualifiers: string[] } // `uniform |`: more qualifiers or a type
+	| { kind: 'statement' } // Statement start in function body
+	| { kind: 'expression' } // `x = |`, `f(|`
+	| { kind: 'name' }; // `vec4 |`: name follows
+
+/**
+ * What fits at the cursor from text before it (`undefined` if unclear)
+ * `qualifierNames`, `typeNames`: tell qualifiers and types from other words
+ */
+export function cursorContext(
+	document: vscode.TextDocument,
+	position: vscode.Position,
+	qualifierNames: Set<string>,
+	typeNames: Set<string>,
+): CursorContext | undefined {
+	const line = document.lineAt(position.line).text.slice(0, position.character).replace(/\w*$/, '');
+	if (/^\s*#\s*$/.test(line)) {
+		return { kind: 'directive' };
+	}
+	if (/^\s*#/.test(line)) {
+		return undefined;
+	}
+
+	// Text before word being typed minus comments and preprocessor lines
+	const before = document.getText(new vscode.Range(new vscode.Position(0, 0), position)).replace(/\w*$/, '');
+	const text = stripComments(before).replace(/^[ \t]*#.*$/gm, '');
+
+	const scope = braceScope(text);
+	const statement = text.slice(Math.max(text.lastIndexOf(';'), text.lastIndexOf('{'), text.lastIndexOf('}')) + 1);
+
+	if (/\blayout\s*\([^()]*$/.test(statement)) {
+		return { kind: 'layout' };
+	}
+
+	const openParens = (statement.match(/\(/g)?.length ?? 0) - (statement.match(/\)/g)?.length ?? 0);
+	if (openParens > 0) {
+		// `vec4 shade(in |` at global scope is params, other parens an expression
+		if (scope !== 'global' || statement.includes('=')) {
+			return { kind: 'expression' };
+		}
+		const parameter = statement.slice(Math.max(statement.lastIndexOf('('), statement.lastIndexOf(',')) + 1);
+		return declarationContext(parameter, 'parameter', qualifierNames, typeNames, line);
+	}
+
+	if (/[=+\-*/%<>!&|^?:[]\s*$/.test(statement) || /^\s*return\b/.test(statement)) {
+		return { kind: 'expression' };
+	}
+	if (/[=+\-*/%<>!&|^?:[]/.test(statement)) {
+		return undefined;
+	}
+
+	return declarationContext(statement, scope, qualifierNames, typeNames, line);
+}
+
+function declarationContext(
+	text: string,
+	scope: DeclarationScope,
+	qualifierNames: Set<string>,
+	typeNames: Set<string>,
+	line: string,
+): CursorContext | undefined {
+	const words = text.replace(/\blayout\s*\([^()]*\)/g, ' layout ').match(/\w+/g) ?? [];
+
+	if (!words.length) {
+		return scope === 'local' ? { kind: 'statement' } : { kind: 'declaration', scope, qualifiers: [] };
+	}
+	if (words.every((word) => qualifierNames.has(word))) {
+		return { kind: 'declaration', scope, qualifiers: words };
+	}
+
+	// `uniform vec4 |`: name follows type and space
+	const last = words[words.length - 1];
+	const restAreQualifiers = words.slice(0, -1).every((word) => qualifierNames.has(word));
+	if (typeNames.has(last) && restAreQualifiers && /\s$/.test(line)) {
+		return { kind: 'name' };
+	}
+	return undefined;
+}
+
+/** Scope at end of `text`: global, struct/block body or function body */
+function braceScope(text: string): 'global' | 'member' | 'local' {
+	const open: ('member' | 'local')[] = [];
+
+	for (let i = 0; i < text.length; i++) {
+		if (text[i] === '{') {
+			// After `)` or nested in code is code, else struct/block
+			const previous = /\S(?=\s*$)/.exec(text.slice(Math.max(0, i - 200), i))?.[0];
+			open.push(open.includes('local') || previous === ')' ? 'local' : 'member');
+		} else if (text[i] === '}') {
+			open.pop();
+		}
+	}
+
+	return open.length ? open[open.length - 1] : 'global';
+}
+
+/** Innermost unclosed call before cursor: name and argument index */
 export function callAt(document: vscode.TextDocument, position: vscode.Position): { name: string; argument: number } | undefined {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 4000);

@@ -40,7 +40,7 @@ function hoverText(document: vscode.TextDocument, position: vscode.Position, wor
 		return hintMarkdown(word, hint, defs);
 	}
 
-	// User symbols shadow built-ins.
+	// User symbols shadow built-ins
 	const offset = document.offsetAt(position);
 	const symbol = visibleSymbols(scanDocument(document), offset).find((s) => s.name === word);
 	if (symbol) {
@@ -62,7 +62,7 @@ function hoverText(document: vscode.TextDocument, position: vscode.Position, wor
 		return namedDocMarkdown(word, typeDoc, defs);
 	}
 
-	// Preprocessor directives are stored with their `#`.
+	// Directives stored with `#`
 	const before = document.lineAt(range.start.line).text.slice(0, range.start.character);
 	const keyword = /^\s*#\s*$/.test(before) ? `#${word}` : word;
 	const keywordDoc = defs.keywords?.[keyword];

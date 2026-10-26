@@ -62,7 +62,7 @@ export interface Definitions {
 	types?: Record<string, string>;
 	qualifiers?: Record<string, string>;
 
-	// Khronos only: statements, preprocessor directives (`#version`) and predefined macros
+	// Khronos only: statements, directives (`#version`), predefined macros
 	keywords?: Record<string, string>;
 
 	// Godot only

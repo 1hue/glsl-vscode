@@ -1,5 +1,5 @@
-// User-defined symbols found by a lightweight scan of the document text.
-// Not a parser: good enough for outline, hover, completion and go to definition in typical shaders.
+// User symbols from a lightweight text scan.
+// Not a parser: enough for outline, hover, completion and go to definition in typical shaders.
 
 import * as vscode from 'vscode';
 import { GDSHADER_SHADER_TYPES, GLSL_TYPES } from './language';
@@ -10,34 +10,34 @@ export interface UserSymbol {
 	name: string;
 	kind: UserSymbolKind;
 
-	/** Short declaration text for outline and completion */
+	/** Short declaration for outline and completion */
 	detail: string;
 
-	/** Full declaration for hovers when it differs from `detail`, e.g. a struct with its members */
+	/** Full declaration for hover e.g. struct with members */
 	declaration?: string;
 
-	/** Offsets of the whole declaration and of the name */
+	/** Offsets of declaration and name */
 	start: number;
 	end: number;
 	nameStart: number;
 
-	/** Function body / visibility range for parameters and locals */
+	/** Function body where params and locals are visible */
 	scope?: { start: number; end: number };
 
 	children?: UserSymbol[];
 
-	/** Interface block without an instance name: its members are used like globals. */
+	/** Block without instance name: members used like globals */
 	exposesMembers?: boolean;
 }
 
 export interface DocumentScan {
-	/** Top-level symbols: functions, structs, globals, macros */
+	/** Top level: functions, structs, globals, macros */
 	globals: UserSymbol[];
 
-	/** Parameters and local variables, each with a `scope` */
+	/** Params and locals each with `scope` */
 	locals: UserSymbol[];
 
-	/** Godot `shader_type`, if declared */
+	/** Godot `shader_type` */
 	shaderType?: string;
 }
 
@@ -71,7 +71,7 @@ export function forgetDocument(document: vscode.TextDocument) {
 	cache.delete(document.uri.toString());
 }
 
-/** Symbols visible at `offset`: globals plus parameters/locals in scope and declared before it. */
+/** Globals plus params/locals in scope and declared before `offset` */
 export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[] {
 	const locals = scan.locals.filter(
 		(symbol) => symbol.scope && symbol.scope.start <= offset && offset <= symbol.scope.end && symbol.nameStart <= offset,
@@ -79,7 +79,7 @@ export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[]
 
 	const blockMembers = scan.globals.filter((symbol) => symbol.exposesMembers).flatMap((symbol) => symbol.children ?? []);
 
-	// Innermost declarations first so they win over globals of the same name.
+	// Innermost first to shadow globals
 	return [...locals.reverse(), ...scan.globals, ...blockMembers];
 }
 
@@ -89,7 +89,7 @@ export function enclosingFunction(scan: DocumentScan, offset: number): UserSymbo
 	);
 }
 
-/** Replaces comments and string literals with spaces, keeping offsets and newlines intact. */
+/** Comments and strings to spaces keeping offsets and newlines */
 export function stripComments(text: string): string {
 	const blank = (s: string) => s.replace(/[^\n]/g, ' ');
 	return text.replace(/\/\*[\s\S]*?(\*\/|$)|\/\/[^\n]*|"(?:[^"\\\n]|\\.)*"/g, blank);
@@ -100,7 +100,7 @@ function scan_(text: string): DocumentScan {
 
 	const macros = findMacros(code);
 
-	// Preprocessor lines are blanked so declarations below don't pick them up.
+	// Preprocessor lines blanked
 	const source = code.replace(/^[ \t]*#[^\n]*/gm, (line) => line.replace(/[^\n]/g, ' '));
 	const braces = matchBraces(source);
 
@@ -122,7 +122,7 @@ function scan_(text: string): DocumentScan {
 	};
 }
 
-/** Maps each `{` offset to its matching `}` offset. */
+/** `{` offset -> matching `}` offset */
 function matchBraces(source: string): Map<number, number> {
 	const pairs = new Map<number, number>();
 	const open: number[] = [];
@@ -135,7 +135,7 @@ function matchBraces(source: string): Map<number, number> {
 		}
 	}
 
-	// Unclosed braces (while typing) extend to the end of the document.
+	// Unclosed braces (while typing) run to end of document
 	for (const start of open) {
 		pairs.set(start, source.length);
 	}
@@ -175,7 +175,7 @@ function findMacros(code: string): UserSymbol[] {
 	return macros;
 }
 
-/** Struct or block text from `start` through the closing brace and any instance name, blank lines dropped. */
+/** Struct/block text through closing brace and instance name without blank lines */
 function fullDeclaration(source: string, start: number, close: number): string {
 	const instance = /^[^;{}]*;/.exec(source.slice(close + 1))?.[0] ?? '';
 	return (source.slice(start, close + 1) + instance)
@@ -185,7 +185,7 @@ function fullDeclaration(source: string, start: number, close: number): string {
 		.join('\n');
 }
 
-/** Member declarations inside a `{ ... }` body starting at `open`. */
+/** Member declarations in `{ ... }` body at `open` */
 function findMembers(source: string, open: number, close: number): UserSymbol[] {
 	const members: UserSymbol[] = [];
 	const body = source.slice(open + 1, close);
@@ -228,7 +228,7 @@ function findStructs(source: string, braces: Map<number, number>): UserSymbol[] 
 	return structs;
 }
 
-/** `uniform Params { ... };` and `buffer Data { ... } data;` at top level. */
+/** Top-level `uniform Params { ... };`, `buffer Data { ... } data;` */
 function findInterfaceBlocks(source: string, braces: Map<number, number>): UserSymbol[] {
 	const blocks: UserSymbol[] = [];
 
@@ -259,7 +259,7 @@ function findInterfaceBlocks(source: string, braces: Map<number, number>): UserS
 	return blocks;
 }
 
-/** Function definitions and prototypes at top level, with their parameters and locals. */
+/** Top-level function definitions and prototypes with params and locals */
 function findFunctions(source: string, braces: Map<number, number>, typeNames: Set<string>) {
 	const functions: UserSymbol[] = [];
 	const locals: UserSymbol[] = [];
@@ -279,7 +279,7 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 		const signature = collapse(`${returnType} ${name}(${paramText})`);
 
 		if (terminator === ';') {
-			// Prototype: only listed when there's no definition.
+			// Prototype: listed only without definition
 			const defined = new RegExp(`\\b${name}\\s*\\([^()]*\\)\\s*\\{`).test(source);
 			if (!defined) {
 				functions.push({ name, kind: 'function', detail: signature + ';', start, end: start + whole.length, nameStart });
@@ -327,7 +327,7 @@ function findParameters(paramText: string, paramsStart: number, scope: { start: 
 	return params;
 }
 
-/** Local declarations whose type is a known built-in or struct type, e.g. `vec3 n = ...`. */
+/** Locals of built-in or struct type e.g. `vec3 n = ...` */
 function findLocals(source: string, bodyStart: number, bodyEnd: number, typeNames: Set<string>, braces: Map<number, number>): UserSymbol[] {
 	const locals: UserSymbol[] = [];
 	const body = source.slice(bodyStart, bodyEnd);
@@ -342,7 +342,7 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 		const nameStart = bodyStart + (match.index ?? 0) + whole.lastIndexOf(name);
 		const statementEnd = source.indexOf(';', nameStart);
 
-		// Visible until the end of the innermost enclosing block.
+		// Visible to end of innermost block
 		let scopeEnd = bodyEnd;
 		for (const [open, close] of braces) {
 			if (open < nameStart && nameStart < close && close < scopeEnd) {
@@ -350,7 +350,7 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 			}
 		}
 
-		// `for (int i = 0; ...) { ... }`: only visible in the loop.
+		// `for (int i = 0; ...) { ... }`: loop only
 		const inForHeader = /\bfor\s*\([^{}]*$/.test(source.slice(bodyStart, nameStart));
 		if (inForHeader) {
 			const loopBody = source.indexOf('{', nameStart);
@@ -374,7 +374,7 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 	return locals;
 }
 
-/** Top-level declarations: uniforms, ins/outs, consts, varyings, interface blocks. */
+/** Top-level uniforms, ins/outs, consts, varyings, blocks */
 function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] {
 	const globals: UserSymbol[] = [];
 
@@ -385,7 +385,7 @@ function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] 
 			continue;
 		}
 
-		// Drop layout(...), Godot hints (`: source_color`) and initializers.
+		// Drop layout(...), Godot hints (`: source_color`), initializers
 		const declaration = text
 			.replace(/\blayout\s*\([^)]*\)/g, '')
 			.replace(/:[^=]*/, '')
@@ -418,7 +418,7 @@ function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] 
 	return globals;
 }
 
-/** Statements ending in `;` at brace depth 0, with block contents removed. */
+/** `;`-terminated statements at depth 0, block bodies removed */
 function* topLevelStatements(source: string, braces: Map<number, number>): Generator<{ text: string; start: number }> {
 	let start = 0;
 	let text = '';
@@ -434,8 +434,8 @@ function* topLevelStatements(source: string, braces: Map<number, number>): Gener
 				text = '';
 				start = close + 1;
 			} else {
-				// Struct or interface block: keep the text around the body (`uniform Block { ... } instance;`),
-				// padded so offsets into `text` still line up with the source.
+				// Struct/block: keep text around body (`uniform Block { ... } instance;`),
+				// padded so offsets match source
 				text += ' '.repeat(close - i + 1);
 			}
 			i = close;

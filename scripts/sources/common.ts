@@ -27,7 +27,7 @@ export function parseSignature(text: string): (Signature & { name: string }) | u
 	const [, returnPart, name, paramPart] = match;
 	const returns = returnPart.trim();
 
-	// Function bodies and statements in example code are not prototypes.
+	// Function bodies and example statements aren't prototypes
 	const isStatement = /\b(return|if|else|while|for)\b/.test(returns);
 	if (!returns || isStatement || paramPart.includes('{')) {
 		return undefined;
@@ -37,7 +37,7 @@ export function parseSignature(text: string): (Signature & { name: string }) | u
 }
 
 export function parseParams(text: string): Param[] {
-	// Optional parameters are written as `[, float bias]`.
+	// Optional params: `[, float bias]`
 	const optionalParts: string[] = [];
 	const requiredText = text.replace(/\[\s*,\s*([^\]]+)\]/g, (_, inner: string) => {
 		optionalParts.push(...inner.split(','));
@@ -86,7 +86,7 @@ function parseParam(text: string): Param | undefined {
 	return { type, name };
 }
 
-/** Trims trailing spaces and collapses runs of blank lines. */
+/** Trim trailing spaces and collapse blank lines */
 export function tidy(text: string): string {
 	return text
 		.replace(/[ \t]+\n/g, '\n')

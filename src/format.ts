@@ -50,7 +50,7 @@ export function functionGroupMarkdown(name: string, group: FunctionGroup, langua
 	return parts.join('\n\n');
 }
 
-/** Context-matching overload groups first, the rest after a divider. */
+/** Matching overloads first and the rest after a divider */
 export function functionMarkdown(name: string, groups: FunctionGroup[], context: Context, language: string): string {
 	const available = groups.filter((group) => isAvailable(group, context));
 	const shown = available.length ? available : groups;
@@ -75,7 +75,7 @@ export function variableMarkdown(name: string, contexts: Variable[], context: Co
 		return parts.join('\n\n');
 	});
 
-	// Identical docs across stages / shader types (e.g. Godot TIME) are shown once.
+	// Same doc across stages/shader types (e.g. Godot TIME) shown once
 	const unique = [...new Set(sections)];
 	return [...unique, sourceFooter(context.defs)].join('\n\n---\n\n');
 }

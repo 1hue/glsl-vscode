@@ -1,13 +1,23 @@
 import * as vscode from 'vscode';
 import { Context, contextAt, isAvailable } from '../definitions';
 import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, signatureLabel, variableMarkdown } from '../format';
-import { GDSHADER_KEYWORDS, GDSHADER_SHADER_TYPES, GLSL_KEYWORDS, GLSL_TYPES } from '../language';
+import { DeclarationScope, constructsFor, nextQualifiers } from '../constructs';
+import {
+	GDSHADER_DIRECTIVES,
+	GDSHADER_KEYWORDS,
+	GDSHADER_QUALIFIERS,
+	GDSHADER_SHADER_TYPES,
+	GLSL_KEYWORDS,
+	GLSL_QUALIFIERS,
+	GLSL_TYPES,
+	STATEMENT_KEYWORDS,
+} from '../language';
 import { UserSymbol, scanDocument, visibleSymbols } from '../symbols';
-import { isMemberAccess, statementBefore, statementKind, wordAt } from '../textContext';
+import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt } from '../textContext';
 
 const Kind = vscode.CompletionItemKind;
 
-/** Docs are built on resolve, not for every item up front. */
+/** Docs built on resolve rather than up front */
 class Item extends vscode.CompletionItem {
 	constructor(
 		label: string,
@@ -41,13 +51,57 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 
 		const language = document.languageId === 'gdshader' ? 'gdshader' : 'glsl';
 		const symbols = visibleSymbols(scanDocument(document), document.offsetAt(position));
+		const structs = symbols.filter((symbol) => symbol.kind === 'struct');
+		const isGodot = context.flavor === 'godot';
 
-		return [
-			...userSymbolItems(symbols),
-			...builtinFunctionItems(context, language),
-			...builtinVariableItems(context, language),
-			...keywordAndTypeItems(context),
-		];
+		const types = isGodot ? Object.keys(context.defs.types ?? {}) : GLSL_TYPES;
+		const qualifiers = isGodot ? GDSHADER_QUALIFIERS : GLSL_QUALIFIERS;
+		const cursor = cursorContext(document, position, new Set(qualifiers), new Set([...types, ...structs.map((struct) => struct.name)]));
+
+		switch (cursor?.kind) {
+			case 'directive':
+				return directiveItems(context);
+
+			case 'layout':
+				return isGodot ? undefined : layoutItems(context);
+
+			case 'name':
+				return [];
+
+			case 'declaration':
+				return [
+					...keywordItems(context, declarationKeywords(context, cursor.scope, cursor.qualifiers)),
+					...typeItems(context, types),
+					...userSymbolItems(structs),
+				];
+
+			case 'statement':
+				return [
+					...userSymbolItems(symbols),
+					...builtinFunctionItems(context, language),
+					...builtinVariableItems(context, language),
+					...keywordItems(context, [...STATEMENT_KEYWORDS, ...declarationKeywords(context, 'local', [])]),
+					...typeItems(context, types),
+				];
+
+			case 'expression':
+				return [
+					...userSymbolItems(symbols),
+					...builtinFunctionItems(context, language),
+					...builtinVariableItems(context, language),
+					...keywordItems(context, ['true', 'false']),
+					...typeItems(context, types),
+				];
+
+			default:
+				return [
+					...userSymbolItems(symbols),
+					...builtinFunctionItems(context, language),
+					...builtinVariableItems(context, language),
+					...keywordItems(context, isGodot ? GDSHADER_KEYWORDS : GLSL_KEYWORDS),
+					...typeItems(context, types),
+				];
+		}
 	},
 
 	resolveCompletionItem(item) {
@@ -136,30 +190,70 @@ function builtinVariableItems(context: Context, language: string): Item[] {
 	return items;
 }
 
-function keywordAndTypeItems(context: Context): Item[] {
+function keywordItems(context: Context, keywords: string[]): Item[] {
 	const { defs } = context;
-	const isGodot = context.flavor === 'godot';
 
-	const keywords = isGodot ? GDSHADER_KEYWORDS : GLSL_KEYWORDS;
-	const types = isGodot ? Object.keys(defs.types ?? {}) : GLSL_TYPES;
+	return keywords.map((keyword) => {
+		const doc = defs.qualifiers?.[keyword] ?? defs.keywords?.[keyword];
+		const item = new Item(keyword, Kind.Keyword, doc ? () => namedDocMarkdown(keyword, doc, defs) : undefined);
+		item.sortText = `2${keyword}`;
+		return item;
+	});
+}
 
-	return [
-		...keywords.map((keyword) => {
-			const item = new Item(keyword, Kind.Keyword);
-			const doc = defs.qualifiers?.[keyword] ?? defs.keywords?.[keyword];
-			if (doc) {
-				item.documentation = markdown(namedDocMarkdown(keyword, doc, defs));
-			}
-			item.sortText = `2${keyword}`;
-			return item;
-		}),
-		...types.map((type) => {
-			const doc = defs.types?.[type];
-			const item = new Item(type, Kind.TypeParameter, doc ? () => namedDocMarkdown(type, doc, defs) : undefined);
-			item.sortText = `2${type}`;
-			return item;
-		}),
-	];
+function typeItems(context: Context, types: string[]): Item[] {
+	const { defs } = context;
+
+	return types.map((type) => {
+		const doc = defs.types?.[type];
+		const item = new Item(type, Kind.TypeParameter, doc ? () => namedDocMarkdown(type, doc, defs) : undefined);
+		item.sortText = `2${type}`;
+		return item;
+	});
+}
+
+/** Next qualifiers in a declaration plus `struct` where one can start */
+function declarationKeywords(context: Context, scope: DeclarationScope, present: string[]): string[] {
+	const starts = !present.length && (scope === 'global' || scope === 'local');
+
+	if (context.flavor === 'godot') {
+		// `shader_type`, `render_mode` etc. only start a statement
+		const godot = scope === 'global' && starts ? GDSHADER_KEYWORDS.filter((keyword) => !STATEMENT_KEYWORDS.includes(keyword)) : GDSHADER_QUALIFIERS;
+		return [...godot.filter((keyword) => !present.includes(keyword)), ...(starts ? ['struct'] : [])];
+	}
+
+	return [...nextQualifiers(context.flavor, scope, present), ...(starts ? ['struct'] : [])];
+}
+
+/** `#version`, `#extension` etc. after `#` */
+function directiveItems(context: Context): Item[] {
+	const directives =
+		context.flavor === 'godot'
+			? GDSHADER_DIRECTIVES
+			: constructsFor(context.flavor).filter((construct) => construct.kind === 'directive').flatMap((construct) => construct.names);
+
+	return [...new Set(directives)].map((directive) => {
+		const doc = context.defs.keywords?.[directive];
+		return new Item(directive.slice(1), Kind.Keyword, doc ? () => namedDocMarkdown(directive, doc, context.defs) : undefined);
+	});
+}
+
+/** Layout ids in `layout(...)`, minus other stages' */
+function layoutItems(context: Context): Item[] {
+	if (context.flavor === 'godot') {
+		return [];
+	}
+	const { stage, defs } = context;
+
+	const names = constructsFor(context.flavor)
+		.filter((construct) => construct.kind === 'layout')
+		.filter((construct) => !stage || !construct.stages || construct.stages.includes(stage))
+		.flatMap((construct) => construct.names);
+
+	return [...new Set(names)].map((name) => {
+		const doc = defs.qualifiers?.[name];
+		return new Item(name, Kind.Property, doc ? () => namedDocMarkdown(name, doc, defs) : undefined);
+	});
 }
 
 function modeItems(context: Context, kind: 'renderMode' | 'stencilMode'): Item[] {
@@ -184,7 +278,7 @@ function hintItems(context: Context): Item[] {
 		const item = new Item(name, Kind.EnumMember, () => hintMarkdown(name, hint, context.defs));
 		item.detail = hint.types;
 
-		// `hint_range(min, max[, step])`: insert with placeholders.
+		// `hint_range(min, max[, step])`: insert with placeholders
 		const args = /\((.*)\)/.exec(hint.label)?.[1];
 		if (args) {
 			const placeholders = args

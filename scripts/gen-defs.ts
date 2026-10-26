@@ -1,4 +1,4 @@
-// Generates data/*.json from the documentation sources pinned in package.json `config`.
+// Generates data/*.json from doc sources pinned in package.json `config`.
 // Usage: node out/scripts/gen-defs.js [source...]
 
 import * as fs from 'node:fs/promises';
@@ -8,7 +8,7 @@ import { Source } from './sources/common';
 import { godot } from './sources/godot';
 import { khronos } from './sources/khronos';
 
-// Compiled to out/scripts/, so the project root is two levels up.
+// Compiled to out/scripts/: project root two levels up
 const root = path.join(__dirname, '..', '..');
 
 // Keys match package.json `config`
