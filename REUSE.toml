@@ -1,0 +1,22 @@
+version = 1
+SPDX-PackageName = "glsl-vscode"
+SPDX-PackageDownloadLocation = "https://github.com/1hue/glsl-vscode"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 1hue"
+SPDX-License-Identifier = "MIT"
+
+# Copied (reformatted only) from https://github.com/stef-levesque/vscode-shader
+# (commit f1c804839f9f58a6749c9a840187c5527b76b053), see LICENSE-vscode-shader.md
+[[annotations]]
+path = [
+  "glsl.configuration.json",
+  "syntaxes/glsl.tmLanguage",
+  "syntaxes/glsl-cpp.tmLanguage.json",
+  "syntaxes/glsl-html.tmLanguage.json",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2015 Stef Levesque"
+SPDX-License-Identifier = "MIT"

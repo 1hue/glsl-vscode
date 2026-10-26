@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ]
+    },
+    {
+      "name": "Build VSIX",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "./scripts/build.sh"
+    }
+  ]
+}

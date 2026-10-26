@@ -1,0 +1,159 @@
+{
+  "name": "glsl-vscode",
+  "displayName": "GLSL",
+  "description": "Syntax highlighting and LSP support (glsl_analyzer or other)",
+  "version": "1.0.0",
+  "publisher": "1hue",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1hue/glsl-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "glsl",
+    "shader",
+    "opengl",
+    "lsp"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "glsl",
+        "aliases": [
+          "GLSL",
+          "OpenGL Shading Language",
+          "glsl"
+        ],
+        "extensions": [
+          ".vs",
+          ".fs",
+          ".gs",
+          ".vsh",
+          ".fsh",
+          ".gsh",
+          ".vshader",
+          ".fshader",
+          ".gshader",
+          ".comp",
+          ".vert",
+          ".tesc",
+          ".tese",
+          ".frag",
+          ".geom",
+          ".mesh",
+          ".task",
+          ".rgen",
+          ".rint",
+          ".rahit",
+          ".rchit",
+          ".rmiss",
+          ".rcall",
+          ".glsl",
+          ".glslv",
+          ".glslf",
+          ".glslg"
+        ],
+        "configuration": "./glsl.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "glsl",
+        "scopeName": "source.glsl",
+        "path": "./syntaxes/glsl.tmLanguage"
+      },
+      {
+        "scopeName": "text.html.glsl",
+        "path": "./syntaxes/glsl-html.tmLanguage.json",
+        "injectTo": [
+          "text.html"
+        ],
+        "embeddedLanguages": {
+          "source.glsl": "glsl"
+        }
+      },
+      {
+        "scopeName": "source.cpp.glsl",
+        "path": "./syntaxes/glsl-cpp.tmLanguage.json",
+        "injectTo": [
+          "source.cpp"
+        ],
+        "embeddedLanguages": {
+          "source.glsl": "glsl"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "glsl.restartLanguageServer",
+        "title": "Restart Language Server",
+        "category": "GLSL"
+      }
+    ],
+    "configuration": {
+      "title": "GLSL",
+      "properties": {
+        "glsl.languageServer.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Start a language server for GLSL files."
+        },
+        "glsl.languageServer.path": {
+          "type": "string",
+          "default": "glsl_analyzer",
+          "scope": "machine-overridable",
+          "markdownDescription": "Language server executable. Either a name looked up on `PATH` or an absolute path (`~` is expanded). Defaults to [glsl_analyzer](https://github.com/nolanderc/glsl_analyzer)."
+        },
+        "glsl.languageServer.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "machine-overridable",
+          "markdownDescription": "Arguments passed to the language server. The server must speak LSP over stdio."
+        },
+        "glsl.languageServer.env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "scope": "machine-overridable",
+          "description": "Extra environment variables for the language server process."
+        },
+        "glsl.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Trace communication between VS Code and the language server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate",
+    "package": "mkdir -p build && vsce package --out build/"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^4.0.0"
+  },
+  "overrides": {
+    "@azure/msal-node": "^7.1.1"
+  }
+}
