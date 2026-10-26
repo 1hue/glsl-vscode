@@ -312,7 +312,7 @@ function parseGridTable(lines: string[]): GridTable {
 
 	const flushRow = () => {
 		if (current.length) {
-			rows.push(current.map((cell) => tidy(cell.join('\n'))).map((cell) => cell.replace(/\n/g, ' ')));
+			rows.push(current.map((c) => tidy(c.join('\n'))).map((c) => c.replace(/\n/g, ' ')));
 		}
 		current = [];
 	};
@@ -452,17 +452,17 @@ function expandHint(text: string): string[] {
 	}
 
 	const [, base, bracketPart] = match;
-	const groups = [...bracketPart.matchAll(/\[([^\]]+)\]/g)].map((g) => g[1].split(',').map((option) => option.trim()));
+	const groups = [...bracketPart.matchAll(/\[([^\]]+)\]/g)].map((g) => g[1].split(',').map((o) => o.trim()));
 
 	if (!groups.length) {
 		return [base];
 	}
 
-	let level = groups[0].map((option) => base + option);
+	let level = groups[0].map((o) => base + o);
 	const names = [...level];
 
 	for (const options of groups.slice(1)) {
-		level = level.flatMap((name) => options.map((option) => name + option));
+		level = level.flatMap((n) => options.map((o) => n + o));
 		names.push(...level);
 	}
 

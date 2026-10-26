@@ -3,8 +3,8 @@
 import { Construct, GLSL_CONSTRUCTS } from './constructs';
 
 function namesOf(kinds: Construct['kind'][]): string[] {
-	const constructs = GLSL_CONSTRUCTS.filter((construct) => kinds.includes(construct.kind));
-	return [...new Set(constructs.flatMap((construct) => construct.names))];
+	const constructs = GLSL_CONSTRUCTS.filter((c) => kinds.includes(c.kind));
+	return [...new Set(constructs.flatMap((c) => c.names))];
 }
 
 export const STATEMENT_KEYWORDS = namesOf(['statement']);

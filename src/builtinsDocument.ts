@@ -38,7 +38,7 @@ export const builtinsContentProvider: vscode.TextDocumentContentProvider = {
 };
 
 function comment(text: string): string[] {
-	return text.split('\n').map((line) => `// ${line}`.trimEnd());
+	return text.split('\n').map((l) => `// ${l}`.trimEnd());
 }
 
 function documentFor(flavor: Flavor): BuiltinsDocument {
@@ -54,7 +54,7 @@ function documentFor(flavor: Flavor): BuiltinsDocument {
 	out.push(
 		...comment(defs.source.name),
 		...comment(`${defs.source.copyright}.`),
-		...defs.source.licenses.flatMap((license) => comment(`License: ${license.id}, ${license.url}`)),
+		...defs.source.licenses.flatMap((l) => comment(`License: ${l.id}, ${l.url}`)),
 		...comment(`Source: ${defs.source.url}`),
 		...comment(defs.source.modified),
 		'',
@@ -69,7 +69,7 @@ function documentFor(flavor: Flavor): BuiltinsDocument {
 			if (!lines.has(name)) {
 				lines.set(name, out.length);
 			}
-			out.push(...group.signatures.map((signature) => signatureLabel(name, signature) + ';'), '');
+			out.push(...group.signatures.map((s) => signatureLabel(name, s) + ';'), '');
 		}
 	}
 

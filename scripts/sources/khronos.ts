@@ -99,13 +99,13 @@ export const khronos: Source = { generate };
 async function generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>> {
 	const base = `https://raw.githubusercontent.com/${config.repo}/${config.commit}`;
 	const chapters = Object.keys(FILES) as Chapter[];
-	const texts = await Promise.all(chapters.map((chapter) => fetchText(`${base}/${FILES[chapter]}`)));
+	const texts = await Promise.all(chapters.map((c) => fetchText(`${base}/${FILES[c]}`)));
 
 	const outputs: Record<string, Definitions> = {};
 
 	for (const [name, flavor] of Object.entries(FLAVORS) as [Flavor, (typeof FLAVORS)[Flavor]][]) {
 		const attributes = { ...SYMBOLS, ...flavor.attributes };
-		const parsed = await Promise.all(texts.map((text) => toBlocks(text, flavor.conditional)));
+		const parsed = await Promise.all(texts.map((t) => toBlocks(t, flavor.conditional)));
 		const blocksOf = Object.fromEntries(chapters.map((chapter, index) => [chapter, parsed[index]])) as Record<Chapter, Block[]>;
 
 		const { types, qualifiers } = parseTypeTables(blocksOf.variables, attributes);
@@ -177,7 +177,7 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 						lines: (child as DescriptionListNode)
 							.getItems()
 							.flatMap(([, description]) => (description ? rawText(description).split(/\s\+\n/) : []))
-							.map((item) => `* ${item.replace(/\s*\n\s*/g, ' ').replace(/\s\+$/, '')}`),
+							.map((i) => `* ${i.replace(/\s*\n\s*/g, ' ').replace(/\s\+$/, '')}`),
 					});
 					break;
 
@@ -190,7 +190,7 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 						blocks.push({ kind: 'para', lines: (child as SourceNode).getSourceLines() });
 					}
 
-					const first = blocks.slice(start).find((block) => block.kind === 'para');
+					const first = blocks.slice(start).find((b) => b.kind === 'para');
 					if (first?.kind === 'para' && child.getStyle() === 'NOTE') {
 						first.lines[0] = `NOTE: ${first.lines[0]}`;
 					}
@@ -295,7 +295,7 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 			return '```\n' + block.lines.join('\n').trim() + '\n```';
 
 		case 'table': {
-			const row = (cells: string[]) => '| ' + cells.map((cell) => inline(cell, attributes)).join(' | ') + ' |';
+			const row = (cells: string[]) => '| ' + cells.map((c) => inline(c, attributes)).join(' | ') + ' |';
 			const columns = block.rows[0].length;
 			const separator = '|' + ' --- |'.repeat(columns);
 			const emptyHeader = '|' + '   |'.repeat(columns);
@@ -438,16 +438,16 @@ function addConstructDocs(
 	const constructs = constructsFor(flavor);
 
 	// Undocumented basics also lose qualifier table one-liners (`in`, `uniform`)
-	const documented = new Set(constructs.filter((construct) => construct.section).flatMap((construct) => construct.names));
-	for (const construct of constructs.filter((construct) => !construct.section)) {
-		for (const name of construct.names.filter((name) => !documented.has(name))) {
+	const documented = new Set(constructs.filter((c) => c.section).flatMap((c) => c.names));
+	for (const construct of constructs.filter((c) => !c.section)) {
+		for (const name of construct.names.filter((n) => !documented.has(n))) {
 			delete targets.qualifiers[name];
 			delete targets.keywords[name];
 		}
 	}
 
-	for (const construct of constructs.filter((construct) => construct.section)) {
-		const start = blocks.findIndex((block) => block.kind === 'heading' && block.id === construct.section);
+	for (const construct of constructs.filter((c) => c.section)) {
+		const start = blocks.findIndex((b) => b.kind === 'heading' && b.id === construct.section);
 		const heading = blocks[start];
 		if (heading?.kind !== 'heading') {
 			missing.push(`${construct.names.join(', ')} (no section ${construct.section})`);
@@ -455,7 +455,7 @@ function addConstructDocs(
 		}
 
 		// Section's own text before subsections
-		const end = blocks.findIndex((block, index) => index > start && block.kind === 'heading');
+		const end = blocks.findIndex((b, i) => i > start && b.kind === 'heading');
 		const section = blocks.slice(start + 1, end < 0 ? undefined : end);
 		const target = construct.kind === 'qualifier' || construct.kind === 'layout' ? targets.qualifiers : targets.keywords;
 
@@ -467,7 +467,7 @@ function addConstructDocs(
 
 			const doc = named ?? sectionDoc(section);
 			if (doc) {
-				addDoc(target, name, tidy(doc.map((block) => blockToMarkdown(block, attributes)).join('\n\n')));
+				addDoc(target, name, tidy(doc.map((b) => blockToMarkdown(b, attributes)).join('\n\n')));
 			} else {
 				missing.push(`${name} (section ${construct.section} has no paragraph)`);
 			}
@@ -490,7 +490,7 @@ function addConstructDocs(
  */
 function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	if (name === undefined) {
-		const first = section.findIndex((block) => block.kind === 'para');
+		const first = section.findIndex((b) => b.kind === 'para');
 		return first < 0 ? undefined : paragraphRun(section, first);
 	}
 
@@ -499,12 +499,12 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	const plain = new RegExp(`(?<![\\w#])${escaped}(?!\\w)`);
 
 	// Prose only: lists like `__LINE__ __FILE__ __VERSION__` just enumerate
-	const proseOf = (block: Block) => (block.kind === 'para' && !block.lines.every((line) => /^[*.]+ /.test(line)) ? block.lines.join('\n') : '');
+	const proseOf = (block: Block) => (block.kind === 'para' && !block.lines.every((l) => /^[*.]+ /.test(l)) ? block.lines.join('\n') : '');
 
 	// Paragraph about it ("The *std430* qualifier ...") over mere mentions
 	const firstNamed = (block: Block) => /(?<![\w#])[*+](#?\w+)[*+](?!\w)/.exec(proseOf(block))?.[1];
-	const about = section.findIndex((block) => firstNamed(block) === name);
-	const named = about >= 0 ? about : section.findIndex((block) => emphasized.test(proseOf(block)));
+	const about = section.findIndex((b) => firstNamed(b) === name);
+	const named = about >= 0 ? about : section.findIndex((b) => emphasized.test(proseOf(b)));
 	if (named >= 0) {
 		return paragraphRun(section, named);
 	}
@@ -523,7 +523,7 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	while (before >= 0 && section[before].kind !== 'para') {
 		before--;
 	}
-	const after = section.findIndex((block, index) => index > listed && block.kind === 'para');
+	const after = section.findIndex((b, i) => i > listed && b.kind === 'para');
 
 	const blocks = before >= 0 ? paragraphRun(section, before) : [];
 	if (section[listed].kind === 'grammar' && after >= 0 && !blocks.includes(section[after])) {
@@ -561,7 +561,7 @@ function paragraphRun(section: Block[], index: number): Block[] {
 		}
 	}
 
-	return section.slice(start, end + 1).filter((block) => block.kind !== 'grammar');
+	return section.slice(start, end + 1).filter((b) => b.kind !== 'grammar');
 }
 
 /**
@@ -592,8 +592,8 @@ function parseFunctions(blocks: Block[], attributes: Record<string, string>): Re
 		}
 
 		if (block.kind === 'source') {
-			const lines = block.lines.filter((line) => line.trim());
-			const parsed = lines.map((line) => parseSignature(line.replace(/\s*\/\/.*$/, '')));
+			const lines = block.lines.filter((l) => l.trim());
+			const parsed = lines.map((l) => parseSignature(l.replace(/\s*\/\/.*$/, '')));
 			const isPrototypeBlock = lines.length > 0 && parsed.every(Boolean);
 
 			if (isPrototypeBlock) {
@@ -661,7 +661,7 @@ function parseVariables(blocks: Block[], attributes: Record<string, string>): Re
 		const contexts = variables.get(name) ?? [];
 		variables.set(name, contexts);
 
-		if (!contexts.some((context) => context.stage === stage)) {
+		if (!contexts.some((c) => c.stage === stage)) {
 			contexts.push({ stage, decl, doc: [] });
 		}
 	};

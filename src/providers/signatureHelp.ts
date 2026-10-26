@@ -55,9 +55,9 @@ function builtinSignatures(document: vscode.TextDocument, position: vscode.Posit
 		return undefined;
 	}
 
-	const available = groups.filter((group) => isAvailable(group, context));
+	const available = groups.filter((g) => isAvailable(g, context));
 	return (available.length ? available : groups).flatMap((group) =>
-		group.signatures.map((signature) => signatureInformation(name, signature, group)),
+		group.signatures.map((s) => signatureInformation(name, s, group)),
 	);
 }
 
@@ -77,8 +77,8 @@ function userSignatures(document: vscode.TextDocument, position: vscode.Position
 
 	const params = match[2]
 		.split(',')
-		.map((part) => part.trim())
-		.filter((part) => part && part !== 'void')
+		.map((p) => p.trim())
+		.filter((p) => p && p !== 'void')
 		.map((part) => {
 			const words = part.split(/\s+/);
 			const paramName = words.pop() ?? '';

@@ -41,7 +41,7 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 
 		switch (kind) {
 			case 'shaderType':
-				return GDSHADER_SHADER_TYPES.map((type) => new Item(type, Kind.EnumMember));
+				return GDSHADER_SHADER_TYPES.map((t) => new Item(t, Kind.EnumMember));
 			case 'renderMode':
 			case 'stencilMode':
 				return modeItems(context, kind);
@@ -51,12 +51,12 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 
 		const language = document.languageId === 'gdshader' ? 'gdshader' : 'glsl';
 		const symbols = visibleSymbols(scanDocument(document), document.offsetAt(position));
-		const structs = symbols.filter((symbol) => symbol.kind === 'struct');
+		const structs = symbols.filter((s) => s.kind === 'struct');
 		const isGodot = context.flavor === 'godot';
 
 		const types = isGodot ? Object.keys(context.defs.types ?? {}) : GLSL_TYPES;
 		const qualifiers = isGodot ? GDSHADER_QUALIFIERS : GLSL_QUALIFIERS;
-		const cursor = cursorContext(document, position, new Set(qualifiers), new Set([...types, ...structs.map((struct) => struct.name)]));
+		const cursor = cursorContext(document, position, new Set(qualifiers), new Set([...types, ...structs.map((s) => s.name)]));
 
 		switch (cursor?.kind) {
 			case 'directive':
@@ -153,7 +153,7 @@ function builtinFunctionItems(context: Context, language: string): Item[] {
 	const items: Item[] = [];
 
 	for (const [name, groups] of Object.entries(context.defs.functions)) {
-		const available = groups.filter((group) => isAvailable(group, context));
+		const available = groups.filter((g) => isAvailable(g, context));
 		if (!available.length) {
 			continue;
 		}
@@ -175,7 +175,7 @@ function builtinVariableItems(context: Context, language: string): Item[] {
 	const items: Item[] = [];
 
 	for (const [name, entries] of Object.entries(context.defs.variables)) {
-		const available = entries.filter((entry) => isAvailable(entry, context));
+		const available = entries.filter((e) => isAvailable(e, context));
 		if (!available.length) {
 			continue;
 		}
@@ -218,8 +218,8 @@ function declarationKeywords(context: Context, scope: DeclarationScope, present:
 
 	if (context.flavor === 'godot') {
 		// `shader_type`, `render_mode` etc. only start a statement
-		const godot = scope === 'global' && starts ? GDSHADER_KEYWORDS.filter((keyword) => !STATEMENT_KEYWORDS.includes(keyword)) : GDSHADER_QUALIFIERS;
-		return [...godot.filter((keyword) => !present.includes(keyword)), ...(starts ? ['struct'] : [])];
+		const godot = scope === 'global' && starts ? GDSHADER_KEYWORDS.filter((k) => !STATEMENT_KEYWORDS.includes(k)) : GDSHADER_QUALIFIERS;
+		return [...godot.filter((k) => !present.includes(k)), ...(starts ? ['struct'] : [])];
 	}
 
 	return [...nextQualifiers(context.flavor, scope, present), ...(starts ? ['struct'] : [])];
@@ -230,7 +230,7 @@ function directiveItems(context: Context): Item[] {
 	const directives =
 		context.flavor === 'godot'
 			? GDSHADER_DIRECTIVES
-			: constructsFor(context.flavor).filter((construct) => construct.kind === 'directive').flatMap((construct) => construct.names);
+			: constructsFor(context.flavor).filter((c) => c.kind === 'directive').flatMap((c) => c.names);
 
 	return [...new Set(directives)].map((directive) => {
 		const doc = context.defs.keywords?.[directive];
@@ -246,9 +246,9 @@ function layoutItems(context: Context): Item[] {
 	const { stage, defs } = context;
 
 	const names = constructsFor(context.flavor)
-		.filter((construct) => construct.kind === 'layout')
-		.filter((construct) => !stage || !construct.stages || construct.stages.includes(stage))
-		.flatMap((construct) => construct.names);
+		.filter((c) => c.kind === 'layout')
+		.filter((c) => !stage || !c.stages || c.stages.includes(stage))
+		.flatMap((c) => c.names);
 
 	return [...new Set(names)].map((name) => {
 		const doc = defs.qualifiers?.[name];

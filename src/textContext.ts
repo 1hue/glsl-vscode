@@ -118,13 +118,13 @@ function declarationContext(
 	if (!words.length) {
 		return scope === 'local' ? { kind: 'statement' } : { kind: 'declaration', scope, qualifiers: [] };
 	}
-	if (words.every((word) => qualifierNames.has(word))) {
+	if (words.every((w) => qualifierNames.has(w))) {
 		return { kind: 'declaration', scope, qualifiers: words };
 	}
 
 	// `uniform vec4 |`: name follows type and space
 	const last = words[words.length - 1];
-	const restAreQualifiers = words.slice(0, -1).every((word) => qualifierNames.has(word));
+	const restAreQualifiers = words.slice(0, -1).every((w) => qualifierNames.has(w));
 	if (typeNames.has(last) && restAreQualifiers && /\s$/.test(line)) {
 		return { kind: 'name' };
 	}

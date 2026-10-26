@@ -105,7 +105,7 @@ export const GLSL_CONSTRUCTS: Construct[] = [
 		stages: ['fragment'],
 	},
 	{
-		names: BLEND_EQUATIONS.map((equation) => `blend_support_${equation}`),
+		names: BLEND_EQUATIONS.map((e) => `blend_support_${e}`),
 		kind: 'layout',
 		section: 'fragment-outputs',
 		only: 'essl',
@@ -168,19 +168,19 @@ export const SCOPE_QUALIFIERS: Record<DeclarationScope, { groups: QualifierGroup
 };
 
 export function constructsFor(flavor: Flavor): Construct[] {
-	return GLSL_CONSTRUCTS.filter((construct) => !construct.only || construct.only === flavor);
+	return GLSL_CONSTRUCTS.filter((c) => !c.only || c.only === flavor);
 }
 
 /** Qualifiers that can follow `present` at `scope` */
 export function nextQualifiers(flavor: Flavor, scope: DeclarationScope, present: string[]): string[] {
-	const qualifiers = constructsFor(flavor).filter((construct) => construct.kind === 'qualifier');
-	const groupOf = new Map(qualifiers.flatMap((construct) => construct.names.map((name) => [name, construct.group!] as const)));
+	const qualifiers = constructsFor(flavor).filter((c) => c.kind === 'qualifier');
+	const groupOf = new Map(qualifiers.flatMap((c) => c.names.map((n) => [n, c.group!] as const)));
 
-	const presentGroups = present.map((name) => groupOf.get(name));
+	const presentGroups = present.map((n) => groupOf.get(n));
 	const { groups, storage } = SCOPE_QUALIFIERS[scope];
 
 	// Storage qualifier decides the rest, else only storage fitting what's there
-	const storageNow = present.find((name) => groupOf.get(name) === 'storage');
+	const storageNow = present.find((n) => groupOf.get(n) === 'storage');
 	const storageOptions = storage.filter((name) =>
 		presentGroups.every((group) => !group || group === 'storage' || STORAGE_COMPANIONS[name]?.includes(group)),
 	);
@@ -201,11 +201,11 @@ export function nextQualifiers(flavor: Flavor, scope: DeclarationScope, present:
 		if (storageNow) {
 			return STORAGE_COMPANIONS[storageNow]?.includes(group) ?? false;
 		}
-		return !storage.length || storageOptions.some((name) => STORAGE_COMPANIONS[name]?.includes(group));
+		return !storage.length || storageOptions.some((s) => STORAGE_COMPANIONS[s]?.includes(group));
 	};
 
 	return qualifiers
-		.filter((construct) => fits(construct.group!))
-		.flatMap((construct) => construct.names)
-		.filter((name) => !present.includes(name) && (groupOf.get(name) !== 'storage' || storageOptions.includes(name)));
+		.filter((c) => fits(c.group!))
+		.flatMap((c) => c.names)
+		.filter((n) => !present.includes(n) && (groupOf.get(n) !== 'storage' || storageOptions.includes(n)));
 }

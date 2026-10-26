@@ -74,10 +74,10 @@ export function forgetDocument(document: vscode.TextDocument) {
 /** Globals plus params/locals in scope and declared before `offset` */
 export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[] {
 	const locals = scan.locals.filter(
-		(symbol) => symbol.scope && symbol.scope.start <= offset && offset <= symbol.scope.end && symbol.nameStart <= offset,
+		(s) => s.scope && s.scope.start <= offset && offset <= s.scope.end && s.nameStart <= offset,
 	);
 
-	const blockMembers = scan.globals.filter((symbol) => symbol.exposesMembers).flatMap((symbol) => symbol.children ?? []);
+	const blockMembers = scan.globals.filter((s) => s.exposesMembers).flatMap((s) => s.children ?? []);
 
 	// Innermost first to shadow globals
 	return [...locals.reverse(), ...scan.globals, ...blockMembers];
@@ -85,7 +85,7 @@ export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[]
 
 export function enclosingFunction(scan: DocumentScan, offset: number): UserSymbol | undefined {
 	return scan.globals.find(
-		(symbol) => symbol.kind === 'function' && symbol.scope && symbol.scope.start <= offset && offset <= symbol.scope.end,
+		(s) => s.kind === 'function' && s.scope && s.scope.start <= offset && offset <= s.scope.end,
 	);
 }
 
@@ -180,8 +180,8 @@ function fullDeclaration(source: string, start: number, close: number): string {
 	const instance = /^[^;{}]*;/.exec(source.slice(close + 1))?.[0] ?? '';
 	return (source.slice(start, close + 1) + instance)
 		.split('\n')
-		.filter((line) => line.trim())
-		.map((line) => line.trimEnd())
+		.filter((l) => l.trim())
+		.map((l) => l.trimEnd())
 		.join('\n');
 }
 
@@ -392,15 +392,15 @@ function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] 
 			.replace(/=[\s\S]*$/, '');
 
 		const words = declaration.match(/\w+(?:\s*\[[^\]]*\])?|,/g) ?? [];
-		const typeIndex = words.findIndex((word) => word !== ',' && !QUALIFIERS.has(word));
+		const typeIndex = words.findIndex((w) => w !== ',' && !QUALIFIERS.has(w));
 		if (typeIndex === -1) {
 			continue;
 		}
 
 		const names = words
 			.slice(typeIndex + 1)
-			.filter((word) => word !== ',')
-			.map((word) => /^\w+/.exec(word)?.[0] ?? '');
+			.filter((w) => w !== ',')
+			.map((w) => /^\w+/.exec(w)?.[0] ?? '');
 
 		for (const name of names.filter(Boolean)) {
 			const nameStart = start + new RegExp(`\\b${name}\\b`).exec(text)!.index;

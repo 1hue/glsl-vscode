@@ -18,7 +18,7 @@ function codeBlock(language: string, lines: string[]): string {
 }
 
 function sourceFooter(defs: Definitions): string {
-	const licenses = defs.source.licenses.map((license) => `[${license.id}](${license.url})`).join(' AND ');
+	const licenses = defs.source.licenses.map((l) => `[${l.id}](${l.url})`).join(' AND ');
 	return `<small>[${defs.source.name}](${defs.source.url}) · ${licenses}</small>`;
 }
 
@@ -52,15 +52,15 @@ export function functionGroupMarkdown(name: string, group: FunctionGroup, langua
 
 /** Matching overloads first and the rest after a divider */
 export function functionMarkdown(name: string, groups: FunctionGroup[], context: Context, language: string): string {
-	const available = groups.filter((group) => isAvailable(group, context));
+	const available = groups.filter((g) => isAvailable(g, context));
 	const shown = available.length ? available : groups;
 
-	const sections = shown.map((group) => functionGroupMarkdown(name, group, language));
+	const sections = shown.map((g) => functionGroupMarkdown(name, g, language));
 	return [...sections, sourceFooter(context.defs)].join('\n\n---\n\n');
 }
 
 export function variableMarkdown(name: string, contexts: Variable[], context: Context, language: string): string {
-	const available = contexts.filter((entry) => isAvailable(entry, context));
+	const available = contexts.filter((c) => isAvailable(c, context));
 	const shown = available.length ? available : contexts;
 
 	const sections = shown.map((entry) => {

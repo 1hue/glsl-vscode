@@ -24,13 +24,13 @@ function documentSymbol(document: vscode.TextDocument, symbol: UserSymbol): vsco
 	const selection = nameRange(document, symbol);
 
 	const result = new vscode.DocumentSymbol(symbol.name, symbol.detail, SYMBOL_KINDS[symbol.kind], range.union(selection), selection);
-	result.children = (symbol.children ?? []).map((child) => documentSymbol(document, child));
+	result.children = (symbol.children ?? []).map((c) => documentSymbol(document, c));
 	return result;
 }
 
 export const documentSymbolProvider: vscode.DocumentSymbolProvider = {
 	provideDocumentSymbols(document) {
-		return scanDocument(document).globals.map((symbol) => documentSymbol(document, symbol));
+		return scanDocument(document).globals.map((s) => documentSymbol(document, s));
 	},
 };
 
