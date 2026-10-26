@@ -4,6 +4,8 @@ import { Definitions, FetchText, FunctionGroup, Hint, Source, SourceConfig, Vari
 
 const DIRECTORY = 'tutorials/shaders/shader_reference';
 
+type GodotDefinitions = Required<Omit<Definitions, 'keywords'>>;
+
 // `shader_type` value -> documentation page
 const SHADER_TYPES: Record<string, string> = {
 	spatial: 'spatial_shader',
@@ -50,7 +52,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 
 	const substitutions = parseSubstitutions(functionsPage);
 
-	const definitions: Required<Definitions> = {
+	const definitions: GodotDefinitions = {
 		source: {
 			name: 'Godot Engine documentation',
 			url: `https://github.com/${config.repo}/tree/${config.commit}/${DIRECTORY}`,
@@ -188,7 +190,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 	let paragraph: string[] = [];
 	const flushParagraph = () => {
 		if (paragraph.length) {
-			doc.push(inline(paragraph.join('\n'), substitutions));
+			doc.push(inline(paragraph.join(' '), substitutions));
 		}
 		paragraph = [];
 	};
@@ -353,7 +355,7 @@ function stageFor(heading: string, current: string | undefined): string | undefi
 }
 
 /** Built-ins, functions, render modes and stencil modes of one shader type page. */
-function addShaderPage(definitions: Required<Definitions>, shaderType: string, text: string, substitutions: Record<string, string>) {
+function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: string, substitutions: Record<string, string>) {
 	let stage: string | undefined;
 	let lastHeading = '';
 
@@ -410,7 +412,7 @@ function addShaderPage(definitions: Required<Definitions>, shaderType: string, t
 }
 
 /** Data types, interpolation qualifiers and uniform hints. */
-function addLanguagePage(definitions: Required<Definitions>, text: string, substitutions: Record<string, string>) {
+function addLanguagePage(definitions: GodotDefinitions, text: string, substitutions: Record<string, string>) {
 	for (const { table } of gridTables(text)) {
 		const [first, second, third] = table.header;
 

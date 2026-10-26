@@ -59,11 +59,14 @@ export interface Definitions {
 	source: SourceInfo;
 	functions: Record<string, FunctionGroup[]>;
 	variables: Record<string, Variable[]>;
+	types?: Record<string, string>;
+	qualifiers?: Record<string, string>;
+
+	// Khronos only: statements, preprocessor directives (`#version`) and predefined macros
+	keywords?: Record<string, string>;
 
 	// Godot only
 	renderModes?: Record<string, Record<string, string>>;
 	stencilModes?: Record<string, Record<string, string>>;
 	hints?: Record<string, Hint>;
-	types?: Record<string, string>;
-	qualifiers?: Record<string, string>;
 }

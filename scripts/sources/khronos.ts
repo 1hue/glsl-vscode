@@ -9,7 +9,15 @@ type Block =
 	| { kind: 'table'; rows: string[][]; header: boolean }
 	| { kind: 'para'; lines: string[] };
 
-const FILES = ['chapters/builtinfunctions.adoc', 'chapters/builtins.adoc'];
+const FILES = {
+	functions: 'chapters/builtinfunctions.adoc',
+	builtins: 'chapters/builtins.adoc',
+	variables: 'chapters/variables.adoc',
+	statements: 'chapters/statements.adoc',
+	basics: 'chapters/basics.adoc',
+};
+
+type Chapter = keyof typeof FILES;
 
 // AsciiDoc conditionals (`ifdef::GLSL[]`) and document attributes per output file
 const FLAVORS = {
@@ -18,8 +26,12 @@ const FLAVORS = {
 		title: 'OpenGL Shading Language specification',
 		attributes: {
 			slname: 'OpenGL Shading Language',
+			slabbrev: 'GLSL',
 			apispec: 'OpenGL Specification',
 			apiname: 'OpenGL',
+			version: '460',
+			minor: '4.60',
+			compiletimeerror: 'a compile-time error',
 		},
 	},
 	essl: {
@@ -27,11 +39,62 @@ const FLAVORS = {
 		title: 'OpenGL ES Shading Language specification',
 		attributes: {
 			slname: 'OpenGL ES Shading Language',
+			slabbrev: 'ESSL',
 			apispec: 'OpenGL ES Specification',
 			apiname: 'OpenGL ES',
+			version: '320',
+			minor: '3.20',
+			compiletimeerror: 'a compile-time error',
 		},
 	},
 };
+
+interface ProseDoc {
+	names: string[];
+	target: 'qualifiers' | 'keywords';
+	chapter: Chapter;
+	// First paragraph of the doc
+	start: RegExp;
+	// Number of blocks (paragraphs, code, tables) to take
+	blocks: number;
+}
+
+// Keywords, qualifiers and preprocessor directives described in running prose
+const PROSE_DOCS: ProseDoc[] = [
+	{ names: ['continue'], target: 'keywords', chapter: 'statements', start: /^The \*continue\* jump/, blocks: 1 },
+	{ names: ['break'], target: 'keywords', chapter: 'statements', start: /^The \*break\* jump/, blocks: 1 },
+	{ names: ['discard'], target: 'keywords', chapter: 'statements', start: /^The \*discard\* keyword/, blocks: 2 },
+	{ names: ['return'], target: 'keywords', chapter: 'statements', start: /^The \*return\* jump/, blocks: 2 },
+	{ names: ['subroutine'], target: 'qualifiers', chapter: 'statements', start: /^Subroutines provide/, blocks: 2 },
+
+	{ names: ['layout'], target: 'qualifiers', chapter: 'variables', start: /^Layout qualifiers can appear in several forms/, blocks: 1 },
+	{ names: ['invariant'], target: 'qualifiers', chapter: 'variables', start: /^To ensure that a particular output variable is invariant/, blocks: 4 },
+	{ names: ['precise'], target: 'qualifiers', chapter: 'variables', start: /^The \*precise\* qualifier ensures/, blocks: 1 },
+	{ names: ['precision'], target: 'qualifiers', chapter: 'variables', start: /^The precision statement/, blocks: 3 },
+	{ names: ['coherent'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*coherent\*/, blocks: 1 },
+	{ names: ['volatile'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*volatile\*/, blocks: 1 },
+	{ names: ['restrict'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*restrict\*/, blocks: 1 },
+	{ names: ['readonly'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*readonly\*/, blocks: 1 },
+	{ names: ['writeonly'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*writeonly\*/, blocks: 1 },
+
+	{ names: ['#version'], target: 'keywords', chapter: 'basics', start: /^Shaders (should|must) declare the version/, blocks: 5 },
+	{ names: ['#extension'], target: 'keywords', chapter: 'basics', start: /^By default, compilers of this language must issue/, blocks: 4 },
+	{ names: ['#define', '#undef'], target: 'keywords', chapter: 'basics', start: /^\*#define\* and \*#undef\*/, blocks: 1 },
+	{ names: ['#error'], target: 'keywords', chapter: 'basics', start: /^\*#error\* will cause/, blocks: 1 },
+	{ names: ['#pragma'], target: 'keywords', chapter: 'basics', start: /^\*#pragma\* allows/, blocks: 1 },
+	{ names: ['#line'], target: 'keywords', chapter: 'basics', start: /^\*#line\* must have/, blocks: 3 },
+	{ names: ['__LINE__'], target: 'keywords', chapter: 'basics', start: /^\+__LINE__\+ will/, blocks: 1 },
+	{ names: ['__FILE__'], target: 'keywords', chapter: 'basics', start: /^\+__FILE__\+ will/, blocks: 1 },
+	{ names: ['__VERSION__'], target: 'keywords', chapter: 'basics', start: /^\+__VERSION__\+ will/, blocks: 1 },
+	{ names: ['GL_ES'], target: 'keywords', chapter: 'basics', start: /^\+GL_ES\+ will/, blocks: 1 },
+	{
+		names: ['GL_core_profile', 'GL_compatibility_profile', 'GL_es_profile'],
+		target: 'keywords',
+		chapter: 'basics',
+		start: /^There is a built-in macro definition for each profile/,
+		blocks: 6,
+	},
+];
 
 // Math attributes used in prose, e.g. `{pi}`
 const SYMBOLS: Record<string, string> = {
@@ -51,25 +114,46 @@ export const khronos: Source = { generate };
 
 async function generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>> {
 	const base = `https://raw.githubusercontent.com/${config.repo}/${config.commit}`;
-	const [functionsText, variablesText] = await Promise.all(FILES.map((file) => fetchText(`${base}/${file}`)));
+	const chapters = Object.keys(FILES) as Chapter[];
+	const texts = await Promise.all(chapters.map((chapter) => fetchText(`${base}/${FILES[chapter]}`)));
+	const textOf = Object.fromEntries(chapters.map((chapter, index) => [chapter, texts[index]])) as Record<Chapter, string>;
 
 	const outputs: Record<string, Definitions> = {};
 
 	for (const [name, flavor] of Object.entries(FLAVORS)) {
 		const attributes = { ...SYMBOLS, ...flavor.attributes };
-		const blocksOf = (text: string) => tokenize(preprocess(text, flavor.conditional));
+		const blocksOf = (chapter: Chapter) => tokenize(preprocess(textOf[chapter], flavor.conditional));
+
+		const variableBlocks = blocksOf('variables');
+		const { types, qualifiers } = parseTypeTables(variableBlocks, attributes);
+		parseLayoutQualifiers(variableBlocks, attributes, qualifiers);
+
+		const keywords: Record<string, string> = {};
+		const targets = { qualifiers, keywords };
+		const blocksByChapter = { variables: variableBlocks } as Partial<Record<Chapter, Block[]>>;
+
+		for (const prose of PROSE_DOCS) {
+			const blocks = (blocksByChapter[prose.chapter] ??= blocksOf(prose.chapter));
+			const doc = proseDoc(blocks, prose.start, prose.blocks, attributes);
+			for (const keyword of doc ? prose.names : []) {
+				addDoc(targets[prose.target], keyword, doc!);
+			}
+		}
 
 		outputs[name] = {
 			source: {
 				name: `Khronos ${flavor.title}`,
 				url: `https://github.com/${config.repo}/tree/${config.commit}`,
 				commit: config.commit,
-				copyright: 'Copyright 2008-2024 The Khronos Group Inc.',
+				copyright: 'Copyright 2008-2026 The Khronos Group Inc.',
 				licenses: [{ id: 'CC-BY-4.0', url: 'https://creativecommons.org/licenses/by/4.0/' }],
 				modified: 'Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified.',
 			},
-			functions: parseFunctions(blocksOf(functionsText), attributes),
-			variables: parseVariables(blocksOf(variablesText), attributes),
+			functions: parseFunctions(blocksOf('functions'), attributes),
+			variables: parseVariables(blocksOf('builtins'), attributes),
+			types,
+			qualifiers,
+			keywords,
 		};
 	}
 
@@ -167,10 +251,24 @@ function tokenize(lines: string[]): Block[] {
 		} else if (/^\|===/.test(line)) {
 			flushParagraph();
 			const { body, end } = collect(i + 1, line);
-			const rows = body
-				.filter((row) => row.startsWith('|'))
-				.map((row) => row.slice(1).split('|').map((cell) => cell.trim()));
-			blocks.push({ kind: 'table', rows, header: tableHasHeader });
+			const rows: string[][] = [];
+
+			for (const row of body) {
+				if (row.startsWith('|')) {
+					rows.push(row.slice(1).split('|').map((cell) => cell.trim()));
+				} else if (row.trim() && rows.length) {
+					// Cell text continued on the next line, possibly followed by more cells:
+					// `  *image2D*   | a handle for accessing a 2D texture`
+					const [continued, ...moreCells] = row.split('|').map((cell) => cell.trim());
+					const last = rows[rows.length - 1];
+					const cell = last[last.length - 1];
+					// ` +` ends a line inside a cell.
+					last[last.length - 1] = cell.endsWith(' +') ? `${cell.slice(0, -2)}<br>${continued}` : `${cell} ${continued}`.trim();
+					last.push(...moreCells);
+				}
+			}
+
+			blocks.push({ kind: 'table', rows: expandRowSpans(rows), header: tableHasHeader });
 			tableHasHeader = false;
 			i = end;
 		} else {
@@ -180,6 +278,42 @@ function tokenize(lines: string[]): Block[] {
 
 	flushParagraph();
 	return blocks;
+}
+
+/**
+ * Copies cells spanning several rows into the rows below.
+ * The span is written before the cell's `|`, so it ends the previous cell: `| X  .5+| *uniform*`.
+ */
+function expandRowSpans(rows: string[][]): string[][] {
+	const spans: { text: string; remaining: number }[] = [];
+
+	return rows.map((cells) => {
+		const parsed: { text: string; span: number }[] = [];
+		let nextSpan = 1;
+
+		for (const cell of cells) {
+			const spec = /^(.*?)\s*\.(\d+)\+$/s.exec(cell);
+			parsed.push({ text: spec ? spec[1] : cell, span: nextSpan });
+			nextSpan = spec ? Number(spec[2]) : 1;
+		}
+
+		const row: string[] = [];
+		while (parsed.length || spans[row.length]?.remaining) {
+			const spanned = spans[row.length];
+
+			if (spanned?.remaining) {
+				row.push(spanned.text);
+				spanned.remaining--;
+				continue;
+			}
+
+			const cell = parsed.shift()!;
+			spans[row.length] = { text: cell.text, remaining: cell.span - 1 };
+			row.push(cell.text);
+		}
+
+		return row;
+	});
 }
 
 function blockToMarkdown(block: Block, attributes: Record<string, string>): string {
@@ -204,13 +338,26 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 		}
 
 		case 'para': {
-			const lines = block.lines.map((line) =>
-				line
-					.replace(/^\s*\*\*\s+/, '  - ')
-					.replace(/^\s*\*\s+/, '- ')
-					.replace(/^NOTE:\s*/, '**Note:** '),
-			);
-			return inline(lines.join('\n'), attributes);
+			// Wrapped lines are joined; list items keep their own line.
+			const lines: string[] = [];
+			for (const raw of block.lines) {
+				const line = raw.replace(/^\s*\*\*\s+/, '  - ').replace(/^\s*\*\s+/, '- ');
+				const startsItem = /^\s*- /.test(line);
+
+				if (startsItem || !lines.length) {
+					lines.push(startsItem ? line.trimEnd() : line.trim());
+				} else {
+					lines[lines.length - 1] += ' ' + line.trim();
+				}
+			}
+
+			const isNote = /^NOTE:\s*/.test(lines[0] ?? '');
+			if (isNote) {
+				lines[0] = lines[0].replace(/^NOTE:\s*/, '');
+			}
+
+			const markdown = inline(lines.join('\n'), attributes);
+			return isNote ? `**Note:** ${markdown}` : markdown;
 		}
 
 		default:
@@ -240,16 +387,145 @@ function inline(text: string, attributes: Record<string, string>): string {
 		.replace(/latexmath:\[(.*?)\]/g, (_, math) => protect('`' + math + '`'))
 		.replace(/\[eq\]#([\s\S]*?)#/g, (_, math) => protect('`' + plain(math) + '`'))
 		.replace(/`([^`]+)`/g, (_, code) => protect('`' + plain(code) + '`'))
+		// Passthrough, e.g. `+__LINE__+`
+		.replace(/(^|[^\w+])\+(\S(?:[^+\n]*?\S)?)\+(?![\w+])/gm, (_, before, code) => before + protect('`' + code + '`'))
 		.replace(/<<[^,>]+,([^>]+)>>/g, '$1')
 		.replace(/<<([^>]+)>>/g, (_, anchor: string) => anchor.replace(/-/g, ' '))
 		.replace(/\*\*\*/g, () => protect('`*`'))
-		.replace(/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm, '$1**$2**')
-		.replace(/(^|[^\w\\])_(?=\S)(.*?\S)_(?!\w)/gm, '$1*$2*')
+		.replace(/\*\*(?=\S)([^*\n]*?\S)\*\*/g, (_, name) => protect('`' + plain(name) + '`'))
+		// The spec uses _x_ for parameter names and *x* for types, functions and keywords: both become code.
+		.replace(/(^|[^\w\\])_(?=\S)(.*?\S)_(?!\w)/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
+		.replace(/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
 		.replace(/~([^~\s]+)~/g, '_$1')
 		.replace(/\^([^^\s]+)\^/g, '^$1')
 		.replace(/\\(?=[<*_])/g, '');
 
 	return restore(markdown);
+}
+
+/**
+ * Basic types (`| Type | Meaning` tables) and qualifiers (`| ... Qualifier | Meaning`).
+ * A qualifier listed in several tables (e.g. `in` as storage and parameter qualifier) keeps every meaning.
+ */
+function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
+	const types: Record<string, string> = {};
+	const qualifiers: Record<string, string> = {};
+
+	for (const block of blocks) {
+		if (block.kind !== 'table' || !block.rows.length) {
+			continue;
+		}
+
+		// Some tables lack the header option, so go by the first row.
+		const [first, second] = block.rows[0];
+		const target = second !== 'Meaning' ? undefined : first === 'Type' ? types : /Qualifier$/.test(first) ? qualifiers : undefined;
+		if (!target) {
+			continue;
+		}
+
+		for (const [nameCell, meaning = ''] of block.rows.slice(1)) {
+			const doc = inline(meaning, attributes);
+
+			for (const [, name] of nameCell.matchAll(/\*(\w+)\*/g)) {
+				if (doc) {
+					addDoc(target, name, doc);
+				}
+			}
+		}
+	}
+
+	return { types, qualifiers };
+}
+
+/** Adds a doc, keeping docs added earlier for the same name. */
+function addDoc(target: Record<string, string>, name: string, doc: string) {
+	if (!target[name]) {
+		target[name] = doc;
+	} else if (!target[name].includes(doc)) {
+		target[name] = `${target[name]}\n\n${doc}`;
+	}
+}
+
+/**
+ * Layout qualifier identifiers (`std430`, `binding`, `local_size_x`, image formats) from the summary table,
+ * each with the first paragraph of the chapter that introduces it, e.g. "The *binding* qualifier specifies ...".
+ */
+function parseLayoutQualifiers(blocks: Block[], attributes: Record<string, string>, qualifiers: Record<string, string>) {
+	const start = blocks.findIndex((block) => block.kind === 'heading' && block.text === 'Layout Qualifiers');
+	const end = blocks.findIndex((block) => block.kind === 'heading' && block.text === 'Interpolation Qualifiers');
+	if (start < 0 || end < start) {
+		return;
+	}
+	const chapter = blocks.slice(start, end);
+
+	const introductions: Record<string, string> = {};
+	for (const block of chapter) {
+		if (block.kind !== 'para') {
+			continue;
+		}
+
+		// "The *a*, *b*, and *c* qualifiers ..." or "*a* specifies ..."
+		const subjects = /^(?:The )?((?:\*\w+\*(?:,? and |,? or |, )?)+)\s/.exec(block.lines.join(' '));
+		for (const [, name] of subjects?.[1].matchAll(/\*(\w+)\*/g) ?? []) {
+			introductions[name] ??= blockToMarkdown(block, attributes);
+		}
+	}
+
+	const table = chapter.find((block) => block.kind === 'table' && block.rows[0]?.[0] === 'Layout Qualifier');
+	if (table?.kind !== 'table') {
+		return;
+	}
+
+	const [header, ...rows] = table.rows;
+	const placements = header.slice(1, 5).map((column) => column.toLowerCase());
+
+	// A name can have several rows, e.g. `points` for geometry inputs and outputs.
+	const layouts = new Map<string, { takesValue: boolean; uses: string[] }>();
+
+	for (const [nameCell, ...cells] of rows) {
+		const names = [...nameCell.matchAll(/\*([\w ]+)\*/g)].flatMap(([, list]) => list.split(/\s+/));
+
+		// `X` marks where the qualifier can be used; other text narrows it, e.g. "opaque types only".
+		const usedOn = placements
+			.map((placement, index) => {
+				const mark = cells[index] ?? '';
+				return !mark ? undefined : mark === 'X' ? placement : `${placement} (${inline(mark, attributes)})`;
+			})
+			.filter(Boolean);
+		const interfaces = cells[4] ? inline(cells[4], attributes) : 'any interface';
+		const use = `- ${interfaces}: ${usedOn.join(', ')}`;
+
+		for (const name of names) {
+			const layout = layouts.get(name) ?? { takesValue: nameCell.includes('='), uses: [] };
+			layouts.set(name, layout);
+			if (!layout.uses.includes(use)) {
+				layout.uses.push(use);
+			}
+		}
+	}
+
+	for (const [name, { takesValue, uses }] of layouts) {
+		const usage = `Layout qualifier \`layout(${takesValue ? `${name} = …` : name})\`, used on:\n\n${uses.join('\n')}`;
+		addDoc(qualifiers, name, tidy([usage, introductions[name] ?? ''].join('\n\n')));
+	}
+}
+
+/** `count` blocks starting at the paragraph matching `start`, stopping at the next heading. */
+function proseDoc(blocks: Block[], start: RegExp, count: number, attributes: Record<string, string>): string | undefined {
+	const index = blocks.findIndex((block) => block.kind === 'para' && start.test(block.lines.join(' ')));
+	if (index < 0) {
+		return undefined;
+	}
+
+	const taken: string[] = [];
+	for (const block of blocks.slice(index, index + count)) {
+		if (block.kind === 'heading') {
+			break;
+		}
+		taken.push(blockToMarkdown(block, attributes));
+	}
+
+	return tidy(taken.join('\n\n'));
 }
 
 /**

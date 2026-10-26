@@ -25,7 +25,7 @@ Built-in docs are generated from these. Modified by 1hue (glsl-vscode), 2026: co
 markup simplified. Per-file details in `REUSE.toml`.
 
 - [Khronos GLSL specification source](https://github.com/KhronosGroup/GLSL),
-  Copyright 2008-2024 The Khronos Group Inc.,
+  Copyright 2008-2026 The Khronos Group Inc.,
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Used for GLSL and GLSL ES.
 - [Godot documentation](https://github.com/godotengine/godot-docs),
   Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community,

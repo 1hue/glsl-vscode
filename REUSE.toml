@@ -26,7 +26,7 @@ SPDX-License-Identifier = "MIT"
 [[annotations]]
 path = ["data/glsl.json", "data/essl.json"]
 precedence = "override"
-SPDX-FileCopyrightText = "2008-2024 The Khronos Group Inc."
+SPDX-FileCopyrightText = "2008-2026 The Khronos Group Inc."
 SPDX-License-Identifier = "CC-BY-4.0"
 
 # Generated from the Godot documentation, https://github.com/godotengine/godot-docs

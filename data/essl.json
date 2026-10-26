@@ -3,7 +3,7 @@
 		"name": "Khronos OpenGL ES Shading Language specification",
 		"url": "https://github.com/KhronosGroup/GLSL/tree/0099bf83b0288469917fc2e2972cb0a2b74d6711",
 		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711",
-		"copyright": "Copyright 2008-2024 The Khronos Group Inc.",
+		"copyright": "Copyright 2008-2026 The Khronos Group Inc.",
 		"licenses": [
 			{
 				"id": "CC-BY-4.0",
@@ -26,7 +26,7 @@
 						]
 					}
 				],
-				"doc": "Converts *degrees* to radians, i.e., `(π / 180) · degrees`."
+				"doc": "Converts `degrees` to radians, i.e., `(π / 180) · degrees`."
 			}
 		],
 		"degrees": [
@@ -42,7 +42,7 @@
 						]
 					}
 				],
-				"doc": "Converts *radians* to degrees, i.e., `(180 / π) · radians`."
+				"doc": "Converts `radians` to degrees, i.e., `(180 / π) · radians`."
 			}
 		],
 		"sin": [
@@ -106,7 +106,7 @@
 						]
 					}
 				],
-				"doc": "Arc sine. Returns an angle whose sine is *x*.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`.\nResults are undefined if `|x| > 1`."
+				"doc": "Arc sine. Returns an angle whose sine is `x`.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`. Results are undefined if `|x| > 1`."
 			}
 		],
 		"acos": [
@@ -122,7 +122,7 @@
 						]
 					}
 				],
-				"doc": "Arc cosine. Returns an angle whose cosine is *x*.\n\nThe range of values returned by this function is `[0,π]`.\nResults are undefined if `|x| > 1`."
+				"doc": "Arc cosine. Returns an angle whose cosine is `x`.\n\nThe range of values returned by this function is `[0,π]`. Results are undefined if `|x| > 1`."
 			}
 		],
 		"atan": [
@@ -142,7 +142,7 @@
 						]
 					}
 				],
-				"doc": "Arc tangent. Returns an angle whose tangent is `y / x`.\n\nThe signs of *x* and *y* are used to determine what quadrant the angle is in.\nThe range of values returned by this function is `[-π, π]`.\nResults are undefined if *x* and *y* are both 0."
+				"doc": "Arc tangent. Returns an angle whose tangent is `y / x`.\n\nThe signs of `x` and `y` are used to determine what quadrant the angle is in. The range of values returned by this function is `[-π, π]`. Results are undefined if `x` and `y` are both 0."
 			},
 			{
 				"signatures": [
@@ -156,7 +156,7 @@
 						]
 					}
 				],
-				"doc": "Arc tangent. Returns an angle whose tangent is *y_over_x*.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`."
+				"doc": "Arc tangent. Returns an angle whose tangent is `y_over_x`.\n\nThe range of values returned by this function is `[-π / 2, π / 2]`."
 			}
 		],
 		"sinh": [
@@ -220,7 +220,7 @@
 						]
 					}
 				],
-				"doc": "Arc hyperbolic sine; returns the inverse of **sinh**."
+				"doc": "Arc hyperbolic sine; returns the inverse of `sinh`."
 			}
 		],
 		"acosh": [
@@ -236,7 +236,7 @@
 						]
 					}
 				],
-				"doc": "Arc hyperbolic cosine. Returns the non-negative inverse of **cosh**.\n\nResults are undefined if `x < 1`."
+				"doc": "Arc hyperbolic cosine. Returns the non-negative inverse of `cosh`.\n\nResults are undefined if `x < 1`."
 			}
 		],
 		"atanh": [
@@ -252,7 +252,7 @@
 						]
 					}
 				],
-				"doc": "Arc hyperbolic tangent. Returns the inverse of **tanh**.\n\nResults are undefined if `|x| ≥ 1`."
+				"doc": "Arc hyperbolic tangent. Returns the inverse of `tanh`.\n\nResults are undefined if `|x| ≥ 1`."
 			}
 		],
 		"pow": [
@@ -272,7 +272,7 @@
 						]
 					}
 				],
-				"doc": "Returns *x* raised to the *y* power, i.e., `x^y`.\n\nResults are undefined if `x < 0`.\nResults are undefined if `x = 0` and `y ≤ 0`."
+				"doc": "Returns `x` raised to the `y` power, i.e., `x^y`.\n\nResults are undefined if `x < 0`. Results are undefined if `x = 0` and `y ≤ 0`."
 			}
 		],
 		"exp": [
@@ -288,7 +288,7 @@
 						]
 					}
 				],
-				"doc": "Returns the natural exponentiation of *x*, i.e., `e^x`."
+				"doc": "Returns the natural exponentiation of `x`, i.e., `e^x`."
 			}
 		],
 		"log": [
@@ -304,7 +304,7 @@
 						]
 					}
 				],
-				"doc": "Returns the natural logarithm of *x*, i.e., returns the value *y*\nwhich satisfies the equation `x = e^y`.\n\nResults are undefined if `x ≤ 0`."
+				"doc": "Returns the natural logarithm of `x`, i.e., returns the value `y` which satisfies the equation `x = e^y`.\n\nResults are undefined if `x ≤ 0`."
 			}
 		],
 		"exp2": [
@@ -320,7 +320,7 @@
 						]
 					}
 				],
-				"doc": "Returns 2 raised to the *x* power, i.e., `2^x`."
+				"doc": "Returns 2 raised to the `x` power, i.e., `2^x`."
 			}
 		],
 		"log2": [
@@ -336,7 +336,7 @@
 						]
 					}
 				],
-				"doc": "Returns the base 2 logarithm of *x*, i.e., returns the value *y* which\nsatisfies the equation `x = 2^y`.\n\nResults are undefined if `x ≤ 0`."
+				"doc": "Returns the base 2 logarithm of `x`, i.e., returns the value `y` which satisfies the equation `x = 2^y`.\n\nResults are undefined if `x ≤ 0`."
 			}
 		],
 		"sqrt": [
@@ -393,7 +393,7 @@
 						]
 					}
 				],
-				"doc": "Returns *x* if `x ≥ 0`; otherwise it returns -*x*."
+				"doc": "Returns `x` if `x ≥ 0`; otherwise it returns -`x`."
 			}
 		],
 		"sign": [
@@ -418,7 +418,7 @@
 						]
 					}
 				],
-				"doc": "Returns 1.0 if *x* > 0, 0.0 if *x* = 0, or -1.0 if *x* < 0."
+				"doc": "Returns 1.0 if `x` > 0, 0.0 if `x` = 0, or -1.0 if `x` < 0."
 			}
 		],
 		"floor": [
@@ -434,7 +434,7 @@
 						]
 					}
 				],
-				"doc": "Returns a value equal to the nearest integer that is less than or equal to *x*."
+				"doc": "Returns a value equal to the nearest integer that is less than or equal to `x`."
 			}
 		],
 		"trunc": [
@@ -450,7 +450,7 @@
 						]
 					}
 				],
-				"doc": "Returns a value equal to the nearest integer to *x* whose absolute\nvalue is not larger than the absolute value of *x*."
+				"doc": "Returns a value equal to the nearest integer to `x` whose absolute value is not larger than the absolute value of `x`."
 			}
 		],
 		"round": [
@@ -466,7 +466,7 @@
 						]
 					}
 				],
-				"doc": "Returns a value equal to the nearest integer to *x*.\n\nThe fraction 0.5 will round in a direction chosen by the\nimplementation, presumably the direction that is fastest.\nThis includes the possibility that **round**(*x*) returns the same value\nas **roundEven**(*x*) for all values of *x*."
+				"doc": "Returns a value equal to the nearest integer to `x`.\n\nThe fraction 0.5 will round in a direction chosen by the implementation, presumably the direction that is fastest. This includes the possibility that `round`(`x`) returns the same value as `roundEven`(`x`) for all values of `x`."
 			}
 		],
 		"roundEven": [
@@ -482,7 +482,7 @@
 						]
 					}
 				],
-				"doc": "Returns a value equal to the nearest integer to *x*.\n\nA fractional part of 0.5 will round toward the nearest even integer.\n(Both 3.5 and 4.5 for x will return 4.0.)"
+				"doc": "Returns a value equal to the nearest integer to `x`.\n\nA fractional part of 0.5 will round toward the nearest even integer. (Both 3.5 and 4.5 for x will return 4.0.)"
 			}
 		],
 		"ceil": [
@@ -498,7 +498,7 @@
 						]
 					}
 				],
-				"doc": "Returns a value equal to the nearest integer that is greater than or equal to *x*."
+				"doc": "Returns a value equal to the nearest integer that is greater than or equal to `x`."
 			}
 		],
 		"fract": [
@@ -514,7 +514,7 @@
 						]
 					}
 				],
-				"doc": "Returns *x* - **floor**(*x*)."
+				"doc": "Returns `x` - `floor`(`x`)."
 			}
 		],
 		"mod": [
@@ -547,7 +547,7 @@
 						]
 					}
 				],
-				"doc": "Modulus. Returns `x - y · floor(x / y)`.\n\nNote that implementations may use a cheap approximation to the remainder,\nand the error can be large due to the discontinuity in **floor**. This can\nproduce mathematically unexpected results in some cases, such as\n**mod**(*x*,*x*) computing *x* rather than 0, and can also cause the result\nto have a different sign than the infinitely precise result."
+				"doc": "Modulus. Returns `x - y · floor(x / y)`.\n\nNote that implementations may use a cheap approximation to the remainder, and the error can be large due to the discontinuity in `floor`. This can produce mathematically unexpected results in some cases, such as `mod`(`x`,`x`) computing `x` rather than 0, and can also cause the result to have a different sign than the infinitely precise result."
 			}
 		],
 		"modf": [
@@ -567,7 +567,7 @@
 						]
 					}
 				],
-				"doc": "Returns the fractional part of *x* and sets *i* to the integer part (as\na whole number floating-point value).\n\nBoth the return value and the output parameter will have the same sign as *x*.\n      If *x* has the value +/- Inf, the return value should be NaN and must\n      be either NaN or 0.0.\n      For **highp** non-constant expressions, the value returned must be\n      consistent."
+				"doc": "Returns the fractional part of `x` and sets `i` to the integer part (as a whole number floating-point value).\n\nBoth the return value and the output parameter will have the same sign as `x`. If `x` has the value +/- Inf, the return value should be NaN and must be either NaN or 0.0. For `highp` non-constant expressions, the value returned must be consistent."
 			}
 		],
 		"min": [
@@ -652,7 +652,7 @@
 						]
 					}
 				],
-				"doc": "Returns *y* if *y* < *x;* otherwise it returns *x*.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
+				"doc": "Returns `y` if `y` < `x;` otherwise it returns `x`.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
 			}
 		],
 		"max": [
@@ -737,7 +737,7 @@
 						]
 					}
 				],
-				"doc": "Returns *y* if *x* < *y;* otherwise it returns *x*.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
+				"doc": "Returns `y` if `x` < `y;` otherwise it returns `x`.\n\nWhich operand is the result is undefined if one of the operands is a NaN."
 			}
 		],
 		"clamp": [
@@ -846,7 +846,7 @@
 						]
 					}
 				],
-				"doc": "Returns **min**(**max**(*x*, *minVal*), *maxVal*).\n\nResults are undefined if *minVal* > *maxVal*."
+				"doc": "Returns `min`(`max`(`x`, `minVal`), `maxVal`).\n\nResults are undefined if `minVal` > `maxVal`."
 			}
 		],
 		"mix": [
@@ -887,7 +887,7 @@
 						]
 					}
 				],
-				"doc": "Returns the linear blend of *x* and *y*, i.e., `x · (1 - a) + y · a`."
+				"doc": "Returns the linear blend of `x` and `y`, i.e., `x · (1 - a) + y · a`."
 			},
 			{
 				"signatures": [
@@ -960,7 +960,7 @@
 						]
 					}
 				],
-				"doc": "Selects which vector each returned component comes from.\n\nFor a component of *a* that is **false**, the corresponding component of *x* is returned.\n\nFor a component of *a* that is **true**, the corresponding component of *y* is returned.\n\nComponents of *x* and *y* that are not selected are allowed to be\ninvalid floating-point values and will have no effect on the results.\nThus, this provides different functionality than, for example, +\ngenFType **mix**(genFType *x*, genFType *y*, genFType(*a*)) +\nwhere *a* is a Boolean vector."
+				"doc": "Selects which vector each returned component comes from.\n\nFor a component of `a` that is `false`, the corresponding component of `x` is returned.\n\nFor a component of `a` that is `true`, the corresponding component of `y` is returned.\n\nComponents of `x` and `y` that are not selected are allowed to be invalid floating-point values and will have no effect on the results. Thus, this provides different functionality than, for example, + genFType `mix`(genFType `x`, genFType `y`, genFType(`a`)) + where `a` is a Boolean vector."
 			}
 		],
 		"step": [
@@ -993,7 +993,7 @@
 						]
 					}
 				],
-				"doc": "Returns 0.0 if *x* < *edge;* otherwise it returns 1.0."
+				"doc": "Returns 0.0 if `x` < `edge;` otherwise it returns 1.0."
 			}
 		],
 		"smoothstep": [
@@ -1034,7 +1034,7 @@
 						]
 					}
 				],
-				"doc": "Returns 0.0 if `x ≤ edge0` and 1.0 if `x ≥ edge1`, and\nperforms smooth Hermite interpolation between 0 and 1 when `edge0 < x < edge1`.\n\nThis is useful in cases where you would want a threshold function with a smooth transition.\n\nThis is equivalent to:\n\n```glsl\ngenFType t;\nt = clamp ((x - edge0) / (edge1 - edge0), 0, 1);\nreturn t * t * (3 - 2 * t);\n```\n\n(And similarly for doubles.) Results are undefined if `edge0 ≥ edge1`."
+				"doc": "Returns 0.0 if `x ≤ edge0` and 1.0 if `x ≥ edge1`, and performs smooth Hermite interpolation between 0 and 1 when `edge0 < x < edge1`.\n\nThis is useful in cases where you would want a threshold function with a smooth transition.\n\nThis is equivalent to:\n\n```glsl\ngenFType t;\nt = clamp ((x - edge0) / (edge1 - edge0), 0, 1);\nreturn t * t * (3 - 2 * t);\n```\n\n(And similarly for doubles.) Results are undefined if `edge0 ≥ edge1`."
 			}
 		],
 		"isnan": [
@@ -1050,7 +1050,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if *x* holds a NaN. Returns **false** otherwise.\n\nAlways returns **false** if NaNs are not implemented."
+				"doc": "Returns `true` if `x` holds a NaN. Returns `false` otherwise.\n\nAlways returns `false` if NaNs are not implemented."
 			}
 		],
 		"isinf": [
@@ -1066,7 +1066,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if *x* holds a positive infinity or negative infinity. Returns **false** otherwise."
+				"doc": "Returns `true` if `x` holds a positive infinity or negative infinity. Returns `false` otherwise."
 			}
 		],
 		"floatBitsToInt": [
@@ -1082,7 +1082,7 @@
 						]
 					}
 				],
-				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe **float** value's bit-level representation is preserved."
+				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe `float` value's bit-level representation is preserved."
 			}
 		],
 		"floatBitsToUint": [
@@ -1098,7 +1098,7 @@
 						]
 					}
 				],
-				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe **float** value's bit-level representation is preserved."
+				"doc": "Returns a signed or unsigned integer value representing the encoding of a floating-point value.\n\nThe `float` value's bit-level representation is preserved."
 			}
 		],
 		"intBitsToFloat": [
@@ -1114,7 +1114,7 @@
 						]
 					}
 				],
-				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a\nfloating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is\nunspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0.\nOtherwise, the bit-level representation is preserved."
+				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a floating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is unspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0. Otherwise, the bit-level representation is preserved."
 			}
 		],
 		"uintBitsToFloat": [
@@ -1130,7 +1130,7 @@
 						]
 					}
 				],
-				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a\nfloating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is\nunspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0.\nOtherwise, the bit-level representation is preserved."
+				"doc": "Returns a floating-point value corresponding to a signed or unsigned integer encoding of a floating-point value.\n\nIf an Inf or NaN is passed in, it will not signal, and the resulting floating-point value is unspecified.\n\nIf a subnormal number is passed in, the result might be flushed to 0. Otherwise, the bit-level representation is preserved."
 			}
 		],
 		"fma": [
@@ -1154,7 +1154,7 @@
 						]
 					}
 				],
-				"doc": "Computes and returns `a * b + c`.\n\nIn uses where the return value is eventually consumed by a variable declared as **precise**:\n\n- **fma**() is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared **precise** is considered two\n    operations.\n- The precision of **fma**() can differ from the precision of the expression\n    `a * b + c`.\n- **fma**() will be computed with the same precision as any other **fma**()\n    consumed by a precise variable, giving invariant results for the same\n    input values of *a*, *b*, and *c*.\n\nOtherwise, in the absence of **precise** consumption, there are no special\nconstraints on the number of operations or difference in precision between\n**fma**() and the expression `a * b + c`."
+				"doc": "Computes and returns `a * b + c`.\n\nIn uses where the return value is eventually consumed by a variable declared as `precise`:\n\n- `fma`() is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared `precise` is considered two operations.\n- The precision of `fma`() can differ from the precision of the expression `a * b + c`.\n- `fma`() will be computed with the same precision as any other `fma`() consumed by a precise variable, giving invariant results for the same input values of `a`, `b`, and `c`.\n\nOtherwise, in the absence of `precise` consumption, there are no special constraints on the number of operations or difference in precision between `fma`() and the expression `a * b + c`."
 			}
 		],
 		"frexp": [
@@ -1174,7 +1174,7 @@
 						]
 					}
 				],
-				"doc": "Splits *x* into a floating-point significand in the range\n`[0.5,1.0]`, and an integral exponent of two, such that\n\n`x = significand · 2^exponent`\n\nThe significand is returned by the function and the exponent is\nreturned in the parameter *exp*. For a floating-point value of zero, the\nsignificand and exponent are both zero.\n\nIf an implementation supports signed zero, an input value of minus\nzero should return a significand of minus zero. For a floating-point value that\nis an infinity or is not a number, the results are undefined.\n\nIf the input *x* is a vector, this operation is performed in a\ncomponent-wise manner; the value returned by the function and the\nvalue written to *exp* are vectors with the same number of components as *x*."
+				"doc": "Splits `x` into a floating-point significand in the range `[0.5,1.0]`, and an integral exponent of two, such that\n\n`x = significand · 2^exponent`\n\nThe significand is returned by the function and the exponent is returned in the parameter `exp`. For a floating-point value of zero, the significand and exponent are both zero.\n\nIf an implementation supports signed zero, an input value of minus zero should return a significand of minus zero. For a floating-point value that is an infinity or is not a number, the results are undefined.\n\nIf the input `x` is a vector, this operation is performed in a component-wise manner; the value returned by the function and the value written to `exp` are vectors with the same number of components as `x`."
 			}
 		],
 		"ldexp": [
@@ -1194,7 +1194,7 @@
 						]
 					}
 				],
-				"doc": "Builds a floating-point number from *x* and the corresponding integral\nexponent of two in *exp*, returning:\n\n`significand · 2^exponent`\n\nIf this product is too large to be represented in the floating-point\ntype, the result is undefined.\n\nIf *exp* is greater than +128, the value returned is undefined.\nIf *exp* is less than -126, the value returned may be flushed to zero.\n\nAdditionally, splitting the value into a significand and exponent\nusing **frexp**() and then reconstructing a floating-point value using\n**ldexp**() should yield the original input for zero and all finite\nnon-subnormal values.\n\nIf the input *x* is a vector, this operation is performed in a\ncomponent-wise manner; the value passed in *exp* and returned by the\nfunction are vectors with the same number of components as *x*."
+				"doc": "Builds a floating-point number from `x` and the corresponding integral exponent of two in `exp`, returning:\n\n`significand · 2^exponent`\n\nIf this product is too large to be represented in the floating-point type, the result is undefined.\n\nIf `exp` is greater than +128, the value returned is undefined. If `exp` is less than -126, the value returned may be flushed to zero.\n\nAdditionally, splitting the value into a significand and exponent using `frexp`() and then reconstructing a floating-point value using `ldexp`() should yield the original input for zero and all finite non-subnormal values.\n\nIf the input `x` is a vector, this operation is performed in a component-wise manner; the value passed in `exp` and returned by the function are vectors with the same number of components as `x`."
 			}
 		],
 		"packUnorm2x16": [
@@ -1210,7 +1210,7 @@
 						]
 					}
 				],
-				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+				"doc": "First, converts each component of the normalized floating-point value `v` into 16-bit (`2x16`) or 8-bit (`4x8`) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned integer.\n\nThe conversion for component `c` of `v` to fixed point is done as follows:\n\n`packUnorm2x16`: `round(clamp(c, 0, +1) * 65535.0)` + `packSnorm2x16:` `round(clamp(c, -1, +1) * 32767.0)` + `packUnorm4x8`: `round(clamp(c, 0, +1) * 255.0)` + `packSnorm4x8`: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits."
 			}
 		],
 		"packSnorm2x16": [
@@ -1226,7 +1226,7 @@
 						]
 					}
 				],
-				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+				"doc": "First, converts each component of the normalized floating-point value `v` into 16-bit (`2x16`) or 8-bit (`4x8`) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned integer.\n\nThe conversion for component `c` of `v` to fixed point is done as follows:\n\n`packUnorm2x16`: `round(clamp(c, 0, +1) * 65535.0)` + `packSnorm2x16:` `round(clamp(c, -1, +1) * 32767.0)` + `packUnorm4x8`: `round(clamp(c, 0, +1) * 255.0)` + `packSnorm4x8`: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits."
 			}
 		],
 		"packUnorm4x8": [
@@ -1242,7 +1242,7 @@
 						]
 					}
 				],
-				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+				"doc": "First, converts each component of the normalized floating-point value `v` into 16-bit (`2x16`) or 8-bit (`4x8`) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned integer.\n\nThe conversion for component `c` of `v` to fixed point is done as follows:\n\n`packUnorm2x16`: `round(clamp(c, 0, +1) * 65535.0)` + `packSnorm2x16:` `round(clamp(c, -1, +1) * 32767.0)` + `packUnorm4x8`: `round(clamp(c, 0, +1) * 255.0)` + `packSnorm4x8`: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits."
 			}
 		],
 		"packSnorm4x8": [
@@ -1258,7 +1258,7 @@
 						]
 					}
 				],
-				"doc": "First, converts each component of the normalized floating-point value\n*v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned\ninteger.\n\nThe conversion for component *c* of *v* to fixed point is done as\nfollows:\n\n**packUnorm2x16**: `round(clamp(c, 0, +1) * 65535.0)` +\n**packSnorm2x16:** `round(clamp(c, -1, +1) * 32767.0)` +\n**packUnorm4x8**: `round(clamp(c, 0, +1) * 255.0)` +\n**packSnorm4x8**: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least\nsignificant bits of the output; the last component will be written to\nthe most significant bits."
+				"doc": "First, converts each component of the normalized floating-point value `v` into 16-bit (`2x16`) or 8-bit (`4x8`) integer values.\n\nThen, the results are packed into the returned 32-bit unsigned integer.\n\nThe conversion for component `c` of `v` to fixed point is done as follows:\n\n`packUnorm2x16`: `round(clamp(c, 0, +1) * 65535.0)` + `packSnorm2x16:` `round(clamp(c, -1, +1) * 32767.0)` + `packUnorm4x8`: `round(clamp(c, 0, +1) * 255.0)` + `packSnorm4x8`: `round(clamp(c, -1, +1) * 127.0)`\n\nThe first component of the vector will be written to the least significant bits of the output; the last component will be written to the most significant bits."
 			}
 		],
 		"unpackUnorm2x16": [
@@ -1274,7 +1274,7 @@
 						]
 					}
 				],
-				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+				"doc": "First, unpacks a single 32-bit unsigned integer `p` into a pair of 16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit unsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value `f` to floating-point is done as follows:\n\n`unpackUnorm2x16`: `f / 65535.0` + `unpackSnorm2x16`: `clamp(f / 32767.0, -1, +1)` + `unpackUnorm4x8`: `f / 255.0` + `unpackSnorm4x8`: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits."
 			}
 		],
 		"unpackSnorm2x16": [
@@ -1290,7 +1290,7 @@
 						]
 					}
 				],
-				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+				"doc": "First, unpacks a single 32-bit unsigned integer `p` into a pair of 16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit unsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value `f` to floating-point is done as follows:\n\n`unpackUnorm2x16`: `f / 65535.0` + `unpackSnorm2x16`: `clamp(f / 32767.0, -1, +1)` + `unpackUnorm4x8`: `f / 255.0` + `unpackSnorm4x8`: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits."
 			}
 		],
 		"unpackUnorm4x8": [
@@ -1306,7 +1306,7 @@
 						]
 					}
 				],
-				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+				"doc": "First, unpacks a single 32-bit unsigned integer `p` into a pair of 16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit unsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value `f` to floating-point is done as follows:\n\n`unpackUnorm2x16`: `f / 65535.0` + `unpackSnorm2x16`: `clamp(f / 32767.0, -1, +1)` + `unpackUnorm4x8`: `f / 255.0` + `unpackSnorm4x8`: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits."
 			}
 		],
 		"unpackSnorm4x8": [
@@ -1322,7 +1322,7 @@
 						]
 					}
 				],
-				"doc": "First, unpacks a single 32-bit unsigned integer *p* into a pair of\n16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit\nunsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value\nto generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value *f* to floating-point is\ndone as follows:\n\n**unpackUnorm2x16**: `f / 65535.0` +\n**unpackSnorm2x16**: `clamp(f / 32767.0, -1, +1)` +\n**unpackUnorm4x8**: `f / 255.0` +\n**unpackSnorm4x8**: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the\nleast significant bits of the input; the last component will be\nextracted from the most significant bits."
+				"doc": "First, unpacks a single 32-bit unsigned integer `p` into a pair of 16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit unsigned integers, or four 8-bit signed integers, respectively.\n\nThen, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.\n\nThe conversion for unpacked fixed-point value `f` to floating-point is done as follows:\n\n`unpackUnorm2x16`: `f / 65535.0` + `unpackSnorm2x16`: `clamp(f / 32767.0, -1, +1)` + `unpackUnorm4x8`: `f / 255.0` + `unpackSnorm4x8`: `clamp(f / 127.0, -1, +1)`\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits."
 			}
 		],
 		"packHalf2x16": [
@@ -1338,7 +1338,7 @@
 						]
 					}
 				],
-				"doc": "Returns an unsigned integer obtained by converting the components of a\ntwo-component floating-point vector to the 16-bit floating-point\nrepresentation of the  API, and\nthen packing these two 16-bit integers into a 32-bit unsigned integer.\n\nThe first vector component specifies the 16 least-significant bits of\nthe result; the second component specifies the 16 most-significant\nbits."
+				"doc": "Returns an unsigned integer obtained by converting the components of a two-component floating-point vector to the 16-bit floating-point representation of the  API, and then packing these two 16-bit integers into a 32-bit unsigned integer.\n\nThe first vector component specifies the 16 least-significant bits of the result; the second component specifies the 16 most-significant bits."
 			}
 		],
 		"unpackHalf2x16": [
@@ -1354,7 +1354,7 @@
 						]
 					}
 				],
-				"doc": "Returns a two-component floating-point vector with components obtained\nby unpacking a 32-bit unsigned integer into a pair of 16-bit values,\ninterpreting those values as 16-bit floating-point numbers according\nto the  API, and converting them to\n32-bit floating-point values.\n\nThe first component of the vector is obtained from the 16\nleast-significant bits of *v*; the second component is obtained from\nthe 16 most-significant bits of *v*."
+				"doc": "Returns a two-component floating-point vector with components obtained by unpacking a 32-bit unsigned integer into a pair of 16-bit values, interpreting those values as 16-bit floating-point numbers according to the  API, and converting them to 32-bit floating-point values.\n\nThe first component of the vector is obtained from the 16 least-significant bits of `v`; the second component is obtained from the 16 most-significant bits of `v`."
 			}
 		],
 		"length": [
@@ -1370,7 +1370,7 @@
 						]
 					}
 				],
-				"doc": "Returns the length of vector *x*, i.e., `sqrt( x_0^2 + x_1^2 + ... )`."
+				"doc": "Returns the length of vector `x`, i.e., `sqrt( x_0^2 + x_1^2 + ... )`."
 			}
 		],
 		"distance": [
@@ -1390,7 +1390,7 @@
 						]
 					}
 				],
-				"doc": "Returns the distance between *p0* and *p1*, i.e., **length**(*p0* - *p1*)"
+				"doc": "Returns the distance between `p0` and `p1`, i.e., `length`(`p0` - `p1`)"
 			}
 		],
 		"dot": [
@@ -1410,7 +1410,7 @@
 						]
 					}
 				],
-				"doc": "Returns the dot product of *x* and *y*, i.e., `x_0 · y_0 + x_1 · y_1 + ...`"
+				"doc": "Returns the dot product of `x` and `y`, i.e., `x_0 · y_0 + x_1 · y_1 + ...`"
 			}
 		],
 		"cross": [
@@ -1430,7 +1430,7 @@
 						]
 					}
 				],
-				"doc": "Returns the cross product of *x* and *y*, i.e.,\n      `(x_1 · y_2 - y_1 · x_2, x_2 · y_0 - y_2 · x_0, x_0 · y_1 - y_0 · x_1)`."
+				"doc": "Returns the cross product of `x` and `y`, i.e., `(x_1 · y_2 - y_1 · x_2, x_2 · y_0 - y_2 · x_0, x_0 · y_1 - y_0 · x_1)`."
 			}
 		],
 		"normalize": [
@@ -1446,7 +1446,7 @@
 						]
 					}
 				],
-				"doc": "Returns a vector in the same direction as *x* but with a length of 1, i.e. *x* / **length**(x)."
+				"doc": "Returns a vector in the same direction as `x` but with a length of 1, i.e. `x` / `length`(x)."
 			}
 		],
 		"faceforward": [
@@ -1470,7 +1470,7 @@
 						]
 					}
 				],
-				"doc": "If **dot**(*Nref*, *I*) < 0 return *N*, otherwise return -*N*."
+				"doc": "If `dot`(`Nref`, `I`) < 0 return `N`, otherwise return -`N`."
 			}
 		],
 		"reflect": [
@@ -1490,7 +1490,7 @@
 						]
 					}
 				],
-				"doc": "For the incident vector *I* and surface orientation *N*, returns the reflection direction:\n`I - 2 · dot(N, I) · N`. *N* must already be normalized in order to achieve\nthe desired result."
+				"doc": "For the incident vector `I` and surface orientation `N`, returns the reflection direction: `I - 2 · dot(N, I) · N`. `N` must already be normalized in order to achieve the desired result."
 			}
 		],
 		"refract": [
@@ -1514,7 +1514,7 @@
 						]
 					}
 				],
-				"doc": "For the incident vector *I* and surface normal *N*, and the ratio of indices of refraction\n*eta*, return the refraction vector. The result is computed by the refraction equation shown below.\n\n```\nk = 1.0 - eta * eta * (1.0 - \\textbf{dot}(N,I) \\cdot \\textbf{dot}(N,I))\n```\n\n```\n\\begin{aligned}\nresult &=\n  \\begin{cases}\n    genFType(0.0), & k < 0.0 \\\\\n    eta * I - (eta * \\textbf{dot}(N,I) + \\sqrt { k }) * N, & \\textbf{otherwise}\n  \\end{cases}\n\\end{aligned}\n```\n\nThe input parameters for the incident vector *I* and the surface normal *N* must already be\nnormalized to get the desired results."
+				"doc": "For the incident vector `I` and surface normal `N`, and the ratio of indices of refraction `eta`, return the refraction vector. The result is computed by the refraction equation shown below.\n\n```\nk = 1.0 - eta * eta * (1.0 - \\textbf{dot}(N,I) \\cdot \\textbf{dot}(N,I))\n```\n\n```\n\\begin{aligned}\nresult &=\n  \\begin{cases}\n    genFType(0.0), & k < 0.0 \\\\\n    eta * I - (eta * \\textbf{dot}(N,I) + \\sqrt { k }) * N, & \\textbf{otherwise}\n  \\end{cases}\n\\end{aligned}\n```\n\nThe input parameters for the incident vector `I` and the surface normal `N` must already be normalized to get the desired results."
 			}
 		],
 		"matrixCompMult": [
@@ -1534,7 +1534,7 @@
 						]
 					}
 				],
-				"doc": "Multiply matrix *x* by matrix *y* component-wise, i.e., `result[i][j]`\nis the scalar product of `x[i][j]` and `y[i][j]`.\n\n**Note:** To get linear algebraic matrix multiplication, use the multiply operator (`*`)."
+				"doc": "Multiply matrix `x` by matrix `y` component-wise, i.e., `result[i][j]` is the scalar product of `x[i][j]` and `y[i][j]`.\n\n**Note:** To get linear algebraic matrix multiplication, use the multiply operator (`*`)."
 			}
 		],
 		"outerProduct": [
@@ -1658,7 +1658,7 @@
 						]
 					}
 				],
-				"doc": "Treats the first parameter *c* as a column vector (matrix with one\ncolumn) and the second parameter *r* as a row vector (matrix with one\nrow) and does a linear algebraic matrix multiply *c* * *r*, yielding a\nmatrix whose number of rows is the number of components in *c* and\nwhose number of columns is the number of components in *r*."
+				"doc": "Treats the first parameter `c` as a column vector (matrix with one column) and the second parameter `r` as a row vector (matrix with one row) and does a linear algebraic matrix multiply `c` * `r`, yielding a matrix whose number of rows is the number of components in `c` and whose number of columns is the number of components in `r`."
 			}
 		],
 		"transpose": [
@@ -1746,7 +1746,7 @@
 						]
 					}
 				],
-				"doc": "Returns a matrix that is the transpose of *m*.\n\nThe input matrix *m* is not modified."
+				"doc": "Returns a matrix that is the transpose of `m`.\n\nThe input matrix `m` is not modified."
 			}
 		],
 		"determinant": [
@@ -1780,7 +1780,7 @@
 						]
 					}
 				],
-				"doc": "Returns the determinant of *m*."
+				"doc": "Returns the determinant of `m`."
 			}
 		],
 		"inverse": [
@@ -1814,7 +1814,7 @@
 						]
 					}
 				],
-				"doc": "Returns a matrix that is the inverse of *m*.\n\nThe input matrix *m* is not modified.\n\nThe values in the returned matrix are undefined if *m* is singular or\npoorly-conditioned (nearly singular)."
+				"doc": "Returns a matrix that is the inverse of `m`.\n\nThe input matrix `m` is not modified.\n\nThe values in the returned matrix are undefined if `m` is singular or poorly-conditioned (nearly singular)."
 			}
 		],
 		"lessThan": [
@@ -2132,7 +2132,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if any component of *x* is **true**."
+				"doc": "Returns `true` if any component of `x` is `true`."
 			}
 		],
 		"all": [
@@ -2148,7 +2148,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** only if all components of *x* are **true**."
+				"doc": "Returns `true` only if all components of `x` are `true`."
 			}
 		],
 		"not": [
@@ -2164,7 +2164,7 @@
 						]
 					}
 				],
-				"doc": "Returns the component-wise logical complement of *x*."
+				"doc": "Returns the component-wise logical complement of `x`."
 			}
 		],
 		"uaddCarry": [
@@ -2188,7 +2188,7 @@
 						]
 					}
 				],
-				"doc": "Adds 32-bit unsigned integers *x* and *y*, returning the sum modulo 2^32.\n\nThe value *carry* is set to zero if the sum was less than 2^32, or one otherwise."
+				"doc": "Adds 32-bit unsigned integers `x` and `y`, returning the sum modulo 2^32.\n\nThe value `carry` is set to zero if the sum was less than 2^32, or one otherwise."
 			}
 		],
 		"usubBorrow": [
@@ -2212,7 +2212,7 @@
 						]
 					}
 				],
-				"doc": "Subtracts the 32-bit unsigned integer *y* from *x*, returning the difference if non-negative, or\n2^32 plus the difference otherwise.\n\nThe value *borrow* is set to zero if `x ≥ y`, or one otherwise."
+				"doc": "Subtracts the 32-bit unsigned integer `y` from `x`, returning the difference if non-negative, or 2^32 plus the difference otherwise.\n\nThe value `borrow` is set to zero if `x ≥ y`, or one otherwise."
 			}
 		],
 		"bitfieldExtract": [
@@ -2253,7 +2253,7 @@
 						]
 					}
 				],
-				"doc": "Extracts bits `[offset, offset + bits - 1]` from *value*, returning them in the least\nsignificant bits of the result.\n\nFor unsigned data types, the most significant bits of the result will be set to zero.\nFor signed data types, the most significant bits will be set to the value of bit\n`offset + bits - 1`.\n\nIf *bits* is zero, the result will be zero. The result will be undefined if *offset* or *bits* is\nnegative, or if the sum of *offset* and *bits* is greater than the number of bits used to store the\noperand.\n\nNote that for vector versions of **bitfieldExtract**(), a single pair of *offset* and *bits* values\nis shared for all components."
+				"doc": "Extracts bits `[offset, offset + bits - 1]` from `value`, returning them in the least significant bits of the result.\n\nFor unsigned data types, the most significant bits of the result will be set to zero. For signed data types, the most significant bits will be set to the value of bit `offset + bits - 1`.\n\nIf `bits` is zero, the result will be zero. The result will be undefined if `offset` or `bits` is negative, or if the sum of `offset` and `bits` is greater than the number of bits used to store the operand.\n\nNote that for vector versions of `bitfieldExtract`(), a single pair of `offset` and `bits` values is shared for all components."
 			}
 		],
 		"bitfieldInsert": [
@@ -2302,7 +2302,7 @@
 						]
 					}
 				],
-				"doc": "Inserts the *bits* least significant bits of *insert* into *base*.\n\nThe result will have bits `[offset, offset + bits - 1]` taken from bits `[0, bits - 1]` of\n*insert*, and all other bits taken directly from the corresponding bits of *base*.\nIf *bits* is zero, the result will simply be *base*. The result will be undefined if *offset* or\n*bits* is negative, or if the sum of *offset* and *bits* is greater than the number of bits used\nto store the operand.\n\nNote that for vector versions of **bitfieldInsert**(), a single pair of *offset* and *bits* values is\nshared for all components."
+				"doc": "Inserts the `bits` least significant bits of `insert` into `base`.\n\nThe result will have bits `[offset, offset + bits - 1]` taken from bits `[0, bits - 1]` of `insert`, and all other bits taken directly from the corresponding bits of `base`. If `bits` is zero, the result will simply be `base`. The result will be undefined if `offset` or `bits` is negative, or if the sum of `offset` and `bits` is greater than the number of bits used to store the operand.\n\nNote that for vector versions of `bitfieldInsert`(), a single pair of `offset` and `bits` values is shared for all components."
 			}
 		],
 		"bitfieldReverse": [
@@ -2327,7 +2327,7 @@
 						]
 					}
 				],
-				"doc": "Reverses the bits of *value*.\n\nThe bit numbered *n* of the result will be taken from bit `(bits -1) - n` of *value*, where\n*bits* is the total number of bits used to represent *value*."
+				"doc": "Reverses the bits of `value`.\n\nThe bit numbered `n` of the result will be taken from bit `(bits -1) - n` of `value`, where `bits` is the total number of bits used to represent `value`."
 			}
 		],
 		"bitCount": [
@@ -2352,7 +2352,7 @@
 						]
 					}
 				],
-				"doc": "Returns the number of one bits in the binary representation of *value*."
+				"doc": "Returns the number of one bits in the binary representation of `value`."
 			}
 		],
 		"findLSB": [
@@ -2377,7 +2377,7 @@
 						]
 					}
 				],
-				"doc": "Returns the bit number of the least significant one bit in the binary representation of *value*.\n\nIf *value* is zero, -1 will be returned."
+				"doc": "Returns the bit number of the least significant one bit in the binary representation of `value`.\n\nIf `value` is zero, -1 will be returned."
 			}
 		],
 		"findMSB": [
@@ -2402,7 +2402,7 @@
 						]
 					}
 				],
-				"doc": "Returns the bit number of the most significant bit in the binary representation of *value*.\n\nFor positive integers, the result will be the bit number of the most significant one bit.\nFor negative integers, the result will be the bit number of the most significant zero bit.\nFor a *value* of zero or negative one, -1 will be returned."
+				"doc": "Returns the bit number of the most significant bit in the binary representation of `value`.\n\nFor positive integers, the result will be the bit number of the most significant one bit. For negative integers, the result will be the bit number of the most significant zero bit. For a `value` of zero or negative one, -1 will be returned."
 			}
 		],
 		"textureSize": [
@@ -2553,7 +2553,7 @@
 						]
 					}
 				],
-				"doc": "Returns the dimensions of level *lod* (if present) for the texture bound to *sampler*, as described\nin section 11.1.3.4 “Texture Queries” of the OpenGL ES Specification.\n\nThe components in the return value are filled in, in order, with the width, height, and depth of\nthe texture.\n\nFor the array forms, the last component of the return value is the number of layers in the texture\narray, or the number of cubes in the texture cube map array."
+				"doc": "Returns the dimensions of level `lod` (if present) for the texture bound to `sampler`, as described in section 11.1.3.4 “Texture Queries” of the OpenGL ES Specification.\n\nThe components in the return value are filled in, in order, with the width, height, and depth of the texture.\n\nFor the array forms, the last component of the return value is the number of layers in the texture array, or the number of cubes in the texture cube map array."
 			}
 		],
 		"texture": [
@@ -2716,7 +2716,7 @@
 						]
 					}
 				],
-				"doc": "Use the texture coordinate *P* to do a texture lookup in the texture currently bound to *sampler*.\n\nFor shadow forms: When *compare* is present, it is used as *D_ref* and the array layer comes from\nthe last component of *P*. When *compare* is not present, the last component of *P* is used as\n*D_ref* and the array layer comes from the second to last component of *P*.\n\nFor non-shadow forms: the array layer comes from the last component of *P*."
+				"doc": "Use the texture coordinate `P` to do a texture lookup in the texture currently bound to `sampler`.\n\nFor shadow forms: When `compare` is present, it is used as `D_ref` and the array layer comes from the last component of `P`. When `compare` is not present, the last component of `P` is used as `D_ref` and the array layer comes from the second to last component of `P`.\n\nFor non-shadow forms: the array layer comes from the last component of `P`."
 			}
 		],
 		"textureProj": [
@@ -2795,7 +2795,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup with projection.\n\nThe texture coordinates consumed from *P*, not including the last component of *P*, are divided by\nthe last component of *P* to form projected coordinates *P'*. The resulting third component of *P*\nin the shadow forms is used as *D_ref*. The third component of *P* is ignored when *sampler* has\ntype **gsampler2D** and *P* has type **vec4**. After these values are computed, texture lookup proceeds\nas in **texture**."
+				"doc": "Do a texture lookup with projection.\n\nThe texture coordinates consumed from `P`, not including the last component of `P`, are divided by the last component of `P` to form projected coordinates `P'`. The resulting third component of `P` in the shadow forms is used as `D_ref`. The third component of `P` is ignored when `sampler` has type `gsampler2D` and `P` has type `vec4`. After these values are computed, texture lookup proceeds as in `texture`."
 			}
 		],
 		"textureLod": [
@@ -2904,7 +2904,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup as in **texture** but with explicit level-of-detail; *lod* specifies\n`λ_base]` and sets the partial derivatives as follows:\n\n(See section 8.14 “Texture Minification” and equations 8.4-8.6 of the OpenGL ES Specification.)\n\n`∂u / ∂x = ∂v / ∂x = ∂w / ∂x = 0`\n\n`∂u / ∂y = ∂v / ∂y = ∂w / ∂y = 0`"
+				"doc": "Do a texture lookup as in `texture` but with explicit level-of-detail; `lod` specifies `λ_base]` and sets the partial derivatives as follows:\n\n(See section 8.14 “Texture Minification” and equations 8.4-8.6 of the OpenGL ES Specification.)\n\n`∂u / ∂x = ∂v / ∂x = ∂w / ∂x = 0`\n\n`∂u / ∂y = ∂v / ∂y = ∂w / ∂y = 0`"
 			}
 		],
 		"textureOffset": [
@@ -2999,7 +2999,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup as in **texture** but with *offset* added to the `(u,v,w)` texel coordinates\nbefore looking up each texel. The offset value must be a constant expression. A limited range of\noffset values are supported; the minimum and maximum offset values are implementation-dependent and\ngiven by *gl_MinProgramTexelOffset* and *gl_MaxProgramTexelOffset*, respectively.\n\nNote that *offset* does not apply to the layer coordinate for texture arrays.\n\nThis is explained in detail in section 8.14.2 “Coordinate Wrapping and Texel Selection” of the\nOpenGL ES Specification, where *offset* is `(δ_u, δ_v, δ_w)`.\n\nNote that texel offsets are also not supported for cube maps."
+				"doc": "Do a texture lookup as in `texture` but with `offset` added to the `(u,v,w)` texel coordinates before looking up each texel. The offset value must be a constant expression. A limited range of offset values are supported; the minimum and maximum offset values are implementation-dependent and given by `gl_MinProgramTexelOffset` and `gl_MaxProgramTexelOffset`, respectively.\n\nNote that `offset` does not apply to the layer coordinate for texture arrays.\n\nThis is explained in detail in section 8.14.2 “Coordinate Wrapping and Texel Selection” of the OpenGL ES Specification, where `offset` is `(δ_u, δ_v, δ_w)`.\n\nNote that texel offsets are also not supported for cube maps."
 			}
 		],
 		"texelFetch": [
@@ -3104,7 +3104,7 @@
 						]
 					}
 				],
-				"doc": "Use integer texture coordinate *P* to lookup a single texel from *sampler*. The array layer comes\nfrom the last component of *P* for the array forms. The level-of-detail *lod* (if present) is as\ndescribed in sections 11.1.3.2 “Texel Fetches” and 8.14.1 “Scale Factor and Level of Detail” of\nthe OpenGL ES Specification."
+				"doc": "Use integer texture coordinate `P` to lookup a single texel from `sampler`. The array layer comes from the last component of `P` for the array forms. The level-of-detail `lod` (if present) is as described in sections 11.1.3.2 “Texel Fetches” and 8.14.1 “Scale Factor and Level of Detail” of the OpenGL ES Specification."
 			}
 		],
 		"texelFetchOffset": [
@@ -3174,7 +3174,7 @@
 						]
 					}
 				],
-				"doc": "Fetch a single texel as in **texelFetch**, offset by *offset* as described in **textureOffset**."
+				"doc": "Fetch a single texel as in `texelFetch`, offset by `offset` as described in `textureOffset`."
 			}
 		],
 		"textureProjOffset": [
@@ -3269,7 +3269,7 @@
 						]
 					}
 				],
-				"doc": "Do a projective texture lookup as described in **textureProj**, offset by *offset* as described in\n**textureOffset**."
+				"doc": "Do a projective texture lookup as described in `textureProj`, offset by `offset` as described in `textureOffset`."
 			}
 		],
 		"textureLodOffset": [
@@ -3360,7 +3360,7 @@
 						]
 					}
 				],
-				"doc": "Do an offset texture lookup with explicit level-of-detail. See **textureLod** and **textureOffset**."
+				"doc": "Do an offset texture lookup with explicit level-of-detail. See `textureLod` and `textureOffset`."
 			}
 		],
 		"textureProjLod": [
@@ -3435,7 +3435,7 @@
 						]
 					}
 				],
-				"doc": "Do a projective texture lookup with explicit level-of-detail. See **textureProj** and **textureLod**."
+				"doc": "Do a projective texture lookup with explicit level-of-detail. See `textureProj` and `textureLod`."
 			}
 		],
 		"textureProjLodOffset": [
@@ -3526,7 +3526,7 @@
 						]
 					}
 				],
-				"doc": "Do an offset projective texture lookup with explicit level-of-detail. See **textureProj**,\n**textureLod**, and **textureOffset**."
+				"doc": "Do an offset projective texture lookup with explicit level-of-detail. See `textureProj`, `textureLod`, and `textureOffset`."
 			}
 		],
 		"textureGrad": [
@@ -3701,7 +3701,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup as in **texture** but with  explicit gradients as shown\nbelow. The partial derivatives of *P* are with respect to window *x* and window *y*.\n\nFor the cube version, the partial derivatives of *P* are assumed to be in the coordinate system\nused before texture coordinates are projected onto the appropriate cube face."
+				"doc": "Do a texture lookup as in `texture` but with  explicit gradients as shown below. The partial derivatives of `P` are with respect to window `x` and window `y`.\n\nFor the cube version, the partial derivatives of `P` are assumed to be in the coordinate system used before texture coordinates are projected onto the appropriate cube face."
 			}
 		],
 		"textureGradOffset": [
@@ -3833,7 +3833,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup with both explicit gradient and offset, as described in **textureGrad** and\n**textureOffset**."
+				"doc": "Do a texture lookup with both explicit gradient and offset, as described in `textureGrad` and `textureOffset`."
 			}
 		],
 		"textureProjGrad": [
@@ -3924,7 +3924,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup both projectively, as described in **textureProj**, and with explicit gradient as\ndescribed in **textureGrad**. The partial derivatives *dPdx* and *dPdy* are assumed to be already\nprojected."
+				"doc": "Do a texture lookup both projectively, as described in `textureProj`, and with explicit gradient as described in `textureGrad`. The partial derivatives `dPdx` and `dPdy` are assumed to be already projected."
 			}
 		],
 		"textureProjGradOffset": [
@@ -4031,7 +4031,7 @@
 						]
 					}
 				],
-				"doc": "Do a texture lookup projectively and with explicit gradient as described in **textureProjGrad**, as\nwell as with offset, as described in **textureOffset**."
+				"doc": "Do a texture lookup projectively and with explicit gradient as described in `textureProjGrad`, as well as with offset, as described in `textureOffset`."
 			}
 		],
 		"textureGather": [
@@ -4178,7 +4178,7 @@
 						]
 					}
 				],
-				"doc": "Returns the value\n\n```glsl\nvec4(Sample_i0_j1(P, base).comp,\n     Sample_i1_j1(P, base).comp,\n     Sample_i1_j0(P, base).comp,\n     Sample_i0_j0(P, base).comp)\n```\n\nIf specified, the value of *comp* must be a constant integer expression with\na value of 0, 1, 2, or 3, identifying the *x*, *y*, *z*, or *w*\npost-swizzled component of the four-component vector lookup result for each\ntexel, respectively.\n\nIf *comp* is not specified, it is treated as 0, selecting the *x* component\nof each texel to generate the result."
+				"doc": "Returns the value\n\n```glsl\nvec4(Sample_i0_j1(P, base).comp,\n     Sample_i1_j1(P, base).comp,\n     Sample_i1_j0(P, base).comp,\n     Sample_i0_j0(P, base).comp)\n```\n\nIf specified, the value of `comp` must be a constant integer expression with a value of 0, 1, 2, or 3, identifying the `x`, `y`, `z`, or `w` post-swizzled component of the four-component vector lookup result for each texel, respectively.\n\nIf `comp` is not specified, it is treated as 0, selecting the `x` component of each texel to generate the result."
 			}
 		],
 		"textureGatherOffset": [
@@ -4271,7 +4271,7 @@
 						]
 					}
 				],
-				"doc": "Perform a texture gather operation as in **textureGather** by *offset* as described in\n**textureOffset** except that the *offset* can be variable (non constant) and the\nimplementation-dependent minimum and maximum offset values are given by\nMIN_PROGRAM_TEXTURE_GATHER_OFFSET and MAX_PROGRAM_TEXTURE_GATHER_OFFSET, respectively."
+				"doc": "Perform a texture gather operation as in `textureGather` by `offset` as described in `textureOffset` except that the `offset` can be variable (non constant) and the implementation-dependent minimum and maximum offset values are given by MIN_PROGRAM_TEXTURE_GATHER_OFFSET and MAX_PROGRAM_TEXTURE_GATHER_OFFSET, respectively."
 			}
 		],
 		"textureGatherOffsets": [
@@ -4364,7 +4364,7 @@
 						]
 					}
 				],
-				"doc": "Operate identically to **textureGatherOffset** except that *offsets* is used to determine the\nlocation of the four texels to sample. Each of the four texels is obtained by applying the\ncorresponding offset in *offsets* as a (*u*, *v*) coordinate offset to *P*, identifying the\nfour-texel LINEAR footprint, and then selecting the texel *i_0 j_0* of that footprint. The\nspecified values in *offsets* must be constant integral expressions."
+				"doc": "Operate identically to `textureGatherOffset` except that `offsets` is used to determine the location of the four texels to sample. Each of the four texels is obtained by applying the corresponding offset in `offsets` as a (`u`, `v`) coordinate offset to `P`, identifying the four-texel LINEAR footprint, and then selecting the texel `i_0 j_0` of that footprint. The specified values in `offsets` must be constant integral expressions."
 			}
 		],
 		"atomicCounterIncrement": [
@@ -4380,7 +4380,7 @@
 						]
 					}
 				],
-				"doc": "Atomically\n\n  . increments the counter for *c*, and\n  . returns its value prior to the increment operation.\n\nThese two steps are done atomically with respect to the atomic counter\nfunctions in this table."
+				"doc": "Atomically\n\n. increments the counter for `c`, and . returns its value prior to the increment operation.\n\nThese two steps are done atomically with respect to the atomic counter functions in this table."
 			}
 		],
 		"atomicCounterDecrement": [
@@ -4396,7 +4396,7 @@
 						]
 					}
 				],
-				"doc": "Atomically\n\n  . decrements the counter for *c*, and\n  . returns the value resulting from the decrement operation.\n\nThese two steps are done atomically with respect to the atomic counter\nfunctions in this table."
+				"doc": "Atomically\n\n. decrements the counter for `c`, and . returns the value resulting from the decrement operation.\n\nThese two steps are done atomically with respect to the atomic counter functions in this table."
 			}
 		],
 		"atomicCounter": [
@@ -4412,7 +4412,7 @@
 						]
 					}
 				],
-				"doc": "Returns the counter value for *c*."
+				"doc": "Returns the counter value for `c`."
 			}
 		],
 		"atomicAdd": [
@@ -4445,7 +4445,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by adding the value of *data* to the contents *mem*."
+				"doc": "Computes a new value by adding the value of `data` to the contents `mem`."
 			}
 		],
 		"atomicMin": [
@@ -4478,7 +4478,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by taking the minimum of the value of *data* and the contents of *mem*."
+				"doc": "Computes a new value by taking the minimum of the value of `data` and the contents of `mem`."
 			}
 		],
 		"atomicMax": [
@@ -4511,7 +4511,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by taking the maximum of the value of *data* and the contents of *mem*."
+				"doc": "Computes a new value by taking the maximum of the value of `data` and the contents of `mem`."
 			}
 		],
 		"atomicAnd": [
@@ -4544,7 +4544,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise AND of the value of *data* and the contents of *mem*."
+				"doc": "Computes a new value by performing a bit-wise AND of the value of `data` and the contents of `mem`."
 			}
 		],
 		"atomicOr": [
@@ -4577,7 +4577,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise OR of the value of *data* and the contents of *mem*."
+				"doc": "Computes a new value by performing a bit-wise OR of the value of `data` and the contents of `mem`."
 			}
 		],
 		"atomicXor": [
@@ -4610,7 +4610,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of *data* and the contents\nof *mem*."
+				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of `data` and the contents of `mem`."
 			}
 		],
 		"atomicExchange": [
@@ -4643,7 +4643,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by simply copying the value of *data*."
+				"doc": "Computes a new value by simply copying the value of `data`."
 			}
 		],
 		"atomicCompSwap": [
@@ -4684,7 +4684,7 @@
 						]
 					}
 				],
-				"doc": "Compares the value of *compare* and the contents of *mem*. If the values are equal, the new value\nis given by *data*; otherwise, it is taken from the original contents of *mem*."
+				"doc": "Compares the value of `compare` and the contents of `mem`. If the values are equal, the new value is given by `data`; otherwise, it is taken from the original contents of `mem`."
 			}
 		],
 		"imageSize": [
@@ -4745,7 +4745,7 @@
 						]
 					}
 				],
-				"doc": "Returns the dimensions of the image bound to *image*. For arrayed images, the last component of the\nreturn value will hold the size of the array. Cube images only return the dimensions of one face,\nand the number of cubes in the cube map array, if arrayed.\n\n**Note:** The qualification **readonly writeonly** accepts a variable qualified with **readonly**,\n      **writeonly**, both, or neither. It means the formal argument will be used for neither reading\n      nor writing to the underlying memory."
+				"doc": "Returns the dimensions of the image bound to `image`. For arrayed images, the last component of the return value will hold the size of the array. Cube images only return the dimensions of one face, and the number of cubes in the cube map array, if arrayed.\n\n**Note:** The qualification `readonly writeonly` accepts a variable qualified with `readonly`, `writeonly`, both, or neither. It means the formal argument will be used for neither reading nor writing to the underlying memory."
 			}
 		],
 		"imageLoad": [
@@ -4761,7 +4761,7 @@
 						]
 					}
 				],
-				"doc": "Loads the texel at the coordinate *P* from the image unit *image* (in *IMAGE_PARAMS*).\n\nWhen *image* and *P*\nidentify a valid texel, the bits used to represent the selected texel in memory are converted to a\n**vec4**, **ivec4**, or **uvec4** in the manner described in section\n8.23\n“Texture Image Loads and Stores” of the OpenGL ES Specification and returned."
+				"doc": "Loads the texel at the coordinate `P` from the image unit `image` (in `IMAGE_PARAMS`).\n\nWhen `image` and `P` identify a valid texel, the bits used to represent the selected texel in memory are converted to a `vec4`, `ivec4`, or `uvec4` in the manner described in section 8.23 “Texture Image Loads and Stores” of the OpenGL ES Specification and returned."
 			}
 		],
 		"imageStore": [
@@ -4781,7 +4781,7 @@
 						]
 					}
 				],
-				"doc": "Stores *data* into the texel at the coordinate *P* from the image specified by *image*.\nWhen *image* and *P*\nidentify a valid texel, the bits used to represent *data* are converted to the format of the image\nunit in the manner described in section\n8.23\n“Texture Image Loads and Stores” of the OpenGL ES Specification and stored to the specified\ntexel."
+				"doc": "Stores `data` into the texel at the coordinate `P` from the image specified by `image`. When `image` and `P` identify a valid texel, the bits used to represent `data` are converted to the format of the image unit in the manner described in section 8.23 “Texture Image Loads and Stores” of the OpenGL ES Specification and stored to the specified texel."
 			}
 		],
 		"imageAtomicAdd": [
@@ -4814,7 +4814,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by adding the value of *data* to the contents of the selected texel."
+				"doc": "Computes a new value by adding the value of `data` to the contents of the selected texel."
 			}
 		],
 		"imageAtomicMin": [
@@ -4847,7 +4847,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by taking the minimum of the value of *data* and the contents of the selected\ntexel."
+				"doc": "Computes a new value by taking the minimum of the value of `data` and the contents of the selected texel."
 			}
 		],
 		"imageAtomicMax": [
@@ -4880,7 +4880,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by taking the maximum of the value *data* and the contents of the selected\ntexel."
+				"doc": "Computes a new value by taking the maximum of the value `data` and the contents of the selected texel."
 			}
 		],
 		"imageAtomicAnd": [
@@ -4913,7 +4913,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise AND of the value of *data* and the contents of the\nselected texel."
+				"doc": "Computes a new value by performing a bit-wise AND of the value of `data` and the contents of the selected texel."
 			}
 		],
 		"imageAtomicOr": [
@@ -4946,7 +4946,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise OR of the value of *data* and the contents of the\nselected texel."
+				"doc": "Computes a new value by performing a bit-wise OR of the value of `data` and the contents of the selected texel."
 			}
 		],
 		"imageAtomicXor": [
@@ -4979,7 +4979,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of *data* and the contents\nof the selected texel."
+				"doc": "Computes a new value by performing a bit-wise EXCLUSIVE OR of the value of `data` and the contents of the selected texel."
 			}
 		],
 		"imageAtomicExchange": [
@@ -5025,7 +5025,7 @@
 						]
 					}
 				],
-				"doc": "Computes a new value by simply copying the value of *data*."
+				"doc": "Computes a new value by simply copying the value of `data`."
 			}
 		],
 		"imageAtomicCompSwap": [
@@ -5066,7 +5066,7 @@
 						]
 					}
 				],
-				"doc": "Compares the value of *compare* and the contents of the selected texel. If the values are equal,\nthe new value is given by *data*; otherwise, it is taken from the original value loaded from the\ntexel."
+				"doc": "Compares the value of `compare` and the contents of the selected texel. If the values are equal, the new value is given by `data`; otherwise, it is taken from the original value loaded from the texel."
 			}
 		],
 		"EmitVertex": [
@@ -5104,7 +5104,7 @@
 						]
 					}
 				],
-				"doc": "Returns the derivative in x using local differencing for the input argument *p*."
+				"doc": "Returns the derivative in x using local differencing for the input argument `p`."
 			}
 		],
 		"dFdy": [
@@ -5120,7 +5120,7 @@
 						]
 					}
 				],
-				"doc": "Returns the derivative in y using local differencing for the input argument *p*.\n\nThese two functions are commonly used to estimate the filter width used to anti-alias procedural\ntextures. We are assuming that the expression is being evaluated in parallel on a SIMD array so\nthat at any given point in time the value of the function is known at the grid points represented\nby the SIMD array. Local differencing between SIMD array elements can therefore be used to derive\n**dFdx**, **dFdy**, etc."
+				"doc": "Returns the derivative in y using local differencing for the input argument `p`.\n\nThese two functions are commonly used to estimate the filter width used to anti-alias procedural textures. We are assuming that the expression is being evaluated in parallel on a SIMD array so that at any given point in time the value of the function is known at the grid points represented by the SIMD array. Local differencing between SIMD array elements can therefore be used to derive `dFdx`, `dFdy`, etc."
 			}
 		],
 		"fwidth": [
@@ -5136,7 +5136,7 @@
 						]
 					}
 				],
-				"doc": "Returns the sum of the absolute derivative in x and y using local differencing for the input\nargument *p*, i.e., **abs**(**dFdx**(*p*)) + **abs**(**dFdy**(*p*));"
+				"doc": "Returns the sum of the absolute derivative in x and y using local differencing for the input argument `p`, i.e., `abs`(`dFdx`(`p`)) + `abs`(`dFdy`(`p`));"
 			}
 		],
 		"interpolateAtCentroid": [
@@ -5179,7 +5179,7 @@
 						]
 					}
 				],
-				"doc": "Returns the value of the input *interpolant* sampled at a location inside both the pixel and the\nprimitive being processed. The value obtained would be the same value assigned to the input\nvariable if declared with the **centroid** qualifier."
+				"doc": "Returns the value of the input `interpolant` sampled at a location inside both the pixel and the primitive being processed. The value obtained would be the same value assigned to the input variable if declared with the `centroid` qualifier."
 			}
 		],
 		"interpolateAtSample": [
@@ -5238,7 +5238,7 @@
 						]
 					}
 				],
-				"doc": "Returns the value of the input *interpolant* variable at the location of sample number *sample*.\nIf multisample buffers are not available, the input variable will be evaluated at the center of the\npixel. If sample *sample* does not exist, the position used to interpolate the input variable is undefined."
+				"doc": "Returns the value of the input `interpolant` variable at the location of sample number `sample`. If multisample buffers are not available, the input variable will be evaluated at the center of the pixel. If sample `sample` does not exist, the position used to interpolate the input variable is undefined."
 			}
 		],
 		"interpolateAtOffset": [
@@ -5297,7 +5297,7 @@
 						]
 					}
 				],
-				"doc": "Returns the value of the input *interpolant* variable sampled at an offset from the center of the\npixel specified by *offset*. The two floating-point components of *offset*, give the offset in\npixels in the *x* and *y* directions, respectively.\n\nAn offset of (0, 0) identifies the center of the pixel. The range and granularity of offsets\nsupported by this function is implementation-dependent."
+				"doc": "Returns the value of the input `interpolant` variable sampled at an offset from the center of the pixel specified by `offset`. The two floating-point components of `offset`, give the offset in pixels in the `x` and `y` directions, respectively.\n\nAn offset of (0, 0) identifies the center of the pixel. The range and granularity of offsets supported by this function is implementation-dependent."
 			}
 		],
 		"barrier": [
@@ -5308,7 +5308,7 @@
 						"params": []
 					}
 				],
-				"doc": "For any given static instance of **barrier**(), all tessellation control shader invocations for a\nsingle input patch must enter it before any will be allowed to continue beyond it, or all compute\nshader invocations for a single workgroup must enter it before any will continue beyond it.\n\nThe function **barrier**() provides a partially defined order of execution\nbetween shader invocations.\nThe ensures that, for some types of memory accesses, values written by one\ninvocation prior to a given static instance of **barrier**() can be safely read\nby other invocations after their call to the same static instance **barrier**().\nBecause invocations may execute in an undefined order between these barrier\ncalls, the values of a per-vertex or per-patch output variable for tessellation\ncontrol shaders, or the values of **shared** variables for compute shaders will be\nundefined in a number of cases enumerated in\n“Output Variables” (for tessellation control shaders)\nand “Shared Variables” (for compute shaders).\n\nFor tessellation control shaders, the **barrier**() function may only be\nplaced inside the function **main**() of the shader and may not be called\nwithin any control flow.\nBarriers are also disallowed after a return statement in the function\n**main**().\nAny such misplaced barriers result in a compile-time error.\n\nA **barrier**() affects control flow but only synchronizes memory accesses\nto **shared** variables and tessellation control output variables.\nFor other memory accesses, it does not ensure that values written by one invocation\nprior to a given static instance of **barrier**() can be safely read by other\ninvocations after their call to the same static instance of **barrier**().\nTo achieve this requires the use of both **barrier**() and a memory barrier.\n\nFor compute shaders, the **barrier**() function may be placed within control\nflow, but that control flow must be uniform control flow.\nThat is, all the controlling expressions that lead to execution of the\nbarrier must be dynamically uniform expressions.\nThis ensures that if any shader invocation enters a conditional statement,\nthen all invocations will enter it.\nWhile compilers are encouraged to give warnings if they can detect this\nmight not happen, compilers cannot completely determine this.\nHence, it is the author's responsibility to ensure **barrier**() only exists\ninside uniform control flow.\nOtherwise, some shader invocations will stall indefinitely, waiting for a\nbarrier that is never reached by other invocations."
+				"doc": "For any given static instance of `barrier`(), all tessellation control shader invocations for a single input patch must enter it before any will be allowed to continue beyond it, or all compute shader invocations for a single workgroup must enter it before any will continue beyond it.\n\nThe function `barrier`() provides a partially defined order of execution between shader invocations. The ensures that, for some types of memory accesses, values written by one invocation prior to a given static instance of `barrier`() can be safely read by other invocations after their call to the same static instance `barrier`(). Because invocations may execute in an undefined order between these barrier calls, the values of a per-vertex or per-patch output variable for tessellation control shaders, or the values of `shared` variables for compute shaders will be undefined in a number of cases enumerated in “Output Variables” (for tessellation control shaders) and “Shared Variables” (for compute shaders).\n\nFor tessellation control shaders, the `barrier`() function may only be placed inside the function `main`() of the shader and may not be called within any control flow. Barriers are also disallowed after a return statement in the function `main`(). Any such misplaced barriers result in a compile-time error.\n\nA `barrier`() affects control flow but only synchronizes memory accesses to `shared` variables and tessellation control output variables. For other memory accesses, it does not ensure that values written by one invocation prior to a given static instance of `barrier`() can be safely read by other invocations after their call to the same static instance of `barrier`(). To achieve this requires the use of both `barrier`() and a memory barrier.\n\nFor compute shaders, the `barrier`() function may be placed within control flow, but that control flow must be uniform control flow. That is, all the controlling expressions that lead to execution of the barrier must be dynamically uniform expressions. This ensures that if any shader invocation enters a conditional statement, then all invocations will enter it. While compilers are encouraged to give warnings if they can detect this might not happen, compilers cannot completely determine this. Hence, it is the author's responsibility to ensure `barrier`() only exists inside uniform control flow. Otherwise, some shader invocations will stall indefinitely, waiting for a barrier that is never reached by other invocations."
 			}
 		],
 		"memoryBarrier": [
@@ -5352,7 +5352,7 @@
 						"params": []
 					}
 				],
-				"doc": "Control the ordering of memory transactions to shared variables issued within a single shader\ninvocation, as viewed by other invocations in the same workgroup.\n\nOnly available in compute shaders."
+				"doc": "Control the ordering of memory transactions to shared variables issued within a single shader invocation, as viewed by other invocations in the same workgroup.\n\nOnly available in compute shaders."
 			}
 		],
 		"memoryBarrierImage": [
@@ -5374,7 +5374,7 @@
 						"params": []
 					}
 				],
-				"doc": "Control the ordering of all memory transactions issued within a single shader invocation, as viewed\nby other invocations in the same workgroup.\n\nOnly available in compute shaders."
+				"doc": "Control the ordering of all memory transactions issued within a single shader invocation, as viewed by other invocations in the same workgroup.\n\nOnly available in compute shaders."
 			}
 		],
 		"subpassLoad": [
@@ -5403,7 +5403,7 @@
 						]
 					}
 				],
-				"doc": "Read from a subpass input, from the implicit location *(x, y, layer)* of the current fragment\ncoordinate."
+				"doc": "Read from a subpass input, from the implicit location `(x, y, layer)` of the current fragment coordinate."
 			}
 		],
 		"anyInvocation": [
@@ -5419,7 +5419,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if and only if *value* is **true** for at least one active invocation in the group."
+				"doc": "Returns `true` if and only if `value` is `true` for at least one active invocation in the group."
 			}
 		],
 		"allInvocations": [
@@ -5435,7 +5435,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if and only if *value* is **true** for all active invocations in the group."
+				"doc": "Returns `true` if and only if `value` is `true` for all active invocations in the group."
 			}
 		],
 		"allInvocationsEqual": [
@@ -5451,7 +5451,7 @@
 						]
 					}
 				],
-				"doc": "Returns **true** if *value* is the same for all active invocations in the group."
+				"doc": "Returns `true` if `value` is the same for all active invocations in the group."
 			}
 		]
 	},
@@ -5460,57 +5460,57 @@
 			{
 				"stage": "vertex",
 				"decl": "in highp int gl_VertexID; // only present when not targeting Vulkan",
-				"doc": "The variable *gl_VertexID* is a vertex shader input variable that holds an\ninteger index for the vertex, as defined under “Shader Inputs” in section\n11.1.3.9 “Shader Inputs” of the OpenGL ES Specification.\nIt is only present when not targeting Vulkan.\nEven when present, the value of *gl_VertexID* is not always defined."
+				"doc": "The variable `gl_VertexID` is a vertex shader input variable that holds an integer index for the vertex, as defined under “Shader Inputs” in section 11.1.3.9 “Shader Inputs” of the OpenGL ES Specification. It is only present when not targeting Vulkan. Even when present, the value of `gl_VertexID` is not always defined."
 			}
 		],
 		"gl_InstanceID": [
 			{
 				"stage": "vertex",
 				"decl": "in highp int gl_InstanceID; // only present when not targeting Vulkan",
-				"doc": "The variable *gl_InstanceID* is a vertex shader input variable that holds\nthe instance number of the current primitive in an instanced draw call (see\n“Shader Inputs” in section 11.1.3.9 “Shader Inputs” of the\nOpenGL ES Specification).\nIt is only present when not targeting Vulkan.\nIf the current primitive does not come from an instanced draw call, the\nvalue of *gl_InstanceID* is zero."
+				"doc": "The variable `gl_InstanceID` is a vertex shader input variable that holds the instance number of the current primitive in an instanced draw call (see “Shader Inputs” in section 11.1.3.9 “Shader Inputs” of the OpenGL ES Specification). It is only present when not targeting Vulkan. If the current primitive does not come from an instanced draw call, the value of `gl_InstanceID` is zero."
 			}
 		],
 		"gl_VertexIndex": [
 			{
 				"stage": "vertex",
 				"decl": "in highp int gl_VertexIndex; // only present when targeting Vulkan",
-				"doc": "The variable *gl_VertexIndex* is a vertex language input variable that\nholds an integer index for the vertex, relative to a base.\nIt is only present when targeting Vulkan.\nEven when present, the value of *gl_VertexIndex* is not always defined."
+				"doc": "The variable `gl_VertexIndex` is a vertex language input variable that holds an integer index for the vertex, relative to a base. It is only present when targeting Vulkan. Even when present, the value of `gl_VertexIndex` is not always defined."
 			}
 		],
 		"gl_InstanceIndex": [
 			{
 				"stage": "vertex",
 				"decl": "in highp int gl_InstanceIndex; // only present when targeting Vulkan",
-				"doc": "The variable *gl_InstanceIndex* is a vertex language input variable that\nholds the instance number of the current primitive in an instanced draw\ncall, relative to a base.\nIt is only present when targeting Vulkan.\nIf the current primitive does not come from an instanced draw call,\nthe value of gl_InstanceIndex is zero."
+				"doc": "The variable `gl_InstanceIndex` is a vertex language input variable that holds the instance number of the current primitive in an instanced draw call, relative to a base. It is only present when targeting Vulkan. If the current primitive does not come from an instanced draw call, the value of gl_InstanceIndex is zero."
 			}
 		],
 		"gl_Position": [
 			{
 				"stage": "vertex",
 				"decl": "out highp vec4 gl_Position;",
-				"doc": "The variable *gl_Position* is intended for writing the homogeneous vertex\nposition.\nIt can be written at any time during shader execution.\nThis value will be used by primitive assembly, clipping, culling, and other\nfixed functionality operations, if present, that operate on primitives after\nvertex processing has occurred.\nIts value is undefined after the vertex processing stage if the vertex\nshader executable does not write *gl_Position*."
+				"doc": "The variable `gl_Position` is intended for writing the homogeneous vertex position. It can be written at any time during shader execution. This value will be used by primitive assembly, clipping, culling, and other fixed functionality operations, if present, that operate on primitives after vertex processing has occurred. Its value is undefined after the vertex processing stage if the vertex shader executable does not write `gl_Position`."
 			},
 			{
 				"stage": "tessellation control",
 				"decl": "out highp vec4 gl_Position;",
-				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+				"doc": "`gl_Position` contains the output written in the previous shader stage to `gl_Position`.\n\n`gl_Position` is used in the same fashion as the corresponding output variable in the vertex shader."
 			},
 			{
 				"stage": "tessellation evaluation",
 				"decl": "out highp vec4 gl_Position;",
-				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+				"doc": "`gl_Position` contains the output written in the previous shader stage to `gl_Position`.\n\n`gl_Position` is used in the same fashion as the corresponding output variable in the vertex shader."
 			},
 			{
 				"stage": "geometry",
 				"decl": "out highp vec4 gl_Position;",
-				"doc": "*gl_Position* contains the output written in the previous shader stage to\n*gl_Position*.\n\n*gl_Position* is used in the same fashion as the corresponding output\nvariable in the vertex shader."
+				"doc": "`gl_Position` contains the output written in the previous shader stage to `gl_Position`.\n\n`gl_Position` is used in the same fashion as the corresponding output variable in the vertex shader."
 			}
 		],
 		"gl_PointSize": [
 			{
 				"stage": "vertex",
 				"decl": "out highp float gl_PointSize;",
-				"doc": "The variable *gl_PointSize* is intended for a shader to write the size of\nthe point to be rasterized.\nIt is measured in pixels.\nIf *gl_PointSize* is not written to, its value is undefined in subsequent\npipe stages."
+				"doc": "The variable `gl_PointSize` is intended for a shader to write the size of the point to be rasterized. It is measured in pixels. If `gl_PointSize` is not written to, its value is undefined in subsequent pipe stages."
 			}
 		],
 		"gl_PerVertex": [
@@ -5556,46 +5556,46 @@
 			{
 				"stage": "tessellation control",
 				"decl": "in highp int gl_PatchVerticesIn;",
-				"doc": "*gl_PatchVerticesIn* contains the number of vertices in the input patch\nbeing processed by the shader.\nA single shader can read patches of differing sizes, so the value of\n*gl_PatchVerticesIn* may differ between patches."
+				"doc": "`gl_PatchVerticesIn` contains the number of vertices in the input patch being processed by the shader. A single shader can read patches of differing sizes, so the value of `gl_PatchVerticesIn` may differ between patches."
 			},
 			{
 				"stage": "tessellation evaluation",
 				"decl": "in highp int gl_PatchVerticesIn;",
-				"doc": "*gl_PatchVerticesIn* and *gl_PrimitiveID* are defined in the same fashion as\nthe corresponding input variables in the tessellation control shader."
+				"doc": "`gl_PatchVerticesIn` and `gl_PrimitiveID` are defined in the same fashion as the corresponding input variables in the tessellation control shader."
 			}
 		],
 		"gl_PrimitiveID": [
 			{
 				"stage": "tessellation control",
 				"decl": "in highp int gl_PrimitiveID;",
-				"doc": "*gl_PrimitiveID* contains the number of primitives processed by the shader\nsince the current set of rendering primitives was started."
+				"doc": "`gl_PrimitiveID` contains the number of primitives processed by the shader since the current set of rendering primitives was started."
 			},
 			{
 				"stage": "tessellation evaluation",
 				"decl": "in highp int gl_PrimitiveID;",
-				"doc": "*gl_PatchVerticesIn* and *gl_PrimitiveID* are defined in the same fashion as\nthe corresponding input variables in the tessellation control shader."
+				"doc": "`gl_PatchVerticesIn` and `gl_PrimitiveID` are defined in the same fashion as the corresponding input variables in the tessellation control shader."
 			},
 			{
 				"stage": "geometry",
 				"decl": "out highp int gl_PrimitiveID;",
-				"doc": "*gl_PrimitiveID* is filled with a single integer that serves as a primitive\nidentifier to the fragment shader.\nThis is then available to fragment shaders, which will select the written\nprimitive ID from the provoking vertex of the primitive being shaded.\nIf a fragment shader using *gl_PrimitiveID* is active and a geometry shader\nis also active, the geometry shader must write to *gl_PrimitiveID* or the\nfragment shader input *gl_PrimitiveID* is undefined.\nSee section 11.3.4.4 “Geometry Shader Outputs” of the\nOpenGL ES Specification for more information."
+				"doc": "`gl_PrimitiveID` is filled with a single integer that serves as a primitive identifier to the fragment shader. This is then available to fragment shaders, which will select the written primitive ID from the provoking vertex of the primitive being shaded. If a fragment shader using `gl_PrimitiveID` is active and a geometry shader is also active, the geometry shader must write to `gl_PrimitiveID` or the fragment shader input `gl_PrimitiveID` is undefined. See section 11.3.4.4 “Geometry Shader Outputs” of the OpenGL ES Specification for more information."
 			},
 			{
 				"stage": "fragment",
 				"decl": "in highp int gl_PrimitiveID;",
-				"doc": "The input variable *gl_PrimitiveID* is filled with the value written to the\n*gl_PrimitiveID* geometry shader output, if a geometry shader is present.\nOtherwise, it is filled with the number of primitives processed by the\nshader since the current set of rendering primitives was started."
+				"doc": "The input variable `gl_PrimitiveID` is filled with the value written to the `gl_PrimitiveID` geometry shader output, if a geometry shader is present. Otherwise, it is filled with the number of primitives processed by the shader since the current set of rendering primitives was started."
 			}
 		],
 		"gl_InvocationID": [
 			{
 				"stage": "tessellation control",
 				"decl": "in highp int gl_InvocationID;",
-				"doc": "*gl_InvocationID* contains the number of the output patch vertex assigned to\nthe tessellation control shader invocation.\nIt is assigned integer values in the range [0, N-1], where N is the number\nof output patch vertices per primitive."
+				"doc": "`gl_InvocationID` contains the number of the output patch vertex assigned to the tessellation control shader invocation. It is assigned integer values in the range [0, N-1], where N is the number of output patch vertices per primitive."
 			},
 			{
 				"stage": "geometry",
 				"decl": "in highp int gl_InvocationID;",
-				"doc": "*gl_InvocationID* contains the invocation number assigned to the geometry\nshader invocation.\nIt is assigned integer values in the range [0, N-1], where N is the number\nof geometry shader invocations per primitive."
+				"doc": "`gl_InvocationID` contains the invocation number assigned to the geometry shader invocation. It is assigned integer values in the range [0, N-1], where N is the number of geometry shader invocations per primitive."
 			}
 		],
 		"gl_out": [
@@ -5609,162 +5609,162 @@
 			{
 				"stage": "tessellation control",
 				"decl": "patch out highp float gl_TessLevelOuter[4];",
-				"doc": "The values written to *gl_TessLevelOuter* and *gl_TessLevelInner* are\nassigned to the corresponding outer and inner tessellation levels of the\noutput patch.\nThey are used by the tessellation primitive generator to control primitive\ntessellation and may be read by tessellation evaluation shaders."
+				"doc": "The values written to `gl_TessLevelOuter` and `gl_TessLevelInner` are assigned to the corresponding outer and inner tessellation levels of the output patch. They are used by the tessellation primitive generator to control primitive tessellation and may be read by tessellation evaluation shaders."
 			},
 			{
 				"stage": "tessellation evaluation",
 				"decl": "patch in highp float gl_TessLevelOuter[4];",
-				"doc": "*gl_TessLevelOuter* and *gl_TessLevelInner* are filled with the\ncorresponding outputs written by the active tessellation control shader."
+				"doc": "`gl_TessLevelOuter` and `gl_TessLevelInner` are filled with the corresponding outputs written by the active tessellation control shader."
 			}
 		],
 		"gl_TessLevelInner": [
 			{
 				"stage": "tessellation control",
 				"decl": "patch out highp float gl_TessLevelInner[2];",
-				"doc": "The values written to *gl_TessLevelOuter* and *gl_TessLevelInner* are\nassigned to the corresponding outer and inner tessellation levels of the\noutput patch.\nThey are used by the tessellation primitive generator to control primitive\ntessellation and may be read by tessellation evaluation shaders."
+				"doc": "The values written to `gl_TessLevelOuter` and `gl_TessLevelInner` are assigned to the corresponding outer and inner tessellation levels of the output patch. They are used by the tessellation primitive generator to control primitive tessellation and may be read by tessellation evaluation shaders."
 			},
 			{
 				"stage": "tessellation evaluation",
 				"decl": "patch in highp float gl_TessLevelInner[2];",
-				"doc": "*gl_TessLevelOuter* and *gl_TessLevelInner* are filled with the\ncorresponding outputs written by the active tessellation control shader."
+				"doc": "`gl_TessLevelOuter` and `gl_TessLevelInner` are filled with the corresponding outputs written by the active tessellation control shader."
 			}
 		],
 		"gl_BoundingBox": [
 			{
 				"stage": "tessellation control",
 				"decl": "patch out highp vec4 gl_BoundingBox[2];",
-				"doc": "The values written to *gl_BoundingBox* specify the minimum and maximum\nclip-space extents of a bounding box containing all primitives generated\nfrom the patch by the primitive generator, geometry shader, and clipping.\nFragments may or may not be generated for portions of these primitives\nthat extend outside the window-coordinate projection of this bounding\nbox."
+				"doc": "The values written to `gl_BoundingBox` specify the minimum and maximum clip-space extents of a bounding box containing all primitives generated from the patch by the primitive generator, geometry shader, and clipping. Fragments may or may not be generated for portions of these primitives that extend outside the window-coordinate projection of this bounding box."
 			}
 		],
 		"gl_TessCoord": [
 			{
 				"stage": "tessellation evaluation",
 				"decl": "in highp vec3 gl_TessCoord;",
-				"doc": "*gl_TessCoord* specifies a three-component *(u,v,w)* vector identifying the\nposition of the vertex being processed by the shader relative to the\nprimitive being tessellated.\nIts values will obey the properties\n\n```glsl\ngl_TessCoord.x == 1.0 - (1.0 - gl_TessCoord.x) // two operations performed\ngl_TessCoord.y == 1.0 - (1.0 - gl_TessCoord.y) // two operations performed\ngl_TessCoord.z == 1.0 - (1.0 - gl_TessCoord.z) // two operations performed\n```\n\nto aid in replicating subdivision computations."
+				"doc": "`gl_TessCoord` specifies a three-component `(u,v,w)` vector identifying the position of the vertex being processed by the shader relative to the primitive being tessellated. Its values will obey the properties\n\n```glsl\ngl_TessCoord.x == 1.0 - (1.0 - gl_TessCoord.x) // two operations performed\ngl_TessCoord.y == 1.0 - (1.0 - gl_TessCoord.y) // two operations performed\ngl_TessCoord.z == 1.0 - (1.0 - gl_TessCoord.z) // two operations performed\n```\n\nto aid in replicating subdivision computations."
 			}
 		],
 		"gl_PrimitiveIDIn": [
 			{
 				"stage": "geometry",
 				"decl": "in highp int gl_PrimitiveIDIn;",
-				"doc": "*gl_PrimitiveIDIn* contains the number of primitives processed by the shader\nsince the current set of rendering primitives was started."
+				"doc": "`gl_PrimitiveIDIn` contains the number of primitives processed by the shader since the current set of rendering primitives was started."
 			}
 		],
 		"gl_Layer": [
 			{
 				"stage": "geometry",
 				"decl": "out highp int gl_Layer;",
-				"doc": "*gl_Layer* is used to select a specific layer (or face and layer of a cube\nmap) of a multi-layer framebuffer attachment.\nThe actual layer used will come from one of the vertices in the primitive\nbeing shaded.\nWhich vertex the layer comes from is determined as discussed in section\n11.3.4.4 of the OpenGL ES Specification\nbut may be undefined, so it is best to write the same layer value for all\nvertices of a primitive.\nIf a shader statically assigns a value to *gl_Layer*, layered rendering mode\nis enabled.\nSee section 11.3.4.4 “Geometry Shader Outputs” and section 9.8 \"`Layered Framebuffers`\" of the OpenGL ES Specification for more information.\nIf a shader statically assigns a value to *gl_Layer*, and there is an\nexecution path through the shader that does not set *gl_Layer*, then the\nvalue of *gl_Layer* is undefined for executions of the shader that take that\npath.\n\nThe output variable *gl_Layer* takes on a special value when used with an\narray of cube map textures.\nInstead of only referring to the layer, it is used to select a cube map face\nand a layer.\nSetting *gl_Layer* to the value *layer*6+face* will render to face *face* of\nthe cube defined in layer *layer*.\nThe face values are defined in table 8.25 of the OpenGL ES Specification,\nbut repeated below for clarity.\n\nFor example, to render to the positive *y* cube map face located in the 5th\nlayer of the cube map array, *gl_Layer* should be set to *5 * 6 + 2*."
+				"doc": "`gl_Layer` is used to select a specific layer (or face and layer of a cube map) of a multi-layer framebuffer attachment. The actual layer used will come from one of the vertices in the primitive being shaded. Which vertex the layer comes from is determined as discussed in section 11.3.4.4 of the OpenGL ES Specification but may be undefined, so it is best to write the same layer value for all vertices of a primitive. If a shader statically assigns a value to `gl_Layer`, layered rendering mode is enabled. See section 11.3.4.4 “Geometry Shader Outputs” and section 9.8 “Layered Framebuffers” of the OpenGL ES Specification for more information. If a shader statically assigns a value to `gl_Layer`, and there is an execution path through the shader that does not set `gl_Layer`, then the value of `gl_Layer` is undefined for executions of the shader that take that path.\n\nThe output variable `gl_Layer` takes on a special value when used with an array of cube map textures. Instead of only referring to the layer, it is used to select a cube map face and a layer. Setting `gl_Layer` to the value `layer*6+face` will render to face `face` of the cube defined in layer `layer`. The face values are defined in table 8.25 of the OpenGL ES Specification, but repeated below for clarity.\n\nFor example, to render to the positive `y` cube map face located in the 5th layer of the cube map array, `gl_Layer` should be set to `5 * 6 + 2`."
 			},
 			{
 				"stage": "fragment",
 				"decl": "in highp int gl_Layer;",
-				"doc": "The input variable *gl_Layer* is filled with the value written to the\n*gl_Layer* geometry shader output, if a geometry shader is present.\nIf the geometry stage does not dynamically assign a value to *gl_Layer*, the\nvalue of *gl_Layer* in the fragment stage will be undefined.\nIf the geometry stage makes no static assignment to *gl_Layer*, the input\nvalue in the fragment stage will be zero.\nOtherwise, the fragment stage will read the same value written by the\ngeometry stage, even if that value is out of range.\nIf a fragment shader contains a static access to *gl_Layer*, it will count\nagainst the implementation defined limit for the maximum number of inputs to\nthe fragment stage."
+				"doc": "The input variable `gl_Layer` is filled with the value written to the `gl_Layer` geometry shader output, if a geometry shader is present. If the geometry stage does not dynamically assign a value to `gl_Layer`, the value of `gl_Layer` in the fragment stage will be undefined. If the geometry stage makes no static assignment to `gl_Layer`, the input value in the fragment stage will be zero. Otherwise, the fragment stage will read the same value written by the geometry stage, even if that value is out of range. If a fragment shader contains a static access to `gl_Layer`, it will count against the implementation defined limit for the maximum number of inputs to the fragment stage."
 			}
 		],
 		"gl_FragCoord": [
 			{
 				"stage": "fragment",
 				"decl": "in highp vec4 gl_FragCoord;",
-				"doc": "The fixed functionality computed depth for a fragment may be obtained by\nreading *gl_FragCoord.z*, described below.\n\nThe variable *gl_FragCoord* is available as an input variable from within\nfragment shaders and it holds the window relative coordinates (*x*, *y*,\n*z*, *1/w*) values for the fragment.\nIf multi-sampling, this value can be for any location within the pixel, or\none of the fragment samples.\nThe use of **centroid** does not further restrict this value to be inside the\ncurrent primitive.\nThis value is the result of the fixed functionality that interpolates\nprimitives after vertex processing to generate fragments.\nThe *z* component is the depth value that would be used for the fragment's\ndepth if no shader contained any writes to *gl_FragDepth*.\nThis is useful for invariance if a shader conditionally computes\n*gl_FragDepth* but otherwise wants the fixed functionality fragment depth."
+				"doc": "The fixed functionality computed depth for a fragment may be obtained by reading `gl_FragCoord.z`, described below.\n\nThe variable `gl_FragCoord` is available as an input variable from within fragment shaders and it holds the window relative coordinates (`x`, `y`, `z`, `1/w`) values for the fragment. If multi-sampling, this value can be for any location within the pixel, or one of the fragment samples. The use of `centroid` does not further restrict this value to be inside the current primitive. This value is the result of the fixed functionality that interpolates primitives after vertex processing to generate fragments. The `z` component is the depth value that would be used for the fragment's depth if no shader contained any writes to `gl_FragDepth`. This is useful for invariance if a shader conditionally computes `gl_FragDepth` but otherwise wants the fixed functionality fragment depth."
 			}
 		],
 		"gl_FrontFacing": [
 			{
 				"stage": "fragment",
 				"decl": "in bool gl_FrontFacing;",
-				"doc": "Fragment shaders have access to the input built-in variable\n*gl_FrontFacing*, whose value is **true** if the fragment belongs to a\nfront-facing primitive.\nOne use of this is to emulate two-sided lighting by selecting one of two\ncolors calculated by a vertex or geometry shader."
+				"doc": "Fragment shaders have access to the input built-in variable `gl_FrontFacing`, whose value is `true` if the fragment belongs to a front-facing primitive. One use of this is to emulate two-sided lighting by selecting one of two colors calculated by a vertex or geometry shader."
 			}
 		],
 		"gl_FragDepth": [
 			{
 				"stage": "fragment",
 				"decl": "out highp float gl_FragDepth;",
-				"doc": "Writing to *gl_FragDepth* will establish the depth value for the fragment\nbeing processed.\nIf depth buffering is enabled, and no shader writes *gl_FragDepth*, then the\nfixed function value for depth will be used as the fragment's depth value.\nIf a shader statically assigns a value to *gl_FragDepth*, and there is an\nexecution path through the shader that does not set *gl_FragDepth*, then the\nvalue of the fragment's depth may be undefined for executions of the shader\nthat take that path.\nThat is, if the set of linked fragment shaders statically contain a write to\n*gl_FragDepth*, then it is responsible for always writing it.\n\nIf a shader executes the **discard** keyword, the fragment is discarded, and\nthe values of any user-defined fragment outputs, *gl_FragDepth*, and\n*gl_SampleMask* become irrelevant."
+				"doc": "Writing to `gl_FragDepth` will establish the depth value for the fragment being processed. If depth buffering is enabled, and no shader writes `gl_FragDepth`, then the fixed function value for depth will be used as the fragment's depth value. If a shader statically assigns a value to `gl_FragDepth`, and there is an execution path through the shader that does not set `gl_FragDepth`, then the value of the fragment's depth may be undefined for executions of the shader that take that path. That is, if the set of linked fragment shaders statically contain a write to `gl_FragDepth`, then it is responsible for always writing it.\n\nIf a shader executes the `discard` keyword, the fragment is discarded, and the values of any user-defined fragment outputs, `gl_FragDepth`, and `gl_SampleMask` become irrelevant."
 			}
 		],
 		"gl_PointCoord": [
 			{
 				"stage": "fragment",
 				"decl": "in mediump vec2 gl_PointCoord;",
-				"doc": "The values in *gl_PointCoord* are two-dimensional coordinates indicating\nwhere within a point primitive the current fragment is located, when point\nsprites are enabled.\nThey range from 0.0 to 1.0 across the point.\nIf the current primitive is not a point, or if point sprites are not\nenabled, then the values read from *gl_PointCoord* are undefined."
+				"doc": "The values in `gl_PointCoord` are two-dimensional coordinates indicating where within a point primitive the current fragment is located, when point sprites are enabled. They range from 0.0 to 1.0 across the point. If the current primitive is not a point, or if point sprites are not enabled, then the values read from `gl_PointCoord` are undefined."
 			}
 		],
 		"gl_HelperInvocation": [
 			{
 				"stage": "fragment",
 				"decl": "in bool gl_HelperInvocation;",
-				"doc": "The value *gl_HelperInvocation* is **true** if the fragment shader invocation\nis considered a *helper invocation* and is **false** otherwise.\nA helper invocation is a fragment shader invocation that is created solely\nfor the purposes of evaluating derivatives for use in non-helper fragment\nshader invocations.\nSuch derivatives are computed implicitly in the built-in function\n**texture**() (see “Texture Functions”), and\nexplicitly in the derivative functions in\n“Derivative Functions”, for example **dFdx**() and\n**dFdy**().\n\nFragment shader helper invocations execute the same shader code as\nnon-helper invocations, but will not have side effects that modify the\nframebuffer or other shader-accessible memory.\nIn particular:\n\n- Fragments corresponding to helper invocations are discarded when shader\n    execution is complete, without updating the framebuffer.\n- Stores to image and buffer variables performed by helper invocations\n    have no effect on the underlying image or buffer memory.\n- Atomic operations to image, buffer, or atomic counter variables\n    performed by helper invocations have no effect on the underlying image\n    or buffer memory.\n    The values returned by such atomic operations are undefined.\n\nHelper invocations may be generated for pixels not covered by a primitive\nbeing rendered.\nWhile fragment shader inputs qualified with **centroid** are normally required\nto be sampled in the intersection of the pixel and the primitive, the\nrequirement is ignored for such pixels since there is no intersection\nbetween the pixel and primitive.\n\nHelper invocations may also be generated for fragments that are covered by a\nprimitive being rendered when the fragment is killed by early fragment tests\n(using the **early_fragment_tests** qualifier) or where the implementation is\nable to determine that executing the fragment shader would have no effect\nother than assisting in computing derivatives for other fragment shader\ninvocations.\n\nThe set of helper invocations generated when processing any set of\nprimitives is implementation-dependent."
+				"doc": "The value `gl_HelperInvocation` is `true` if the fragment shader invocation is considered a `helper invocation` and is `false` otherwise. A helper invocation is a fragment shader invocation that is created solely for the purposes of evaluating derivatives for use in non-helper fragment shader invocations. Such derivatives are computed implicitly in the built-in function `texture`() (see “Texture Functions”), and explicitly in the derivative functions in “Derivative Functions”, for example `dFdx`() and `dFdy`().\n\nFragment shader helper invocations execute the same shader code as non-helper invocations, but will not have side effects that modify the framebuffer or other shader-accessible memory. In particular:\n\n- Fragments corresponding to helper invocations are discarded when shader execution is complete, without updating the framebuffer.\n- Stores to image and buffer variables performed by helper invocations have no effect on the underlying image or buffer memory.\n- Atomic operations to image, buffer, or atomic counter variables performed by helper invocations have no effect on the underlying image or buffer memory. The values returned by such atomic operations are undefined.\n\nHelper invocations may be generated for pixels not covered by a primitive being rendered. While fragment shader inputs qualified with `centroid` are normally required to be sampled in the intersection of the pixel and the primitive, the requirement is ignored for such pixels since there is no intersection between the pixel and primitive.\n\nHelper invocations may also be generated for fragments that are covered by a primitive being rendered when the fragment is killed by early fragment tests (using the `early_fragment_tests` qualifier) or where the implementation is able to determine that executing the fragment shader would have no effect other than assisting in computing derivatives for other fragment shader invocations.\n\nThe set of helper invocations generated when processing any set of primitives is implementation-dependent."
 			}
 		],
 		"gl_SampleID": [
 			{
 				"stage": "fragment",
 				"decl": "in lowp int gl_SampleID;",
-				"doc": "The input variable *gl_SampleID* is filled with the sample number of the\nsample currently being processed.\nThis variable is in the range *0* to *gl_NumSamples-1*, where\n*gl_NumSamples* is the total number of samples in the framebuffer, or 1 if\nrendering to a non-multisample framebuffer.\nAny static use of this variable in a fragment shader causes the entire\nshader to be evaluated per-sample."
+				"doc": "The input variable `gl_SampleID` is filled with the sample number of the sample currently being processed. This variable is in the range `0` to `gl_NumSamples-1`, where `gl_NumSamples` is the total number of samples in the framebuffer, or 1 if rendering to a non-multisample framebuffer. Any static use of this variable in a fragment shader causes the entire shader to be evaluated per-sample."
 			}
 		],
 		"gl_SamplePosition": [
 			{
 				"stage": "fragment",
 				"decl": "in mediump vec2 gl_SamplePosition;",
-				"doc": "The input variable *gl_SamplePosition* contains the position of the current\nsample within the multisample draw buffer.\nThe *x* and *y* components of *gl_SamplePosition* contain the sub-pixel\ncoordinate of the current sample and will have values in the range 0.0 to\n1.0.\nAny static use of this variable in a fragment shader causes the entire\nshader to be evaluated per sample."
+				"doc": "The input variable `gl_SamplePosition` contains the position of the current sample within the multisample draw buffer. The `x` and `y` components of `gl_SamplePosition` contain the sub-pixel coordinate of the current sample and will have values in the range 0.0 to 1.0. Any static use of this variable in a fragment shader causes the entire shader to be evaluated per sample."
 			}
 		],
 		"gl_SampleMaskIn": [
 			{
 				"stage": "fragment",
 				"decl": "in highp int gl_SampleMaskIn[(gl_MaxSamples+31)/32];",
-				"doc": "For both the input array *gl_SampleMaskIn[]* and the output array\n*gl_SampleMask[]*, bit *B* of mask *M* (*gl_SampleMaskIn[M]* or\n*gl_SampleMask[M]*) corresponds to sample *32*M+B*.\nThese arrays have **ceil**(*s*/32) elements, where *s* is the maximum number\nof color samples supported by the implementation.\n\nThe input variable *gl_SampleMaskIn* indicates the set of samples covered by\nthe primitive generating the fragment during multisample rasterization.\nIt has a sample bit set if and only if the sample is considered covered for\nthis fragment shader invocation."
+				"doc": "For both the input array `gl_SampleMaskIn[]` and the output array `gl_SampleMask[]`, bit `B` of mask `M` (`gl_SampleMaskIn[M]` or `gl_SampleMask[M]`) corresponds to sample `32*M+B`. These arrays have `ceil`(`s`/32) elements, where `s` is the maximum number of color samples supported by the implementation.\n\nThe input variable `gl_SampleMaskIn` indicates the set of samples covered by the primitive generating the fragment during multisample rasterization. It has a sample bit set if and only if the sample is considered covered for this fragment shader invocation."
 			}
 		],
 		"gl_SampleMask": [
 			{
 				"stage": "fragment",
 				"decl": "out highp int gl_SampleMask[(gl_MaxSamples+31)/32];",
-				"doc": "If a shader executes the **discard** keyword, the fragment is discarded, and\nthe values of any user-defined fragment outputs, *gl_FragDepth*, and\n*gl_SampleMask* become irrelevant.\n\nFor both the input array *gl_SampleMaskIn[]* and the output array\n*gl_SampleMask[]*, bit *B* of mask *M* (*gl_SampleMaskIn[M]* or\n*gl_SampleMask[M]*) corresponds to sample *32*M+B*.\nThese arrays have **ceil**(*s*/32) elements, where *s* is the maximum number\nof color samples supported by the implementation.\n\nThe output array *gl_SampleMask[]* sets the sample mask for the fragment\nbeing processed.\nCoverage for the current fragment will become the logical AND of the\ncoverage mask and the output *gl_SampleMask*.\nThis array must be sized in the fragment shader either implicitly or\nexplicitly, to be no larger than the implementation-dependent maximum\nsample-mask (as an array of 32bit elements), determined by the maximum\nnumber of samples..\nIf the fragment shader statically assigns a value to *gl_SampleMask*, the\nsample mask will be undefined for any array elements of any fragment shader\ninvocations that fail to assign a value.\nIf a shader does not statically assign a value to *gl_SampleMask*, the\nsample mask has no effect on the processing of a fragment."
+				"doc": "If a shader executes the `discard` keyword, the fragment is discarded, and the values of any user-defined fragment outputs, `gl_FragDepth`, and `gl_SampleMask` become irrelevant.\n\nFor both the input array `gl_SampleMaskIn[]` and the output array `gl_SampleMask[]`, bit `B` of mask `M` (`gl_SampleMaskIn[M]` or `gl_SampleMask[M]`) corresponds to sample `32*M+B`. These arrays have `ceil`(`s`/32) elements, where `s` is the maximum number of color samples supported by the implementation.\n\nThe output array `gl_SampleMask[]` sets the sample mask for the fragment being processed. Coverage for the current fragment will become the logical AND of the coverage mask and the output `gl_SampleMask`. This array must be sized in the fragment shader either implicitly or explicitly, to be no larger than the implementation-dependent maximum sample-mask (as an array of 32bit elements), determined by the maximum number of samples.. If the fragment shader statically assigns a value to `gl_SampleMask`, the sample mask will be undefined for any array elements of any fragment shader invocations that fail to assign a value. If a shader does not statically assign a value to `gl_SampleMask`, the sample mask has no effect on the processing of a fragment."
 			}
 		],
 		"gl_NumWorkGroups": [
 			{
 				"stage": "compute",
 				"decl": "in uvec3 gl_NumWorkGroups;",
-				"doc": "The built-in variable *gl_NumWorkGroups* is a compute-shader input variable\ncontaining the number of workgroups in each dimension of the dispatch that\nwill execute the compute shader.\nIts content is equal to the values specified in the *num_groups_x*,\n*num_groups_y*, and *num_groups_z* parameters passed to the\n*DispatchCompute* API entry point."
+				"doc": "The built-in variable `gl_NumWorkGroups` is a compute-shader input variable containing the number of workgroups in each dimension of the dispatch that will execute the compute shader. Its content is equal to the values specified in the `num_groups_x`, `num_groups_y`, and `num_groups_z` parameters passed to the `DispatchCompute` API entry point."
 			}
 		],
 		"gl_WorkGroupSize": [
 			{
 				"stage": "compute",
 				"decl": "const uvec3 gl_WorkGroupSize;",
-				"doc": "The built-in constant *gl_WorkGroupSize* is a compute-shader constant\ncontaining the workgroup size of the shader.\nThe size of the workgroup in the *X*, *Y*, and *Z* dimensions is stored in\nthe *x*, *y*, and *z* components.\nThe constant values in *gl_WorkGroupSize* will match those specified in the\nrequired **local_size_x**, **local_size_y**, and **local_size_z** layout\nqualifiers for the current shader.\nThis is a constant so that it can be used to size arrays of memory that can\nbe shared within the workgroup.\nIt is a compile-time error to use *gl_WorkGroupSize* in a shader that does\nnot declare a fixed workgroup size, or before that shader has declared a\nfixed workgroup size, using **local_size_x**, **local_size_y**, and\n**local_size_z**. Use of variables whose values are derived from\n*gl_WorkGroupSize*, however, is not constrained to follow a declaration of the\nfixed workgroup size."
+				"doc": "The built-in constant `gl_WorkGroupSize` is a compute-shader constant containing the workgroup size of the shader. The size of the workgroup in the `X`, `Y`, and `Z` dimensions is stored in the `x`, `y`, and `z` components. The constant values in `gl_WorkGroupSize` will match those specified in the required `local_size_x`, `local_size_y`, and `local_size_z` layout qualifiers for the current shader. This is a constant so that it can be used to size arrays of memory that can be shared within the workgroup. It is a compile-time error to use `gl_WorkGroupSize` in a shader that does not declare a fixed workgroup size, or before that shader has declared a fixed workgroup size, using `local_size_x`, `local_size_y`, and `local_size_z`. Use of variables whose values are derived from `gl_WorkGroupSize`, however, is not constrained to follow a declaration of the fixed workgroup size."
 			}
 		],
 		"gl_WorkGroupID": [
 			{
 				"stage": "compute",
 				"decl": "in uvec3 gl_WorkGroupID;",
-				"doc": "The built-in variable *gl_WorkGroupID* is a compute-shader input variable\ncontaining the three-dimensional index of the workgroup that the\ncurrent invocation is executing in.\nThe possible values range across the parameters passed into\n*DispatchCompute*, i.e., from (0, 0, 0) to (*gl_NumWorkGroups.x* - 1,\n*gl_NumWorkGroups.y* - 1, *gl_NumWorkGroups.z* -1)."
+				"doc": "The built-in variable `gl_WorkGroupID` is a compute-shader input variable containing the three-dimensional index of the workgroup that the current invocation is executing in. The possible values range across the parameters passed into `DispatchCompute`, i.e., from (0, 0, 0) to (`gl_NumWorkGroups.x` - 1, `gl_NumWorkGroups.y` - 1, `gl_NumWorkGroups.z` -1)."
 			}
 		],
 		"gl_LocalInvocationID": [
 			{
 				"stage": "compute",
 				"decl": "in uvec3 gl_LocalInvocationID;",
-				"doc": "The built-in variable *gl_LocalInvocationID* is a compute-shader input\nvariable containing the three-dimensional index of the current work item\nwithin the workgroup.\nThe possible values for this variable range across the workgroup\nsize, i.e., (0,0,0) to (*gl_WorkGroupSize.x* - 1, *gl_WorkGroupSize.y* - 1,\n*gl_WorkGroupSize.z* - 1). Use of *gl_LocalInvocationID* is allowed\nbefore declarations of **local_size_x**, **local_size_y**, and **local_size_z**.\n\nThe built-in variable *gl_LocalInvocationIndex* is a compute shader input\nvariable that contains the one-dimensional representation of the\n*gl_LocalInvocationID*.\nThis is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```"
+				"doc": "The built-in variable `gl_LocalInvocationID` is a compute-shader input variable containing the three-dimensional index of the current work item within the workgroup. The possible values for this variable range across the workgroup size, i.e., (0,0,0) to (`gl_WorkGroupSize.x` - 1, `gl_WorkGroupSize.y` - 1, `gl_WorkGroupSize.z` - 1). Use of `gl_LocalInvocationID` is allowed before declarations of `local_size_x`, `local_size_y`, and `local_size_z`.\n\nThe built-in variable `gl_LocalInvocationIndex` is a compute shader input variable that contains the one-dimensional representation of the `gl_LocalInvocationID`. This is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```"
 			}
 		],
 		"gl_GlobalInvocationID": [
 			{
 				"stage": "compute",
 				"decl": "in uvec3 gl_GlobalInvocationID;",
-				"doc": "The built-in variable *gl_GlobalInvocationID* is a compute shader input\nvariable containing the global index of the current work item.\nThis value uniquely identifies this invocation from all other invocations\nacross all workgroups initiated by the current *DispatchCompute* call.\nThis is computed as:\n\n```glsl\ngl_GlobalInvocationID =\n    gl_WorkGroupID * gl_WorkGroupSize + gl_LocalInvocationID;\n```"
+				"doc": "The built-in variable `gl_GlobalInvocationID` is a compute shader input variable containing the global index of the current work item. This value uniquely identifies this invocation from all other invocations across all workgroups initiated by the current `DispatchCompute` call. This is computed as:\n\n```glsl\ngl_GlobalInvocationID =\n    gl_WorkGroupID * gl_WorkGroupSize + gl_LocalInvocationID;\n```"
 			}
 		],
 		"gl_LocalInvocationIndex": [
 			{
 				"stage": "compute",
 				"decl": "in uint gl_LocalInvocationIndex;",
-				"doc": "The built-in variable *gl_LocalInvocationIndex* is a compute shader input\nvariable that contains the one-dimensional representation of the\n*gl_LocalInvocationID*.\nThis is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```\n\nUse of *gl_LocalInvocationIndex* is allowed before declarations of\n**local_size_x**, **local_size_y**, and **local_size_z**."
+				"doc": "The built-in variable `gl_LocalInvocationIndex` is a compute shader input variable that contains the one-dimensional representation of the `gl_LocalInvocationID`. This is computed as:\n\n```glsl\ngl_LocalInvocationIndex =\n    gl_LocalInvocationID.z * gl_WorkGroupSize.x * gl_WorkGroupSize.y +\n    gl_LocalInvocationID.y * gl_WorkGroupSize.x +\n    gl_LocalInvocationID.x;\n```\n\nUse of `gl_LocalInvocationIndex` is allowed before declarations of `local_size_x`, `local_size_y`, and `local_size_z`."
 			}
 		],
 		"gl_MaxVertexAttribs": [
@@ -6208,5 +6208,224 @@
 				"doc": ""
 			}
 		]
+	},
+	"types": {
+		"void": "for functions that do not return a value",
+		"bool": "a conditional type, taking on values of true or false",
+		"int": "a signed integer",
+		"uint": "an unsigned integer",
+		"float": "a single-precision floating-point scalar",
+		"vec2": "a two-component single-precision floating-point vector",
+		"vec3": "a three-component single-precision floating-point vector",
+		"vec4": "a four-component single-precision floating-point vector",
+		"bvec2": "a two-component Boolean vector",
+		"bvec3": "a three-component Boolean vector",
+		"bvec4": "a four-component Boolean vector",
+		"ivec2": "a two-component signed integer vector",
+		"ivec3": "a three-component signed integer vector",
+		"ivec4": "a four-component signed integer vector",
+		"uvec2": "a two-component unsigned integer vector",
+		"uvec3": "a three-component unsigned integer vector",
+		"uvec4": "a four-component unsigned integer vector",
+		"mat2": "a 2 × 2 single-precision floating-point matrix",
+		"mat3": "a 3 × 3 single-precision floating-point matrix",
+		"mat4": "a 4 × 4 single-precision floating-point matrix",
+		"mat2x2": "same as a `mat2`",
+		"mat2x3": "a single-precision floating-point matrix with 2 columns and 3 rows",
+		"mat2x4": "a single-precision floating-point matrix with 2 columns and 4 rows",
+		"mat3x2": "a single-precision floating-point matrix with 3 columns and 2 rows",
+		"mat3x3": "same as a `mat3`",
+		"mat3x4": "a single-precision floating-point matrix with 3 columns and 4 rows",
+		"mat4x2": "a single-precision floating-point matrix with 4 columns and 2 rows",
+		"mat4x3": "a single-precision floating-point matrix with 4 columns and 3 rows",
+		"mat4x4": "same as a `mat4`",
+		"sampler2D": "a handle for accessing a 2D texture",
+		"texture2D": "a handle for accessing a 2D texture",
+		"image2D": "a handle for accessing a 2D texture",
+		"sampler2DShadow": "a handle for accessing a 2D depth texture with comparison",
+		"sampler2DArray": "a handle for accessing a 2D array texture",
+		"texture2DArray": "a handle for accessing a 2D array texture",
+		"image2DArray": "a handle for accessing a 2D array texture",
+		"sampler2DArrayShadow": "a handle for accessing a 2D array depth texture with comparison",
+		"sampler2DMS": "a handle for accessing a 2D multisample texture",
+		"texture2DMS": "a handle for accessing a 2D multisample texture",
+		"sampler2DMSArray": "a handle for accessing a 2D multisample array texture",
+		"sampler3D": "a handle for accessing a 3D texture",
+		"texture3D": "a handle for accessing a 3D texture",
+		"image3D": "a handle for accessing a 3D texture",
+		"samplerCube": "a handle for accessing a cube mapped texture",
+		"textureCube": "a handle for accessing a cube mapped texture",
+		"imageCube": "a handle for accessing a cube mapped texture",
+		"samplerCubeShadow": "a handle for accessing a cube map depth texture with comparison",
+		"samplerCubeArray": "a handle for accessing a cube map array texture",
+		"textureCubeArray": "a handle for accessing a cube map array texture",
+		"imageCubeArray": "a handle for accessing a cube map array texture",
+		"samplerCubeArrayShadow": "a handle for accessing a cube map array depth texture with comparison",
+		"samplerBuffer": "a handle for accessing a buffer texture",
+		"textureBuffer": "a handle for accessing a buffer texture",
+		"imageBuffer": "a handle for accessing a buffer texture",
+		"subpassInput": "a handle for accessing a floating-point subpass input",
+		"subpassInputMS": "a handle for accessing a multi-sampled floating-point subpass input",
+		"isampler2D": "a handle for accessing an integer 2D texture",
+		"itexture2D": "a handle for accessing an integer 2D texture",
+		"iimage2D": "a handle for accessing an integer 2D texture",
+		"isampler2DArray": "a handle for accessing an integer 2D array texture",
+		"itexture2DArray": "a handle for accessing an integer 2D array texture",
+		"iimage2DArray": "a handle for accessing an integer 2D array texture",
+		"isampler2DMS": "a handle for accessing an integer 2D multisample texture",
+		"itexture2DMS": "a handle for accessing an integer 2D multisample texture",
+		"isampler2DMSArray": "a handle for accessing an integer 2D multisample array texture",
+		"itexture2DMSArray": "a handle for accessing an integer 2D multisample array texture",
+		"isampler3D": "a handle for accessing an integer 3D texture",
+		"itexture3D": "a handle for accessing an integer 3D texture",
+		"iimage3D": "a handle for accessing an integer 3D texture",
+		"isamplerCube": "a handle for accessing an integer cube mapped texture",
+		"itextureCube": "a handle for accessing an integer cube mapped texture",
+		"iimageCube": "a handle for accessing an integer cube mapped texture",
+		"isamplerCubeArray": "a handle for accessing an integer cube map array texture",
+		"itextureCubeArray": "a handle for accessing an integer cube map array texture",
+		"iimageCubeArray": "a handle for accessing an integer cube map array texture",
+		"isamplerBuffer": "a handle for accessing an integer buffer texture",
+		"itextureBuffer": "a handle for accessing an integer buffer texture",
+		"iimageBuffer": "a handle for accessing an integer buffer texture",
+		"isubpassInput": "a handle for accessing an integer subpass input",
+		"isubpassInputMS": "a handle for accessing a multi-sampled integer subpass input",
+		"usampler2D": "a handle for accessing an unsigned integer 2D texture",
+		"utexture2D": "a handle for accessing an unsigned integer 2D texture",
+		"uimage2D": "a handle for accessing an unsigned integer 2D texture",
+		"usampler2DArray": "a handle for accessing an unsigned integer 2D array texture",
+		"utexture2DArray": "a handle for accessing an unsigned integer 2D array texture",
+		"uimage2DArray": "a handle for accessing an unsigned integer 2D array texture",
+		"usampler2DMS": "a handle for accessing an unsigned integer 2D multisample texture",
+		"utexture2DMS": "a handle for accessing an unsigned integer 2D multisample texture",
+		"usampler2DMSArray": "a handle for accessing an unsigned integer 2D multisample array texture",
+		"utexture2DMSArray": "a handle for accessing an unsigned integer 2D multisample array texture",
+		"usampler3D": "a handle for accessing an unsigned integer 3D texture",
+		"utexture3D": "a handle for accessing an unsigned integer 3D texture",
+		"uimage3D": "a handle for accessing an unsigned integer 3D texture",
+		"usamplerCube": "a handle for accessing an unsigned integer cube mapped texture",
+		"utextureCube": "a handle for accessing an unsigned integer cube mapped texture",
+		"uimageCube": "a handle for accessing an unsigned integer cube mapped texture",
+		"usamplerCubeArray": "a handle for accessing an unsigned integer cube map array texture",
+		"utextureCubeArray": "a handle for accessing an unsigned integer cube map array texture",
+		"uimageCubeArray": "a handle for accessing an unsigned integer cube map array texture",
+		"usamplerBuffer": "a handle for accessing an unsigned integer buffer texture",
+		"utextureBuffer": "a handle for accessing an unsigned integer buffer texture",
+		"uimageBuffer": "a handle for accessing an unsigned integer buffer texture",
+		"atomic_uint": "a handle for accessing an unsigned integer atomic counter",
+		"usubpassInput": "a handle for accessing an unsigned-integer subpass input",
+		"usubpassInputMS": "a handle for accessing a multi-sampled unsigned-integer subpass input",
+		"sampler": "a handle for accessing state describing how to sample a texture",
+		"samplerShadow": "a handle for accessing state describing how to sample a depth texture with comparison"
+	},
+	"qualifiers": {
+		"const": "a compile-time constant",
+		"in": "linkage into a shader from a previous stage, variable is copied in\n\nfor function parameters passed into a function",
+		"out": "linkage out of a shader to a subsequent stage, variable is copied out\n\nfor function parameters passed back out of a function, but not initialized for use when passed in",
+		"uniform": "value does not change across the primitive being processed, uniforms form the linkage between a shader, API, and the application",
+		"buffer": "value is stored in a buffer object, and can be read or written both by shader invocations and the API",
+		"shared": "compute shader only; variable storage is shared across all work items in a workgroup\n\nLayout qualifier `layout(shared)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block\n\nThe `shared` qualifier overrides only the `std140`, `std430`, and `packed` qualifiers; other qualifiers are inherited. The compiler/linker will ensure that multiple programs and programmable stages containing this definition will share the same memory layout for this block, as long as they also matched in their `row_major` and/or `column_major` qualifications. This allows use of the same buffer to back the same block definition across different programs. It is a compile-time error to use the `shared` qualifier when generating SPIR-V.",
+		"centroid": "centroid-based interpolation",
+		"sample": "per-sample interpolation",
+		"patch": "per-tessellation-patch attributes",
+		"smooth": "perspective correct interpolation",
+		"flat": "no interpolation",
+		"inout": "for function parameters passed both into and out of a function",
+		"highp": "The variable satisfies the minimum requirements for `highp` described above. `highp` variables have the maximum range and precision available but may cause operations to run more slowly on some implementations.",
+		"mediump": "SPIR-V `RelaxedPrecision` when targeting Vulkan, otherwise the variable satisfies the minimum requirements for `mediump` described above. `mediump` variables may typically be used to store high dynamic range colors and low precision geometry.",
+		"lowp": "SPIR-V `RelaxedPrecision` when targeting Vulkan, otherwise the variable satisfies the minimum requirements for `lowp` described above. `lowp` variables may typically be used to store 8-bit color values.",
+		"coherent": "memory variable where reads and writes are coherent with reads and writes from other shader invocations\n\nMemory accesses to image variables declared using the `coherent` qualifier are performed coherently with accesses to the same location from other shader invocations.",
+		"volatile": "memory variable whose underlying value may be changed at any point during shader execution by some source other than the current shader invocation\n\nMemory accesses to image variables declared using the `volatile` qualifier must treat the underlying memory as though it could be read or written at any point during shader execution by some source other than the executing shader invocation. When a volatile variable is read, its value must be re-fetched from the underlying memory, even if the shader invocation performing the read had previously fetched its value from the same memory. When a volatile variable is written, its value must be written to the underlying memory, even if the compiler can conclusively determine that its value will be overwritten by a subsequent write. Since the external source reading or writing a `volatile` variable may be another shader invocation, variables declared as `volatile` are automatically treated as coherent.",
+		"restrict": "memory variable where use of that variable is the only way to read and write the underlying memory in the relevant shader stage\n\nMemory accesses to image variables declared using the `restrict` qualifier may be compiled assuming that the variable used to perform the memory access is the only way to access the underlying memory using the shader stage in question. This allows the compiler to coalesce or reorder loads and stores using `restrict`-qualified image variables in ways that wouldn't be permitted for image variables not so qualified, because the compiler can assume that the underlying image won't be read or written by other code. Applications are responsible for ensuring that image memory referenced by variables qualified with `restrict` will not be referenced using other variables in the same scope; otherwise, accesses to `restrict`-qualified variables will have undefined results.",
+		"readonly": "memory variable that can be used to read the underlying memory, but cannot be used to write the underlying memory\n\nMemory accesses to image variables declared using the `readonly` qualifier may only read the underlying memory, which is treated as read-only memory and cannot be written to. It is a compile-time error to pass an image variable qualified with `readonly` to `imageStore`() or other built-in functions that modify image memory.",
+		"writeonly": "memory variable that can be used to write the underlying memory, but cannot be used to read the underlying memory\n\nMemory accesses to image variables declared using the `writeonly` qualifier may only write the underlying memory; the underlying memory cannot be read. It is a compile-time error to pass an image variable qualified with `writeonly` to `imageLoad`() or other built-in functions that read image memory.",
+		"packed": "Layout qualifier `layout(packed)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block\n\nThe `packed` qualifier overrides only `std140`, `std430`, and `shared`; other qualifiers are inherited. When `packed` is used, no shareable layout is guaranteed. The compiler and linker can optimize memory use based on what variables actively get used and on other criteria. Offsets must be queried, as there is no other way of guaranteeing where (and which) variables reside within the block.",
+		"std140": "Layout qualifier `layout(std140)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block\n\nThe `std140` and `std430` qualifiers override only the `packed`, `shared`, `std140`, and `std430` qualifiers; other qualifiers are inherited. The `std430` qualifier is supported only for shader storage blocks; a shader using the `std430` qualifier on a uniform block will result in a compile-time error, unless it is also declared with `push_constant`.",
+		"std430": "Layout qualifier `layout(std430)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block\n\nThe `std140` and `std430` qualifiers override only the `packed`, `shared`, `std140`, and `std430` qualifiers; other qualifiers are inherited. The `std430` qualifier is supported only for shader storage blocks; a shader using the `std430` qualifier on a uniform block will result in a compile-time error, unless it is also declared with `push_constant`.",
+		"row_major": "Layout qualifier `layout(row_major)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block, block member\n\nThe `row_major` and `column_major` qualifiers only affect the layout of matrices, including all matrices contained in structures and arrays they are applied to, to all depths of nesting. These qualifiers can be applied to other types, but will have no effect.",
+		"column_major": "Layout qualifier `layout(column_major)`, used on:\n\n- `uniform` / `buffer`: qualifier only, block, block member\n\nThe `row_major` and `column_major` qualifiers only affect the layout of matrices, including all matrices contained in structures and arrays they are applied to, to all depths of nesting. These qualifiers can be applied to other types, but will have no effect.",
+		"binding": "Layout qualifier `layout(binding = …)`, used on:\n\n- `uniform` / `buffer`: individual variable (opaque types only), block\n\nThe `binding` qualifier specifies the uniform buffer binding point corresponding to the uniform or shader storage block, which will be used to obtain the values of the member variables of the block. It is a compile-time error to specify the `binding` qualifier for the global scope or for block member declarations. Any uniform or shader storage block declared without a `binding` qualifier is initially assigned to block binding point zero. After a program is linked, the binding points used for uniform (but not shader storage) blocks declared with or without a `binding` qualifier can be updated by the API.",
+		"offset": "Layout qualifier `layout(offset = …)`, used on:\n\n- `uniform` / `buffer`: individual variable (atomic counters only), block member (Vulkan only)\n\nThe `offset` qualifier can only be used on block members. The `offset` qualifier forces the qualified member to start at or after the specified `layout-qualifier-value`, which will be its byte offset from the beginning of the buffer. It is a compile-time error to have any offset, explicit or assigned, that lies within another member of the block. Two blocks linked together in the same program with the same block name must have the exact same set of members qualified with `offset` and their `layout-qualifier-value` values must be the same, or a link-time error results. The specified offset must be a multiple of the base alignment of the type of the block member it qualifies, or a compile-time error results.",
+		"align": "Layout qualifier `layout(align = …)`, used on:\n\n- `uniform` / `buffer`: block (Vulkan only), block member (Vulkan only)\n\nThe `align` qualifier makes the start of each block member have a minimum byte alignment. It does not affect the internal layout within each member, which will still follow the `std140` or `std430` rules. The specified alignment must be greater than 0 and a power of 2, or a compile-time error results.",
+		"set": "Layout qualifier `layout(set = …)`, used on:\n\n- `uniform` / `buffer` (Vulkan only): individual variable (opaque types only), block\n\nThe `set` qualifier is only available when targeting Vulkan. It specifies the descriptor set this object belongs to. It is a compile-time error to apply `set` to a standalone qualifier, to a member of a block, or when not targeting an API that supports descriptor sets. It is a compile-time error to apply `set` to a block qualified as `push_constant`. By default, any non-push-constant uniform or shader storage block declared without a `set` identifier is assigned to descriptor set 0. Similarly, any sampler, texture, or subpass-input type declared as a uniform without a `set` identifier is also assigned to descriptor set 0.",
+		"push_constant": "Layout qualifier `layout(push_constant)`, used on:\n\n- `uniform` (Vulkan only): block",
+		"input_attachment_index": "Layout qualifier `layout(input_attachment_index = …)`, used on:\n\n- `uniform` (Vulkan only): individual variable (subpass types only)",
+		"location": "Layout qualifier `layout(location = …)`, used on:\n\n- `uniform` / `buffer`: individual variable\n- all `in` / `out`, except for compute: individual variable, block, block member (X^1)\n\n`location` layout qualifiers may be used on output variables declared as structures. However, it is a compile-time error to use a `location` qualifier on a structure member. Location layout qualifiers may be used on output blocks and output block members.",
+		"triangles": "Layout qualifier `layout(triangles)`, used on:\n\n- tessellation evaluation `in`: qualifier only\n- geometry `in`: qualifier only",
+		"quads": "Layout qualifier `layout(quads)`, used on:\n\n- tessellation evaluation `in`: qualifier only",
+		"isolines": "Layout qualifier `layout(isolines)`, used on:\n\n- tessellation evaluation `in`: qualifier only",
+		"equal_spacing": "Layout qualifier `layout(equal_spacing)`, used on:\n\n- tessellation evaluation `in`: qualifier only\n\n`equal_spacing` specifies that edges should be divided into a collection of equal-sized segments;",
+		"fractional_even_spacing": "Layout qualifier `layout(fractional_even_spacing)`, used on:\n\n- tessellation evaluation `in`: qualifier only\n\n`fractional_even_spacing` specifies that edges should be divided into an even number of equal-length segments plus two additional shorter “fractional” segments; or",
+		"fractional_odd_spacing": "Layout qualifier `layout(fractional_odd_spacing)`, used on:\n\n- tessellation evaluation `in`: qualifier only\n\n`fractional_odd_spacing` specifies that edges should be divided into an odd number of equal-length segments plus two additional shorter “fractional” segments.",
+		"cw": "Layout qualifier `layout(cw)`, used on:\n\n- tessellation evaluation `in`: qualifier only",
+		"ccw": "Layout qualifier `layout(ccw)`, used on:\n\n- tessellation evaluation `in`: qualifier only",
+		"point_mode": "Layout qualifier `layout(point_mode)`, used on:\n\n- tessellation evaluation `in`: qualifier only",
+		"points": "Layout qualifier `layout(points)`, used on:\n\n- geometry `in`/`out`: qualifier only\n- geometry `in`: qualifier only\n- geometry `out`: qualifier only",
+		"lines": "Layout qualifier `layout(lines)`, used on:\n\n- geometry `in`: qualifier only",
+		"lines_adjacency": "Layout qualifier `layout(lines_adjacency)`, used on:\n\n- geometry `in`: qualifier only",
+		"triangles_adjacency": "Layout qualifier `layout(triangles_adjacency)`, used on:\n\n- geometry `in`: qualifier only",
+		"invocations": "Layout qualifier `layout(invocations = …)`, used on:\n\n- geometry `in`: qualifier only",
+		"early_fragment_tests": "Layout qualifier `layout(early_fragment_tests)`, used on:\n\n- fragment `in`: qualifier only",
+		"local_size_x": "Layout qualifier `layout(local_size_x = …)`, used on:\n\n- compute `in`: qualifier only\n\nThe `local_size_x`, `local_size_y`, and `local_size_z` qualifiers are used to declare a fixed workgroup size by the compute shader in the first, second, and third dimension, respectively. If a shader does not specify a size for one of the dimensions, that dimension will have a size of 1.",
+		"local_size_y": "Layout qualifier `layout(local_size_y = …)`, used on:\n\n- compute `in`: qualifier only\n\nThe `local_size_x`, `local_size_y`, and `local_size_z` qualifiers are used to declare a fixed workgroup size by the compute shader in the first, second, and third dimension, respectively. If a shader does not specify a size for one of the dimensions, that dimension will have a size of 1.",
+		"local_size_z": "Layout qualifier `layout(local_size_z = …)`, used on:\n\n- compute `in`: qualifier only\n\nThe `local_size_x`, `local_size_y`, and `local_size_z` qualifiers are used to declare a fixed workgroup size by the compute shader in the first, second, and third dimension, respectively. If a shader does not specify a size for one of the dimensions, that dimension will have a size of 1.",
+		"local_size_x_id": "Layout qualifier `layout(local_size_x_id = …)`, used on:\n\n- compute `in` (SPIR-V only): qualifier only",
+		"local_size_y_id": "Layout qualifier `layout(local_size_y_id = …)`, used on:\n\n- compute `in` (SPIR-V only): qualifier only",
+		"local_size_z_id": "Layout qualifier `layout(local_size_z_id = …)`, used on:\n\n- compute `in` (SPIR-V only): qualifier only",
+		"vertices": "Layout qualifier `layout(vertices = …)`, used on:\n\n- tessellation control `out`: qualifier only",
+		"line_strip": "Layout qualifier `layout(line_strip)`, used on:\n\n- geometry `out`: qualifier only",
+		"triangle_strip": "Layout qualifier `layout(triangle_strip)`, used on:\n\n- geometry `out`: qualifier only",
+		"max_vertices": "Layout qualifier `layout(max_vertices = …)`, used on:\n\n- geometry `out`: qualifier only",
+		"constant_id": "Layout qualifier `layout(constant_id = …)`, used on:\n\n- `const` (SPIR-V only): individual variable (scalar only)",
+		"rgba32f": "Layout qualifier `layout(rgba32f)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba16f": "Layout qualifier `layout(rgba16f)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"r32f": "Layout qualifier `layout(r32f)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba8": "Layout qualifier `layout(rgba8)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba8_snorm": "Layout qualifier `layout(rgba8_snorm)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba32i": "Layout qualifier `layout(rgba32i)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba16i": "Layout qualifier `layout(rgba16i)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba8i": "Layout qualifier `layout(rgba8i)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"r32i": "Layout qualifier `layout(r32i)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba32ui": "Layout qualifier `layout(rgba32ui)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba16ui": "Layout qualifier `layout(rgba16ui)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"rgba8ui": "Layout qualifier `layout(rgba8ui)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"r32ui": "Layout qualifier `layout(r32ui)`, used on:\n\n- `uniform`: individual variable (image types only)",
+		"blend_support_multiply": "Layout qualifier `layout(blend_support_multiply)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_screen": "Layout qualifier `layout(blend_support_screen)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_overlay": "Layout qualifier `layout(blend_support_overlay)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_darken": "Layout qualifier `layout(blend_support_darken)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_lighten": "Layout qualifier `layout(blend_support_lighten)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_colordodge": "Layout qualifier `layout(blend_support_colordodge)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_colorburn": "Layout qualifier `layout(blend_support_colorburn)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_hardlight": "Layout qualifier `layout(blend_support_hardlight)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_softlight": "Layout qualifier `layout(blend_support_softlight)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_difference": "Layout qualifier `layout(blend_support_difference)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_exclusion": "Layout qualifier `layout(blend_support_exclusion)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_hsl_hue": "Layout qualifier `layout(blend_support_hsl_hue)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_hsl_saturation": "Layout qualifier `layout(blend_support_hsl_saturation)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_hsl_color": "Layout qualifier `layout(blend_support_hsl_color)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_hsl_luminosity": "Layout qualifier `layout(blend_support_hsl_luminosity)`, used on:\n\n- fragment `out`: qualifier only",
+		"blend_support_all_equations": "Layout qualifier `layout(blend_support_all_equations)`, used on:\n\n- fragment `out`: qualifier only",
+		"layout": "Layout qualifiers can appear in several forms of declaration. They can appear as part of an interface block definition or block member, as shown in the grammar in the previous section. They can also appear with just an `interface-qualifier` to establish layouts of other declarations made with that qualifier:",
+		"invariant": "To ensure that a particular output variable is invariant, it is necessary to use the `invariant` qualifier. It can either be used to qualify a previously declared variable as being invariant:\n\n```glsl\ninvariant gl_Position; // make existing gl_Position be invariant\nout vec3 Color;\ninvariant Color;       // make existing Color be invariant\n```\n\nor as part of a declaration when a variable is declared:\n\n```glsl\ninvariant centroid out vec3 Color;\n```",
+		"precise": "The `precise` qualifier ensures that operations contributing to a variable's value are done in their stated order and with operator consistency. The order is determined by operator precedence and parentheses, as described in “Operators”. Operator consistency means that for each operator, its result is always computed with the same precision. Specifically, values computed by compiler-generated code must adhere to the following identities:",
+		"precision": "The precision statement\n\n```glsl\nprecision precision-qualifier type;\n```\n\ncan be used to establish a default precision qualifier. The `type` field can be either `int`, `float`, or any of the opaque types, and the `precision-qualifier` can be `lowp`, `mediump`, or `highp`."
+	},
+	"keywords": {
+		"continue": "The `continue` jump is used only in loops. It skips the remainder of the body of the inner-most loop of which it is inside. For `while` and `do`-`while` loops, this jump is to the next evaluation of the loop `condition-expression` from which the loop continues as previously defined. For `for` loops, the jump is to the `loop-expression`, followed by the `condition-expression`.",
+		"break": "The `break` jump can also be used only in loops and `switch` statements. It is simply an immediate exit of the inner-most loop or `switch` statements containing the `break`. No further execution of `condition-expression`, `loop-expression`, or `switch-statement` is done.",
+		"discard": "The `discard` keyword is only allowed within fragment shaders. It can be used within a fragment shader to abandon the operation on the current fragment. This keyword causes the fragment to be discarded and no updates to any buffers will occur. Any prior writes to other buffers such as shader storage buffers are unaffected. Control flow exits the shader, and subsequent implicit or explicit derivatives are undefined when this control flow is non-uniform (meaning different fragments within the primitive take different control paths). It would typically be used within a conditional statement, for example:\n\n```glsl\nif (intensity < 0.0)\n    discard;\n```",
+		"return": "The `return` jump causes immediate exit of the current function. If it has `expression` then that is the return value for the function.\n\nThe function `main` can use `return`. This simply causes `main` to exit in the same way as when the end of the function had been reached. It does not imply a use of `discard` in a fragment shader. Using `return` in `main` before defining outputs will have the same behavior as reaching the end of `main` before defining outputs.",
+		"#version": "Shaders must declare the version of the language they are written to. The version is specified in the first line of a shader by a character string:\n\n```glsl\n#version number es\n```\n\nwhere `number` must be a version of the language, following the same convention as `__VERSION__` above. The directive “`#version 320 es`” is required in any shader that uses version 3.20 of the language. Any `number` representing a version of the language a compiler does not support will cause an error to be generated. Version 1.00 of the language does not require shaders to include this directive, and shaders that do not include a `#version` directive will be treated as targeting version 1.00.\n\nShaders declaring version 3.20 of the shading language cannot be linked with shaders declaring a previous version.\n\nThe `#version` directive must be present in the first line of a shader and must be followed by a newline. It may contain optional white-space as specified below but no other characters are allowed. The directive is only permitted in the first line of a shader.",
+		"#extension": "By default, compilers of this language must issue compile-time syntactic, semantic, and grammatical errors for shaders that do not conform to this specification. Any extended behavior must first be enabled. Directives to control the behavior of the compiler with respect to extensions are declared with the `#extension` directive\n\n```glsl\n#extension extension_name : behavior\n#extension all : behavior\n```\n\nwhere `extension_name` is the name of an extension. Extension names are not documented in this specification. The token `all` means the behavior applies to all extensions supported by the compiler. The `behavior` can be one of the following:\n\n| Behavior | Effect |\n| --- | --- |\n| `require` | Behave as specified by the extension `extension_name`.<br>Give a compile-time error on the `#extension` if the extension `extension_name` is not supported, or if `all` is specified. |\n| `enable` | Behave as specified by the extension `extension_name`.<br>Warn on the `#extension` if the extension `extension_name` is not supported.<br>Give a compile-time error on the `#extension` if `all` is specified. |\n| `warn` | Behave as specified by the extension `extension_name`, except issue warnings on any detectable use of that extension, unless such use is supported by other enabled or required extensions.<br>If `all` is specified, then warn on all detectable uses of any extension used.<br>Warn on the `#extension` if the extension `extension_name` is not supported. |\n| `disable` | Behave (including issuing errors and warnings) as if the extension `extension_name` is not part of the language definition.<br>If `all` is specified, then behavior must revert back to that of the non-extended core version of the language being compiled to.<br>Warn on the `#extension` if the extension `extension_name` is not supported. |",
+		"#define": "`#define` and `#undef` functionality are defined as is standard for C++ preprocessors for macro definitions both with and without macro parameters.",
+		"#undef": "`#define` and `#undef` functionality are defined as is standard for C++ preprocessors for macro definitions both with and without macro parameters.",
+		"#error": "`#error` will cause the implementation to put a compile-time diagnostic message into the shader object's information log (see section 7.12 “Shader, Program and Program Pipeline Queries” of the OpenGL ES Specification for how to access a shader object's information log). The message will be the tokens following the `#error` directive, up to the first new-line. The implementation must treat the presence of a `#error` directive as a compile-time error.",
+		"#pragma": "`#pragma` allows implementation-dependent compiler control. Tokens following `#pragma` are not subject to preprocessor macro expansion. If an implementation does not recognize the tokens following `#pragma`, then it will ignore that pragma. The following pragmas are defined as part of the language.",
+		"#line": "`#line` must have, after macro substitution, one of the following forms:\n\n```glsl\n#line line\n#line line source-string-number\n```\n\nwhere `line` and `source-string-number` are `pp-constant-expressions`. If these constant expressions are not integer literals then behavior is undefined. After processing this directive (including its new-line), the implementation will behave as if it is compiling at line number `line` and source string number `source-string-number`. Subsequent source strings will be numbered sequentially, until another `#line` directive overrides that numbering.",
+		"__LINE__": "`__LINE__` will substitute a decimal integer constant that is one more than the number of preceding new-lines in the current source string.",
+		"__FILE__": "`__FILE__` will substitute a decimal integer constant that says which source string number is currently being processed.",
+		"__VERSION__": "`__VERSION__` will substitute a decimal integer reflecting the version number of the OpenGL ES Shading Language. The version of the shading language described in this document will have `__VERSION__` substitute the decimal integer 320.",
+		"GL_ES": "`GL_ES` will be defined and set to 1. This is not true for the non-ES OpenGL Shading Language, so it can be used to do a compile time test to determine if a shader is compiling as an GLSL ES shader."
 	}
 }

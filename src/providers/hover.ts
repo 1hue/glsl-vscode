@@ -11,12 +11,12 @@ export const hoverProvider: vscode.HoverProvider = {
 			return undefined;
 		}
 
-		const text = hoverText(document, position, found.word);
+		const text = hoverText(document, position, found.word, found.range);
 		return text ? new vscode.Hover(markdown(text), found.range) : undefined;
 	},
 };
 
-function hoverText(document: vscode.TextDocument, position: vscode.Position, word: string): string | undefined {
+function hoverText(document: vscode.TextDocument, position: vscode.Position, word: string, range: vscode.Range): string | undefined {
 	const context = contextAt(document, position);
 	const { defs } = context;
 	const language = document.languageId === 'gdshader' ? 'gdshader' : 'glsl';
@@ -60,6 +60,14 @@ function hoverText(document: vscode.TextDocument, position: vscode.Position, wor
 	const typeDoc = defs.types?.[word] ?? defs.qualifiers?.[word];
 	if (typeDoc) {
 		return namedDocMarkdown(word, typeDoc, defs);
+	}
+
+	// Preprocessor directives are stored with their `#`.
+	const before = document.lineAt(range.start.line).text.slice(0, range.start.character);
+	const keyword = /^\s*#\s*$/.test(before) ? `#${word}` : word;
+	const keywordDoc = defs.keywords?.[keyword];
+	if (keywordDoc) {
+		return namedDocMarkdown(keyword, keywordDoc, defs);
 	}
 
 	return undefined;

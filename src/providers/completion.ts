@@ -146,7 +146,7 @@ function keywordAndTypeItems(context: Context): Item[] {
 	return [
 		...keywords.map((keyword) => {
 			const item = new Item(keyword, Kind.Keyword);
-			const doc = defs.qualifiers?.[keyword];
+			const doc = defs.qualifiers?.[keyword] ?? defs.keywords?.[keyword];
 			if (doc) {
 				item.documentation = markdown(namedDocMarkdown(keyword, doc, defs));
 			}

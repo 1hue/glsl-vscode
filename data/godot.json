@@ -19,7 +19,7 @@
 	"functions": {
 		"radians": [
 			{
-				"doc": "*Component-wise function.*\n\nConverts a quantity specified in degrees into radians, with the formula\n`degrees * (PI / 180)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/radians.xhtml)",
+				"doc": "*Component-wise function.*\n\nConverts a quantity specified in degrees into radians, with the formula `degrees * (PI / 180)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/radians.xhtml)",
 				"params": {
 					"degrees": "The quantity, in degrees, to be converted to radians."
 				},
@@ -39,7 +39,7 @@
 		],
 		"degrees": [
 			{
-				"doc": "*Component-wise function.*\n\nConverts a quantity specified in radians into degrees, with the formula\n`radians * (180 / PI)`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/degrees.xhtml)",
+				"doc": "*Component-wise function.*\n\nConverts a quantity specified in radians into degrees, with the formula `radians * (180 / PI)`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/degrees.xhtml)",
 				"params": {
 					"radians": "The quantity, in radians, to be converted to degrees."
 				},
@@ -119,7 +119,7 @@
 		],
 		"asin": [
 			{
-				"doc": "*Component-wise function.*\n\nArc sine, or inverse sine.\nCalculates the angle whose sine is `x` and is in the range `[-PI/2, PI/2]`.\nThe result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/asin.xhtml)",
+				"doc": "*Component-wise function.*\n\nArc sine, or inverse sine. Calculates the angle whose sine is `x` and is in the range `[-PI/2, PI/2]`. The result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/asin.xhtml)",
 				"params": {
 					"x": "The value whose arc sine to return."
 				},
@@ -139,7 +139,7 @@
 		],
 		"acos": [
 			{
-				"doc": "*Component-wise function.*\n\nArc cosine, or inverse cosine.\nCalculates the angle whose cosine is `x` and is in the range `[0, PI]`.\n\nThe result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acos.xhtml)",
+				"doc": "*Component-wise function.*\n\nArc cosine, or inverse cosine. Calculates the angle whose cosine is `x` and is in the range `[0, PI]`.\n\nThe result is undefined if `x < -1` or `x > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acos.xhtml)",
 				"params": {
 					"x": "The value whose arc cosine to return."
 				},
@@ -177,7 +177,7 @@
 				]
 			},
 			{
-				"doc": "*Component-wise function.*\n\nCalculates the arc tangent given a numerator and denominator. The signs of\n`y` and `x` are used to determine the quadrant that the angle lies in.\nThe result is undefined if `x == 0`.\n\nEquivalent to atan2() in GDScript.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atan.xhtml)",
+				"doc": "*Component-wise function.*\n\nCalculates the arc tangent given a numerator and denominator. The signs of `y` and `x` are used to determine the quadrant that the angle lies in. The result is undefined if `x == 0`.\n\nEquivalent to atan2() in GDScript.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atan.xhtml)",
 				"params": {
 					"y": "The numerator of the fraction whose arc tangent to return.",
 					"x": "The denominator of the fraction whose arc tangent to return."
@@ -282,7 +282,7 @@
 		],
 		"acosh": [
 			{
-				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic cosine of `x`, or the non-negative inverse of `cosh`.\nThe result is undefined if `x < 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acosh.xhtml)",
+				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic cosine of `x`, or the non-negative inverse of `cosh`. The result is undefined if `x < 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/acosh.xhtml)",
 				"params": {
 					"x": "The value whose arc hyperbolic cosine to return."
 				},
@@ -302,7 +302,7 @@
 		],
 		"atanh": [
 			{
-				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic tangent of `x`, or the inverse of `tanh`.\nThe result is undefined if `abs(x) > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atanh.xhtml)",
+				"doc": "*Component-wise function.*\n\nCalculates the arc hyperbolic tangent of `x`, or the inverse of `tanh`. The result is undefined if `abs(x) > 1`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/atanh.xhtml)",
 				"params": {
 					"x": "The value whose arc hyperbolic tangent to return."
 				},
@@ -387,7 +387,7 @@
 		],
 		"log": [
 			{
-				"doc": "*Component-wise function.*\n\nReturns the natural logarithm of `x`, i.e. the value `y` which satisfies `x == pow(e, y)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log.xhtml)",
+				"doc": "*Component-wise function.*\n\nReturns the natural logarithm of `x`, i.e. the value `y` which satisfies `x == pow(e, y)`. The result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log.xhtml)",
 				"params": {
 					"x": "The value of which to take the natural logarithm."
 				},
@@ -407,7 +407,7 @@
 		],
 		"log2": [
 			{
-				"doc": "*Component-wise function.*\n\nReturns the base-2 logarithm of `x`, i.e. the value `y` which satisfies `x == pow(2, y)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log2.xhtml)",
+				"doc": "*Component-wise function.*\n\nReturns the base-2 logarithm of `x`, i.e. the value `y` which satisfies `x == pow(2, y)`. The result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/log2.xhtml)",
 				"params": {
 					"x": "The value of which to take the base-2 logarithm."
 				},
@@ -427,7 +427,7 @@
 		],
 		"sqrt": [
 			{
-				"doc": "*Component-wise function.*\n\nReturns the square root of `x`.\nThe result is undefined if `x < 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sqrt.xhtml)",
+				"doc": "*Component-wise function.*\n\nReturns the square root of `x`. The result is undefined if `x < 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/sqrt.xhtml)",
 				"params": {
 					"x": "The value of which to take the square root."
 				},
@@ -447,7 +447,7 @@
 		],
 		"inversesqrt": [
 			{
-				"doc": "*Component-wise function.*\n\nReturns the inverse of the square root of `x`, or `1.0 / sqrt(x)`.\nThe result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/inversesqrt.xhtml)",
+				"doc": "*Component-wise function.*\n\nReturns the inverse of the square root of `x`, or `1.0 / sqrt(x)`. The result is undefined if `x <= 0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/inversesqrt.xhtml)",
 				"params": {
 					"x": "The value of which to take the inverse of the square root."
 				},
@@ -565,7 +565,7 @@
 		],
 		"roundEven": [
 			{
-				"doc": "*Component-wise function.*\n\nRounds `x` to the nearest integer. A value with a fractional part of `0.5`\nwill always round toward the nearest even integer.\nFor example, both `3.5` and `4.5` will round to `4.0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/roundEven.xhtml)",
+				"doc": "*Component-wise function.*\n\nRounds `x` to the nearest integer. A value with a fractional part of `0.5` will always round toward the nearest even integer. For example, both `3.5` and `4.5` will round to `4.0`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/roundEven.xhtml)",
 				"params": {
 					"x": "The value to round."
 				},
@@ -585,7 +585,7 @@
 		],
 		"trunc": [
 			{
-				"doc": "*Component-wise function.*\n\nTruncates `x`. Returns a value equal to the nearest integer to `x` whose\nabsolute value is not larger than the absolute value of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/trunc.xhtml)",
+				"doc": "*Component-wise function.*\n\nTruncates `x`. Returns a value equal to the nearest integer to `x` whose absolute value is not larger than the absolute value of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/trunc.xhtml)",
 				"params": {
 					"x": "The value to evaluate."
 				},
@@ -645,7 +645,7 @@
 		],
 		"mod": [
 			{
-				"doc": "*Component-wise function.*\n\nReturns the value of `x modulo y`.\nThis is also sometimes called the remainder.\n\nThis is computed as `x - y * floor(x/y)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mod.xhtml)",
+				"doc": "*Component-wise function.*\n\nReturns the value of `x modulo y`. This is also sometimes called the remainder.\n\nThis is computed as `x - y * floor(x/y)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mod.xhtml)",
 				"params": {
 					"x": "The value to evaluate."
 				},
@@ -682,7 +682,7 @@
 		],
 		"modf": [
 			{
-				"doc": "*Component-wise function.*\n\nSeparates a floating-point value `x` into its integer and fractional parts.\n\nThe fractional part of the number is returned from the function.\nThe integer part (as a floating-point quantity) is returned in the output parameter `i`.\n\n:param out i:\nA variable that receives the integer part of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/modf.xhtml)",
+				"doc": "*Component-wise function.*\n\nSeparates a floating-point value `x` into its integer and fractional parts.\n\nThe fractional part of the number is returned from the function. The integer part (as a floating-point quantity) is returned in the output parameter `i`.\n\n:param out i: A variable that receives the integer part of `x`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/modf.xhtml)",
 				"params": {
 					"x": "The value to separate."
 				},
@@ -1046,7 +1046,7 @@
 				]
 			},
 			{
-				"doc": "Selects either value `a` or value `b` based on the value of `c`.\nFor a component of `c` that is false, the corresponding component of `a` is returned.\nFor a component of `c` that is true, the corresponding component of `b` is returned.\nComponents of `a` and `b` that are not selected are allowed to be invalid floating-point values and will have no effect on the results.\n\nIf `a`, `b`, and `c` are vector types the operation is performed component-wise.\nFor example, `mix(vec2(42, 314), vec2(9.8, 6e23), bvec2(true, false)))` will return `vec2(9.8, 314)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mix.xhtml)",
+				"doc": "Selects either value `a` or value `b` based on the value of `c`. For a component of `c` that is false, the corresponding component of `a` is returned. For a component of `c` that is true, the corresponding component of `b` is returned. Components of `a` and `b` that are not selected are allowed to be invalid floating-point values and will have no effect on the results.\n\nIf `a`, `b`, and `c` are vector types the operation is performed component-wise. For example, `mix(vec2(42, 314), vec2(9.8, 6e23), bvec2(true, false)))` will return `vec2(9.8, 314)`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/mix.xhtml)",
 				"params": {
 					"a": "Value returned when `c` is false.",
 					"b": "Value returned when `c` is true.",
@@ -1076,7 +1076,7 @@
 		],
 		"fma": [
 			{
-				"doc": "*Component-wise function.*\n\nPerforms, where possible, a fused multiply-add operation, returning `a * b + c`. In use cases where the\nreturn value is eventually consumed by a variable declared as precise:\n\n- `fma()` is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared as precise is considered two operations.\n\n- The precision of `fma()` can differ from the precision of the expression `a * b + c`.\n\n- `fma()` will be computed with the same precision as any other `fma()` consumed by a precise variable,\ngiving invariant results for the same input values of `a`, `b`, and `c`.\n\nOtherwise, in the absence of precise consumption, there are no special constraints on the number of operations\nor difference in precision between `fma()` and the expression `a * b + c`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fma.xhtml)",
+				"doc": "*Component-wise function.*\n\nPerforms, where possible, a fused multiply-add operation, returning `a * b + c`. In use cases where the return value is eventually consumed by a variable declared as precise:\n\n- `fma()` is considered a single operation, whereas the expression `a * b + c` consumed by a variable declared as precise is considered two operations.\n\n- The precision of `fma()` can differ from the precision of the expression `a * b + c`.\n\n- `fma()` will be computed with the same precision as any other `fma()` consumed by a precise variable, giving invariant results for the same input values of `a`, `b`, and `c`.\n\nOtherwise, in the absence of precise consumption, there are no special constraints on the number of operations or difference in precision between `fma()` and the expression `a * b + c`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/fma.xhtml)",
 				"params": {
 					"a": "The first value to be multiplied.",
 					"b": "The second value to be multiplied.",
@@ -1106,7 +1106,7 @@
 		],
 		"step": [
 			{
-				"doc": "*Component-wise function.*\n\nGenerates a step function by comparing `b` to `a`.\n\nEquivalent to `if (b < a) { return 0.0; } else { return 1.0; }`.\nFor element `i` of the return value, `0.0` is returned if `b[i] < a[i]`, and `1.0` is returned otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/step.xhtml)",
+				"doc": "*Component-wise function.*\n\nGenerates a step function by comparing `b` to `a`.\n\nEquivalent to `if (b < a) { return 0.0; } else { return 1.0; }`. For element `i` of the return value, `0.0` is returned if `b[i] < a[i]`, and `1.0` is returned otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/step.xhtml)",
 				"params": {
 					"a": "The location of the edge of the step function.",
 					"b": "The value to be used to generate the step function."
@@ -1144,7 +1144,7 @@
 		],
 		"smoothstep": [
 			{
-				"doc": "*Component-wise function.*\n\nPerforms smooth Hermite interpolation between `0` and `1` when a < c < b.\nThis is useful in cases where a threshold function with a smooth transition is desired.\n\nSmoothstep is equivalent to:\n\n::\n\nvec_type t;\nt = clamp((c - a) / (b - a), 0.0, 1.0);\nreturn t * t * (3.0 - 2.0 * t);\n\nResults are undefined if `a >= b`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml)",
+				"doc": "*Component-wise function.*\n\nPerforms smooth Hermite interpolation between `0` and `1` when a < c < b. This is useful in cases where a threshold function with a smooth transition is desired.\n\nSmoothstep is equivalent to:\n\n::\n\nvec_type t; t = clamp((c - a) / (b - a), 0.0, 1.0); return t * t * (3.0 - 2.0 * t);\n\nResults are undefined if `a >= b`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml)",
 				"params": {
 					"a": "The value of the lower edge of the Hermite function.",
 					"b": "The value of the upper edge of the Hermite function.",
@@ -1191,7 +1191,7 @@
 		],
 		"isnan": [
 			{
-				"doc": "*Component-wise function.*\n\nFor each element `i` of the result, returns `true` if `x[i]` is a positive\nor negative floating-point `NaN` (Not a Number) and `false` otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isnan.xhtml)",
+				"doc": "*Component-wise function.*\n\nFor each element `i` of the result, returns `true` if `x[i]` is a positive or negative floating-point `NaN` (Not a Number) and `false` otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isnan.xhtml)",
 				"params": {
 					"x": "The value to test for `NaN`."
 				},
@@ -1211,7 +1211,7 @@
 		],
 		"isinf": [
 			{
-				"doc": "*Component-wise function.*\n\nFor each element i of the result, returns `true` if x[i] is positive or negative\nfloating-point infinity and false otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isinf.xhtml)",
+				"doc": "*Component-wise function.*\n\nFor each element i of the result, returns `true` if x[i] is positive or negative floating-point infinity and false otherwise.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/isinf.xhtml)",
 				"params": {
 					"x": "The value to test for infinity."
 				},
@@ -1271,7 +1271,7 @@
 		],
 		"intBitsToFloat": [
 			{
-				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToInt<shader_func_floatBitsToInt>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is\nthe corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
+				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToInt<shader_func_floatBitsToInt>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is the corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
 				"params": {
 					"x": "The bit encoding to return as a floating-point value."
 				},
@@ -1291,7 +1291,7 @@
 		],
 		"uintBitsToFloat": [
 			{
-				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToUint<shader_func_floatBitsToUint>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is\nthe corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
+				"doc": "*Component-wise function.*\n\nConverts a bit encoding to a floating-point value. Opposite of `floatBitsToUint<shader_func_floatBitsToUint>`\n\nIf the encoding of a `NaN` is passed in `x`, it will not signal and the resulting value will be undefined.\n\nIf the encoding of a floating-point infinity is passed in parameter `x`, the resulting floating-point value is the corresponding (positive or negative) floating-point infinity.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/intBitsToFloat.xhtml)",
 				"params": {
 					"x": "The bit encoding to return as a floating-point value."
 				},
@@ -1311,7 +1311,7 @@
 		],
 		"length": [
 			{
-				"doc": "Returns the length of the vector, i.e.,\n`sqrt(x[0] * x[0] + x[1] * x[1] + ... + x[n] * x[n])`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/length.xhtml)",
+				"doc": "Returns the length of the vector, i.e., `sqrt(x[0] * x[0] + x[1] * x[1] + ... + x[n] * x[n])`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/length.xhtml)",
 				"params": {
 					"x": "The vector"
 				},
@@ -1331,7 +1331,7 @@
 		],
 		"distance": [
 			{
-				"doc": "Returns the distance between the two points `a` and `b`, i.e.,\n`length(b - a);`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/distance.xhtml)",
+				"doc": "Returns the distance between the two points `a` and `b`, i.e., `length(b - a);`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/distance.xhtml)",
 				"params": {
 					"a": "The first point.",
 					"b": "The second point."
@@ -1356,7 +1356,7 @@
 		],
 		"dot": [
 			{
-				"doc": "Returns the dot product of two vectors, `a` and `b`, i.e.,\n`a.x * b.x + a.y * b.y + ...`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dot.xhtml)",
+				"doc": "Returns the dot product of two vectors, `a` and `b`, i.e., `a.x * b.x + a.y * b.y + ...`\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dot.xhtml)",
 				"params": {
 					"a": "The first vector.",
 					"b": "The second vector."
@@ -1481,7 +1481,7 @@
 		],
 		"faceforward": [
 			{
-				"doc": "Returns a vector pointing in the same direction as another.\n\nOrients a vector to point away from a surface as defined by its normal.\nIf `dot(Nref, I) < 0` faceforward returns `N`, otherwise it returns `-N`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/faceforward.xhtml)",
+				"doc": "Returns a vector pointing in the same direction as another.\n\nOrients a vector to point away from a surface as defined by its normal. If `dot(Nref, I) < 0` faceforward returns `N`, otherwise it returns `-N`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/faceforward.xhtml)",
 				"params": {
 					"N": "The vector to orient.",
 					"I": "The incident vector.",
@@ -1511,7 +1511,7 @@
 		],
 		"matrixCompMult": [
 			{
-				"doc": "Perform a component-wise multiplication of two matrices.\n\nPerforms a component-wise multiplication of two matrices, yielding a result\nmatrix where each component, `result[i][j]` is computed as the scalar\nproduct of `x[i][j]` and `y[i][j]`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/matrixCompMult.xhtml)",
+				"doc": "Perform a component-wise multiplication of two matrices.\n\nPerforms a component-wise multiplication of two matrices, yielding a result matrix where each component, `result[i][j]` is computed as the scalar product of `x[i][j]` and `y[i][j]`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/matrixCompMult.xhtml)",
 				"params": {
 					"x": "The first matrix multiplicand.",
 					"y": "The second matrix multiplicand."
@@ -1536,7 +1536,7 @@
 		],
 		"outerProduct": [
 			{
-				"doc": "Calculate the outer product of a pair of vectors.\n\nDoes a linear algebraic matrix multiply `column * row`, yielding a matrix whose number of\nrows is the number of components in `column` and whose number of columns is the number of\ncomponents in `row`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/outerProduct.xhtml)",
+				"doc": "Calculate the outer product of a pair of vectors.\n\nDoes a linear algebraic matrix multiply `column * row`, yielding a matrix whose number of rows is the number of components in `column` and whose number of columns is the number of components in `row`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/outerProduct.xhtml)",
 				"params": {
 					"column": "The column vector for multiplication.",
 					"row": "The row vector for multiplication."
@@ -1771,7 +1771,7 @@
 		],
 		"any": [
 			{
-				"doc": "Returns `true` if any element of a boolean vector is `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool any(bvec x) {     // bvec can be bvec2, bvec3 or bvec4\nbool result = false;\nint i;\nfor (i = 0; i < x.length(); ++i) {\nresult |= x[i];\n}\nreturn result;\n}\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/any.xhtml)",
+				"doc": "Returns `true` if any element of a boolean vector is `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool any(bvec x) {     // bvec can be bvec2, bvec3 or bvec4 bool result = false; int i; for (i = 0; i < x.length(); ++i) { result |= x[i]; } return result; }\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/any.xhtml)",
 				"params": {
 					"x": "The vector to be tested for truth."
 				},
@@ -1791,7 +1791,7 @@
 		],
 		"all": [
 			{
-				"doc": "Returns `true` if all elements of a boolean vector are `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool all(bvec x)       // bvec can be bvec2, bvec3 or bvec4\n{\nbool result = true;\nint i;\nfor (i = 0; i < x.length(); ++i)\n{\nresult &= x[i];\n}\nreturn result;\n}\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/all.xhtml)",
+				"doc": "Returns `true` if all elements of a boolean vector are `true`, `false` otherwise.\n\nFunctionally equivalent to:\n\n::\n\nbool all(bvec x)       // bvec can be bvec2, bvec3 or bvec4 { bool result = true; int i; for (i = 0; i < x.length(); ++i) { result &= x[i]; } return result; }\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/all.xhtml)",
 				"params": {
 					"x": "The vector to be tested for truth."
 				},
@@ -1831,7 +1831,7 @@
 		],
 		"textureSize": [
 			{
-				"doc": "Retrieves the dimensions of a level of a texture.\n\nReturns the dimensions of level `lod` (if present) of the texture bound to sampler.\n\nThe components in the return value are filled in, in order, with the width, height and depth\nof the texture. For the array forms, the last component of the return value is\nthe number of layers in the texture array.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureSize.xhtml)",
+				"doc": "Retrieves the dimensions of a level of a texture.\n\nReturns the dimensions of level `lod` (if present) of the texture bound to sampler.\n\nThe components in the return value are filled in, in order, with the width, height and depth of the texture. For the array forms, the last component of the return value is the number of layers in the texture array.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureSize.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture whose dimensions to retrieve is bound.",
 					"lod": "The level of the texture for which to retrieve the dimensions."
@@ -1908,7 +1908,7 @@
 		],
 		"textureQueryLod": [
 			{
-				"doc": "**Note:** Available only in the fragment shader.\n\nCompute the level-of-detail that would be used to sample from a texture.\n\nThe mipmap array(s) that would be accessed is returned in the x component of\nthe return value. The computed level-of-detail relative to the base level is\nreturned in the y component of the return value.\n\nIf called on an incomplete texture, the result of the operation is undefined.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureQueryLod.xhtml)",
+				"doc": "**Note:** Available only in the fragment shader.\n\nCompute the level-of-detail that would be used to sample from a texture.\n\nThe mipmap array(s) that would be accessed is returned in the x component of the return value. The computed level-of-detail relative to the base level is returned in the y component of the return value.\n\nIf called on an incomplete texture, the result of the operation is undefined.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureQueryLod.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture whose level-of-detail will be queried is bound.",
 					"p": "The texture coordinates at which the level-of-detail will be queried."
@@ -2019,7 +2019,7 @@
 		],
 		"texture": [
 			{
-				"doc": "Retrieves texels from a texture.\n\nSamples texels from the texture bound to `s` at texture coordinate `p`. An optional bias, specified in `bias` is\nincluded in the level-of-detail computation that is used to choose mipmap(s) from which to sample.\n\nFor shadow forms, the last component of `p` is used as Dsub and the array layer is specified in the second to last\ncomponent of `p`. (The second component of `p` is unused for 1D shadow lookups.)\n\nFor non-shadow variants, the array layer comes from the last component of P.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/texture.xhtml)",
+				"doc": "Retrieves texels from a texture.\n\nSamples texels from the texture bound to `s` at texture coordinate `p`. An optional bias, specified in `bias` is included in the level-of-detail computation that is used to choose mipmap(s) from which to sample.\n\nFor shadow forms, the last component of `p` is used as Dsub and the array layer is specified in the second to last component of `p`. (The second component of `p` is unused for 1D shadow lookups.)\n\nFor non-shadow variants, the array layer comes from the last component of P.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/texture.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2140,7 +2140,7 @@
 		],
 		"textureProj": [
 			{
-				"doc": "Performs a texture lookup with projection.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. The resulting 3rd component of `p` in the shadow\nforms is used as Dref. After these values are computed, the texture lookup proceeds as in\ntexture.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProj.xhtml)",
+				"doc": "Performs a texture lookup with projection.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are divided by the last component of `p`. The resulting 3rd component of `p` in the shadow forms is used as Dref. After these values are computed, the texture lookup proceeds as in texture.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProj.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2207,7 +2207,7 @@
 		],
 		"textureLod": [
 			{
-				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with\nan explicit level-of-detail as specified in `lod`. `lod` specifies λbase and sets the\npartial derivatives as follows:\n\n::\n\nδu/δx=0, δv/δx=0, δw/δx=0\nδu/δy=0, δv/δy=0, δw/δy=0\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureLod.xhtml)",
+				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with an explicit level-of-detail as specified in `lod`. `lod` specifies λbase and sets the partial derivatives as follows:\n\n::\n\nδu/δx=0, δv/δx=0, δw/δx=0 δu/δy=0, δv/δy=0, δw/δy=0\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureLod.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2305,7 +2305,7 @@
 		],
 		"textureProjLod": [
 			{
-				"doc": "Performs a texture lookup with projection from an explicitly specified level-of-detail.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. The resulting 3rd component of `p` in the shadow\nforms is used as Dref. After these values are computed, the texture lookup proceeds as in\ntextureLod, with `lod` used to specify the level-of-detail from\nwhich the texture will be sampled.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjLod.xhtml)",
+				"doc": "Performs a texture lookup with projection from an explicitly specified level-of-detail.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are divided by the last component of `p`. The resulting 3rd component of `p` in the shadow forms is used as Dref. After these values are computed, the texture lookup proceeds as in textureLod, with `lod` used to specify the level-of-detail from which the texture will be sampled.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjLod.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2369,7 +2369,7 @@
 		],
 		"textureGrad": [
 			{
-				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with explicit texture coordinate gradients as specified in `dPdx` and `dPdy`. Set:\n- `δs/δx=δp/δx` for a 1D texture, `δp.s/δx` otherwise\n- `δs/δy=δp/δy` for a 1D texture, `δp.s/δy` otherwise\n- `δt/δx=0.0` for a 1D texture, `δp.t/δx` otherwise\n- `δt/δy=0.0` for a 1D texture, `δp.t/δy` otherwise\n- `δr/δx=0.0` for a 1D or 2D texture, `δp.p/δx` otherwise\n- `δr/δy=0.0` for a 1D or 2D texture, `δp.p/δy` otherwise\n\nFor the cube version, the partial derivatives of `p` are assumed to be in the coordinate system used before texture coordinates are projected onto the appropriate cube face.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGrad.xhtml)",
+				"doc": "Performs a texture lookup at coordinate `p` from the texture bound to sampler with explicit texture coordinate gradients as specified in `dPdx` and `dPdy`. Set: - `δs/δx=δp/δx` for a 1D texture, `δp.s/δx` otherwise - `δs/δy=δp/δy` for a 1D texture, `δp.s/δy` otherwise - `δt/δx=0.0` for a 1D texture, `δp.t/δx` otherwise - `δt/δy=0.0` for a 1D texture, `δp.t/δy` otherwise - `δr/δx=0.0` for a 1D or 2D texture, `δp.p/δx` otherwise - `δr/δy=0.0` for a 1D or 2D texture, `δp.p/δy` otherwise\n\nFor the cube version, the partial derivatives of `p` are assumed to be in the coordinate system used before texture coordinates are projected onto the appropriate cube face.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGrad.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2488,7 +2488,7 @@
 		],
 		"textureProjGrad": [
 			{
-				"doc": "Performs a texture lookup with projection and explicit gradients.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are\ndivided by the last component of `p`. After these values are computed, the texture lookup proceeds as in\ntextureGrad, passing `dPdx` and `dPdy` as gradients.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjGrad.xhtml)",
+				"doc": "Performs a texture lookup with projection and explicit gradients.\n\nThe texture coordinates consumed from `p`, not including the last component of `p`, are divided by the last component of `p`. After these values are computed, the texture lookup proceeds as in textureGrad, passing `dPdx` and `dPdy` as gradients.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureProjGrad.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2629,7 +2629,7 @@
 		],
 		"textureGather": [
 			{
-				"doc": "Gathers four texels from a texture.\n\nReturns the value:\n\n::\n\nvec4(Sample_i0_j1(p, base).comps,\nSample_i1_j1(p, base).comps,\nSample_i1_j0(p, base).comps,\nSample_i0_j0(p, base).comps);\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGather.xhtml)",
+				"doc": "Gathers four texels from a texture.\n\nReturns the value:\n\n::\n\nvec4(Sample_i0_j1(p, base).comps, Sample_i1_j1(p, base).comps, Sample_i1_j0(p, base).comps, Sample_i0_j0(p, base).comps);\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/textureGather.xhtml)",
 				"params": {
 					"s": "The sampler to which the texture from which texels will be retrieved is bound.",
 					"p": "The texture coordinates at which texture will be sampled.",
@@ -2696,7 +2696,7 @@
 		],
 		"dFdx": [
 			{
-				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window x coordinate using local differencing.\n\nReturns either dFdxCoarse or dFdxFine.\nThe implementation may choose which calculation to perform based upon factors\nsuch as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window x coordinate using local differencing.\n\nReturns either dFdxCoarse or dFdxFine. The implementation may choose which calculation to perform based upon factors such as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
 				"params": {
 					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
 				},
@@ -2716,7 +2716,7 @@
 		],
 		"dFdxCoarse": [
 			{
-				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window x coordinate.\n\nCalculates derivatives using local differencing based on the value of `p`\nfor the current fragment's neighbors, and will possibly, but not necessarily,\ninclude the value for the current fragment. That is, over a given area, the\nimplementation can compute derivatives in fewer unique locations than would\nbe allowed for the corresponding dFdxFine function.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window x coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment's neighbors, and will possibly, but not necessarily, include the value for the current fragment. That is, over a given area, the implementation can compute derivatives in fewer unique locations than would be allowed for the corresponding dFdxFine function.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
 				"params": {
 					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore\n    expressions evaluated via non-uniform control flow may be undefined."
 				},
@@ -2756,7 +2756,7 @@
 		],
 		"dFdy": [
 			{
-				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window y coordinate using local differencing.\n\nReturns either dFdyCoarse or dFdyFine.\nThe implementation may choose which calculation to perform based upon factors\nsuch as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"doc": "**Note:** Available only in the fragment shader.\n\nReturns the partial derivative of `p` with respect to the window y coordinate using local differencing.\n\nReturns either dFdyCoarse or dFdyFine. The implementation may choose which calculation to perform based upon factors such as performance or the value of the API `GL_FRAGMENT_SHADER_DERIVATIVE_HINT` hint.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))`\nhave undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
 				"params": {
 					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
 				},
@@ -2776,7 +2776,7 @@
 		],
 		"dFdyCoarse": [
 			{
-				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window y coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment's neighbors, and will possibly,\nbut not necessarily, include the value for the current fragment. That is, over a given area, the implementation can compute derivatives in fewer unique locations than\nwould be allowed for the corresponding dFdyFine and dFdyFine functions.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))` have undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
+				"doc": "**Note:** Available only in the fragment shader.\nNot available when using the Compatibility renderer.\n\nReturns the partial derivative of `p` with respect to the window y coordinate.\n\nCalculates derivatives using local differencing based on the value of `p` for the current fragment's neighbors, and will possibly, but not necessarily, include the value for the current fragment. That is, over a given area, the implementation can compute derivatives in fewer unique locations than would be allowed for the corresponding dFdyFine and dFdyFine functions.\n\n**Warning:** Expressions that imply higher order derivatives such as `dFdx(dFdx(n))` have undefined results, as do mixed-order derivatives such as `dFdx(dFdy(n))`.\n\n[OpenGL reference page](https://registry.khronos.org/OpenGL-Refpages/gl4/html/dFdx.xhtml)",
 				"params": {
 					"p": "The expression of which to take the partial derivative.\n\n.. note:: It is assumed that the expression `p` is continuous and therefore expressions evaluated via non-uniform control flow may be undefined."
 				},
@@ -2876,7 +2876,7 @@
 		],
 		"packHalf2x16": [
 			{
-				"doc": "Converts two 32-bit floating-point quantities to 16-bit floating-point\nquantities and packs them into a single 32-bit integer.\n\nReturns an unsigned integer obtained by converting the components of a two-component floating-point vector to\nthe 16-bit floating-point representation found in the OpenGL Specification, and then packing these two\n16-bit integers into a 32-bit unsigned integer. The first vector component specifies the 16 least-significant\nbits of the result; the second component specifies the 16 most-significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packHalf2x16.xhtml)",
+				"doc": "Converts two 32-bit floating-point quantities to 16-bit floating-point quantities and packs them into a single 32-bit integer.\n\nReturns an unsigned integer obtained by converting the components of a two-component floating-point vector to the 16-bit floating-point representation found in the OpenGL Specification, and then packing these two 16-bit integers into a 32-bit unsigned integer. The first vector component specifies the 16 least-significant bits of the result; the second component specifies the 16 most-significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/packHalf2x16.xhtml)",
 				"params": {
 					"v": "A vector of two 32-bit floating-point values that are to be converted to 16-bit representation and packed into the result."
 				},
@@ -2896,7 +2896,7 @@
 		],
 		"unpackHalf2x16": [
 			{
-				"doc": "Inverse of packHalf2x16.\n\nUnpacks a 32-bit integer into two 16-bit floating-point values, converts them to 32-bit floating-point values, and puts them into a vector.\nThe first component of the vector is obtained from the 16 least-significant bits of `v`; the second component is obtained from the\n16 most-significant bits of `v`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackHalf2x16.xhtml)",
+				"doc": "Inverse of packHalf2x16.\n\nUnpacks a 32-bit integer into two 16-bit floating-point values, converts them to 32-bit floating-point values, and puts them into a vector. The first component of the vector is obtained from the 16 least-significant bits of `v`; the second component is obtained from the 16 most-significant bits of `v`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackHalf2x16.xhtml)",
 				"params": {
 					"v": "A single 32-bit unsigned integer containing 2 packed 16-bit floating-point values."
 				},
@@ -2936,7 +2936,7 @@
 		],
 		"unpackUnorm2x16": [
 			{
-				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into a pair of 16-bit unsigned integers.\nThen, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 65535.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into a pair of 16-bit unsigned integers. Then, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 65535.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
 				"params": {
 					"v": "An unsigned integer containing packed floating-point values."
 				},
@@ -2975,7 +2975,7 @@
 		],
 		"unpackSnorm2x16": [
 			{
-				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into a pair of 16-bit signed integers.\nThen, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 32727.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into a pair of 16-bit signed integers. Then, each component is converted to a normalized floating-point value to generate the returned two-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 32727.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
 				"params": {
 					"v": "An unsigned integer containing packed floating-point values."
 				},
@@ -3014,7 +3014,7 @@
 		],
 		"unpackUnorm4x8": [
 			{
-				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into four 8-bit unsigned integers.\nThen, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 255.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"doc": "Unpacks floating-point values from an unsigned integer.\n\nUnpacks single 32-bit unsigned integers into four 8-bit unsigned integers. Then, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nf / 255.0\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
 				"params": {
 					"v": "An unsigned integer containing packed floating-point values."
 				},
@@ -3053,7 +3053,7 @@
 		],
 		"unpackSnorm4x8": [
 			{
-				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into four 8-bit signed integers.\nThen, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 127.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
+				"doc": "Unpack floating-point values from an unsigned integer.\n\nUnpack single 32-bit unsigned integers into four 8-bit signed integers. Then, each component is converted to a normalized floating-point value to generate the returned four-component vector.\n\nThe conversion for unpacked fixed point value f to floating-point is performed as follows:\n\nclamp(f / 127.0, -1.0, 1.0)\n\nThe first component of the returned vector will be extracted from the least significant bits of the input; the last component will be extracted from the most significant bits.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/unpackUnorm.xhtml)",
 				"params": {
 					"v": "An unsigned integer containing packed floating-point values."
 				},
@@ -3072,7 +3072,7 @@
 		],
 		"bitfieldExtract": [
 			{
-				"doc": "Extracts a subset of the bits of `value` and returns it in the least significant bits of the result.\nThe range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits of the result will be set to zero.\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
+				"doc": "Extracts a subset of the bits of `value` and returns it in the least significant bits of the result. The range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits of the result will be set to zero.\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
 				"params": {
 					"value": "The integer from which to extract bits.",
 					"offset": "The index of the first bit to extract.",
@@ -3100,7 +3100,7 @@
 				]
 			},
 			{
-				"doc": "*Component-wise function.*\n\nExtracts a subset of the bits of `value` and returns it in the least significant bits of the result.\nThe range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits will be set to the value of `offset + base - 1` (i.e., it is sign extended to the width of the return type).\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
+				"doc": "*Component-wise function.*\n\nExtracts a subset of the bits of `value` and returns it in the least significant bits of the result. The range of bits extracted is `[offset, offset + bits - 1]`.\n\nThe most significant bits will be set to the value of `offset + base - 1` (i.e., it is sign extended to the width of the return type).\n\n**Note:** If bits is zero, the result will be zero.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldExtract.xhtml)",
 				"params": {
 					"value": "The integer from which to extract bits.",
 					"offset": "The index of the first bit to extract.",
@@ -3128,7 +3128,7 @@
 				]
 			},
 			{
-				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and\nall other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
+				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and all other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
 				"params": {
 					"base": "The integer into which to insert `insert`.",
 					"insert": "The value of the bits to insert.",
@@ -3159,7 +3159,7 @@
 		],
 		"bitfieldInsert": [
 			{
-				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and\nall other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
+				"doc": "*Component-wise function.*\n\nInserts the `bits` least significant bits of `insert` into `base` at offset `offset`.\n\nThe returned value will have bits [offset, offset + bits + 1] taken from [0, bits - 1] of `insert` and all other bits taken directly from the corresponding bits of base.\n\n**Note:** If bits is zero, the result will be the original value of base.\n\n**Warning:** The result will be undefined if:\n\n- offset or bits is negative.\n- if the sum of offset and bits is greater than the number of bits used to store the operand.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/bitfieldInsert.xhtml)",
 				"params": {
 					"base": "The integer into which to insert `insert`.",
 					"insert": "The value of the bits to insert.",
@@ -3378,7 +3378,7 @@
 		],
 		"uaddCarry": [
 			{
-				"doc": "*Component-wise function.*\n\nAdds two 32-bit unsigned integer values (scalars or vectors)\nand returns a 32-bit unsigned integer, along with a carry output stored in `carry`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/uaddCarry.xhtml)",
+				"doc": "*Component-wise function.*\n\nAdds two 32-bit unsigned integer values (scalars or vectors) and returns a 32-bit unsigned integer, along with a carry output stored in `carry`.\n\n[OpenGL reference page](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/uaddCarry.xhtml)",
 				"params": {
 					"x": "The first operand.",
 					"y": "The second operand.",
