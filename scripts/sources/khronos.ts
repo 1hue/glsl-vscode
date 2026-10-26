@@ -1,13 +1,44 @@
 // GLSL and GLSL ES built-ins from the Khronos GLSL specification source (AsciiDoc).
 
+import { AbstractBlock, load } from '@asciidoctor/core';
+import { Flavor, constructsFor } from '../../src/constructs';
 import { Definitions, FetchText, FunctionGroup, Signature, Source, SourceConfig, Variable, parseSignature, tidy } from './common';
 
 type Block =
-	| { kind: 'heading'; level: number; text: string }
+	| { kind: 'heading'; level: number; text: string; id?: string }
 	| { kind: 'source'; lines: string[] }
 	| { kind: 'latex'; lines: string[] }
 	| { kind: 'table'; rows: string[][]; header: boolean }
-	| { kind: 'para'; lines: string[] };
+	| { kind: 'para'; lines: string[] }
+	// Syntax (`[role="bnf"]`), never shown
+	| { kind: 'grammar'; lines: string[] };
+
+// Parts of asciidoctor nodes its type definitions leave out
+interface TableNode extends AbstractBlock {
+	rows: { head: CellNode[][]; body: CellNode[][] };
+}
+
+interface CellNode {
+	rowspan: number | null;
+	source(): string;
+}
+
+interface ItemNode extends AbstractBlock {
+	getText(): string | null;
+}
+
+interface ListNode extends AbstractBlock {
+	getItems(): ItemNode[];
+}
+
+// Items are [terms, description] pairs.
+interface DescriptionListNode extends AbstractBlock {
+	getItems(): [unknown, ItemNode | null][];
+}
+
+interface SourceNode extends AbstractBlock {
+	getSourceLines(): string[];
+}
 
 const FILES = {
 	functions: 'chapters/builtinfunctions.adoc',
@@ -20,7 +51,7 @@ const FILES = {
 type Chapter = keyof typeof FILES;
 
 // AsciiDoc conditionals (`ifdef::GLSL[]`) and document attributes per output file
-const FLAVORS = {
+const FLAVORS: Record<Flavor, { conditional: string; title: string; attributes: Record<string, string> }> = {
 	glsl: {
 		conditional: 'GLSL',
 		title: 'OpenGL Shading Language specification',
@@ -49,53 +80,6 @@ const FLAVORS = {
 	},
 };
 
-interface ProseDoc {
-	names: string[];
-	target: 'qualifiers' | 'keywords';
-	chapter: Chapter;
-	// First paragraph of the doc
-	start: RegExp;
-	// Number of blocks (paragraphs, code, tables) to take
-	blocks: number;
-}
-
-// Keywords, qualifiers and preprocessor directives described in running prose
-const PROSE_DOCS: ProseDoc[] = [
-	{ names: ['continue'], target: 'keywords', chapter: 'statements', start: /^The \*continue\* jump/, blocks: 1 },
-	{ names: ['break'], target: 'keywords', chapter: 'statements', start: /^The \*break\* jump/, blocks: 1 },
-	{ names: ['discard'], target: 'keywords', chapter: 'statements', start: /^The \*discard\* keyword/, blocks: 2 },
-	{ names: ['return'], target: 'keywords', chapter: 'statements', start: /^The \*return\* jump/, blocks: 2 },
-	{ names: ['subroutine'], target: 'qualifiers', chapter: 'statements', start: /^Subroutines provide/, blocks: 2 },
-
-	{ names: ['layout'], target: 'qualifiers', chapter: 'variables', start: /^Layout qualifiers can appear in several forms/, blocks: 1 },
-	{ names: ['invariant'], target: 'qualifiers', chapter: 'variables', start: /^To ensure that a particular output variable is invariant/, blocks: 4 },
-	{ names: ['precise'], target: 'qualifiers', chapter: 'variables', start: /^The \*precise\* qualifier ensures/, blocks: 1 },
-	{ names: ['precision'], target: 'qualifiers', chapter: 'variables', start: /^The precision statement/, blocks: 3 },
-	{ names: ['coherent'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*coherent\*/, blocks: 1 },
-	{ names: ['volatile'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*volatile\*/, blocks: 1 },
-	{ names: ['restrict'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*restrict\*/, blocks: 1 },
-	{ names: ['readonly'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*readonly\*/, blocks: 1 },
-	{ names: ['writeonly'], target: 'qualifiers', chapter: 'variables', start: /^Memory accesses to image variables declared using the \*writeonly\*/, blocks: 1 },
-
-	{ names: ['#version'], target: 'keywords', chapter: 'basics', start: /^Shaders (should|must) declare the version/, blocks: 5 },
-	{ names: ['#extension'], target: 'keywords', chapter: 'basics', start: /^By default, compilers of this language must issue/, blocks: 4 },
-	{ names: ['#define', '#undef'], target: 'keywords', chapter: 'basics', start: /^\*#define\* and \*#undef\*/, blocks: 1 },
-	{ names: ['#error'], target: 'keywords', chapter: 'basics', start: /^\*#error\* will cause/, blocks: 1 },
-	{ names: ['#pragma'], target: 'keywords', chapter: 'basics', start: /^\*#pragma\* allows/, blocks: 1 },
-	{ names: ['#line'], target: 'keywords', chapter: 'basics', start: /^\*#line\* must have/, blocks: 3 },
-	{ names: ['__LINE__'], target: 'keywords', chapter: 'basics', start: /^\+__LINE__\+ will/, blocks: 1 },
-	{ names: ['__FILE__'], target: 'keywords', chapter: 'basics', start: /^\+__FILE__\+ will/, blocks: 1 },
-	{ names: ['__VERSION__'], target: 'keywords', chapter: 'basics', start: /^\+__VERSION__\+ will/, blocks: 1 },
-	{ names: ['GL_ES'], target: 'keywords', chapter: 'basics', start: /^\+GL_ES\+ will/, blocks: 1 },
-	{
-		names: ['GL_core_profile', 'GL_compatibility_profile', 'GL_es_profile'],
-		target: 'keywords',
-		chapter: 'basics',
-		start: /^There is a built-in macro definition for each profile/,
-		blocks: 6,
-	},
-];
-
 // Math attributes used in prose, e.g. `{pi}`
 const SYMBOLS: Record<string, string> = {
 	pi: 'π',
@@ -116,29 +100,17 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 	const base = `https://raw.githubusercontent.com/${config.repo}/${config.commit}`;
 	const chapters = Object.keys(FILES) as Chapter[];
 	const texts = await Promise.all(chapters.map((chapter) => fetchText(`${base}/${FILES[chapter]}`)));
-	const textOf = Object.fromEntries(chapters.map((chapter, index) => [chapter, texts[index]])) as Record<Chapter, string>;
 
 	const outputs: Record<string, Definitions> = {};
 
-	for (const [name, flavor] of Object.entries(FLAVORS)) {
+	for (const [name, flavor] of Object.entries(FLAVORS) as [Flavor, (typeof FLAVORS)[Flavor]][]) {
 		const attributes = { ...SYMBOLS, ...flavor.attributes };
-		const blocksOf = (chapter: Chapter) => tokenize(preprocess(textOf[chapter], flavor.conditional));
+		const parsed = await Promise.all(texts.map((text) => toBlocks(text, flavor.conditional)));
+		const blocksOf = Object.fromEntries(chapters.map((chapter, index) => [chapter, parsed[index]])) as Record<Chapter, Block[]>;
 
-		const variableBlocks = blocksOf('variables');
-		const { types, qualifiers } = parseTypeTables(variableBlocks, attributes);
-		parseLayoutQualifiers(variableBlocks, attributes, qualifiers);
-
+		const { types, qualifiers } = parseTypeTables(blocksOf.variables, attributes);
 		const keywords: Record<string, string> = {};
-		const targets = { qualifiers, keywords };
-		const blocksByChapter = { variables: variableBlocks } as Partial<Record<Chapter, Block[]>>;
-
-		for (const prose of PROSE_DOCS) {
-			const blocks = (blocksByChapter[prose.chapter] ??= blocksOf(prose.chapter));
-			const doc = proseDoc(blocks, prose.start, prose.blocks, attributes);
-			for (const keyword of doc ? prose.names : []) {
-				addDoc(targets[prose.target], keyword, doc!);
-			}
-		}
+		addConstructDocs(name, parsed.flat(), attributes, { qualifiers, keywords });
 
 		outputs[name] = {
 			source: {
@@ -149,8 +121,8 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 				licenses: [{ id: 'CC-BY-4.0', url: 'https://creativecommons.org/licenses/by/4.0/' }],
 				modified: 'Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified.',
 			},
-			functions: parseFunctions(blocksOf('functions'), attributes),
-			variables: parseVariables(blocksOf('builtins'), attributes),
+			functions: parseFunctions(blocksOf.functions, attributes),
+			variables: parseVariables(blocksOf.builtins, attributes),
 			types,
 			qualifiers,
 			keywords,
@@ -161,159 +133,157 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 }
 
 /**
- * Resolves `ifdef::X[]` / `ifndef::X[]` / `endif::X[]` blocks
- * and single-line `ifdef::X[text]`.
+ * Parses AsciiDoc and flattens it into headings, code, math, tables and paragraphs in document order.
+ * `conditional` selects `ifdef::GLSL[]` or `ifdef::ESSL[]` content.
  */
-function preprocess(text: string, conditional: string): string[] {
-	const out: string[] = [];
-	const active: boolean[] = [];
-	const isActive = () => active.every(Boolean);
-
-	for (const line of text.split('\n')) {
-		const condition = /^(ifdef|ifndef)::([\w,+]+)\[(.*)\]\s*$/.exec(line);
-
-		if (condition) {
-			const [, directive, names, inlineText] = condition;
-			const defined = names.split(/[,+]/).includes(conditional);
-			const include = directive === 'ifdef' ? defined : !defined;
-
-			if (inlineText) {
-				if (include && isActive()) {
-					out.push(inlineText);
-				}
-			} else {
-				active.push(include);
-			}
-			continue;
-		}
-
-		if (/^endif::/.test(line)) {
-			active.pop();
-			continue;
-		}
-
-		if (isActive()) {
-			out.push(line);
-		}
-	}
-
-	return out;
-}
-
-/** Splits AsciiDoc lines into headings, code blocks, math blocks, tables and paragraphs. */
-function tokenize(lines: string[]): Block[] {
+async function toBlocks(text: string, conditional: string): Promise<Block[]> {
+	const document = await load(text, { attributes: { [conditional]: '' } });
 	const blocks: Block[] = [];
-	let paragraph: string[] = [];
-	let tableHasHeader = false;
 
-	const flushParagraph = () => {
-		if (paragraph.length) {
-			blocks.push({ kind: 'para', lines: paragraph });
-		}
-		paragraph = [];
-	};
+	const visit = (node: AbstractBlock) => {
+		for (const child of node.getBlocks()) {
+			switch (child.getContext()) {
+				case 'section':
+					blocks.push({ kind: 'heading', level: (child.getLevel() ?? 0) + 1, text: child.getTitle() ?? '', id: child.getId() });
+					visit(child);
+					break;
 
-	// Lines from `start` up to the closing `fence`
-	const collect = (start: number, fence: string) => {
-		const body: string[] = [];
-		let end = start;
-		while (end < lines.length && lines[end] !== fence) {
-			body.push(lines[end++]);
-		}
-		return { body, end };
-	};
+				case 'paragraph':
+					blocks.push({ kind: 'para', lines: (child as SourceNode).getSourceLines() });
+					break;
 
-	for (let i = 0; i < lines.length; i++) {
-		const line = lines[i];
-		const heading = /^(=+)\s+(.*)$/.exec(line);
+				case 'listing':
+				case 'literal':
+					blocks.push({ kind: 'source', lines: (child as SourceNode).getSourceLines() });
+					break;
 
-		// `--` delimits an open block, which only groups content.
-		if (!line.trim() || line === '--') {
-			flushParagraph();
-		} else if (/^\/\//.test(line) || /^\[\[.*\]\]$/.test(line)) {
-			// Comment or anchor
-		} else if (heading) {
-			flushParagraph();
-			blocks.push({ kind: 'heading', level: heading[1].length, text: heading[2].trim() });
-		} else if ((/^\[source/.test(line) && lines[i + 1] === '----') || line === '----') {
-			flushParagraph();
-			const { body, end } = collect(line === '----' ? i + 1 : i + 2, '----');
-			blocks.push({ kind: 'source', lines: body });
-			i = end;
-		} else if (/^\[latexmath\]/.test(line) && lines[i + 1] === '++++') {
-			flushParagraph();
-			const { body, end } = collect(i + 2, '++++');
-			blocks.push({ kind: 'latex', lines: body });
-			i = end;
-		} else if (/^\[(options|cols)=/.test(line)) {
-			flushParagraph();
-			tableHasHeader = /header/.test(line);
-		} else if (/^\|===/.test(line)) {
-			flushParagraph();
-			const { body, end } = collect(i + 1, line);
-			const rows: string[][] = [];
+				case 'stem':
+					blocks.push({ kind: 'latex', lines: (child as SourceNode).getSourceLines() });
+					break;
 
-			for (const row of body) {
-				if (row.startsWith('|')) {
-					rows.push(row.slice(1).split('|').map((cell) => cell.trim()));
-				} else if (row.trim() && rows.length) {
-					// Cell text continued on the next line, possibly followed by more cells:
-					// `  *image2D*   | a handle for accessing a 2D texture`
-					const [continued, ...moreCells] = row.split('|').map((cell) => cell.trim());
-					const last = rows[rows.length - 1];
-					const cell = last[last.length - 1];
-					// ` +` ends a line inside a cell.
-					last[last.length - 1] = cell.endsWith(' +') ? `${cell.slice(0, -2)}<br>${continued}` : `${cell} ${continued}`.trim();
-					last.push(...moreCells);
+				case 'table':
+					blocks.push(tableBlock(child as TableNode));
+					break;
+
+				case 'ulist':
+				case 'olist':
+					blocks.push({ kind: 'para', lines: listLines(child as ListNode, 1) });
+					break;
+
+				case 'dlist':
+					// `{empty}:: text` lines without a term, as a list; ` +` breaks a line into another item
+					blocks.push({
+						kind: 'para',
+						lines: (child as DescriptionListNode)
+							.getItems()
+							.flatMap(([, description]) => (description ? rawText(description).split(/\s\+\n/) : []))
+							.map((item) => `* ${item.replace(/\s*\n\s*/g, ' ').replace(/\s\+$/, '')}`),
+					});
+					break;
+
+				case 'admonition': {
+					// `NOTE: text` paragraph or `[NOTE]` block
+					const start = blocks.length;
+					if (child.getBlocks().length) {
+						visit(child);
+					} else {
+						blocks.push({ kind: 'para', lines: (child as SourceNode).getSourceLines() });
+					}
+
+					const first = blocks.slice(start).find((block) => block.kind === 'para');
+					if (first?.kind === 'para' && child.getStyle() === 'NOTE') {
+						first.lines[0] = `NOTE: ${first.lines[0]}`;
+					}
+					break;
 				}
+
+				case 'open':
+				case 'example':
+				case 'sidebar':
+				case 'quote':
+					if (child.hasRole('bnf')) {
+						blocks.push({ kind: 'grammar', lines: grammarLines(child) });
+					} else {
+						visit(child);
+					}
+					break;
 			}
-
-			blocks.push({ kind: 'table', rows: expandRowSpans(rows), header: tableHasHeader });
-			tableHasHeader = false;
-			i = end;
-		} else {
-			paragraph.push(line);
 		}
-	}
+	};
 
-	flushParagraph();
+	visit(document);
 	return blocks;
 }
 
-/**
- * Copies cells spanning several rows into the rows below.
- * The span is written before the cell's `|`, so it ends the previous cell: `| X  .5+| *uniform*`.
- */
-function expandRowSpans(rows: string[][]): string[][] {
-	const spans: { text: string; remaining: number }[] = [];
-
-	return rows.map((cells) => {
-		const parsed: { text: string; span: number }[] = [];
-		let nextSpan = 1;
-
-		for (const cell of cells) {
-			const spec = /^(.*?)\s*\.(\d+)\+$/s.exec(cell);
-			parsed.push({ text: spec ? spec[1] : cell, span: nextSpan });
-			nextSpan = spec ? Number(spec[2]) : 1;
+/** Text of a grammar block: `_rule_ : ::` definition lists of `*name* +` lines. */
+function grammarLines(node: AbstractBlock): string[] {
+	return node.getBlocks().flatMap((child) => {
+		if (child.getContext() === 'paragraph') {
+			return (child as SourceNode).getSourceLines();
 		}
+		if (child.getContext() === 'dlist') {
+			return (child as DescriptionListNode)
+				.getItems()
+				.flatMap(([terms, description]) => [...(terms as ItemNode[]), ...(description ? [description] : [])])
+				.map(rawText);
+		}
+		return grammarLines(child);
+	});
+}
 
+/** A list item's text as written: without substitutions, its markup is left for `inline()`. */
+function rawText(item: ItemNode): string {
+	for (const substitution of [...item.getSubstitutions()]) {
+		item.removeSubstitution(substitution);
+	}
+	return item.getText() ?? '';
+}
+
+/** List items as `* item` lines, nested items as `** item`. */
+function listLines(list: ListNode, depth: number): string[] {
+	const lines: string[] = [];
+	const marker = list.getContext() === 'olist' ? '.'.repeat(depth) : '*'.repeat(depth);
+
+	for (const item of list.getItems()) {
+		lines.push(`${marker} ${rawText(item).replace(/\s*\n\s*/g, ' ')}`);
+		for (const nested of item.getBlocks()) {
+			if (nested.getContext() === 'ulist' || nested.getContext() === 'olist') {
+				lines.push(...listLines(nested as ListNode, depth + 1));
+			}
+		}
+	}
+
+	return lines;
+}
+
+/** Table cells as text; cells spanning several rows are repeated in the rows below. */
+function tableBlock(table: TableNode): Block {
+	const spans: { text: string; remaining: number }[] = [];
+	const rows: string[][] = [];
+
+	for (const cells of [...table.rows.head, ...table.rows.body]) {
+		const pending = [...cells];
 		const row: string[] = [];
-		while (parsed.length || spans[row.length]?.remaining) {
-			const spanned = spans[row.length];
 
+		while (pending.length || spans[row.length]?.remaining) {
+			const spanned = spans[row.length];
 			if (spanned?.remaining) {
 				row.push(spanned.text);
 				spanned.remaining--;
 				continue;
 			}
 
-			const cell = parsed.shift()!;
-			spans[row.length] = { text: cell.text, remaining: cell.span - 1 };
-			row.push(cell.text);
+			const cell = pending.shift()!;
+			// ` +` ends a line inside a cell.
+			const text = cell.source().replace(/\s\+\n\s*/g, '<br>').replace(/\s*\n\s*/g, ' ').trim();
+			spans[row.length] = { text, remaining: (cell.rowspan ?? 1) - 1 };
+			row.push(text);
 		}
 
-		return row;
-	});
+		rows.push(row);
+	}
+
+	return { kind: 'table', rows, header: table.rows.head.length > 0 };
 }
 
 function blockToMarkdown(block: Block, attributes: Record<string, string>): string {
@@ -341,8 +311,12 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 			// Wrapped lines are joined; list items keep their own line.
 			const lines: string[] = [];
 			for (const raw of block.lines) {
-				const line = raw.replace(/^\s*\*\*\s+/, '  - ').replace(/^\s*\*\s+/, '- ');
-				const startsItem = /^\s*- /.test(line);
+				const line = raw
+					.replace(/^\s*\*\*\s+/, '  - ')
+					.replace(/^\s*\*\s+/, '- ')
+					.replace(/^\s*\.\.\s+/, '  1. ')
+					.replace(/^\s*\.\s+/, '1. ');
+				const startsItem = /^\s*(-|1\.) /.test(line);
 
 				if (startsItem || !lines.length) {
 					lines.push(startsItem ? line.trimEnd() : line.trim());
@@ -379,6 +353,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 			.replace(/(^|[^\w])_([^_]+?)_(?!\w)/g, '$1$2')
 			.replace(/~([^~]+)~/g, '_$1')
 			.replace(/\^([^^]+)\^/g, '^$1')
+			.replace(/\\\{/g, '{')
 			.replace(/\s*\n\s*/g, ' ');
 
 	const markdown = text
@@ -398,7 +373,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 		.replace(/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
 		.replace(/~([^~\s]+)~/g, '_$1')
 		.replace(/\^([^^\s]+)\^/g, '^$1')
-		.replace(/\\(?=[<*_])/g, '');
+		.replace(/\\(?=[<*_{])/g, '');
 
 	return restore(markdown);
 }
@@ -446,86 +421,147 @@ function addDoc(target: Record<string, string>, name: string, doc: string) {
 	}
 }
 
-/**
- * Layout qualifier identifiers (`std430`, `binding`, `local_size_x`, image formats) from the summary table,
- * each with the first paragraph of the chapter that introduces it, e.g. "The *binding* qualifier specifies ...".
- */
-function parseLayoutQualifiers(blocks: Block[], attributes: Record<string, string>, qualifiers: Record<string, string>) {
-	const start = blocks.findIndex((block) => block.kind === 'heading' && block.text === 'Layout Qualifiers');
-	const end = blocks.findIndex((block) => block.kind === 'heading' && block.text === 'Interpolation Qualifiers');
-	if (start < 0 || end < start) {
-		return;
-	}
-	const chapter = blocks.slice(start, end);
 
-	const introductions: Record<string, string> = {};
-	for (const block of chapter) {
-		if (block.kind !== 'para') {
+/**
+ * Docs for the keywords, qualifiers and preprocessor names in src/constructs.ts, from each construct's spec section.
+ * Fails when a section is missing, so spec changes surface here.
+ */
+function addConstructDocs(
+	flavor: Flavor,
+	blocks: Block[],
+	attributes: Record<string, string>,
+	targets: { qualifiers: Record<string, string>; keywords: Record<string, string> },
+) {
+	const missing: string[] = [];
+	const unnamed: string[] = [];
+
+	const constructs = constructsFor(flavor);
+
+	// Undocumented basics also lose the one-liners from the qualifier tables (`in`, `uniform`).
+	const documented = new Set(constructs.filter((construct) => construct.section).flatMap((construct) => construct.names));
+	for (const construct of constructs.filter((construct) => !construct.section)) {
+		for (const name of construct.names.filter((name) => !documented.has(name))) {
+			delete targets.qualifiers[name];
+			delete targets.keywords[name];
+		}
+	}
+
+	for (const construct of constructs.filter((construct) => construct.section)) {
+		const start = blocks.findIndex((block) => block.kind === 'heading' && block.id === construct.section);
+		const heading = blocks[start];
+		if (heading?.kind !== 'heading') {
+			missing.push(`${construct.names.join(', ')} (no section ${construct.section})`);
 			continue;
 		}
 
-		// "The *a*, *b*, and *c* qualifiers ..." or "*a* specifies ..."
-		const subjects = /^(?:The )?((?:\*\w+\*(?:,? and |,? or |, )?)+)\s/.exec(block.lines.join(' '));
-		for (const [, name] of subjects?.[1].matchAll(/\*(\w+)\*/g) ?? []) {
-			introductions[name] ??= blockToMarkdown(block, attributes);
-		}
-	}
+		// The section's own text, before any subsection
+		const end = blocks.findIndex((block, index) => index > start && block.kind === 'heading');
+		const section = blocks.slice(start + 1, end < 0 ? undefined : end);
+		const target = construct.kind === 'qualifier' || construct.kind === 'layout' ? targets.qualifiers : targets.keywords;
 
-	const table = chapter.find((block) => block.kind === 'table' && block.rows[0]?.[0] === 'Layout Qualifier');
-	if (table?.kind !== 'table') {
-		return;
-	}
+		for (const name of construct.names) {
+			const named = sectionDoc(section, name);
+			if (!named) {
+				unnamed.push(name);
+			}
 
-	const [header, ...rows] = table.rows;
-	const placements = header.slice(1, 5).map((column) => column.toLowerCase());
-
-	// A name can have several rows, e.g. `points` for geometry inputs and outputs.
-	const layouts = new Map<string, { takesValue: boolean; uses: string[] }>();
-
-	for (const [nameCell, ...cells] of rows) {
-		const names = [...nameCell.matchAll(/\*([\w ]+)\*/g)].flatMap(([, list]) => list.split(/\s+/));
-
-		// `X` marks where the qualifier can be used; other text narrows it, e.g. "opaque types only".
-		const usedOn = placements
-			.map((placement, index) => {
-				const mark = cells[index] ?? '';
-				return !mark ? undefined : mark === 'X' ? placement : `${placement} (${inline(mark, attributes)})`;
-			})
-			.filter(Boolean);
-		const interfaces = cells[4] ? inline(cells[4], attributes) : 'any interface';
-		const use = `- ${interfaces}: ${usedOn.join(', ')}`;
-
-		for (const name of names) {
-			const layout = layouts.get(name) ?? { takesValue: nameCell.includes('='), uses: [] };
-			layouts.set(name, layout);
-			if (!layout.uses.includes(use)) {
-				layout.uses.push(use);
+			const doc = named ?? sectionDoc(section);
+			if (doc) {
+				addDoc(target, name, tidy(doc.map((block) => blockToMarkdown(block, attributes)).join('\n\n')));
+			} else {
+				missing.push(`${name} (section ${construct.section} has no paragraph)`);
 			}
 		}
 	}
 
-	for (const [name, { takesValue, uses }] of layouts) {
-		const usage = `Layout qualifier \`layout(${takesValue ? `${name} = …` : name})\`, used on:\n\n${uses.join('\n')}`;
-		addDoc(qualifiers, name, tidy([usage, introductions[name] ?? ''].join('\n\n')));
+	if (unnamed.length) {
+		console.log(`${flavor}: not named in their section, using its first paragraph: ${unnamed.join(' ')}`);
+	}
+	if (missing.length) {
+		throw new Error(`${flavor}: no docs for ${missing.join('; ')}`);
 	}
 }
 
-/** `count` blocks starting at the paragraph matching `start`, stopping at the next heading. */
-function proseDoc(blocks: Block[], start: RegExp, count: number, attributes: Record<string, string>): string | undefined {
-	const index = blocks.findIndex((block) => block.kind === 'para' && start.test(block.lines.join(' ')));
-	if (index < 0) {
+/**
+ * Blocks documenting `name` within a section's own text:
+ * - the first paragraph naming it (`*restrict*`, `+__LINE__+`)
+ * - else the paragraph before code or a table naming it, or the paragraphs around a grammar block listing it
+ * - without `name`, the section's first paragraph
+ */
+function sectionDoc(section: Block[], name?: string): Block[] | undefined {
+	if (name === undefined) {
+		const first = section.findIndex((block) => block.kind === 'para');
+		return first < 0 ? undefined : paragraphRun(section, first);
+	}
+
+	const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const emphasized = new RegExp(`(?<![\\w#])[*+]${escaped}[*+](?!\\w)`);
+	const plain = new RegExp(`(?<![\\w#])${escaped}(?!\\w)`);
+
+	// Prose only: lists like `__LINE__ __FILE__ __VERSION__` just enumerate names.
+	const proseOf = (block: Block) => (block.kind === 'para' && !block.lines.every((line) => /^[*.]+ /.test(line)) ? block.lines.join('\n') : '');
+
+	// A paragraph about it ("The *std430* qualifier ...") before one that only mentions it
+	const firstNamed = (block: Block) => /(?<![\w#])[*+](#?\w+)[*+](?!\w)/.exec(proseOf(block))?.[1];
+	const about = section.findIndex((block) => firstNamed(block) === name);
+	const named = about >= 0 ? about : section.findIndex((block) => emphasized.test(proseOf(block)));
+	if (named >= 0) {
+		return paragraphRun(section, named);
+	}
+
+	const listed = section.findIndex((block) => {
+		if (block.kind === 'source' || block.kind === 'grammar') {
+			return plain.test(block.lines.join('\n'));
+		}
+		return block.kind === 'table' && emphasized.test(block.rows.flat().join('\n'));
+	});
+	if (listed < 0) {
 		return undefined;
 	}
 
-	const taken: string[] = [];
-	for (const block of blocks.slice(index, index + count)) {
-		if (block.kind === 'heading') {
+	let before = listed - 1;
+	while (before >= 0 && section[before].kind !== 'para') {
+		before--;
+	}
+	const after = section.findIndex((block, index) => index > listed && block.kind === 'para');
+
+	const blocks = before >= 0 ? paragraphRun(section, before) : [];
+	if (section[listed].kind === 'grammar' && after >= 0 && !blocks.includes(section[after])) {
+		blocks.push(...paragraphRun(section, after));
+	}
+	return blocks.length ? blocks : undefined;
+}
+
+/**
+ * The paragraph at `index`. One continued after code ("The precision statement [code] can be used to ...")
+ * starts at its first part; one ending in `:` runs on through what it introduces.
+ */
+function paragraphRun(section: Block[], index: number): Block[] {
+	const textOf = (block: Block) => (block.kind === 'para' ? block.lines.join('\n') : '');
+
+	let start = index;
+	while (/^[a-z]/.test(textOf(section[start]))) {
+		let previous = start - 1;
+		while (previous >= 0 && section[previous].kind === 'source') {
+			previous--;
+		}
+		if (previous < 0 || previous === start - 1 || section[previous].kind !== 'para') {
 			break;
 		}
-		taken.push(blockToMarkdown(block, attributes));
+		start = previous;
 	}
 
-	return tidy(taken.join('\n\n'));
+	let end = index;
+	if (textOf(section[index]).trimEnd().endsWith(':')) {
+		for (let next = index + 1; next < section.length; next++) {
+			end = next;
+			if (section[next].kind === 'para') {
+				break;
+			}
+		}
+	}
+
+	return section.slice(start, end + 1).filter((block) => block.kind !== 'grammar');
 }
 
 /**

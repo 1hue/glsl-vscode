@@ -1,17 +1,13 @@
 // Keywords and types for completion. Built-in functions and variables come from data/*.json.
 
-const CONTROL_KEYWORDS = [
-	'break', 'continue', 'do', 'for', 'while', 'switch', 'case', 'default',
-	'if', 'else', 'return', 'discard', 'true', 'false', 'struct',
-];
+import { Construct, GLSL_CONSTRUCTS } from './constructs';
 
-const GLSL_QUALIFIERS = [
-	'const', 'uniform', 'buffer', 'shared', 'attribute', 'varying',
-	'in', 'out', 'inout', 'centroid', 'flat', 'smooth', 'noperspective', 'patch', 'sample',
-	'invariant', 'precise', 'layout', 'subroutine', 'precision',
-	'coherent', 'volatile', 'restrict', 'readonly', 'writeonly',
-	'lowp', 'mediump', 'highp',
-];
+function namesOf(kinds: Construct['kind'][]): string[] {
+	const constructs = GLSL_CONSTRUCTS.filter((construct) => kinds.includes(construct.kind));
+	return [...new Set(constructs.flatMap((construct) => construct.names))];
+}
+
+const STATEMENT_KEYWORDS = namesOf(['statement']);
 
 const GODOT_KEYWORDS = [
 	'shader_type', 'render_mode', 'stencil_mode', 'group_uniforms', 'global', 'instance',
@@ -51,10 +47,10 @@ function opaqueTypes(): string[] {
 	return types;
 }
 
-export const GLSL_KEYWORDS = [...CONTROL_KEYWORDS, ...GLSL_QUALIFIERS];
+export const GLSL_KEYWORDS = namesOf(['statement', 'qualifier']);
 export const GLSL_TYPES = [...vectorAndMatrixTypes(), ...opaqueTypes()];
 
-export const GDSHADER_KEYWORDS = [...CONTROL_KEYWORDS, ...GODOT_KEYWORDS];
+export const GDSHADER_KEYWORDS = [...STATEMENT_KEYWORDS, ...GODOT_KEYWORDS];
 
 // Godot `shader_type` values
 export const GDSHADER_SHADER_TYPES = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
