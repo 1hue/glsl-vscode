@@ -56,7 +56,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 			url: `https://github.com/${config.repo}/tree/${config.commit}/${DIRECTORY}`,
 			commit: config.commit,
 			copyright:
-				'Juan Linietsky, Ariel Manzur and the Godot community. ' +
+				'Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. ' +
 				'Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to ' +
 				'the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999',
 			licenses: [

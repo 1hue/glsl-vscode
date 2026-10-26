@@ -22,13 +22,13 @@ No diagnostics, formatting or rename; those need a real compiler.
 ## Documentation sources
 
 Built-in docs are generated from these. Modified by 1hue (glsl-vscode), 2026: converted to JSON/Markdown,
-markup simplified. Full license texts in the `LICENSE-*.md` files.
+markup simplified. Per-file details in `REUSE.toml`.
 
 - [Khronos GLSL specification source](https://github.com/KhronosGroup/GLSL),
   Copyright 2008-2024 The Khronos Group Inc.,
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Used for GLSL and GLSL ES.
 - [Godot documentation](https://github.com/godotengine/godot-docs),
-  Juan Linietsky, Ariel Manzur and the Godot community,
+  Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community,
   [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
   Its function descriptions are adapted from the
   [Khronos OpenGL reference pages](https://registry.khronos.org/OpenGL-Refpages/gl4/),

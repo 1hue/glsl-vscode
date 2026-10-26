@@ -1,6 +1,7 @@
 node_modules/
 build/
 out/
+reuse.spdx
 .claude/
 *.vsix
 *.glsl

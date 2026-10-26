@@ -36,7 +36,7 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "data/godot.json"
 precedence = "override"
 SPDX-FileCopyrightText = [
-  "Juan Linietsky, Ariel Manzur and the Godot community",
+  "2014-present Juan Linietsky, Ariel Manzur and the Godot community",
   "2010-2014 Khronos Group",
 ]
 SPDX-License-Identifier = "CC-BY-3.0 AND OPUBL-1.0"

@@ -10,5 +10,4 @@ node_modules/**
 tsconfig.json
 LICENSES/**
 package-lock.json
-REUSE.toml
 *.glsl

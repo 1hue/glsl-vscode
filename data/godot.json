@@ -3,7 +3,7 @@
 		"name": "Godot Engine documentation",
 		"url": "https://github.com/godotengine/godot-docs/tree/26e5388e04433da47804a50234a11a43dea237b1/tutorials/shaders/shader_reference",
 		"commit": "26e5388e04433da47804a50234a11a43dea237b1",
-		"copyright": "Juan Linietsky, Ariel Manzur and the Godot community. Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999",
+		"copyright": "Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999",
 		"licenses": [
 			{
 				"id": "CC-BY-3.0",
