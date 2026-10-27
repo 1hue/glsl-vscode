@@ -5,3 +5,4 @@ reuse.spdx
 .claude/
 *.vsix
 *.glsl
+!src/test/fixtures/**

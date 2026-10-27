@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      - name: Install
+        run: npm ci
+
+      - name: Audit
+        run: npm audit --audit-level=moderate
+
+      - name: Test
+        run: npm test

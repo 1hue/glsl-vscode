@@ -1,0 +1,10 @@
+#version 450
+
+layout(local_size_x = 8) in;
+
+void main() {
+	// glslang reports the failed call at its closing `)`; range goes on the name
+	// error `iveca2`: 'iveca2': no matching overloaded function found
+	// error `=`: '=': cannot convert from ' const float' to ' temp 2-component vector of int'
+	ivec2 texel = iveca2(gl_GlobalInvocationID.xy);
+}

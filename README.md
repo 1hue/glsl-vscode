@@ -14,7 +14,7 @@ No formatting or rename.
 
 ## Diagnostics
 
-GLSL files only, not `.gdshader` (Godot's editor checks those). Each file is checked as one shader stage, from:
+Each GLSL file is checked as one shader stage, from:
 
 1. `glsl.diagnostics.stages` setting, e.g. `{"**/*_vs.glsl": "vertex"}`
 2. `#pragma shader_stage(vertex)`
@@ -25,8 +25,20 @@ Godot RD shaders (`#[vertex]`, `#[fragment]`, `#[compute]` sections) are checked
 Other files switch to Vulkan GLSL when they use `layout(set = ...)`, `push_constant` etc.
 
 `#include "..."` is relative to the including file, `res://` to the Godot project root.
+Includes never resolve outside the workspace folder (or the file's own folder when none is open), symlinks included,
+and not at all in Restricted Mode.
 Files with neither `#version` nor `main` are treated as includes and only checked through files that include them.
 Turn off with `glsl.diagnostics.enable`.
+
+`.gdshader` files are checked as GLSL too: Godot-only syntax (`shader_type`, `render_mode`, uniform hints, `varying` etc.)
+is ignored and Godot's built-ins are declared for the file's `shader_type`. Projects on the Compatibility renderer
+are checked as GLSL ES 3.0, others as GLSL 460. Not a replacement for Godot's own checker:
+
+- Built-ins aren't tied to their processing function (`ALBEDO` in `vertex()` isn't flagged)
+- Outside Compatibility, implicit `int` to `float` (`float x = 1;`) isn't flagged, though Godot rejects it
+- Messages read like GLSL, not Godot
+
+`.gdshaderinc` files are checked through the shaders that include them.
 
 ## Files
 
@@ -54,12 +66,12 @@ markup simplified. Per-file details in `REUSE.toml`.
 
 Pinned commits are in `package.json` under `config`.
 
-glslang is BSD and others (`glslang-wasm/dist/LICENSE.glslang.txt`), built with Emscripten (MIT). See `glslang-wasm/`.
+glslang is BSD and others (`glslang-wasm/dist/LICENSE.glslang.txt`), built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
 GLSL extension specs (ray tracing built-ins etc.) are not openly licensed, so they have no docs here.
 
 ## Building
 
-Needs Node.js, or podman:
+Clone with `--recurse-submodules` (`glslang-wasm/` is a submodule). Needs Node.js, or podman:
 
 ```sh
 ./scripts/build.sh                 # in a container, writes build/*.vsix
@@ -73,4 +85,4 @@ Regenerate docs after changing a commit in `package.json` `config`:
 npm run gen:defs
 ```
 
-Development: `npm install`, then F5 in VS Code (compiles first).
+Development: `npm install`, then F5 in VS Code (compiles first). Tests: `npm test`.

@@ -25,6 +25,12 @@
   ],
   "main": "./out/src/extension.js",
   "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "`#include` isn't resolved in Restricted Mode."
+    }
+  },
   "contributes": {
     "languages": [
       {
@@ -162,6 +168,7 @@
     "build": "sh scripts/build.sh",
     "compile": "tsc -p .",
     "watch": "tsc -p . --watch",
+    "test": "npm run compile && node --test out/src/test/*.test.js",
     "gen:defs": "npm run compile && node out/tools/gen-defs.js",
     "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
     "package": "mkdir -p build && vsce package --out build/"
