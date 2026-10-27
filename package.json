@@ -66,7 +66,7 @@
           ".glsl.inc",
           ".glslinc"
         ],
-        "configuration": "./glsl.configuration.json"
+        "configuration": "./language-configuration.json"
       },
       {
         "id": "gdshader",
@@ -78,7 +78,7 @@
           ".gdshader",
           ".gdshaderinc"
         ],
-        "configuration": "./glsl.configuration.json"
+        "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
@@ -125,9 +125,10 @@
     }
   },
   "scripts": {
+    "build": "sh scripts/build.sh",
     "compile": "tsc -p .",
     "watch": "tsc -p . --watch",
-    "gen:defs": "npm run compile && node out/scripts/gen-defs.js",
+    "gen:defs": "npm run compile && node out/tools/gen-defs.js",
     "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
     "package": "mkdir -p build && vsce package --out build/"
   },

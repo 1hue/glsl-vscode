@@ -2,9 +2,11 @@
 .*/**
 *.vsix
 build/**
+glslang-wasm/**
 scripts/**
+tools/**
 src/**
-out/scripts/**
+out/tools/**
 out/**/*.map
 node_modules/**
 tsconfig.json

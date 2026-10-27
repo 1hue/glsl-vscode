@@ -1,5 +1,5 @@
 // Generates data/*.json from doc sources pinned in package.json `config`.
-// Usage: node out/scripts/gen-defs.js [source...]
+// Usage: node out/tools/gen-defs.js [source...]
 
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
@@ -8,7 +8,7 @@ import { Source } from './sources/common';
 import { godot } from './sources/godot';
 import { khronos } from './sources/khronos';
 
-// Compiled to out/scripts/: project root two levels up
+// Compiled to out/tools/: project root two levels up
 const root = path.join(__dirname, '..', '..');
 
 // Keys match package.json `config`
