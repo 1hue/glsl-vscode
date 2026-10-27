@@ -55,7 +55,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 	const definitions: GodotDefinitions = {
 		source: {
 			name: 'Godot Engine documentation',
-			url: `https://github.com/${config.repo}/tree/${config.commit}/${DIRECTORY}`,
+			url: `https://github.com/${config.repo}/tree/${config.branch}/${DIRECTORY}`,
 			commit: config.commit,
 			copyright:
 				'Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. ' +
@@ -63,7 +63,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 				'the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999',
 			licenses: [
 				{ id: 'CC-BY-3.0', url: 'https://creativecommons.org/licenses/by/3.0/' },
-				{ id: 'OPUBL-1.0', url: 'https://opencontent.org/openpub/' },
+				{ id: 'OPUBL-1.0', url: 'https://spdx.org/licenses/OPUBL-1.0.html' },
 			],
 			modified:
 				'Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. ' +

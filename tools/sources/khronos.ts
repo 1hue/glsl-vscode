@@ -115,7 +115,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 		outputs[name] = {
 			source: {
 				name: `Khronos ${flavor.title}`,
-				url: `https://github.com/${config.repo}/tree/${config.commit}`,
+				url: `https://github.com/${config.repo}`,
 				commit: config.commit,
 				copyright: 'Copyright 2008-2026 The Khronos Group Inc.',
 				licenses: [{ id: 'CC-BY-4.0', url: 'https://creativecommons.org/licenses/by/4.0/' }],

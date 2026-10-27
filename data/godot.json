@@ -1,7 +1,7 @@
 {
 	"source": {
 		"name": "Godot Engine documentation",
-		"url": "https://github.com/godotengine/godot-docs/tree/26e5388e04433da47804a50234a11a43dea237b1/tutorials/shaders/shader_reference",
+		"url": "https://github.com/godotengine/godot-docs/tree/master/tutorials/shaders/shader_reference",
 		"commit": "26e5388e04433da47804a50234a11a43dea237b1",
 		"copyright": "Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999",
 		"licenses": [
@@ -11,7 +11,7 @@
 			},
 			{
 				"id": "OPUBL-1.0",
-				"url": "https://opencontent.org/openpub/"
+				"url": "https://spdx.org/licenses/OPUBL-1.0.html"
 			}
 		],
 		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages (https://registry.khronos.org/OpenGL-Refpages/gl4/)."

@@ -1,7 +1,7 @@
 {
 	"source": {
 		"name": "Khronos OpenGL Shading Language specification",
-		"url": "https://github.com/KhronosGroup/GLSL/tree/0099bf83b0288469917fc2e2972cb0a2b74d6711",
+		"url": "https://github.com/KhronosGroup/GLSL",
 		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711",
 		"copyright": "Copyright 2008-2026 The Khronos Group Inc.",
 		"licenses": [

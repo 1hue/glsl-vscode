@@ -4,6 +4,7 @@ export type { Definitions, FunctionGroup, Hint, Param, Signature, Variable } fro
 
 export interface SourceConfig {
 	repo: string;
+	branch: string;
 	commit: string;
 }
 

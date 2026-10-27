@@ -62,7 +62,7 @@ markup simplified. Per-file details in `REUSE.toml`.
   Its function descriptions are adapted from the
   [Khronos OpenGL reference pages](https://registry.khronos.org/OpenGL-Refpages/gl4/),
   Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the
-  [Open Publication License, v 1.0](https://opencontent.org/openpub/), 8 June 1999.
+  [Open Publication License, v 1.0](https://spdx.org/licenses/OPUBL-1.0.html), 8 June 1999.
 
 Pinned commits are in `package.json` under `config`.
 
