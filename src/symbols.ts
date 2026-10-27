@@ -435,7 +435,7 @@ function* topLevelStatements(source: string, braces: Map<number, number>): Gener
 				start = close + 1;
 			} else {
 				// Struct/block: keep text around body (`uniform Block { ... } instance;`),
-				// padded so offsets match source
+				// padded - offsets match source
 				text += ' '.repeat(close - i + 1);
 			}
 			i = close;

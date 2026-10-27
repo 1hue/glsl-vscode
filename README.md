@@ -1,6 +1,6 @@
 # GLSL for VS Code
 
-GLSL, GLSL ES and Godot shader support. No language server needed.
+GLSL, GLSL ES and GDShader support. No language server or insert coin needed.
 
 - Syntax highlighting (grammar from [vscode-shader](https://github.com/stef-levesque/vscode-shader))
 - Hover docs for built-in functions and variables
@@ -67,7 +67,7 @@ markup simplified. Per-file details in `REUSE.toml`.
 Pinned commits are in `package.json` under `config`.
 
 glslang is BSD and others (`glslang-wasm/dist/LICENSE.glslang.txt`), built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
-GLSL extension specs (ray tracing built-ins etc.) are not openly licensed, so they have no docs here.
+GLSL extension specs (ray tracing built-ins etc.) aren't openly licensed - no docs for them here.
 
 ## Building
 

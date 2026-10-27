@@ -1,5 +1,5 @@
 #!/bin/sh
-# Builds the .vsix in a container
+# Build .vsix in container
 set -eu
 cd "$(dirname "$0")/.."
 

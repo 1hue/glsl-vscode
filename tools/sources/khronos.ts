@@ -424,7 +424,7 @@ function addDoc(target: Record<string, string>, name: string, doc: string) {
 
 /**
  * Docs for src/constructs.ts names from their spec sections.
- * Missing section fails so spec changes surface
+ * Missing section fails - surfaces spec changes
  */
 function addConstructDocs(
 	flavor: Flavor,

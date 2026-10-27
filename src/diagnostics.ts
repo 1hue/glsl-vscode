@@ -355,7 +355,7 @@ function includePath(document: vscode.TextDocument, header: string, includer: st
 	return file && isInside(root, file) ? file : undefined;
 }
 
-/** Real paths, so symlinks can't escape. False for missing files */
+/** Real paths - symlinks can't escape. False for missing files */
 function isInside(root: string, file: string): boolean {
 	try {
 		const relative = path.relative(fs.realpathSync(root), fs.realpathSync(file));

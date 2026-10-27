@@ -1,4 +1,4 @@
-// Godot shader source as GLSL glslang can check. Godot-only syntax blanked with spaces so positions match
+// Godot shader source as GLSL glslang can check. Godot-only syntax blanked with spaces - positions match
 
 import { Definitions } from './types';
 

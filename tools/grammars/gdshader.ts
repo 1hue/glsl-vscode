@@ -1,5 +1,5 @@
 // TextMate grammar for Godot shaders: Godot keywords, modes, hints and built-ins on top of GLSL.
-// Built-in names from generated Godot definitions, so both stay in sync.
+// Built-in names from generated Godot definitions - keeps both in sync
 
 import { Definitions } from '../sources/common';
 
@@ -19,7 +19,7 @@ export function gdshaderGrammar(godot: Definitions): object {
 		name: 'Godot Shader',
 		scopeName: 'source.gdshader',
 		patterns: [
-			// Before GLSL's rules: no strings there, so `//` in `res://` read as comment
+			// Before GLSL's rules: those have no strings and would read `//` in `res://` as comment
 			{
 				match: '^\\s*(#\\s*include)\\s+("[^"]*")',
 				captures: {

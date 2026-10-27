@@ -1,5 +1,5 @@
-// Read-only virtual document of every built-in as a declaration,
-// so go to definition / peek on built-ins lands somewhere.
+// Read-only virtual document of every built-in as a declaration
+// Go to definition / peek on built-ins lands here
 
 import * as vscode from 'vscode';
 import { BUILTINS_SCHEME, Flavor, definitionsFor } from './definitions';

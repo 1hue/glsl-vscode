@@ -1,8 +1,8 @@
 #!/bin/sh
-# Builds the .vsix. Runs inside Node container, see build.sh
+# Build .vsix from within a Node container, see build.sh
 set -eu
 
-# Work on a copy so node_modules never lands in the project
+# Build in copy - keeps node_modules out of project
 cp -a /w/. /tmp/src
 cd /tmp/src
 
