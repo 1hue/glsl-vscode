@@ -1,6 +1,7 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { toWebGL } from './previewSource';
+import { toWebGL } from './webgl';
 
 const VIEW_TYPE = 'glsl.preview';
 const DEBOUNCE_MS = 300;
@@ -10,14 +11,14 @@ interface State {
 }
 
 export function registerPreview(context: vscode.ExtensionContext) {
-	const media = vscode.Uri.joinPath(context.extensionUri, 'media');
+	const assets = vscode.Uri.joinPath(context.extensionUri, 'assets');
 	const panels = new Map<string, vscode.WebviewPanel>();
 
 	const attach = (panel: vscode.WebviewPanel, document: vscode.TextDocument) => {
 		const key = document.uri.toString();
 		panels.set(key, panel);
-		panel.webview.options = { enableScripts: true, localResourceRoots: [media] };
-		panel.webview.html = html(panel.webview, media);
+		panel.webview.options = { enableScripts: true, localResourceRoots: [assets] };
+		panel.webview.html = html(panel.webview, assets);
 
 		let text = document.getText();
 		const post = () => panel.webview.postMessage({ uri: key, ...toWebGL(text) });
@@ -78,30 +79,13 @@ export function registerPreview(context: vscode.ExtensionContext) {
 	);
 }
 
-function html(webview: vscode.Webview, media: vscode.Uri): string {
+/** assets/preview.html with `{{nonce}}` and `{{script}}` filled in */
+function html(webview: vscode.Webview, assets: vscode.Uri): string {
 	const nonce = Array.from({ length: 32 }, () => Math.floor(Math.random() * 36).toString(36)).join('');
-	const script = webview.asWebviewUri(vscode.Uri.joinPath(media, 'preview.js'));
+	const script = webview.asWebviewUri(vscode.Uri.joinPath(assets, 'preview.js')).toString();
 
-	return `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline'">
-<style>
-html, body { margin: 0; height: 100%; overflow: hidden; background: var(--vscode-editor-background); }
-canvas { display: block; width: 100%; height: 100%; }
-pre {
-	position: absolute; inset: auto 0 0 0; margin: 0; padding: 8px; max-height: 50%; overflow: auto;
-	white-space: pre-wrap; font: var(--vscode-editor-font-size) var(--vscode-editor-font-family);
-	color: var(--vscode-errorForeground); background: var(--vscode-editorWidget-background);
-}
-pre:empty { display: none; }
-</style>
-</head>
-<body>
-<canvas></canvas>
-<pre></pre>
-<script nonce="${nonce}" src="${script}"></script>
-</body>
-</html>`;
+	return fs
+		.readFileSync(vscode.Uri.joinPath(assets, 'preview.html').fsPath, 'utf8')
+		.replaceAll('{{nonce}}', nonce)
+		.replaceAll('{{script}}', script);
 }

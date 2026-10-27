@@ -1,6 +1,6 @@
 // Godot shader source as GLSL glslang can check. Godot-only syntax blanked with spaces - positions match
 
-import { Definitions } from './types';
+import { Definitions } from '#src/language/types';
 
 // GLSL ES types without default precision; Godot doesn't need it declared
 const ES_PRECISION = [

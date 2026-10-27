@@ -1,13 +1,13 @@
 import * as vscode from 'vscode';
-import { builtinsContentProvider } from './builtinsDocument';
-import { BUILTINS_SCHEME, initDefinitions } from './definitions';
-import { registerDiagnostics } from './diagnostics';
-import { registerPreview } from './preview';
+import { builtinsContentProvider } from '#src/language/builtinsDocument';
+import { BUILTINS_SCHEME, initDefinitions } from '#src/language/definitions';
+import { registerDiagnostics } from '#src/diagnostics/diagnostics';
+import { registerPreview } from '#src/preview/preview';
 import { completionProvider } from './providers/completion';
 import { hoverProvider } from './providers/hover';
 import { definitionProvider, documentSymbolProvider } from './providers/navigation';
 import { signatureHelpProvider } from './providers/signatureHelp';
-import { forgetDocument } from './symbols';
+import { forgetDocument } from '#src/analysis/symbols';
 
 const SELECTOR: vscode.DocumentSelector = [{ language: 'glsl' }, { language: 'gdshader' }];
 

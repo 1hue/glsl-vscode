@@ -3,7 +3,7 @@
 
 import * as vscode from 'vscode';
 import { BUILTINS_SCHEME, Flavor, definitionsFor } from './definitions';
-import { signatureLabel } from './format';
+import { signatureLabel } from '#src/providers/format';
 
 interface BuiltinsDocument {
 	text: string;

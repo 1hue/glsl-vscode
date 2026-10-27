@@ -1,7 +1,7 @@
 // GLSL and GLSL ES built-ins from the Khronos GLSL specification source (AsciiDoc).
 
 import { AbstractBlock, load } from '@asciidoctor/core';
-import { Flavor, constructsFor } from '#src/constructs';
+import { Flavor, constructsFor } from '#src/language/constructs';
 import { Definitions, FetchText, FunctionGroup, Signature, Source, SourceConfig, Variable, parseSignature, tidy } from './common';
 
 type Block =

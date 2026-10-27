@@ -1,6 +1,6 @@
-import type { Definitions, Param, Signature } from '#src/types';
+import type { Definitions, Param, Signature } from '#src/language/types';
 
-export type { Definitions, FunctionGroup, Hint, Param, Signature, Variable } from '#src/types';
+export type { Definitions, FunctionGroup, Hint, Param, Signature, Variable } from '#src/language/types';
 
 export interface SourceConfig {
 	repo: string;

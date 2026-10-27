@@ -3,8 +3,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { GDSHADER_STAGE_FUNCTIONS, STAGE_BY_EXTENSION } from './language';
-import { enclosingFunction, scanDocument } from './symbols';
+import { GDSHADER_STAGE_FUNCTIONS, STAGE_BY_EXTENSION } from './keywords';
+import { enclosingFunction, scanDocument } from '#src/analysis/symbols';
 import { Definitions, FunctionGroup, Variable } from './types';
 
 export type Flavor = 'glsl' | 'essl' | 'godot';

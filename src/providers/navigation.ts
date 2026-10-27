@@ -1,10 +1,10 @@
 // Outline (document symbols) and go to definition.
 
 import * as vscode from 'vscode';
-import { builtinLocation } from '#src/builtinsDocument';
-import { flavorOf } from '#src/definitions';
-import { UserSymbol, scanDocument, visibleSymbols } from '#src/symbols';
-import { isMemberAccess, wordAt } from '#src/textContext';
+import { builtinLocation } from '#src/language/builtinsDocument';
+import { flavorOf } from '#src/language/definitions';
+import { UserSymbol, scanDocument, visibleSymbols } from '#src/analysis/symbols';
+import { isMemberAccess, wordAt } from '#src/analysis/textContext';
 
 const SYMBOL_KINDS: Record<UserSymbol['kind'], vscode.SymbolKind> = {
 	function: vscode.SymbolKind.Function,

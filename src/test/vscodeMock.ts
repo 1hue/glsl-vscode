@@ -173,8 +173,8 @@ export async function diagnose(
 	state.diagnostics.clear();
 	state.done.clear();
 
-	const { initDefinitions } = require('#src/definitions') as typeof import('#src/definitions');
-	const { registerDiagnostics } = require('#src/diagnostics') as typeof import('#src/diagnostics');
+	const { initDefinitions } = require('#src/language/definitions') as typeof import('#src/language/definitions');
+	const { registerDiagnostics } = require('#src/diagnostics/diagnostics') as typeof import('#src/diagnostics/diagnostics');
 	initDefinitions(ROOT);
 	registerDiagnostics({ extensionPath: ROOT, subscriptions: [] } as never);
 

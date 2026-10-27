@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { contextAt } from '#src/definitions';
-import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, userSymbolMarkdown, variableMarkdown } from '#src/format';
-import { scanDocument, visibleSymbols } from '#src/symbols';
-import { isMemberAccess, statementBefore, statementKind, wordAt } from '#src/textContext';
+import { contextAt } from '#src/language/definitions';
+import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, userSymbolMarkdown, variableMarkdown } from './format';
+import { scanDocument, visibleSymbols } from '#src/analysis/symbols';
+import { isMemberAccess, statementBefore, statementKind, wordAt } from '#src/analysis/textContext';
 
 export const hoverProvider: vscode.HoverProvider = {
 	provideHover(document, position) {

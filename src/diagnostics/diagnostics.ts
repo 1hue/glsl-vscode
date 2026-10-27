@@ -12,10 +12,10 @@ import type {
 	Profile,
 	Stage,
 } from 'glslang-wasm' with { 'resolution-mode': 'import' };
-import { BUILTINS_SCHEME, definitionsFor } from './definitions';
-import { blank, gdshaderPreamble, gdshaderToGlsl, shaderTypeOf } from './gdshaderGlsl';
+import { BUILTINS_SCHEME, definitionsFor } from '#src/language/definitions';
+import { blank, gdshaderPreamble, gdshaderToGlsl, shaderTypeOf } from './gdshader';
 import { loadGlslang } from './glslang';
-import { STAGE_BY_EXTENSION } from './language';
+import { STAGE_BY_EXTENSION } from '#src/language/keywords';
 
 const DEBOUNCE_MS = 300;
 

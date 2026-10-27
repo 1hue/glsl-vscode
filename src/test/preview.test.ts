@@ -2,8 +2,8 @@
 
 import * as assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { loadGlslang } from '#src/glslang';
-import { toWebGL } from '#src/previewSource';
+import { loadGlslang } from '#src/diagnostics/glslang';
+import { toWebGL } from '#src/preview/webgl';
 
 const lines = (...text: string[]) => text.join('\n');
 

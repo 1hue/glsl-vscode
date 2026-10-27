@@ -1,9 +1,9 @@
 // Markdown for hovers and completion docs.
 
 import * as vscode from 'vscode';
-import { Context, isAvailable } from './definitions';
-import { UserSymbol } from './symbols';
-import { Definitions, FunctionGroup, Hint, Signature, Variable } from './types';
+import { Context, isAvailable } from '#src/language/definitions';
+import { UserSymbol } from '#src/analysis/symbols';
+import { Definitions, FunctionGroup, Hint, Signature, Variable } from '#src/language/types';
 
 export function signatureLabel(name: string, signature: Signature): string {
 	const params = signature.params.map((param) => {

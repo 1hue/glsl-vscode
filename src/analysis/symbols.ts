@@ -2,7 +2,7 @@
 // Not a parser: enough for outline, hover, completion and go to definition in typical shaders.
 
 import * as vscode from 'vscode';
-import { GDSHADER_SHADER_TYPES, GLSL_TYPES } from './language';
+import { GDSHADER_SHADER_TYPES, GLSL_TYPES } from '#src/language/keywords';
 
 export type UserSymbolKind = 'function' | 'struct' | 'member' | 'variable' | 'parameter' | 'macro';
 

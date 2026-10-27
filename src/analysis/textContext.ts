@@ -1,7 +1,7 @@
 // Word and statement around the cursor.
 
 import * as vscode from 'vscode';
-import { DeclarationScope } from './constructs';
+import { DeclarationScope } from '#src/language/constructs';
 import { stripComments } from './symbols';
 
 export type StatementKind = 'shaderType' | 'renderMode' | 'stencilMode' | 'hint' | undefined;
