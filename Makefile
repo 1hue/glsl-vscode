@@ -1,14 +1,14 @@
 # Shortcuts for scripts/ - see CONTRIBUTING.md
 .PHONY: build install test setup clean submodule wasm-link wasm-unlink
 
-# Editor CLI, e.g. make install CODE=codium
-CODE ?= code
+# VS Code CLI, e.g. make install VSCODE=code
+VSCODE ?= codium
 
 build:
 	sh scripts/build.sh
 
 install: build
-	$(CODE) --install-extension build/glsl-vscode-*.vsix --force
+	$(VSCODE) --install-extension build/glsl-vscode-*.vsix --force
 
 test:
 	sh scripts/test.sh

@@ -11,13 +11,14 @@ make setup # then F5 in VS Code
 Without F5:
 
 ```sh
-make install # build and install in VS Code, CODE=codium for VSCodium
-# or:
+# Build and install extension:
+make install
+make install VSCODE=code # for regular VS Code instead of codium
+# Or:
 make build # build/*.vsix only
 ```
 
-> [!TIP]
->
+> [!NOTE]
 > | Commands | | |
 > | --- | --- | --- |
 > | `make` | on host | Provides development environment via podman |
@@ -25,15 +26,16 @@ make build # build/*.vsix only
 
 ## Local `glslang-wasm` as submodule
 
-Instead of the npm package
+The [glslang-wasm](glslang-wasm) git submodule isn't cloned by default - replaces the npm package.
 
 ```sh
-make submodule      # clone or reset to pinned commit
-make wasm-link      # build if needed, use submodule for tests and F5
-make wasm-unlink    # back to npm package
+make submodule # clone or reset to pinned commit
+make wasm-link # build if needed, use submodule for tests and F5
+make wasm-unlink # back to npm package
 ```
 
-`make build` always uses the npm package.
+> [!NOTE]
+> `make build` always uses the npm package.
 
 ## Docs
 
