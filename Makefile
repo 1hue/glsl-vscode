@@ -1,5 +1,5 @@
 # Shortcuts for scripts/ - see CONTRIBUTING.md
-.PHONY: build install test setup submodule wasm-link wasm-unlink
+.PHONY: build install test setup clean submodule wasm-link wasm-unlink
 
 # Editor CLI, e.g. make install CODE=codium
 CODE ?= code
@@ -12,6 +12,9 @@ install: build
 
 test:
 	sh scripts/test.sh
+
+clean:
+	rm -rf out build/*.vsix build/reuse.spdx
 
 setup:
 	sh scripts/setup.sh
