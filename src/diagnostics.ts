@@ -76,6 +76,9 @@ interface Unit {
 
 const GLSL_DEFAULTS = { version: 450, profile: 'core' } as const;
 
+// Spec default without `#version`
+const LEGACY_DEFAULTS = { version: 110, profile: 'none' } as const;
+
 // Godot's compile_glslang_shader for RD shader files
 const GODOT_RD = { ...GLSL_DEFAULTS, client: 'vulkan', vulkanVersion: '1.1', spirvVersion: '1.4', link: true } as const;
 
@@ -219,7 +222,10 @@ function unitsOf(document: vscode.TextDocument): Unit[] {
 		return [];
 	}
 
-	return [{ source: text, stage: stageOf(document, text), client: clientOf(text), lineOffset: 0, ...GLSL_DEFAULTS }];
+	const client = clientOf(text);
+	// Vulkan needs 140+
+	const defaults = client === 'none' ? LEGACY_DEFAULTS : GLSL_DEFAULTS;
+	return [{ source: text, stage: stageOf(document, text), client, lineOffset: 0, ...defaults }];
 }
 
 /**

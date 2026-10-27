@@ -40,6 +40,22 @@ are checked as GLSL ES 3.0, others as GLSL 460. Not a replacement for Godot's ow
 
 `.gdshaderinc` files are checked through the shaders that include them.
 
+## Preview
+
+`Ctrl+Shift+V` or the preview button in the editor title renders the fragment shader beside the editor with WebGL2, updating as you type.
+
+Uniforms, when declared:
+
+| Uniform | |
+| --- | --- |
+| `float time` / `u_time` | Seconds |
+| `vec2 resolution` / `u_resolution` | Canvas size (px) |
+| `vec2 mouse` / `u_mouse` | Mouse position (px), origin bottom-left |
+| `int frame` / `u_frame` | Frame count |
+
+`#version` is replaced: none or up to 120 runs as GLSL ES 1.00, everything else as ES 3.00. Typical desktop
+fragment shaders work as is. No `#include`, textures, custom varyings (use `gl_FragCoord`), `.gdshader` or Vulkan-only features.
+
 ## Files
 
 - GLSL: `.glsl` `.vert` `.frag` `.geom` `.tesc` `.tese` `.comp` `.mesh` `.task`, ray tracing (`.rgen` etc.),

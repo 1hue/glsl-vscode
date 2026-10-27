@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { builtinsContentProvider } from './builtinsDocument';
 import { BUILTINS_SCHEME, initDefinitions } from './definitions';
 import { registerDiagnostics } from './diagnostics';
+import { registerPreview } from './preview';
 import { completionProvider } from './providers/completion';
 import { hoverProvider } from './providers/hover';
 import { definitionProvider, documentSymbolProvider } from './providers/navigation';
@@ -24,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	registerDiagnostics(context);
+	registerPreview(context);
 }
 
 export function deactivate() {}

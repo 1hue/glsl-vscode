@@ -24,7 +24,9 @@
     "gdshader"
   ],
   "main": "./out/src/extension.js",
-  "activationEvents": [],
+  "activationEvents": [
+    "onWebviewPanel:glsl.preview"
+  ],
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": "limited",
@@ -117,6 +119,37 @@
         "embeddedLanguages": {
           "source.glsl": "glsl"
         }
+      }
+    ],
+    "commands": [
+      {
+        "command": "glsl.showPreviewToSide",
+        "title": "Open Shader Preview to the Side",
+        "category": "GLSL",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "glsl.showPreviewToSide",
+          "when": "editorLangId == glsl",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "glsl.showPreviewToSide",
+          "when": "editorLangId == glsl"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "glsl.showPreviewToSide",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorLangId == glsl"
       }
     ],
     "configuration": {
