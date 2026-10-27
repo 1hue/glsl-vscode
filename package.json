@@ -112,7 +112,41 @@
           "source.glsl": "glsl"
         }
       }
-    ]
+    ],
+    "configuration": {
+      "title": "GLSL",
+      "properties": {
+        "glsl.diagnostics.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Report glslang errors and warnings in GLSL files."
+        },
+        "glsl.diagnostics.stages": {
+          "type": "object",
+          "default": {},
+          "markdownDescription": "Shader stage per glob, e.g. `{\"**/*_vs.glsl\": \"vertex\"}`. Takes priority over `#pragma shader_stage(...)` and the file extension. Unmatched files without a stage hint are checked as fragment shaders.",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "vertex",
+              "tesscontrol",
+              "tesseval",
+              "geometry",
+              "fragment",
+              "compute",
+              "raygen",
+              "intersect",
+              "anyhit",
+              "closesthit",
+              "miss",
+              "callable",
+              "task",
+              "mesh"
+            ]
+          }
+        }
+      }
+    }
   },
   "config": {
     "glslSpec": {

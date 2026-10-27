@@ -3,6 +3,7 @@
 *.vsix
 build/**
 glslang-wasm/**
+!glslang-wasm/dist/**
 scripts/**
 tools/**
 src/**

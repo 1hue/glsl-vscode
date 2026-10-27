@@ -79,22 +79,37 @@ async function createGlslang(options = {}) {
 	await ready;
 
 	return {
-		async check(source, { stage, client = 'none', defaultVersion = 100, defaultProfile = 'none' }) {
+		async check(source, { stage, name = '', client = 'none', defaultVersion = 100, defaultProfile = 'none', include }) {
 			const module = await ready;
-			const pointer = module.stringToNewUTF8(source);
+			const [sourcePointer, namePointer] = [source, name].map(module.stringToNewUTF8);
+
+			// Called by check.cpp per `#include`
+			module.resolveInclude = (system, header, includer, depth) => {
+				const result = include?.(header, { includer, system: system === 1, depth });
+				return result ? module.stringToNewUTF8(`${result.name}\0${result.source}`) : 0;
+			};
 
 			let log;
 			try {
 				log = module.UTF8ToString(
-					module._check(pointer, STAGES[stage], CLIENTS[client], defaultVersion, PROFILES[defaultProfile]),
+					module._check(
+						sourcePointer,
+						namePointer,
+						STAGES[stage],
+						CLIENTS[client],
+						defaultVersion,
+						PROFILES[defaultProfile],
+						include ? 1 : 0,
+					),
 				);
 			} catch (error) {
-				// Trap or host stack overflow leaves instance state unwound
+				// Trap, host stack overflow or throwing `include` leaves instance state unwound
 				ready = load();
 				throw error;
 			}
 
-			module._free(pointer);
+			module._free(sourcePointer);
+			module._free(namePointer);
 			return { log, diagnostics: parseLog(log) };
 		},
 

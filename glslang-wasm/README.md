@@ -15,6 +15,10 @@ Options:
 - `stage`: `vertex`, `fragment`, `compute`, etc.
 - `client`: `none` (default), `opengl` or `vulkan`. `vulkan` for Vulkan GLSL (`set`, push constants, etc.)
 - `defaultVersion`, `defaultProfile`: used without `#version`
+- `name`: source name in diagnostics, passed as `includer` to `include`
+- `include(header, { includer, system, depth })`: resolves `#include`, returns `{ name, source }` or nothing. Synchronous. Enables `GL_GOOGLE_include_directive`, no `#extension` line needed
+
+Diagnostics inside includes have `source` set to the include's `name`.
 
 If a check crashes (stack overflow on very deep expressions) it rejects and the next call gets a fresh instance.
 

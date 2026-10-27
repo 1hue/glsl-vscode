@@ -8,8 +8,25 @@ GLSL, GLSL ES and Godot shader support. No language server needed.
 - Signature help
 - Outline, go to symbol
 - Go to definition, also for built-ins (opens a read-only declarations file)
+- Errors and warnings from [glslang](https://github.com/KhronosGroup/glslang) (bundled as WebAssembly), `#include` resolved
 
-No diagnostics, formatting or rename; those need a real compiler.
+No formatting or rename.
+
+## Diagnostics
+
+GLSL files only, not `.gdshader` (Godot's editor checks those). Each file is checked as one shader stage, from:
+
+1. `glsl.diagnostics.stages` setting, e.g. `{"**/*_vs.glsl": "vertex"}`
+2. `#pragma shader_stage(vertex)`
+3. Extension: `.vert`, `.frag.glsl` etc.
+4. Otherwise fragment
+
+Godot RD shaders (`#[vertex]`, `#[fragment]`, `#[compute]` sections) are checked per section as Vulkan GLSL.
+Other files switch to Vulkan GLSL when they use `layout(set = ...)`, `push_constant` etc.
+
+`#include "..."` is relative to the including file, `res://` to the Godot project root.
+Files with neither `#version` nor `main` are treated as includes and only checked through files that include them.
+Turn off with `glsl.diagnostics.enable`.
 
 ## Files
 
@@ -36,6 +53,8 @@ markup simplified. Per-file details in `REUSE.toml`.
   [Open Publication License, v 1.0](https://opencontent.org/openpub/), 8 June 1999.
 
 Pinned commits are in `package.json` under `config`.
+
+glslang is BSD and others (`glslang-wasm/dist/LICENSE.glslang.txt`), built with Emscripten (MIT). See `glslang-wasm/`.
 GLSL extension specs (ray tracing built-ins etc.) are not openly licensed, so they have no docs here.
 
 ## Building

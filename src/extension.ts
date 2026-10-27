@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { builtinsContentProvider } from './builtinsDocument';
 import { BUILTINS_SCHEME, initDefinitions } from './definitions';
+import { registerDiagnostics } from './diagnostics';
 import { completionProvider } from './providers/completion';
 import { hoverProvider } from './providers/hover';
 import { definitionProvider, documentSymbolProvider } from './providers/navigation';
@@ -21,6 +22,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.languages.registerDefinitionProvider(SELECTOR, definitionProvider),
 		vscode.workspace.onDidCloseTextDocument(forgetDocument),
 	);
+
+	registerDiagnostics(context);
 }
 
 export function deactivate() {}
