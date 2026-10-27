@@ -5,9 +5,9 @@ import { ROOT } from './vscodeMock';
 import * as assert from 'node:assert/strict';
 import * as path from 'path';
 import { test } from 'node:test';
-import { loadGlslang } from '../glslang';
-import { gdshaderPreamble } from '../gdshaderGlsl';
-import { Definitions } from '../types';
+import { loadGlslang } from '#src/glslang';
+import { gdshaderPreamble } from '#src/gdshaderGlsl';
+import { Definitions } from '#src/types';
 
 test('preamble is valid GLSL for every shader type and profile', async () => {
 	const godot = require(path.join(ROOT, 'data/godot.json')) as Definitions;

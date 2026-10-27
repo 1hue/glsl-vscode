@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { Context, contextAt, isAvailable } from '../definitions';
-import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, signatureLabel, variableMarkdown } from '../format';
-import { DeclarationScope, constructsFor, nextQualifiers } from '../constructs';
+import { Context, contextAt, isAvailable } from '#src/definitions';
+import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, signatureLabel, variableMarkdown } from '#src/format';
+import { DeclarationScope, constructsFor, nextQualifiers } from '#src/constructs';
 import {
 	GDSHADER_DIRECTIVES,
 	GDSHADER_KEYWORDS,
@@ -11,9 +11,9 @@ import {
 	GLSL_QUALIFIERS,
 	GLSL_TYPES,
 	STATEMENT_KEYWORDS,
-} from '../language';
-import { UserSymbol, scanDocument, visibleSymbols } from '../symbols';
-import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt } from '../textContext';
+} from '#src/language';
+import { UserSymbol, scanDocument, visibleSymbols } from '#src/symbols';
+import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt } from '#src/textContext';
 
 const Kind = vscode.CompletionItemKind;
 

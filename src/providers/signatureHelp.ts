@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import { contextAt, isAvailable } from '../definitions';
-import { markdown, signatureLabel } from '../format';
-import { scanDocument, visibleSymbols } from '../symbols';
-import { callAt } from '../textContext';
-import { FunctionGroup, Signature } from '../types';
+import { contextAt, isAvailable } from '#src/definitions';
+import { markdown, signatureLabel } from '#src/format';
+import { scanDocument, visibleSymbols } from '#src/symbols';
+import { callAt } from '#src/textContext';
+import { FunctionGroup, Signature } from '#src/types';
 
 export const signatureHelpProvider: vscode.SignatureHelpProvider = {
 	provideSignatureHelp(document, position) {

@@ -1,7 +1,7 @@
 // TextMate grammar for Godot shaders: Godot keywords, modes, hints and built-ins on top of GLSL.
 // Built-in names from generated Godot definitions - keeps both in sync
 
-import { Definitions } from '../sources/common';
+import { Definitions } from '#src/types';
 
 function wordsPattern(words: Iterable<string>): string {
 	const sorted = [...new Set(words)].sort((a, b) => b.length - a.length || a.localeCompare(b));

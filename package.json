@@ -24,6 +24,9 @@
     "gdshader"
   ],
   "main": "./out/src/extension.js",
+  "imports": {
+    "#src/*": "./out/src/*.js"
+  },
   "activationEvents": [
     "onWebviewPanel:glsl.preview"
   ],
