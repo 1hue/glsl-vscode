@@ -26,11 +26,11 @@ make build # build/*.vsix only
 
 ## Local `glslang-wasm` as submodule
 
-The [glslang-wasm](glslang-wasm) git submodule isn't cloned by default - replaces the npm package.
+The [glslang-wasm](.gitmodules) git submodule isn't cloned by default - can replace the npm package.
 
 ```sh
-make submodule # clone or reset to pinned commit
-make wasm-link # build if needed, use submodule for tests and F5
+make submodule # git update submodule
+make wasm-link # put it in `node_modules`
 make wasm-unlink # back to npm package
 ```
 
