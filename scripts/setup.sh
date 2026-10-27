@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install dependencies and audit them in Node container
+# Install deps and audit in container
 set -eu
 cd "$(dirname "$0")/.."
 

@@ -1,0 +1,4 @@
+[submodule "glslang-wasm"]
+	path = glslang-wasm
+	url = https://github.com/1hue/glslang-wasm
+	shallow = true

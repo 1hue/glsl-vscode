@@ -203,7 +203,6 @@
     }
   },
   "scripts": {
-    "build": "sh scripts/build.sh",
     "compile": "tsc -p .",
     "watch": "tsc -p . --watch",
     "test": "npm run compile && node --test out/src/test/*.test.js",
@@ -222,6 +221,6 @@
     "@azure/msal-node": "^7.1.1"
   },
   "dependencies": {
-    "glslang-wasm": "^1.0.1"
+    "glslang-wasm": "^1.0.4"
   }
 }
