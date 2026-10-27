@@ -5,13 +5,13 @@ import { ROOT } from './vscodeMock';
 import * as assert from 'node:assert/strict';
 import * as path from 'path';
 import { test } from 'node:test';
+import { loadGlslang } from '../glslang';
 import { gdshaderPreamble } from '../gdshaderGlsl';
 import { Definitions } from '../types';
 
 test('preamble is valid GLSL for every shader type and profile', async () => {
 	const godot = require(path.join(ROOT, 'data/godot.json')) as Definitions;
-	const glslangWasm = require(path.join(ROOT, 'glslang-wasm/dist')) as typeof import('../../glslang-wasm/dist');
-	const glslang = await glslangWasm.createGlslang();
+	const glslang = await loadGlslang();
 	const shaderTypes = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
 
 	for (const es of [true, false]) {

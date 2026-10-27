@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/1hue/glsl-vscode.git"
+    "url": "https://github.com/1hue/glsl-vscode"
   },
   "engines": {
     "vscode": "^1.82.0"
@@ -217,5 +217,8 @@
   },
   "overrides": {
     "@azure/msal-node": "^7.1.1"
+  },
+  "dependencies": {
+    "glslang-wasm": "^1.0.1"
   }
 }

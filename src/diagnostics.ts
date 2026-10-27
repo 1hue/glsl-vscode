@@ -11,9 +11,10 @@ import type {
 	IncludeResolver,
 	Profile,
 	Stage,
-} from '../glslang-wasm/dist';
+} from 'glslang-wasm' with { 'resolution-mode': 'import' };
 import { BUILTINS_SCHEME, definitionsFor } from './definitions';
 import { blank, gdshaderPreamble, gdshaderToGlsl, shaderTypeOf } from './gdshaderGlsl';
+import { loadGlslang } from './glslang';
 import { STAGE_BY_EXTENSION } from './language';
 
 const DEBOUNCE_MS = 300;
@@ -93,10 +94,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 	const dependencies = new Map<string, Set<string>>();
 
 	let glslang: Promise<Glslang> | undefined;
-	const load = () =>
-		(glslang ??= (
-			require(path.join(context.extensionPath, 'glslang-wasm', 'dist')) as typeof import('../glslang-wasm/dist')
-		).createGlslang());
+	const load = () => (glslang ??= loadGlslang());
 
 	const check = async (document: vscode.TextDocument) => {
 		const key = document.uri.toString();

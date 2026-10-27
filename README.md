@@ -82,23 +82,5 @@ markup simplified. Per-file details in `REUSE.toml`.
 
 Pinned commits are in `package.json` under `config`.
 
-glslang is BSD and others (`glslang-wasm/dist/LICENSE.glslang.txt`), built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
+glslang is BSD and others ([LICENSE-glslang](https://github.com/1hue/glslang-wasm/blob/main/LICENSE-glslang)), built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
 GLSL extension specs (ray tracing built-ins etc.) aren't openly licensed - no docs for them here.
-
-## Building
-
-Clone with `--recurse-submodules` (`glslang-wasm/` is a submodule). Needs Node.js, or podman:
-
-```sh
-./scripts/build.sh                 # in a container, writes build/*.vsix
-npm ci && npm run package          # same, with local Node
-code --install-extension build/glsl-vscode-*.vsix --force
-```
-
-Regenerate docs after changing a commit in `package.json` `config`:
-
-```sh
-npm run gen:defs
-```
-
-Development: `npm install`, then F5 in VS Code (compiles first). Tests: `npm test`.

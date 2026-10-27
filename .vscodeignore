@@ -2,8 +2,6 @@
 .*/**
 *.vsix
 build/**
-glslang-wasm/**
-!glslang-wasm/dist/**
 scripts/**
 tools/**
 src/**
@@ -11,8 +9,10 @@ out/tools/**
 out/src/test/**
 out/**/*.map
 node_modules/**
+!node_modules/glslang-wasm/**
 tsconfig.json
 LICENSES/**
 package-lock.json
 *.glsl
 examples/**
+CONTRIBUTING.md

@@ -1,17 +1,14 @@
 // Preview source rewrite, checked with glslang as ES
 
-import { ROOT } from './vscodeMock';
-
 import * as assert from 'node:assert/strict';
-import * as path from 'path';
 import { test } from 'node:test';
+import { loadGlslang } from '../glslang';
 import { toWebGL } from '../previewSource';
 
 const lines = (...text: string[]) => text.join('\n');
 
 async function check(fragment: string) {
-	const glslangWasm = require(path.join(ROOT, 'glslang-wasm/dist')) as typeof import('../../glslang-wasm/dist');
-	const glslang = await glslangWasm.createGlslang();
+	const glslang = await loadGlslang();
 	return (await glslang.check(fragment, { stage: 'fragment' })).diagnostics;
 }
 
