@@ -1,4 +1,14 @@
-[submodule "glslang-wasm"]
+[submodule "vendor/glslang-wasm"]
 	path = vendor/glslang-wasm
 	url = https://github.com/1hue/glslang-wasm
 	shallow = true
+[submodule "vendor/glsl-spec"]
+	path = vendor/glsl-spec
+	url = https://github.com/KhronosGroup/GLSL
+	update = none
+	sparse = chapters
+[submodule "vendor/godot-docs"]
+	path = vendor/godot-docs
+	url = https://github.com/godotengine/godot-docs
+	update = none
+	sparse = tutorials/shaders/shader_reference

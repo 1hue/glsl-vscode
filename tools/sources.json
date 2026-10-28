@@ -1,55 +1,23 @@
 {
 	"glslSpec": {
-		"repo": "KhronosGroup/GLSL",
-		"branch": "main",
-		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711",
-		"files": {
-			"chapters/statements.adoc": "9dca68089dbb09ed27ead9436beb466a06eec9cf4255d56f54909d7b943b852e",
-			"chapters/builtinfunctions.adoc": "95c602702118f5aabba3a5e8569abfca9865d4c86e02a210021eed16b5dd6bc5",
-			"chapters/builtins.adoc": "fb3d69086396b61f1bfd29a6335710796488339269289d18c2e459293c86a139",
-			"chapters/basics.adoc": "893b49819fab670730569caa8edb72695dd23f93d7008484da263a1c6cb24a64",
-			"chapters/variables.adoc": "10b33a2b195c6eb79f99a9777324f33fac73ab61d543e0fe10e950da6d660fe9"
-		},
+		"directory": "vendor/glsl-spec",
 		"attribution": {
 			"name": "Khronos",
 			"url": "https://github.com/KhronosGroup/GLSL",
 			"copyright": "Copyright 2008-2026 The Khronos Group Inc.",
-			"licenses": [
-				{
-					"id": "CC-BY-4.0",
-					"url": "https://creativecommons.org/licenses/by/4.0/"
-				}
-			],
+			"licenses": [{ "id": "CC-BY-4.0", "url": "https://creativecommons.org/licenses/by/4.0/" }],
 			"modified": "Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified."
 		}
 	},
 	"godotDocs": {
-		"repo": "godotengine/godot-docs",
-		"branch": "master",
-		"commit": "26e5388e04433da47804a50234a11a43dea237b1",
-		"files": {
-			"tutorials/shaders/shader_reference/shader_functions.rst": "424920c2c28d94bd49e3b5d2de728e2204fa8973b451ad19413e866c5606b652",
-			"tutorials/shaders/shader_reference/shading_language.rst": "efe7b86e7c023eb28ae0ed4678c474d109411afd0b44ad28da3ff5c8cff9259d",
-			"tutorials/shaders/shader_reference/fog_shader.rst": "058d28619036f06aef734ce89cfd8ea148c30504168f1e0c6d474d769afc73e5",
-			"tutorials/shaders/shader_reference/texture_blit_shader.rst": "84874922221d992c545b57dd078f3e6d3986350757e243de8e06c4d8fc1065e4",
-			"tutorials/shaders/shader_reference/particle_shader.rst": "b744483a0e075294db05d1649cc3b20e59f99b000bac798ef00642cee7ca9162",
-			"tutorials/shaders/shader_reference/canvas_item_shader.rst": "a292791188e319336514b210a4f2bfeb91196263d23077933bf8b5ed2b06d773",
-			"tutorials/shaders/shader_reference/sky_shader.rst": "204f48c75e149a320b8b9421ed195d66ead4cd7d5ce978eee2c33775e42ad7e3",
-			"tutorials/shaders/shader_reference/spatial_shader.rst": "fe750806b25a7e191b6fca6bff45f32ca12cee7d43462fd52bfbcc02f339d131"
-		},
+		"directory": "vendor/godot-docs",
 		"attribution": {
 			"name": "Godot Engine documentation",
 			"url": "https://github.com/godotengine/godot-docs/tree/master/tutorials/shaders/shader_reference",
 			"copyright": "Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999",
 			"licenses": [
-				{
-					"id": "CC-BY-3.0",
-					"url": "https://creativecommons.org/licenses/by/3.0/"
-				},
-				{
-					"id": "OPUBL-1.0",
-					"url": "https://spdx.org/licenses/OPUBL-1.0.html"
-				}
+				{ "id": "CC-BY-3.0", "url": "https://creativecommons.org/licenses/by/3.0/" },
+				{ "id": "OPUBL-1.0", "url": "https://spdx.org/licenses/OPUBL-1.0.html" }
 			],
 			"modified": "Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages (https://registry.khronos.org/OpenGL-Refpages/gl4/)."
 		}

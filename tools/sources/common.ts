@@ -4,20 +4,17 @@ export type { Definitions, FunctionGroup, Hint, Param, Signature, SourceInfo, Va
 
 /** Entry in tools/sources.json */
 export interface SourceConfig {
-	repo: string;
-	branch: string;
-	commit: string;
-	/** Path in repo -> SHA-256 */
-	files: Record<string, string>;
+	/** Submodule, e.g. `vendor/godot-docs` */
+	directory: string;
 	/** Written into generated data */
 	attribution: Omit<SourceInfo, 'commit'>;
 }
 
-/** File at pinned commit, hash checked */
+/** File in submodule */
 export type ReadFile = (path: string) => Promise<string>;
 
 export interface Source {
-	generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>>;
+	generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>>;
 }
 
 /** Parse prototype, e.g. `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */

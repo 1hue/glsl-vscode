@@ -39,4 +39,4 @@ make wasm-unlink # back to npm package
 
 ## Docs
 
-Regenerate with `npm run gen:defs`. After changing a commit in `tools/sources.json`, `npm run gen:defs -- --pin` records new file hashes.
+Regenerate with `make defs`. To update docs, check out another commit in `vendor/glsl-spec` or `vendor/godot-docs`, `git add` it, then `make defs`.

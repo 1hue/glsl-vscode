@@ -1,5 +1,5 @@
 # Development commands, run in containers - see CONTRIBUTING.md
-.PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink
+.PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink vendor defs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
@@ -49,3 +49,11 @@ wasm-link: | node_modules
 
 # Back to npm package
 wasm-unlink: setup
+
+# Check out doc submodules, only paths gen:defs reads
+vendor:
+	sh scripts/vendor.sh
+
+# Regenerate data/*.json from doc submodules
+defs: vendor | node_modules
+	$(RUN) --network=none $(NODE) npm run gen:defs

@@ -96,7 +96,7 @@ const SYMBOLS: Record<string, string> = {
 
 export const khronos: Source = { generate };
 
-async function generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>> {
+async function generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>> {
 	const chapters = Object.keys(FILES) as Chapter[];
 	const texts = await Promise.all(chapters.map((c) => read(FILES[c])));
 
@@ -112,7 +112,7 @@ async function generate(config: SourceConfig, read: ReadFile): Promise<Record<st
 		addConstructDocs(name, parsed.flat(), attributes, { qualifiers, keywords });
 
 		outputs[name] = {
-			source: { ...config.attribution, name: `${config.attribution.name} ${flavor.title}`, commit: config.commit },
+			source: { ...config.attribution, name: `${config.attribution.name} ${flavor.title}`, commit },
 			functions: parseFunctions(blocksOf.functions, attributes),
 			variables: parseVariables(blocksOf.builtins, attributes),
 			types,

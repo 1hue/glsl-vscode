@@ -39,7 +39,7 @@ interface GridTable {
 
 export const godot: Source = { generate };
 
-async function generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>> {
+async function generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>> {
 	const fetchPage = (page: string) => read(`${DIRECTORY}/${page}.rst`);
 
 	const functionsPage = await fetchPage('shader_functions');
@@ -51,7 +51,7 @@ async function generate(config: SourceConfig, read: ReadFile): Promise<Record<st
 	const substitutions = parseSubstitutions(functionsPage);
 
 	const definitions: GodotDefinitions = {
-		source: { ...config.attribution, commit: config.commit },
+		source: { ...config.attribution, commit },
 		functions: parseFunctions(functionsPage, substitutions),
 		variables: {},
 		renderModes: {},
