@@ -17,7 +17,7 @@
       "name": "Build VSIX",
       "type": "node-terminal",
       "request": "launch",
-      "command": "./scripts/build.sh"
+      "command": "make build"
     }
   ]
 }

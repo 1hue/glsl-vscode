@@ -4,7 +4,7 @@
     {
       "label": "compile",
       "type": "shell",
-      "command": "podman run --rm --network=none --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w docker.io/library/node:latest npm run compile",
+      "command": "make compile",
       "options": {
         "cwd": "${workspaceFolder}"
       },

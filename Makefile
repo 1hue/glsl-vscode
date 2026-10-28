@@ -1,5 +1,9 @@
-# Shortcuts for scripts/ - see CONTRIBUTING.md
-.PHONY: build install test setup clean submodule wasm-link wasm-unlink
+# Development commands, run in containers - see CONTRIBUTING.md
+.PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink
+
+# Container with project at /w, image follows
+RUN = podman run --rm --pull=newer --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w
+NODE = docker.io/library/node:latest
 
 # VS Code CLI, e.g. make install VSCODE=code
 VSCODE ?= codium
@@ -10,21 +14,36 @@ build:
 install: build
 	$(VSCODE) --install-extension build/glsl-vscode-*.vsix --force
 
-test:
-	sh scripts/test.sh
+compile: | node_modules
+	$(RUN) --network=none $(NODE) npm run compile
+
+test: | node_modules
+	$(RUN) --network=none $(NODE) npm test
+
+# Install deps and audit
+setup:
+	$(RUN) $(NODE) sh -c 'npm ci && npm audit --audit-level=moderate'
+
+# Install deps when missing, keep wasm-link
+node_modules:
+	$(MAKE) setup
+
+# Shell into container, e.g. for npm update
+sh:
+	$(RUN) -it $(NODE) bash
 
 clean:
 	rm -rf out build/*.vsix build/reuse.spdx
-
-setup:
-	sh scripts/setup.sh
 
 # Clone or reset to pinned commit
 submodule:
 	git submodule update --init glslang-wasm
 
-wasm-link:
-	sh scripts/wasm-link.sh
+# Submodule instead of npm package, built if needed
+wasm-link: | node_modules
+	test -f glslang-wasm/dist/index.js || $(MAKE) -C glslang-wasm build
+	rm -rf node_modules/glslang-wasm
+	ln -s ../glslang-wasm node_modules/glslang-wasm
 
-wasm-unlink:
-	sh scripts/wasm-unlink.sh
+# Back to npm package
+wasm-unlink: setup
