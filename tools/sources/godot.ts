@@ -70,7 +70,7 @@ async function generate(config: SourceConfig, commit: string, read: ReadFile): P
 	return { godot: definitions };
 }
 
-/** Substitution definitions like `.. |vec_type| replace:: ...` */
+/** Parse substitution definitions like `.. |vec_type| replace:: ...` */
 function parseSubstitutions(text: string): Record<string, string> {
 	const substitutions: Record<string, string> = {};
 
@@ -82,10 +82,10 @@ function parseSubstitutions(text: string): Record<string, string> {
 	return substitutions;
 }
 
-/** reStructuredText inline markup to Markdown */
+/** Convert reStructuredText inline markup to Markdown */
 function inline(text: string, substitutions: Record<string, string>): string {
 	const codeSpans: string[] = [];
-	// Code span to placeholder
+	// Swap code span for placeholder
 	const protect = (_match: string, code: string) => `\u0000${codeSpans.push('`' + code + '`') - 1}\u0000`;
 	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
@@ -108,7 +108,7 @@ function indentOf(line: string): number {
 	return line.length - line.trimStart().length;
 }
 
-/** Dedented with blank lines kept */
+/** Dedent and keep blank lines */
 function indentedBlock(lines: string[], start: number, indent: number): { lines: string[]; end: number } {
 	const body: string[] = [];
 	let end = start;
@@ -122,7 +122,7 @@ function indentedBlock(lines: string[], start: number, indent: number): { lines:
 	return { lines: body.map((l) => l.slice(minIndent)), end };
 }
 
-/** Signature lines like `|vec_type| **mix**\ (...)` with indented body */
+/** Parse signature lines like `|vec_type| **mix**\ (...)` and their indented body */
 function parseFunctions(text: string, substitutions: Record<string, string>): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 	const lines = text.split('\n');
@@ -174,7 +174,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 		paragraph = [];
 	};
 
-	// Directive/field line text plus indented continuation
+	// Directive or field text with its indented continuation
 	const content = (i: number, firstLine: string) => {
 		const block = indentedBlock(lines, i + 1, indentOf(lines[i]));
 		const text = [firstLine, ...block.lines].join('\n').trim();
@@ -230,7 +230,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 	};
 }
 
-/** Text line underlined with one repeated character */
+/** Heading is a text line underlined with one repeated character */
 function isHeading(lines: string[], i: number): boolean {
 	const text = lines[i];
 	const underline = lines[i + 1] ?? '';
@@ -307,7 +307,7 @@ function parseGridTable(lines: string[]): GridTable {
 
 		const cells = cellsOf(line);
 
-		// Rows missing a separator: new bold name in first column starts a row
+		// A new bold name in the first column starts a row when the separator is missing
 		const startsNewEntry = current.length && /\*\*/.test(cells[0]) && current[0].some((l) => /\*\*/.test(l));
 		if (startsNewEntry) {
 			flushRow();
@@ -388,7 +388,7 @@ function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: 
 	}
 }
 
-/** Data types, interpolation qualifiers, uniform hints */
+/** Add data types, interpolation qualifiers and uniform hints */
 function addLanguagePage(definitions: GodotDefinitions, text: string, substitutions: Record<string, string>) {
 	for (const { table } of gridTables(text)) {
 		const [first, second, third] = table.header;
@@ -416,7 +416,7 @@ function addLanguagePage(definitions: GodotDefinitions, text: string, substituti
 	}
 }
 
-/** `filter[_nearest, _linear][_mipmap]` to all names */
+/** Expand `filter[_nearest, _linear][_mipmap]` to all names */
 function expandHint(text: string): string[] {
 	const match = /^(\w+)((?:\[[^\]]+\])*)/.exec(text);
 	if (!match) {

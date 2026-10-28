@@ -1,9 +1,9 @@
 #!/bin/sh
-# Build .vsix in Node container, see build.sh
+# Build .vsix in Node container - started by build.sh
 set -eu
 
 # Build in copy - keeps node_modules out of project
-cp -a /w/. /tmp/src
+cp -a /app/. /tmp/src
 cd /tmp/src
 
 cp build/reuse.spdx reuse.spdx
@@ -16,5 +16,5 @@ for file in node_modules/glslang-wasm/dist/glslang.wasm node_modules/three/build
 	echo "$files" | grep -qx "$file"
 done
 
-mkdir -p /w/build
-cp build/*.vsix /w/build/
+mkdir -p /app/build
+cp build/*.vsix /app/build/

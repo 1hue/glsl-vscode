@@ -224,9 +224,9 @@ function unitsOf(document: vscode.TextDocument): Unit[] {
 	return [{ source: text, stage: stageOf(document, text), client, lineOffset: 0, ...defaults }];
 }
 
-/** One unit for all processing functions */
+/** Check all processing functions as one unit */
 function gdshaderUnits(document: vscode.TextDocument, text: string): Unit[] {
-	// No `shader_type` (.gdshaderinc): checked through its includers
+	// Files without `shader_type` are checked through their includers
 	const shaderType = shaderTypeOf(text);
 	if (!shaderType) {
 		return [];
@@ -287,7 +287,7 @@ function godotUnits(text: string, sections: RegExpMatchArray[]): Unit[] {
 	return units;
 }
 
-/** Godot's C-style escapes in version defines */
+/** Undo Godot's C-style escapes in version defines */
 function unescape(text: string): string {
 	return text.replace(/\\(.)/g, (_match, char: string) => ({ n: '\n', t: '\t' })[char] ?? char);
 }
@@ -365,7 +365,7 @@ function godotRoot(document: vscode.TextDocument, root = includeRoot(document)):
 	return undefined;
 }
 
-/** Unsaved editor contents first */
+/** Prefer unsaved editor contents */
 export function readSource(file: string): string | undefined {
 	const open = vscode.workspace.textDocuments.find((d) => d.uri.fsPath === file);
 	if (open) {

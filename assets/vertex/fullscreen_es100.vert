@@ -1,5 +1,5 @@
 #version 100
-// Fullscreen vertex shader for ES 1.00 fragment shaders, see fullscreen_es300.vert
+// Fullscreen vertex shader for ES 1.00 fragment shaders
 
 attribute vec3 position;
 attribute vec2 uv;

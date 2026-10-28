@@ -62,7 +62,7 @@ function hoverText(document: vscode.TextDocument, position: vscode.Position, wor
 		return namedDocMarkdown(word, typeDoc, defs);
 	}
 
-	// Directives stored with `#`
+	// Directive names include `#`
 	const before = document.lineAt(range.start.line).text.slice(0, range.start.character);
 	const keyword = /^\s*#\s*$/.test(before) ? `#${word}` : word;
 	const keywordDoc = defs.keywords?.[keyword];

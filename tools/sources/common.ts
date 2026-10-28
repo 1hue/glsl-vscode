@@ -37,7 +37,7 @@ export function parseSignature(text: string): (Signature & { name: string }) | u
 }
 
 export function parseParams(text: string): Param[] {
-	// Optional params: `[, float bias]`
+	// Optional params like `[, float bias]`
 	const optionalParts: string[] = [];
 	const requiredText = text.replace(/\[\s*,\s*([^\]]+)\]/g, (_, inner: string) => {
 		optionalParts.push(...inner.split(','));
@@ -76,7 +76,7 @@ function parseParam(text: string): Param | undefined {
 	let name = words.pop() as string;
 	let type = words.join(' ');
 
-	// `ivec2 offsets[4]` -> type `ivec2[4]`, name `offsets`
+	// Move array size from name to type, like `ivec2 offsets[4]`
 	const array = /^(\w+)(\[.*\])$/.exec(name);
 	if (array) {
 		name = array[1];

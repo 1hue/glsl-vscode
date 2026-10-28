@@ -90,7 +90,7 @@ function scan_(text: string): DocumentScan {
 
 	const macros = findMacros(code);
 
-	// Preprocessor lines blanked
+	// Blank preprocessor lines
 	const source = code.replace(/^[ \t]*#[^\n]*/gm, (line) => line.replace(/[^\n]/g, ' '));
 	const braces = matchBraces(source);
 
@@ -264,7 +264,7 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 		const signature = collapse(`${returnType} ${name}(${paramText})`);
 
 		if (terminator === ';') {
-			// Prototype listed only without definition
+			// List prototype only without definition
 			const defined = new RegExp(`\\b${name}\\s*\\([^()]*\\)\\s*\\{`).test(source);
 			if (!defined) {
 				functions.push({ name, kind: 'function', detail: signature + ';', start, end: start + whole.length, nameStart });

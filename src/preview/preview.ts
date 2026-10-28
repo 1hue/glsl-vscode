@@ -2,11 +2,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { includePath, readSource } from '#src/diagnostics/diagnostics';
+import { INCLUDE } from '#src/diagnostics/gdshader';
 import { sharedGlslang } from '#src/diagnostics/glslang';
 import { definitionsFor } from '#src/language/definitions';
 import type { FromWebview, ToWebview, VertexShaders } from '#src/webview/protocol';
 import { loadScene, saveScene } from './scene';
-import { INCLUDE, gdshaderToWebGL, toWebGL, withoutVersion } from './webgl';
+import { gdshaderToWebGL, toWebGL, withoutVersion } from './webgl';
 
 const VIEW_TYPE = 'glsl.preview';
 const DEBOUNCE_MS = 300;
@@ -57,7 +58,7 @@ export function registerPreview(context: vscode.ExtensionContext) {
 				document.languageId === 'gdshader'
 					? gdshaderToWebGL(text, definitionsFor('godot'), gdshaderIncludes(document, text))
 					: await toWebGL(await sharedGlslang(), text);
-			// Newer edit already sent
+			// Drop results of outdated edits
 			if (request === latest) {
 				post({ type: 'shader', ...result });
 			}
@@ -117,7 +118,7 @@ export function registerPreview(context: vscode.ExtensionContext) {
 		});
 	};
 
-	// Group right after the shader's - Beside can pick another group
+	// Open in group right after the shader's - Beside can pick another group
 	const show = (editor: vscode.TextEditor) => {
 		const column = (editor.viewColumn ?? vscode.ViewColumn.One) + 1;
 		const existing = panels.get(editor.document.uri.toString());
@@ -152,7 +153,7 @@ export function registerPreview(context: vscode.ExtensionContext) {
 	);
 }
 
-/** preview.html with placeholders filled in */
+/** Fill placeholders in preview.html */
 function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): string {
 	const nonce = Array.from({ length: 32 }, () => Math.floor(Math.random() * 36).toString(36)).join('');
 	let text = fs
@@ -165,7 +166,7 @@ function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): str
 	return text;
 }
 
-/** Nested first, each once. None in Restricted Mode */
+/** Nested includes come first, each once. Restricted Mode reads none */
 function gdshaderIncludes(document: vscode.TextDocument, text: string, includer = document.uri.fsPath, seen = new Set<string>()): string[] {
 	if (!vscode.workspace.isTrusted) {
 		return [];

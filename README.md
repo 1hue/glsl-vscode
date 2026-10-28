@@ -7,7 +7,7 @@ GLSL, GLSL ES and GDShader support. No language server or insert coin needed.
 - Completion: built-ins, keywords, types, your own functions/variables
 - Signature help
 - Outline, go to symbol
-- Go to definition, also for built-ins (opens a read-only declarations file)
+- Go to definition, also for built-ins (opens a read-only declarations file). Ctrl+click on `#include` opens the file
 - Errors and warnings from [glslang](https://github.com/KhronosGroup/glslang) (bundled as WebAssembly), `#include` resolved
 
 No formatting or rename.
@@ -63,7 +63,7 @@ Mesh inputs are `vPosition`, `vNormal` and `vUv`, as in three.js. Your own unifo
 uniform float roughness; // [0, 1] = 0.5
 ```
 
-Desktop and Vulkan GLSL work too, cross-compiled to ES 3.00. No `#include` or `.gdshader`.
+Desktop and Vulkan GLSL work too, cross-compiled to ES 3.00. No `#include` in GLSL.
 
 ## Files
 

@@ -54,7 +54,7 @@ body.vscode-high-contrast:not(.vscode-high-contrast-light) {
 	font-weight: var(--vscode-fontWeight-regular);
 }
 
-/* Bottom center, wraps only when too wide */
+/* Toolbar */
 .toolbar {
 	inset: auto var(--margin) var(--margin);
 	width: fit-content;
@@ -86,7 +86,7 @@ body.fullscreen .separator {
 	background: var(--vscode-icon-foreground);
 }
 
-/* Activity bar icons, toolbar hover and active backgrounds */
+/* Toolbar button like activity bar icons */
 .action {
 	display: flex;
 	align-items: center;
@@ -101,11 +101,11 @@ body.fullscreen .separator {
 	cursor: pointer;
 }
 
-/* Thicker codicons */
+/* Toolbar icon */
 .action.codicon,
 .group > .codicon {
 	font-size: var(--action-icon-size);
-	-webkit-text-stroke: calc(var(--stroke) / 2) currentColor;
+	-webkit-text-stroke: calc(var(--stroke) / 2) currentColor; /* Thicker icons */
 }
 
 .group > .codicon {
@@ -188,7 +188,7 @@ body.fullscreen .separator {
 	padding: var(--padding) var(--margin) var(--margin);
 }
 
-/* Inputs left aligned, rows full width */
+/* Uniform control */
 .control {
 	display: flex;
 	flex-direction: column;

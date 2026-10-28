@@ -1,5 +1,5 @@
 #!/bin/sh
-# Sparse checkout of submodules with `sparse` paths in .gitmodules at pinned commit
+# Check out `sparse` paths of submodules in .gitmodules at pinned commit
 set -eu
 
 git config -f .gitmodules --get-regexp '\.sparse$' | while read -r key paths; do

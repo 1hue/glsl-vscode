@@ -1,4 +1,4 @@
-// GDShader as GLSL for glslang with Godot syntax blanked
+// GDShader to GLSL for glslang
 
 import { Definitions } from '#src/language/types';
 
@@ -21,7 +21,9 @@ export const ES_PRECISION = [
 	'usampler2DArray',
 ].map((type) => `precision highp ${type};`);
 
-/** Same length, newlines kept */
+export const INCLUDE = /^[ \t]*#[ \t]*include[ \t]+"([^"]+)"[^\n]*/gm;
+
+/** Keeps length and newlines */
 export function blank(text: string): string {
 	return text.replace(/[^\n]/g, ' ');
 }
@@ -41,7 +43,7 @@ export function gdshaderToGlsl(text: string): string {
 	);
 }
 
-/** Godot built-ins as GLSL declarations */
+/** Declare Godot built-ins in GLSL */
 export function gdshaderPreamble(godot: Definitions, glslFunctions: Set<string>, shaderType: string, es: boolean): string {
 	const lines = es ? [...ES_PRECISION] : [];
 

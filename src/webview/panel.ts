@@ -67,7 +67,7 @@ function editorOf(control: Control, value: Value, set: (value: Value) => void, p
 	return undefined;
 }
 
-/** Range and number field kept in sync */
+/** Keep range and number field in sync */
 function slider(control: Control, value: number, integer: boolean, set: (value: Value) => void): HTMLElement {
 	const row = document.createElement('div');
 	row.className = 'row';
@@ -95,7 +95,7 @@ function slider(control: Control, value: number, integer: boolean, set: (value: 
 	return row;
 }
 
-/** Color picker plus alpha slider for vec4 */
+/** Add alpha slider for vec4 */
 function colorRow(values: number[], set: (value: Value) => void): HTMLElement {
 	const row = document.createElement('div');
 	row.className = 'row';

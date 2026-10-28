@@ -1,7 +1,7 @@
 // Fragment shader for WebGL2 and its uniform controls
 
 import type { Diagnostic, Glslang } from 'glslang-wasm' with { 'resolution-mode': 'import' };
-import { ES_PRECISION, blank, gdshaderToGlsl, shaderTypeOf } from '#src/diagnostics/gdshader';
+import { ES_PRECISION, INCLUDE, blank, gdshaderToGlsl, shaderTypeOf } from '#src/diagnostics/gdshader';
 import type { Definitions } from '#src/language/types';
 import { isVulkan } from '#src/language/vulkan';
 import type { Control, Shader, Value, WebGLVersion } from '#src/webview/protocol';
@@ -9,7 +9,6 @@ import type { Control, Shader, Value, WebGLVersion } from '#src/webview/protocol
 export type WebGLResult = Shader | { errors: string };
 
 const VERSION = /^[ \t]*#[ \t]*version[ \t]+(\d+)[^\n]*/m;
-export const INCLUDE = /^[ \t]*#[ \t]*include[ \t]+"([^"]+)"[^\n]*/gm;
 
 // Preview-set uniforms
 const BUILTINS = new Set([
@@ -71,7 +70,7 @@ export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLRe
 
 const GODOT_CONSTANTS: Record<string, string> = { PI: '3.141592653589793', TAU: '6.283185307179586', E: '2.718281828459045' };
 
-// Godot inputs and output defaults, in assignment order
+// Godot inputs and output defaults in assignment order
 const GODOT_FRAGMENT: Record<string, [string, string][]> = {
 	canvas_item: [
 		['UV', 'vUv'],
@@ -97,7 +96,7 @@ const GODOT_FRAGMENT: Record<string, [string, string][]> = {
 	],
 };
 
-/** `includes` nested first, inserted before source */
+/** Insert `includes` before source, nested ones first */
 export function gdshaderToWebGL(source: string, godot: Definitions, includes: string[] = []): WebGLResult {
 	const shaderType = shaderTypeOf(source);
 	const inputs = shaderType && GODOT_FRAGMENT[shaderType];
@@ -192,7 +191,7 @@ function control(name: string, label: string, type: string, annotation?: Partial
 	return { name, label, type, min: 0, max: 1, ...annotation };
 }
 
-/** Ranges and defaults from `[min, max] = default` comments */
+/** Read ranges and defaults from `[min, max] = default` comments */
 export function annotationsOf(source: string): Map<string, Partial<Control>> {
 	const annotations = new Map<string, Partial<Control>>();
 	for (const [, name, comment] of source.matchAll(COMMENTED)) {
@@ -209,7 +208,7 @@ export function annotationsOf(source: string): Map<string, Partial<Control>> {
 	return annotations;
 }
 
-/** Annotation default like `0.5`, `(1, 0.5, 0.2)`, `true` */
+/** Parse annotation default like `0.5`, `(1, 0.5, 0.2)`, `true` */
 function parseValue(text: string): Value {
 	if (text === 'true' || text === 'false') {
 		return text === 'true';
@@ -218,7 +217,7 @@ function parseValue(text: string): Value {
 	return numbers.length === 1 ? numbers[0] : numbers;
 }
 
-/** glslang errors like `ERROR: 0:12:5: message` */
+/** Format glslang errors like `ERROR: 0:12:5: message` */
 function format(diagnostics: Diagnostic[]): string {
 	return diagnostics
 		.filter((d) => d.severity === 'error')

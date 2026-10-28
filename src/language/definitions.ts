@@ -86,7 +86,7 @@ export function isAvailable(entry: Variable | FunctionGroup, context: Context): 
 		return false;
 	}
 
-	// Constants, uniform state etc. available everywhere
+	// Constants and uniform state are available everywhere
 	const stage = entry.stage?.replace(' (compatibility profile)', '');
 	if (context.stage && stage && PIPELINE_STAGES.has(stage)) {
 		return stage === context.stage;

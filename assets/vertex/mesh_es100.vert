@@ -1,5 +1,5 @@
 #version 100
-// Mesh vertex shader for ES 1.00 fragment shaders, see mesh_es300.vert
+// Mesh vertex shader for ES 1.00 fragment shaders
 
 attribute vec3 position;
 attribute vec3 normal;

@@ -1,13 +1,15 @@
-# Development commands, run in containers - see CONTRIBUTING.md
+# Development commands in containers
 .PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink vendor defs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
-# Container with project at /w, image follows
-RUN = podman run --rm $(TTY) --pull=newer --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w
-NODE = docker.io/library/node:latest
+RUN = podman run --rm -i $(TTY) -e TERM --pull=newer --userns=keep-id -e HOME=/tmp
+# No network
+RUN_OFFLINE = $(RUN) --network=none
+# Images with project mount
+NODE = -v .:/app:Z -w /app docker.io/library/node:latest
 
-# Override VS Code CLI with make install VSCODE=code
+# VS Code CLI
 VSCODE ?= codium
 
 build:
@@ -17,10 +19,10 @@ install: build
 	$(VSCODE) --install-extension build/glsl-vscode-*.vsix --force
 
 compile: | node_modules
-	$(RUN) --network=none $(NODE) npm run compile
+	$(RUN_OFFLINE) $(NODE) npm run compile
 
 test: | node_modules
-	$(RUN) --network=none $(NODE) npm test
+	$(RUN_OFFLINE) $(NODE) npm test
 
 # Install deps and audit
 setup:
@@ -32,7 +34,7 @@ node_modules:
 
 # Shell into container with colored ls and prompt
 sh:
-	$(RUN) -i -e TERM $(NODE) bash --rcfile /etc/skel/.bashrc
+	$(RUN) $(NODE) bash --rcfile /etc/skel/.bashrc
 
 clean:
 	rm -rf out build/*.vsix build/reuse.spdx
@@ -41,13 +43,13 @@ clean:
 submodule:
 	git submodule update --init vendor/glslang-wasm
 
-# Submodule instead of npm package, built if needed
+# Use submodule instead of npm package, build if needed
 wasm-link: | node_modules
 	test -f vendor/glslang-wasm/dist/index.js || $(MAKE) -C vendor/glslang-wasm build
 	rm -rf node_modules/glslang-wasm
 	ln -s ../vendor/glslang-wasm node_modules/glslang-wasm
 
-# Back to npm package
+# Switch back to npm package
 wasm-unlink: setup
 
 # Check out doc submodules
@@ -56,4 +58,4 @@ vendor:
 
 # Regenerate data/*.json from doc submodules
 defs: vendor | node_modules
-	$(RUN) --network=none $(NODE) npm run gen:defs
+	$(RUN_OFFLINE) $(NODE) npm run gen:defs

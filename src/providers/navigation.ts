@@ -1,6 +1,8 @@
-// Outline (document symbols) and go to definition
+// Outline (document symbols), go to definition and include links
 
 import * as vscode from 'vscode';
+import { includePath } from '#src/diagnostics/diagnostics';
+import { INCLUDE } from '#src/diagnostics/gdshader';
 import { builtinLocation } from '#src/language/builtinsDocument';
 import { flavorOf } from '#src/language/definitions';
 import { UserSymbol, scanDocument, visibleSymbols } from '#src/analysis/symbols';
@@ -47,5 +49,19 @@ export const definitionProvider: vscode.DefinitionProvider = {
 		}
 
 		return builtinLocation(flavorOf(document), found.word);
+	},
+};
+
+export const documentLinkProvider: vscode.DocumentLinkProvider = {
+	provideDocumentLinks(document) {
+		return [...document.getText().matchAll(INCLUDE)].flatMap((match) => {
+			const [line, header] = match;
+			const file = includePath(document, header, document.uri.fsPath);
+			if (!file) {
+				return [];
+			}
+			const start = document.positionAt(match.index + line.indexOf('"') + 1);
+			return [new vscode.DocumentLink(new vscode.Range(start, start.translate(0, header.length)), vscode.Uri.file(file))];
+		});
 	},
 };

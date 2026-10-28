@@ -50,7 +50,7 @@ export function functionGroupMarkdown(name: string, group: FunctionGroup, langua
 	return parts.join('\n\n');
 }
 
-/** Matching overloads first and the rest after a divider */
+/** List matching overloads first, the rest after a divider */
 export function functionMarkdown(name: string, groups: FunctionGroup[], context: Context, language: string): string {
 	const available = groups.filter((g) => isAvailable(g, context));
 	const shown = available.length ? available : groups;
@@ -75,7 +75,7 @@ export function variableMarkdown(name: string, contexts: Variable[], context: Co
 		return parts.join('\n\n');
 	});
 
-	// Doc shared by stages or shader types shown once
+	// Show doc shared by stages or shader types once
 	const unique = [...new Set(sections)];
 	return [...unique, sourceFooter(context.defs)].join('\n\n---\n\n');
 }

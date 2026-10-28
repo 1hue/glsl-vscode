@@ -17,7 +17,7 @@ import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt }
 
 const Kind = vscode.CompletionItemKind;
 
-// Docs built on resolve rather than up front
+// Docs are built on resolve, not up front
 class Item extends vscode.CompletionItem {
 	constructor(
 		label: string,
@@ -212,7 +212,7 @@ function typeItems(context: Context, types: string[]): Item[] {
 	});
 }
 
-/** Next qualifiers in declaration and `struct` at statement start */
+/** Suggest next qualifiers and `struct` at statement start */
 function declarationKeywords(context: Context, scope: DeclarationScope, present: string[]): string[] {
 	const starts = !present.length && (scope === 'global' || scope === 'local');
 
@@ -237,7 +237,7 @@ function directiveItems(context: Context): Item[] {
 	});
 }
 
-/** Layout ids for current stage */
+/** Suggest layout ids for current stage */
 function layoutItems(context: Context): Item[] {
 	if (context.flavor === 'godot') {
 		return [];

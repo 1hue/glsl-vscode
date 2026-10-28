@@ -19,7 +19,7 @@ export function isMemberAccess(document: vscode.TextDocument, start: vscode.Posi
 	return /\.\s*$/.test(before);
 }
 
-/** Comments removed */
+/** Strips comments */
 export function statementBefore(document: vscode.TextDocument, position: vscode.Position): string {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 2000);
@@ -116,7 +116,7 @@ function declarationContext(
 		return { kind: 'declaration', scope, qualifiers: words };
 	}
 
-	// `uniform vec4 |`: name follows type and space
+	// Name follows type and space like `uniform vec4 |`
 	const last = words[words.length - 1];
 	const restAreQualifiers = words.slice(0, -1).every((w) => qualifierNames.has(w));
 	if (typeNames.has(last) && restAreQualifiers && /\s$/.test(line)) {
@@ -141,7 +141,7 @@ function braceScope(text: string): 'global' | 'member' | 'local' {
 	return open.length ? open[open.length - 1] : 'global';
 }
 
-/** Innermost unclosed call */
+/** Find innermost unclosed call */
 export function callAt(document: vscode.TextDocument, position: vscode.Position): { name: string; argument: number } | undefined {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 4000);

@@ -20,7 +20,7 @@ const fpsLabel = element('fps');
 const meshButtons = document.querySelectorAll<HTMLButtonElement>('[data-mesh]');
 
 const LIGHT_DISTANCE = 3;
-// Mesh about half the view, seen from 22.5° right and above
+// Mesh about half the view, seen from right and above
 const CAMERA_POSITION = new THREE.Vector3()
 	.setFromSphericalCoords(5, THREE.MathUtils.degToRad(90 - 22.5), THREE.MathUtils.degToRad(22.5))
 	.toArray();
@@ -224,7 +224,7 @@ function buildMaterial() {
 	previous.dispose();
 }
 
-/** three.js uniforms for controls and renamed built-ins */
+/** Includes renamed built-ins */
 function userUniforms({ controls, builtins }: Shader): Record<string, THREE.IUniform> {
 	const uniforms: Record<string, THREE.IUniform> = {};
 	const assign = (path: string, value: unknown) => {

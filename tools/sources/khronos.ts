@@ -124,7 +124,7 @@ async function generate(config: SourceConfig, commit: string, read: ReadFile): P
 	return outputs;
 }
 
-/** `conditional` like `ifdef::GLSL[]` */
+/** Flatten AsciiDoc for one `conditional` like `ifdef::GLSL[]` */
 async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 	const document = await load(text, { attributes: { [conditional]: '' } });
 	const blocks: Block[] = [];
@@ -219,7 +219,7 @@ function grammarLines(node: AbstractBlock): string[] {
 	});
 }
 
-/** Markup left for `inline()` */
+/** Leave markup for `inline()` */
 function rawText(item: ItemNode): string {
 	for (const substitution of [...item.getSubstitutions()]) {
 		item.removeSubstitution(substitution);
@@ -227,7 +227,7 @@ function rawText(item: ItemNode): string {
 	return item.getText() ?? '';
 }
 
-/** Items as `* item`, nested as `** item` */
+/** Write items as `* item`, nested ones as `** item` */
 function listLines(list: ListNode, depth: number): string[] {
 	const lines: string[] = [];
 	const marker = list.getContext() === 'olist' ? '.'.repeat(depth) : '*'.repeat(depth);
@@ -244,7 +244,7 @@ function listLines(list: ListNode, depth: number): string[] {
 	return lines;
 }
 
-/** Row-spanning cells repeated below */
+/** Repeat row-spanning cells below */
 function tableBlock(table: TableNode): Block {
 	const spans: { text: string; remaining: number }[] = [];
 	const rows: string[][] = [];
@@ -296,7 +296,7 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 		}
 
 		case 'para': {
-			// Wrapped lines joined but list items keep own line
+			// Join wrapped lines but keep list items on their own line
 			const lines: string[] = [];
 			for (const raw of block.lines) {
 				const line = raw
@@ -327,14 +327,14 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 	}
 }
 
-/** AsciiDoc inline markup to Markdown */
+/** Convert AsciiDoc inline markup to Markdown */
 function inline(text: string, attributes: Record<string, string>): string {
-	// Code spans set aside from emphasis rules
+	// Set code spans aside from emphasis rules
 	const codeSpans: string[] = [];
 	const protect = (code: string) => `\u0000${codeSpans.push(code) - 1}\u0000`;
 	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
-	// In code and equations: drop emphasis, keep sub/superscripts
+	// Drop emphasis in code and equations but keep sub/superscripts
 	const plain = (s: string) =>
 		s
 			.replace(/\*([^*]+)\*/g, '$1')
@@ -356,7 +356,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 		.replace(/<<([^>]+)>>/g, (_, anchor: string) => anchor.replace(/-/g, ' '))
 		.replace(/\*\*\*/g, () => protect('`*`'))
 		.replace(/\*\*(?=\S)([^*\n]*?\S)\*\*/g, (_, name) => protect('`' + plain(name) + '`'))
-		// Spec: _x_ for params and *x* for types, functions, keywords. Both to code
+		// Spec uses _x_ for params and *x* for types, functions and keywords. Both become code
 		.replace(/(^|[^\w\\])_(?=\S)(.*?\S)_(?!\w)/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
 		.replace(/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
 		.replace(/~([^~\s]+)~/g, '_$1')
@@ -465,7 +465,7 @@ function addConstructDocs(
 }
 
 /**
- * Blocks documenting `name` in a section's own text:
+ * Find blocks documenting `name` in a section's own text:
  * - first paragraph naming it (`*restrict*`, `+__LINE__+`)
  * - else paragraph before code/table naming it, or paragraphs around grammar listing it
  * - no `name`: section's first paragraph
@@ -480,10 +480,10 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	const emphasized = new RegExp(`(?<![\\w#])[*+]${escaped}[*+](?!\\w)`);
 	const plain = new RegExp(`(?<![\\w#])${escaped}(?!\\w)`);
 
-	// Prose only: lists like `__LINE__ __FILE__ __VERSION__` just enumerate
+	// Skip lists like `__LINE__ __FILE__ __VERSION__` - they just enumerate
 	const proseOf = (block: Block) => (block.kind === 'para' && !block.lines.every((l) => /^[*.]+ /.test(l)) ? block.lines.join('\n') : '');
 
-	// Paragraph about it ("The *std430* qualifier ...") over mere mentions
+	// Prefer a paragraph about it ("The *std430* qualifier ...") over mere mentions
 	const firstNamed = (block: Block) => /(?<![\w#])[*+](#?\w+)[*+](?!\w)/.exec(proseOf(block))?.[1];
 	const about = section.findIndex((b) => firstNamed(b) === name);
 	const named = about >= 0 ? about : section.findIndex((b) => emphasized.test(proseOf(b)));
@@ -514,7 +514,7 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	return blocks.length ? blocks : undefined;
 }
 
-/** Paragraph at `index` plus its continuation and what it introduces */
+/** Take paragraph at `index` with its continuation and what it introduces */
 function paragraphRun(section: Block[], index: number): Block[] {
 	const textOf = (block: Block) => (block.kind === 'para' ? block.lines.join('\n') : '');
 
@@ -685,7 +685,7 @@ function parseVariables(blocks: Block[], attributes: Record<string, string>): Re
 			continue;
 		}
 
-		// Names emphasized as `_gl_Position_`: no `\b` before `gl_`
+		// No `\b` before `gl_` since names are emphasized like `_gl_Position_`
 		const builtinName = /(?<![A-Za-z0-9])gl_[A-Za-z0-9]+/g;
 
 		const text = block.lines.join(' ');
