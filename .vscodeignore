@@ -2,7 +2,7 @@
 .*/**
 *.vsix
 build/**
-glslang-wasm/**
+vendor/**
 scripts/**
 tools/**
 src/**

@@ -39,13 +39,13 @@ clean:
 
 # Clone or reset to pinned commit
 submodule:
-	git submodule update --init glslang-wasm
+	git submodule update --init vendor/glslang-wasm
 
 # Submodule instead of npm package, built if needed
 wasm-link: | node_modules
-	test -f glslang-wasm/dist/index.js || $(MAKE) -C glslang-wasm build
+	test -f vendor/glslang-wasm/dist/index.js || $(MAKE) -C vendor/glslang-wasm build
 	rm -rf node_modules/glslang-wasm
-	ln -s ../glslang-wasm node_modules/glslang-wasm
+	ln -s ../vendor/glslang-wasm node_modules/glslang-wasm
 
 # Back to npm package
 wasm-unlink: setup
