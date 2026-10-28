@@ -3,11 +3,12 @@
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
-RUN = podman run --rm -i $(TTY) -e TERM --pull=newer --userns=keep-id -e HOME=/tmp
+RUN = podman run --rm -i $(TTY) -e TERM --userns=keep-id -e HOME=/tmp
 # No network
 RUN_OFFLINE = $(RUN) --network=none
 # Images with project mount
-NODE = -v .:/app:Z -w /app docker.io/library/node:latest
+NODE_IMAGE = docker.io/library/node:latest
+NODE = -v .:/app:z -w /app $(NODE_IMAGE)
 
 # VS Code CLI
 VSCODE ?= codium
@@ -28,15 +29,16 @@ test: | node_modules
 format: | node_modules
 	$(RUN_OFFLINE) $(NODE) npx prettier --write .
 
-# Install deps and audit
+# Update image, install deps and audit
 setup:
+	podman pull $(NODE_IMAGE)
 	$(RUN) $(NODE) sh -c 'npm ci && npm audit --audit-level=moderate'
 
 # Install deps when missing, keep wasm-link
 node_modules:
 	$(MAKE) setup
 
-# Shell into container with colored ls and prompt
+# Shell into container with Debian colours
 sh:
 	$(RUN) $(NODE) bash --rcfile /etc/skel/.bashrc
 

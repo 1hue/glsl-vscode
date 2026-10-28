@@ -6,8 +6,8 @@ set -eu
 [ -t 0 ] && tty=-t || tty=
 run="podman run --rm -i $tty -e TERM --pull=newer --userns=keep-id -e HOME=/tmp"
 # Images with project mount
-node="-v .:/app:Z -w /app docker.io/library/node:latest"
-reuse_image="-v .:/data:Z docker.io/fsfe/reuse:latest"
+node="-v .:/app:z -w /app docker.io/library/node:latest"
+reuse_image="-v .:/data:z docker.io/fsfe/reuse:latest"
 
 # Local reuse if installed, otherwise official container
 reuse=reuse
