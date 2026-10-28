@@ -3,9 +3,16 @@ import { contextAt } from '#src/language/definitions';
 import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, userSymbolMarkdown, variableMarkdown } from './format';
 import { scanDocument, visibleSymbols } from '#src/analysis/symbols';
 import { isMemberAccess, statementBefore, statementKind, wordAt } from '#src/analysis/textContext';
+import { includeAt } from './navigation';
 
 export const hoverProvider: vscode.HoverProvider = {
 	provideHover(document, position) {
+		const include = includeAt(document, position);
+		if (include) {
+			const text = new vscode.MarkdownString().appendCodeblock(`file "${vscode.workspace.asRelativePath(include.file)}"`);
+			return new vscode.Hover(text, include.range);
+		}
+
 		const found = wordAt(document, position);
 		if (!found || isMemberAccess(document, found.range.start)) {
 			return undefined;

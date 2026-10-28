@@ -5,7 +5,7 @@ import { registerDiagnostics } from '#src/diagnostics/diagnostics';
 import { registerPreview } from '#src/preview/preview';
 import { completionProvider } from './providers/completion';
 import { hoverProvider } from './providers/hover';
-import { definitionProvider, documentLinkProvider, documentSymbolProvider } from './providers/navigation';
+import { definitionProvider, documentSymbolProvider } from './providers/navigation';
 import { signatureHelpProvider } from './providers/signatureHelp';
 import { forgetDocument } from '#src/analysis/symbols';
 
@@ -19,7 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.languages.registerSignatureHelpProvider(SELECTOR, signatureHelpProvider, '(', ','),
 		vscode.languages.registerDocumentSymbolProvider(SELECTOR, documentSymbolProvider),
 		vscode.languages.registerDefinitionProvider(SELECTOR, definitionProvider),
-		vscode.languages.registerDocumentLinkProvider(SELECTOR, documentLinkProvider),
 		vscode.workspace.onDidCloseTextDocument(forgetDocument),
 	);
 

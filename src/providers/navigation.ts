@@ -1,4 +1,4 @@
-// Outline (document symbols), go to definition and include links
+// Outline (document symbols) and go to definition
 
 import * as vscode from 'vscode';
 import { includePath } from '#src/diagnostics/diagnostics';
@@ -38,6 +38,11 @@ export const documentSymbolProvider: vscode.DocumentSymbolProvider = {
 
 export const definitionProvider: vscode.DefinitionProvider = {
 	provideDefinition(document, position) {
+		const include = includeAt(document, position);
+		if (include) {
+			return [{ originSelectionRange: include.range, targetUri: vscode.Uri.file(include.file), targetRange: new vscode.Range(0, 0, 0, 0) }];
+		}
+
 		const found = wordAt(document, position);
 		if (!found || isMemberAccess(document, found.range.start)) {
 			return undefined;
@@ -52,16 +57,14 @@ export const definitionProvider: vscode.DefinitionProvider = {
 	},
 };
 
-export const documentLinkProvider: vscode.DocumentLinkProvider = {
-	provideDocumentLinks(document) {
-		return [...document.getText().matchAll(INCLUDE)].flatMap((match) => {
-			const [line, header] = match;
-			const file = includePath(document, header, document.uri.fsPath);
-			if (!file) {
-				return [];
-			}
-			const start = document.positionAt(match.index + line.indexOf('"') + 1);
-			return [new vscode.DocumentLink(new vscode.Range(start, start.translate(0, header.length)), vscode.Uri.file(file))];
-		});
-	},
-};
+export function includeAt(document: vscode.TextDocument, position: vscode.Position) {
+	const line = document.lineAt(position.line).text;
+	const [match] = line.matchAll(INCLUDE);
+	if (!match) {
+		return undefined;
+	}
+	const start = line.indexOf('"') + 1;
+	const range = new vscode.Range(position.line, start, position.line, start + match[1].length);
+	const file = range.contains(position) ? includePath(document, match[1], document.uri.fsPath) : undefined;
+	return file ? { range, file } : undefined;
+}
