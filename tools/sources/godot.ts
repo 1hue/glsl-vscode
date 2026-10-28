@@ -1,6 +1,6 @@
 // Godot shading language built-ins from Godot docs source (reStructuredText)
 
-import { Definitions, FetchText, FunctionGroup, Hint, Source, SourceConfig, Variable, parseParams, tidy } from './common';
+import { Definitions, FunctionGroup, Hint, ReadFile, Source, SourceConfig, Variable, parseParams, tidy } from './common';
 
 const DIRECTORY = 'tutorials/shaders/shader_reference';
 
@@ -39,9 +39,8 @@ interface GridTable {
 
 export const godot: Source = { generate };
 
-async function generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>> {
-	const base = `https://raw.githubusercontent.com/${config.repo}/${config.commit}/${DIRECTORY}`;
-	const fetchPage = (page: string) => fetchText(`${base}/${page}.rst`);
+async function generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>> {
+	const fetchPage = (page: string) => read(`${DIRECTORY}/${page}.rst`);
 
 	const functionsPage = await fetchPage('shader_functions');
 	const languagePage = await fetchPage('shading_language');
@@ -52,23 +51,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 	const substitutions = parseSubstitutions(functionsPage);
 
 	const definitions: GodotDefinitions = {
-		source: {
-			name: 'Godot Engine documentation',
-			url: `https://github.com/${config.repo}/tree/${config.branch}/${DIRECTORY}`,
-			commit: config.commit,
-			copyright:
-				'Copyright 2014-present Juan Linietsky, Ariel Manzur and the Godot community. ' +
-				'Function descriptions adapted from material Copyright © 2010-2014 Khronos Group, distributed subject to ' +
-				'the terms and conditions set forth in the Open Publication License, v 1.0, 8 June 1999',
-			licenses: [
-				{ id: 'CC-BY-3.0', url: 'https://creativecommons.org/licenses/by/3.0/' },
-				{ id: 'OPUBL-1.0', url: 'https://spdx.org/licenses/OPUBL-1.0.html' },
-			],
-			modified:
-				'Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. ' +
-				'Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages ' +
-				'(https://registry.khronos.org/OpenGL-Refpages/gl4/).',
-		},
+		source: { ...config.attribution, commit: config.commit },
 		functions: parseFunctions(functionsPage, substitutions),
 		variables: {},
 		renderModes: {},

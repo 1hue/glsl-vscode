@@ -87,7 +87,7 @@ markup simplified. Per-file details in `REUSE.toml`.
   Copyright © 2010-2014 Khronos Group, distributed subject to the terms and conditions set forth in the
   [Open Publication License, v 1.0](https://spdx.org/licenses/OPUBL-1.0.html), 8 June 1999.
 
-Pinned commits are in `package.json` under `config`.
+Pinned commits are in `tools/sources.json`.
 
 glslang is BSD and others ([LICENSE-glslang](https://github.com/1hue/glslang-wasm/blob/main/LICENSE-glslang)), SPIRV-Cross is Apache-2.0, both built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
 Preview uses [three.js](https://github.com/mrdoob/three.js) (MIT) and [Codicons](https://github.com/microsoft/vscode-codicons) © Microsoft, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

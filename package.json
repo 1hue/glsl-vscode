@@ -190,18 +190,6 @@
       }
     }
   },
-  "config": {
-    "glslSpec": {
-      "repo": "KhronosGroup/GLSL",
-      "branch": "main",
-      "commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711"
-    },
-    "godotDocs": {
-      "repo": "godotengine/godot-docs",
-      "branch": "master",
-      "commit": "26e5388e04433da47804a50234a11a43dea237b1"
-    }
-  },
   "scripts": {
     "compile": "tsc -p . && tsc -p tsconfig.webview.json",
     "watch": "tsc -p . --watch & tsc -p tsconfig.webview.json --watch",

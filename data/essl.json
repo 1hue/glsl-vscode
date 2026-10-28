@@ -2,7 +2,6 @@
 	"source": {
 		"name": "Khronos OpenGL ES Shading Language specification",
 		"url": "https://github.com/KhronosGroup/GLSL",
-		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711",
 		"copyright": "Copyright 2008-2026 The Khronos Group Inc.",
 		"licenses": [
 			{
@@ -10,7 +9,8 @@
 				"url": "https://creativecommons.org/licenses/by/4.0/"
 			}
 		],
-		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified."
+		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified.",
+		"commit": "0099bf83b0288469917fc2e2972cb0a2b74d6711"
 	},
 	"functions": {
 		"radians": [

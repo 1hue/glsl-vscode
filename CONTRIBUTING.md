@@ -39,4 +39,4 @@ make wasm-unlink # back to npm package
 
 ## Docs
 
-Regenerate after changing a commit in `package.json` `config`: `npm run gen:defs`.
+Regenerate with `npm run gen:defs`. After changing a commit in `tools/sources.json`, `npm run gen:defs -- --pin` records new file hashes.

@@ -2,7 +2,7 @@
 
 import { AbstractBlock, load } from '@asciidoctor/core';
 import { Flavor, constructsFor } from '#src/language/constructs';
-import { Definitions, FetchText, FunctionGroup, Signature, Source, SourceConfig, Variable, parseSignature, tidy } from './common';
+import { Definitions, FunctionGroup, ReadFile, Signature, Source, SourceConfig, Variable, parseSignature, tidy } from './common';
 
 type Block =
 	| { kind: 'heading'; level: number; text: string; id?: string }
@@ -96,10 +96,9 @@ const SYMBOLS: Record<string, string> = {
 
 export const khronos: Source = { generate };
 
-async function generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>> {
-	const base = `https://raw.githubusercontent.com/${config.repo}/${config.commit}`;
+async function generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>> {
 	const chapters = Object.keys(FILES) as Chapter[];
-	const texts = await Promise.all(chapters.map((c) => fetchText(`${base}/${FILES[c]}`)));
+	const texts = await Promise.all(chapters.map((c) => read(FILES[c])));
 
 	const outputs: Record<string, Definitions> = {};
 
@@ -113,14 +112,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 		addConstructDocs(name, parsed.flat(), attributes, { qualifiers, keywords });
 
 		outputs[name] = {
-			source: {
-				name: `Khronos ${flavor.title}`,
-				url: `https://github.com/${config.repo}`,
-				commit: config.commit,
-				copyright: 'Copyright 2008-2026 The Khronos Group Inc.',
-				licenses: [{ id: 'CC-BY-4.0', url: 'https://creativecommons.org/licenses/by/4.0/' }],
-				modified: 'Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified.',
-			},
+			source: { ...config.attribution, name: `${config.attribution.name} ${flavor.title}`, commit: config.commit },
 			functions: parseFunctions(blocksOf.functions, attributes),
 			variables: parseVariables(blocksOf.builtins, attributes),
 			types,

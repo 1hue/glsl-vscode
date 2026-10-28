@@ -1,17 +1,23 @@
-import type { Definitions, Param, Signature } from '#src/language/types';
+import type { Definitions, Param, Signature, SourceInfo } from '#src/language/types';
 
-export type { Definitions, FunctionGroup, Hint, Param, Signature, Variable } from '#src/language/types';
+export type { Definitions, FunctionGroup, Hint, Param, Signature, SourceInfo, Variable } from '#src/language/types';
 
+/** Entry in tools/sources.json */
 export interface SourceConfig {
 	repo: string;
 	branch: string;
 	commit: string;
+	/** Path in repo -> SHA-256 */
+	files: Record<string, string>;
+	/** Written into generated data */
+	attribution: Omit<SourceInfo, 'commit'>;
 }
 
-export type FetchText = (url: string) => Promise<string>;
+/** File at pinned commit, hash checked */
+export type ReadFile = (path: string) => Promise<string>;
 
 export interface Source {
-	generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>>;
+	generate(config: SourceConfig, read: ReadFile): Promise<Record<string, Definitions>>;
 }
 
 /** Parse prototype, e.g. `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */
