@@ -14,11 +14,7 @@ export interface Source {
 	generate(config: SourceConfig, fetchText: FetchText): Promise<Record<string, Definitions>>;
 }
 
-/**
- * Parses a prototype such as
- * `genFType mix(genFType x, genFType y, float a)` or
- * `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])`.
- */
+/** Parse prototype, e.g. `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */
 export function parseSignature(text: string): (Signature & { name: string }) | undefined {
 	const match = /^\s*((?:\w+\s+)*?)(\w+)\s*\((.*)\)\s*;?\s*$/.exec(text);
 	if (!match) {

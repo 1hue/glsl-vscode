@@ -1,4 +1,4 @@
-// GLSL keywords, qualifiers, etc., with Khronos spec anchors.
+// GLSL keywords and qualifiers with Khronos spec anchors
 
 export type Flavor = 'glsl' | 'essl';
 
@@ -16,7 +16,7 @@ export type QualifierGroup =
 export interface Construct {
 	names: string[];
 	kind: 'statement' | 'qualifier' | 'layout' | 'directive' | 'macro';
-	// No docs for basics borrowed from C or that are blatantly obvious
+	// No docs for C basics and obvious ones
 	section?: string;
 	only?: Flavor; // Only in desktop GLSL or only in GLSL ES
 	group?: QualifierGroup; // Qualifiers

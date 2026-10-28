@@ -1,4 +1,4 @@
-// GLSL and GLSL ES built-ins from the Khronos GLSL specification source (AsciiDoc).
+// GLSL and GLSL ES built-ins from Khronos GLSL spec source (AsciiDoc)
 
 import { AbstractBlock, load } from '@asciidoctor/core';
 import { Flavor, constructsFor } from '#src/language/constructs';
@@ -31,7 +31,7 @@ interface ListNode extends AbstractBlock {
 	getItems(): ItemNode[];
 }
 
-// Items are [terms, description] pairs.
+// Items are [terms, description] pairs
 interface DescriptionListNode extends AbstractBlock {
 	getItems(): [unknown, ItemNode | null][];
 }
@@ -132,10 +132,7 @@ async function generate(config: SourceConfig, fetchText: FetchText): Promise<Rec
 	return outputs;
 }
 
-/**
- * AsciiDoc flattened to headings, code, math, tables and paragraphs in order
- * `conditional`: `ifdef::GLSL[]` or `ifdef::ESSL[]`
- */
+/** AsciiDoc flattened in order, `conditional` is `ifdef::GLSL[]` or `ifdef::ESSL[]` */
 async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 	const document = await load(text, { attributes: { [conditional]: '' } });
 	const blocks: Block[] = [];
@@ -378,10 +375,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 	return restore(markdown);
 }
 
-/**
- * Types (`| Type | Meaning`) and qualifiers (`| ... Qualifier | Meaning`).
- * Qualifier in several tables (e.g. `in`) keeps all meanings
- */
+/** Types and qualifiers from spec tables, qualifier in several tables keeps all meanings */
 function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 	const types: Record<string, string> = {};
 	const qualifiers: Record<string, string> = {};
@@ -422,10 +416,7 @@ function addDoc(target: Record<string, string>, name: string, doc: string) {
 }
 
 
-/**
- * Docs for src/constructs.ts names from their spec sections.
- * Missing section fails - surfaces spec changes
- */
+/** Docs for constructs.ts names from spec sections - missing section fails */
 function addConstructDocs(
 	flavor: Flavor,
 	blocks: Block[],
@@ -532,10 +523,7 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	return blocks.length ? blocks : undefined;
 }
 
-/**
- * Paragraph at `index`. Continued after code ("The precision statement [code] can be used to ..."): from first part.
- * Ending in `:`: through what it introduces
- */
+/** Paragraph at `index` - from first part when continued after code, through what it introduces when ending in `:` */
 function paragraphRun(section: Block[], index: number): Block[] {
 	const textOf = (block: Block) => (block.kind === 'para' ? block.lines.join('\n') : '');
 
@@ -564,10 +552,7 @@ function paragraphRun(section: Block[], index: number): Block[] {
 	return section.slice(start, end + 1).filter((b) => b.kind !== 'grammar');
 }
 
-/**
- * Functions: each prototype block starts a group and the prose, tables and
- * examples that follow (until next heading or prototype block) are its doc
- */
+/** Functions - each prototype block plus prose, tables and examples up to next heading or prototype */
 function parseFunctions(blocks: Block[], attributes: Record<string, string>): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 
@@ -643,10 +628,7 @@ function stageFor(heading: string): string | undefined | false {
 	return stage ? stage[1].toLowerCase() : undefined;
 }
 
-/**
- * Variables: declarations from code blocks and docs from paragraphs whose
- * first sentence names the variable plus follow-ups naming none
- */
+/** Variables - declarations from code blocks, docs from paragraphs naming them */
 function parseVariables(blocks: Block[], attributes: Record<string, string>): Record<string, Variable[]> {
 	const variables = new Map<string, { stage: string; decl: string; doc: string[] }[]>();
 
@@ -741,10 +723,7 @@ function parseVariables(blocks: Block[], attributes: Record<string, string>): Re
 	return result;
 }
 
-/**
- * Built-in declarations in a code block e.g. `in vec4 gl_FragCoord;`,
- * members of `out gl_PerVertex { ... } gl_out[];` and `struct gl_DepthRangeParameters`.
- */
+/** Built-in declarations in code block, incl. `gl_PerVertex` members and `gl_DepthRangeParameters` */
 function parseDeclarations(lines: string[]): Map<string, string> {
 	const found = new Map<string, string>();
 

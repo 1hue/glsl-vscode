@@ -1,4 +1,4 @@
-// Preview webview: fragment shader from extension, fullscreen or on a mesh with orbit camera and light
+// Preview webview - shader fullscreen or on mesh with orbit camera and light
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -45,7 +45,7 @@ orbit.enableDamping = true;
 
 const mesh = new THREE.Mesh(GEOMETRIES.fullscreen());
 mesh.frustumCulled = false;
-// Marks light position, only shaders using lightPosition are lit
+// Light marker
 const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.06, 16, 8), new THREE.MeshBasicMaterial({ color: 0xffffff }));
 world.add(mesh, lamp);
 
@@ -225,7 +225,7 @@ function buildMaterial() {
 	previous.dispose();
 }
 
-/** three.js uniforms for controls and renamed built-ins. Block members `block.member` become struct values */
+/** three.js uniforms for controls and renamed built-ins, block members as struct values */
 function userUniforms({ controls, builtins }: Shader): Record<string, THREE.IUniform> {
 	const uniforms: Record<string, THREE.IUniform> = {};
 	const assign = (path: string, value: unknown) => {

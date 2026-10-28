@@ -1,4 +1,4 @@
-// Messages between extension and preview webview. Types only - imported by both builds
+// Extension and preview webview messages - types only, used by both builds
 
 export type Value = number | number[] | boolean;
 
@@ -21,7 +21,7 @@ export interface Shader {
 	/** Without `#version` - three.js adds it */
 	fragment: string;
 	version: WebGLVersion;
-	/** Lines before original line 1, incl. `#version` from three.js - subtract from WebGL log. None when cross-compiled */
+	/** Lines before original line 1 - subtract from WebGL log. None when cross-compiled */
 	lineOffset?: number;
 	controls: Control[];
 	/** Built-ins under another name, e.g. `Time_.time` for `time` in a Vulkan block */

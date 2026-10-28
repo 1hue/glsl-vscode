@@ -1,4 +1,4 @@
-// Markdown for hovers and completion docs.
+// Markdown for hovers and completion docs
 
 import * as vscode from 'vscode';
 import { Context, isAvailable } from '#src/language/definitions';

@@ -1,4 +1,4 @@
-// Keywords and types for completion; built-in functions and variables in data/*.json.
+// Keywords and types for completion, built-ins are in data/*.json
 
 import { Construct, GLSL_CONSTRUCTS } from './constructs';
 
@@ -60,7 +60,7 @@ export const GDSHADER_DIRECTIVES = ['#define', '#undef', '#if', '#ifdef', '#ifnd
 // Godot `shader_type` values
 export const GDSHADER_SHADER_TYPES = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
 
-// Godot processing functions; built-ins scoped to these
+// Godot processing functions, built-ins scoped to these
 export const GDSHADER_STAGE_FUNCTIONS = ['vertex', 'fragment', 'light', 'start', 'process', 'sky', 'fog', 'blit'];
 
 // GLSL stage by file extension

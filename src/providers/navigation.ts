@@ -1,4 +1,4 @@
-// Outline (document symbols) and go to definition.
+// Outline (document symbols) and go to definition
 
 import * as vscode from 'vscode';
 import { builtinLocation } from '#src/language/builtinsDocument';

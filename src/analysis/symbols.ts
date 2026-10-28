@@ -1,5 +1,4 @@
-// User symbols from a lightweight text scan.
-// Not a parser: enough for outline, hover, completion and go to definition in typical shaders.
+// User symbols from text scan - not a parser, good enough for typical shaders
 
 import * as vscode from 'vscode';
 import { GDSHADER_SHADER_TYPES, GLSL_TYPES } from '#src/language/keywords';
@@ -26,7 +25,7 @@ export interface UserSymbol {
 
 	children?: UserSymbol[];
 
-	/** Block without instance name: members used like globals */
+	/** Block without instance name - members used like globals */
 	exposesMembers?: boolean;
 }
 
@@ -89,7 +88,7 @@ export function enclosingFunction(scan: DocumentScan, offset: number): UserSymbo
 	);
 }
 
-/** Comments and strings to spaces keeping offsets and newlines */
+/** Blank comments and strings, keep offsets and newlines */
 export function stripComments(text: string): string {
 	const blank = (s: string) => s.replace(/[^\n]/g, ' ');
 	return text.replace(/\/\*[\s\S]*?(\*\/|$)|\/\/[^\n]*|"(?:[^"\\\n]|\\.)*"/g, blank);
@@ -279,7 +278,7 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 		const signature = collapse(`${returnType} ${name}(${paramText})`);
 
 		if (terminator === ';') {
-			// Prototype: listed only without definition
+			// Prototype listed only without definition
 			const defined = new RegExp(`\\b${name}\\s*\\([^()]*\\)\\s*\\{`).test(source);
 			if (!defined) {
 				functions.push({ name, kind: 'function', detail: signature + ';', start, end: start + whole.length, nameStart });
@@ -434,8 +433,7 @@ function* topLevelStatements(source: string, braces: Map<number, number>): Gener
 				text = '';
 				start = close + 1;
 			} else {
-				// Struct/block: keep text around body (`uniform Block { ... } instance;`),
-				// padded - offsets match source
+				// Keep text around struct/block body, padded to source offsets
 				text += ' '.repeat(close - i + 1);
 			}
 			i = close;

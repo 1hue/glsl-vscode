@@ -1,4 +1,4 @@
-// Loads data/*.json and works out which built-ins apply at a position in a document.
+// Built-ins from data/*.json that apply at document position
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -21,7 +21,7 @@ export interface Context {
 	/** Godot `shader_type` */
 	shaderType?: string;
 
-	/** GLSL compatibility profile: `#version 450 compatibility`, or pre-profile version (< 150) */
+	/** GLSL compatibility profile - `#version 450 compatibility` or before 150 */
 	compatibility?: boolean;
 }
 

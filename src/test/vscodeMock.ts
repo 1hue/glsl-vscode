@@ -1,5 +1,4 @@
-// Just enough of the vscode API to run diagnostics under plain Node (node --test).
-// Import before anything that imports vscode
+// Just enough vscode API to run diagnostics in plain Node - import before anything that imports vscode
 
 import * as fs from 'fs';
 import * as os from 'os';

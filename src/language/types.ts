@@ -1,5 +1,4 @@
-// Shape of the generated data/*.json definition files.
-// Shared by the generators (tools/) and the extension.
+// Shape of data/*.json, shared by tools/ and extension
 
 export interface Param {
 	type: string;

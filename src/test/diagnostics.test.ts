@@ -1,5 +1,4 @@
-// Include confinement: needs symlinks and paths outside the workspace - built at runtime
-// Everything else is in fixtures/
+// Include confinement - needs symlinks and paths outside workspace, rest is in fixtures/
 
 import { diagnose, document, fixture } from './vscodeMock';
 

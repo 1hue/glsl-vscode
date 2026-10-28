@@ -1,4 +1,4 @@
-// Word and statement around the cursor.
+// Word and statement around cursor
 
 import * as vscode from 'vscode';
 import { DeclarationScope } from '#src/language/constructs';
@@ -57,10 +57,7 @@ export type CursorContext =
 	| { kind: 'expression' } // `x = |`, `f(|`
 	| { kind: 'name' }; // `vec4 |`: name follows
 
-/**
- * What fits at the cursor from text before it (`undefined` if unclear)
- * `qualifierNames`, `typeNames`: tell qualifiers and types from other words
- */
+/** What fits at cursor from text before it, undefined if unclear */
 export function cursorContext(
 	document: vscode.TextDocument,
 	position: vscode.Position,

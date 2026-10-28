@@ -43,7 +43,7 @@ const RAY_TRACING_EXTENSIONS: Record<string, Stage> = {
 
 const STAGES = new Set<string>([...Object.values(GLSLANG_STAGES), ...Object.values(RAY_TRACING_EXTENSIONS)]);
 
-// Godot RD shader sections (RDShaderFile::parse_versions_from_text); `#[versions]` isn't shader code
+// Godot RD shader sections (RDShaderFile::parse_versions_from_text), `#[versions]` isn't code
 const GODOT_SECTIONS: Record<string, Stage> = {
 	vertex: 'vertex',
 	fragment: 'fragment',
@@ -136,7 +136,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 				}
 			}
 		} catch {
-			// Stack overflow on huge expressions etc.: nothing to report
+			// Stack overflow on huge expressions etc - nothing to report
 		}
 
 		if (document.isClosed || document.version !== version) {
@@ -224,10 +224,7 @@ function unitsOf(document: vscode.TextDocument): Unit[] {
 	return [{ source: text, stage: stageOf(document, text), client, lineOffset: 0, ...defaults }];
 }
 
-/**
- * One unit for all processing functions (`vertex()`, `fragment()`, ...) with built-ins of all of them.
- * Compatibility renderer targets GLSL ES 3.0, others Vulkan GLSL 450
- */
+/** All Godot processing functions in one unit - compatibility renderer GLSL ES 3.0, others Vulkan GLSL 450 */
 function gdshaderUnits(document: vscode.TextDocument, text: string): Unit[] {
 	// No `shader_type` (.gdshaderinc): checked through its includers
 	const shaderType = shaderTypeOf(text);
@@ -257,18 +254,7 @@ function compatibilityRenderer(document: vscode.TextDocument): boolean {
 	return !!project && /^renderer\/rendering_method="gl_compatibility"/m.test(project);
 }
 
-/**
- * Godot RD shader, compiled like RDShaderFile::parse_versions_from_text:
- * #[versions]
- * lod = "#define USE_LOD";
- * #[vertex]
- * #version 450
- * #VERSION_DEFINES
- * ...
- * #[fragment]
- * ...
- * One unit per stage and version, version defines in the preamble
- */
+/** Godot RD shader like RDShaderFile::parse_versions_from_text - one unit per stage and version, defines in preamble */
 function godotUnits(text: string, sections: RegExpMatchArray[]): Unit[] {
 	const body = (i: number) => {
 		const start = (sections[i].index ?? 0) + sections[i][0].length + 1;
@@ -289,7 +275,7 @@ function godotUnits(text: string, sections: RegExpMatchArray[]): Unit[] {
 		}
 		const { start, text: code } = body(i);
 
-		// Godot replaces the token with the defines; `#` alone left is a null directive
+		// Godot replaces token with defines, lone `#` left is null directive
 		const source = code.replace(/VERSION_DEFINES/g, blank);
 		const lineOffset = text.slice(0, start).split('\n').length - 1;
 
@@ -337,7 +323,7 @@ function clientOf(text: string): Client {
 	return isVulkan(text) ? 'vulkan' : 'none';
 }
 
-/** Includes and `project.godot` never resolve outside this: workspace folder, else document's directory */
+/** Includes and `project.godot` stay inside this - workspace folder, else document directory */
 function includeRoot(document: vscode.TextDocument): string {
 	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath ?? path.dirname(document.uri.fsPath);
 }
@@ -393,7 +379,7 @@ function readSource(file: string): string | undefined {
 	}
 }
 
-/** Errors inside includes go on the document's top-level `#include` line */
+/** Errors in includes go on top-level `#include` line */
 function toDiagnostic(
 	document: vscode.TextDocument,
 	diagnostic: GlslangDiagnostic,
@@ -405,7 +391,7 @@ function toDiagnostic(
 
 	if (!includes.has(diagnostic.source)) {
 		const token = /^'([^']+)'/.exec(diagnostic.message)?.[1];
-		// Link errors have no line: unit's first line, Godot's section header
+		// Link errors have no line - unit's first line, Godot's section header
 		const line = diagnostic.line === undefined ? lineOffset - 1 : diagnostic.line - 1 + lineOffset;
 		const range = rangeAt(document, line, diagnostic.column, token);
 		return withSource(new vscode.Diagnostic(range, message, severity));
@@ -455,10 +441,7 @@ function findIncludeLine(document: vscode.TextDocument, header: string): number 
 	return 0;
 }
 
-/**
- * Token named in the message (`'iveca2': no matching overloaded function`), else word at 1-based column,
- * else whole line. glslang puts some errors elsewhere, e.g. failed calls at their closing `)`
- */
+/** Token named in message, else word at column, else whole line */
 function rangeAt(document: vscode.TextDocument, line: number, column?: number, token?: string): vscode.Range {
 	const textLine = document.lineAt(Math.min(Math.max(line, 0), document.lineCount - 1));
 

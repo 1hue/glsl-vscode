@@ -1,4 +1,4 @@
-// Godot shading language built-ins from the Godot documentation source (reStructuredText).
+// Godot shading language built-ins from Godot docs source (reStructuredText)
 
 import { Definitions, FetchText, FunctionGroup, Hint, Source, SourceConfig, Variable, parseParams, tidy } from './common';
 
@@ -16,8 +16,7 @@ const SHADER_TYPES: Record<string, string> = {
 	texture_blit: 'texture_blit_shader',
 };
 
-// Section heading -> processing function the built-ins are available in.
-// Headings not listed keep the current stage (e.g. "COLOR and TEXTURE" under "Fragment built-ins").
+// Section heading -> processing function of its built-ins. Unlisted headings keep current stage
 const STAGES: [RegExp, string | undefined][] = [
 	[/^built-ins$/i, undefined],
 	[/^global built-ins/i, 'global'],
@@ -140,11 +139,7 @@ function indentedBlock(lines: string[], start: number, indent: number): { lines:
 	return { lines: body.map((l) => l.slice(minIndent)), end };
 }
 
-/**
- * Function descriptions: one or more signature lines
- * `|vec_type| **mix**\ (\ |vec_type| a, |vec_type| b, float c) :ref:...`
- * followed by an indented body with prose, `:param x:`, `:return:` and directives.
- */
+/** Function descriptions - signature lines like `|vec_type| **mix**\ (...)`, then indented body */
 function parseFunctions(text: string, substitutions: Record<string, string>): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 	const lines = text.split('\n');
@@ -440,11 +435,7 @@ function addLanguagePage(definitions: GodotDefinitions, text: string, substituti
 	}
 }
 
-/**
- * `filter[_nearest, _linear][_mipmap][_anisotropic]` -> filter_nearest, filter_linear,
- * filter_nearest_mipmap, ..., filter_linear_mipmap_anisotropic.
- * The first bracket group is a required choice, later groups extend the previous names.
- */
+/** Expand `filter[_nearest, _linear][_mipmap]` to all names - first group required, later ones extend */
 function expandHint(text: string): string[] {
 	const match = /^(\w+)((?:\[[^\]]+\])*)/.exec(text);
 	if (!match) {

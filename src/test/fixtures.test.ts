@@ -1,8 +1,8 @@
-// Every shader under fixtures/ is checked against its own markers:
+// Each shader under fixtures/ is checked against its markers:
 //   code; // error: 'foo': undeclared identifier
-//   code; // error `foo`: 'foo': undeclared identifier    (also checks the underlined text)
-// A marker alone on its line applies to the next code line. No markers: no diagnostics expected.
-// Each folder directly under fixtures/ is the workspace folder for its files
+//   code; // error `foo`: 'foo': undeclared identifier    (also checks underlined text)
+// Marker alone on its line applies to next code line. No markers - no diagnostics expected
+// Each folder under fixtures/ is workspace folder for its files
 
 import { ROOT, Result, diagnose, document } from './vscodeMock';
 

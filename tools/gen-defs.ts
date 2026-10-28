@@ -1,4 +1,4 @@
-// Generates data/*.json from doc sources pinned in package.json `config`.
+// Generate data/*.json from doc sources pinned in package.json `config`
 // Usage: node out/tools/gen-defs.js [source...]
 
 import * as fs from 'node:fs/promises';

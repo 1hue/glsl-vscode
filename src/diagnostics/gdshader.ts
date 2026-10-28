@@ -1,8 +1,8 @@
-// Godot shader source as GLSL glslang can check. Godot-only syntax blanked with spaces - positions match
+// Godot shader as GLSL for glslang, Godot-only syntax blanked - positions match
 
 import { Definitions } from '#src/language/types';
 
-// GLSL ES types without default precision; Godot doesn't need it declared
+// GLSL ES types without default precision - Godot doesn't need it declared
 const ES_PRECISION = [
 	'float',
 	'int',
@@ -36,7 +36,7 @@ export function gdshaderToGlsl(text: string): string {
 			.replace(/\b(shader_type|render_mode|stencil_mode|group_uniforms)\b[^;]*;/g, blank)
 			.replace(/\b(global|instance)(?=\s+uniform\b)/g, blank)
 			.replace(/\bvarying(\s+(flat|smooth))?\b/g, blank)
-			// `uniform float x : hint_range(0, 1) = 0.5;`: hints, and defaults (none in GLSL ES)
+			// Hints and defaults, none in GLSL ES: `uniform float x : hint_range(0, 1) = 0.5;`
 			.replace(/(\buniform\b[^;:=]*)([:=][^;]*)/g, (_match, declaration: string, hints: string) => declaration + blank(hints))
 	);
 }

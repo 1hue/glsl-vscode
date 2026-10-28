@@ -1,4 +1,4 @@
-// Godot built-ins preamble. Godot shader diagnostics themselves are in fixtures/
+// Godot built-ins preamble, Godot diagnostics are in fixtures/
 
 import { ROOT } from './vscodeMock';
 
