@@ -1,5 +1,5 @@
 # Development commands in containers
-.PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink vendor defs
+.PHONY: build install compile test format setup sh clean submodule wasm-link wasm-unlink vendor defs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
@@ -23,6 +23,10 @@ compile: | node_modules
 
 test: | node_modules
 	$(RUN_OFFLINE) $(NODE) npm test
+
+# Format TS, JS, JSON and CSS
+format: | node_modules
+	$(RUN_OFFLINE) $(NODE) npx prettier --write .
 
 # Install deps and audit
 setup:

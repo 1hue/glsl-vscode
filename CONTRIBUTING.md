@@ -18,6 +18,12 @@ make install VSCODE=code # for regular VS Code instead of codium
 make build # build/*.vsix only
 ```
 
+Format with Prettier:
+
+```sh
+make format
+```
+
 > [!NOTE]
 > | Commands | | |
 > | --- | --- | --- |

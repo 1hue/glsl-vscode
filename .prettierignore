@@ -1,0 +1,7 @@
+data/
+syntaxes/
+vendor/
+LICENSES/
+src/test/fixtures/
+package-lock.json
+*.md
