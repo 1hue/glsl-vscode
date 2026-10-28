@@ -41,7 +41,10 @@ const RAY_TRACING_EXTENSIONS: Record<string, Stage> = {
 	'.rcall': 'callable',
 };
 
-const STAGES = new Set<string>([...Object.values(GLSLANG_STAGES), ...Object.values(RAY_TRACING_EXTENSIONS)]);
+const STAGES = new Set<string>([
+	...Object.values(GLSLANG_STAGES),
+	...Object.values(RAY_TRACING_EXTENSIONS),
+]);
 
 // Godot RD shader sections
 const GODOT_SECTIONS: Record<string, Stage> = {
@@ -79,7 +82,13 @@ const GLSL_DEFAULTS = { version: 450, profile: 'core' } as const;
 const LEGACY_DEFAULTS = { version: 110, profile: 'none' } as const;
 
 // Godot's compile_glslang_shader for RD shader files
-const GODOT_RD = { ...GLSL_DEFAULTS, client: 'vulkan', vulkanVersion: '1.1', spirvVersion: '1.4', link: true } as const;
+const GODOT_RD = {
+	...GLSL_DEFAULTS,
+	client: 'vulkan',
+	vulkanVersion: '1.1',
+	spirvVersion: '1.4',
+	link: true,
+} as const;
 
 // Where each file was included from
 type Includes = Map<string, { includer: string; header: string }>;
@@ -115,7 +124,10 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 			const source = file && readSource(file);
 			if (file && source !== undefined) {
 				includes.set(file, { includer, header });
-				return { name: file, source: document.languageId === 'gdshader' ? gdshaderToGlsl(source) : source };
+				return {
+					name: file,
+					source: document.languageId === 'gdshader' ? gdshaderToGlsl(source) : source,
+				};
 			}
 			return undefined;
 		};
@@ -177,7 +189,9 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 			schedule(document);
 			scheduleDependents(document.uri.fsPath);
 		}),
-		vscode.workspace.onDidSaveTextDocument((document) => scheduleDependents(document.uri.fsPath)),
+		vscode.workspace.onDidSaveTextDocument((document) =>
+			scheduleDependents(document.uri.fsPath),
+		),
 		vscode.workspace.onDidCloseTextDocument((document) => {
 			const key = document.uri.toString();
 			clearTimeout(timers.get(key));
@@ -190,7 +204,9 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 				vscode.workspace.textDocuments.forEach(schedule);
 			}
 		}),
-		vscode.workspace.onDidGrantWorkspaceTrust(() => vscode.workspace.textDocuments.forEach(schedule)),
+		vscode.workspace.onDidGrantWorkspaceTrust(() =>
+			vscode.workspace.textDocuments.forEach(schedule),
+		),
 		{ dispose: () => timers.forEach(clearTimeout) },
 	);
 
@@ -265,7 +281,9 @@ function godotUnits(text: string, sections: RegExpMatchArray[]): Unit[] {
 	const versions =
 		versionsIndex < 0
 			? ['']
-			: [...body(versionsIndex).text.matchAll(/^\s*\w+\s*=\s*"((?:[^"\\]|\\.)*)"/gm)].map((m) => unescape(m[1]) + '\n');
+			: [...body(versionsIndex).text.matchAll(/^\s*\w+\s*=\s*"((?:[^"\\]|\\.)*)"/gm)].map(
+					(m) => unescape(m[1]) + '\n',
+				);
 
 	const units: Unit[] = [];
 	sections.forEach((section, i) => {
@@ -294,7 +312,9 @@ function unescape(text: string): string {
 
 /** Setting glob, `#pragma shader_stage`, file extension, else fragment */
 function stageOf(document: vscode.TextDocument, text: string): Stage {
-	const globs = vscode.workspace.getConfiguration('glsl.diagnostics', document).get<Record<string, string>>('stages', {});
+	const globs = vscode.workspace
+		.getConfiguration('glsl.diagnostics', document)
+		.get<Record<string, string>>('stages', {});
 	for (const [pattern, stage] of Object.entries(globs)) {
 		if (STAGES.has(stage) && vscode.languages.match({ pattern }, document)) {
 			return stage as Stage;
@@ -310,7 +330,8 @@ function stageOf(document: vscode.TextDocument, text: string): Stage {
 	const base = path.basename(document.uri.fsPath).toLowerCase();
 	const extensions = [path.extname(base), path.extname(path.basename(base, path.extname(base)))];
 	for (const extension of extensions) {
-		const stage = RAY_TRACING_EXTENSIONS[extension] ?? GLSLANG_STAGES[STAGE_BY_EXTENSION[extension]];
+		const stage =
+			RAY_TRACING_EXTENSIONS[extension] ?? GLSLANG_STAGES[STAGE_BY_EXTENSION[extension]];
 		if (stage) {
 			return stage;
 		}
@@ -325,10 +346,17 @@ function clientOf(text: string): Client {
 
 /** Workspace folder, else document directory */
 function includeRoot(document: vscode.TextDocument): string {
-	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath ?? path.dirname(document.uri.fsPath);
+	return (
+		vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath
+		?? path.dirname(document.uri.fsPath)
+	);
 }
 
-export function includePath(document: vscode.TextDocument, header: string, includer: string): string | undefined {
+export function includePath(
+	document: vscode.TextDocument,
+	header: string,
+	includer: string,
+): string | undefined {
 	const root = includeRoot(document);
 
 	let file: string | undefined;
@@ -346,15 +374,24 @@ export function includePath(document: vscode.TextDocument, header: string, inclu
 function isInside(root: string, file: string): boolean {
 	try {
 		const relative = path.relative(fs.realpathSync(root), fs.realpathSync(file));
-		return relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative);
+		return (
+			relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative)
+		);
 	} catch {
 		return false;
 	}
 }
 
 /** Nearest `project.godot` up from document, not above root */
-function godotRoot(document: vscode.TextDocument, root = includeRoot(document)): string | undefined {
-	for (let current = path.dirname(document.uri.fsPath); isInside(root, current); current = path.dirname(current)) {
+function godotRoot(
+	document: vscode.TextDocument,
+	root = includeRoot(document),
+): string | undefined {
+	for (
+		let current = path.dirname(document.uri.fsPath);
+		isInside(root, current);
+		current = path.dirname(current)
+	) {
 		if (fs.existsSync(`${current}/project.godot`)) {
 			return current;
 		}
@@ -386,12 +423,16 @@ function toDiagnostic(
 	includes: Includes,
 ): vscode.Diagnostic {
 	const message = cleanMessage(diagnostic.message);
-	const severity = diagnostic.severity === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning;
+	const severity =
+		diagnostic.severity === 'error'
+			? vscode.DiagnosticSeverity.Error
+			: vscode.DiagnosticSeverity.Warning;
 
 	if (!includes.has(diagnostic.source)) {
 		const token = /^'([^']+)'/.exec(diagnostic.message)?.[1];
 		// Link errors go on unit's first line
-		const line = diagnostic.line === undefined ? lineOffset - 1 : diagnostic.line - 1 + lineOffset;
+		const line =
+			diagnostic.line === undefined ? lineOffset - 1 : diagnostic.line - 1 + lineOffset;
 		const range = rangeAt(document, line, diagnostic.column, token);
 		return withSource(new vscode.Diagnostic(range, message, severity));
 	}
@@ -404,12 +445,19 @@ function toDiagnostic(
 	const line = findIncludeLine(document, header);
 
 	const location = vscode.workspace.asRelativePath(diagnostic.source);
-	const result = new vscode.Diagnostic(rangeAt(document, line), `${location}:${diagnostic.line}: ${message}`, severity);
+	const result = new vscode.Diagnostic(
+		rangeAt(document, line),
+		`${location}:${diagnostic.line}: ${message}`,
+		severity,
+	);
 	result.relatedInformation = [
 		new vscode.DiagnosticRelatedInformation(
 			new vscode.Location(
 				vscode.Uri.file(diagnostic.source),
-				new vscode.Position((diagnostic.line ?? 1) - 1, Math.max((diagnostic.column ?? 1) - 1, 0)),
+				new vscode.Position(
+					(diagnostic.line ?? 1) - 1,
+					Math.max((diagnostic.column ?? 1) - 1, 0),
+				),
 			),
 			message,
 		),
@@ -440,20 +488,42 @@ function findIncludeLine(document: vscode.TextDocument, header: string): number 
 }
 
 /** Token named in message, else word at column, else whole line */
-function rangeAt(document: vscode.TextDocument, line: number, column?: number, token?: string): vscode.Range {
+function rangeAt(
+	document: vscode.TextDocument,
+	line: number,
+	column?: number,
+	token?: string,
+): vscode.Range {
 	const textLine = document.lineAt(Math.min(Math.max(line, 0), document.lineCount - 1));
 
-	const start = token === undefined ? undefined : tokenIndex(textLine.text, token, (column ?? 1) - 1);
+	const start =
+		token === undefined ? undefined : tokenIndex(textLine.text, token, (column ?? 1) - 1);
 	if (start !== undefined) {
-		return new vscode.Range(textLine.lineNumber, start, textLine.lineNumber, start + token!.length);
+		return new vscode.Range(
+			textLine.lineNumber,
+			start,
+			textLine.lineNumber,
+			start + token!.length,
+		);
 	}
 
 	if (column) {
-		const position = new vscode.Position(textLine.lineNumber, Math.min(column - 1, textLine.text.length));
-		return document.getWordRangeAtPosition(position) ?? new vscode.Range(position, position.translate(0, 1));
+		const position = new vscode.Position(
+			textLine.lineNumber,
+			Math.min(column - 1, textLine.text.length),
+		);
+		return (
+			document.getWordRangeAtPosition(position)
+			?? new vscode.Range(position, position.translate(0, 1))
+		);
 	}
 
-	return new vscode.Range(textLine.lineNumber, textLine.firstNonWhitespaceCharacterIndex, textLine.lineNumber, textLine.text.length);
+	return new vscode.Range(
+		textLine.lineNumber,
+		textLine.firstNonWhitespaceCharacterIndex,
+		textLine.lineNumber,
+		textLine.text.length,
+	);
 }
 
 /** Last occurrence at or before index, else first. Whole words for identifiers */

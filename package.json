@@ -1,219 +1,219 @@
 {
-  "name": "glsl-vscode",
-  "displayName": "GLSL",
-  "description": "GLSL and Godot shader support: highlighting, hover docs, completion, signature help, outline, go to definition",
-  "version": "1.0.0",
-  "publisher": "1hue",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/1hue/glsl-vscode"
-  },
-  "engines": {
-    "vscode": "^1.82.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "keywords": [
-    "glsl",
-    "essl",
-    "shader",
-    "opengl",
-    "godot",
-    "gdshader"
-  ],
-  "main": "./out/src/extension.js",
-  "imports": {
-    "#src/*": "./out/src/*.js",
-    "#data/*": "./data/*.json"
-  },
-  "activationEvents": [
-    "onWebviewPanel:glsl.preview"
-  ],
-  "capabilities": {
-    "untrustedWorkspaces": {
-      "supported": "limited",
-      "description": "`#include` isn't resolved in Restricted Mode."
-    }
-  },
-  "contributes": {
-    "languages": [
-      {
-        "id": "glsl",
-        "aliases": [
-          "GLSL",
-          "OpenGL Shading Language",
-          "glsl"
-        ],
-        "extensions": [
-          ".vs",
-          ".fs",
-          ".gs",
-          ".vsh",
-          ".fsh",
-          ".gsh",
-          ".csh",
-          ".vshader",
-          ".fshader",
-          ".gshader",
-          ".comp",
-          ".vert",
-          ".tesc",
-          ".tese",
-          ".frag",
-          ".geom",
-          ".mesh",
-          ".task",
-          ".rgen",
-          ".rint",
-          ".rahit",
-          ".rchit",
-          ".rmiss",
-          ".rcall",
-          ".glsl",
-          ".glslv",
-          ".glslf",
-          ".glslg",
-          ".glsl.inc",
-          ".glslinc"
-        ],
-        "configuration": "./language-configuration.json"
-      },
-      {
-        "id": "gdshader",
-        "aliases": [
-          "Godot Shader",
-          "gdshader"
-        ],
-        "extensions": [
-          ".gdshader",
-          ".gdshaderinc"
-        ],
-        "configuration": "./language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "glsl",
-        "scopeName": "source.glsl",
-        "path": "./syntaxes/glsl.tmLanguage"
-      },
-      {
-        "language": "gdshader",
-        "scopeName": "source.gdshader",
-        "path": "./syntaxes/gdshader.tmLanguage.json"
-      },
-      {
-        "scopeName": "text.html.glsl",
-        "path": "./syntaxes/glsl-html.tmLanguage.json",
-        "injectTo": [
-          "text.html"
-        ],
-        "embeddedLanguages": {
-          "source.glsl": "glsl"
-        }
-      },
-      {
-        "scopeName": "source.cpp.glsl",
-        "path": "./syntaxes/glsl-cpp.tmLanguage.json",
-        "injectTo": [
-          "source.cpp"
-        ],
-        "embeddedLanguages": {
-          "source.glsl": "glsl"
-        }
-      }
-    ],
-    "commands": [
-      {
-        "command": "glsl.showPreviewToSide",
-        "title": "Open Shader Preview to the Side",
-        "category": "GLSL",
-        "icon": "assets/preview.svg"
-      }
-    ],
-    "menus": {
-      "editor/title": [
-        {
-          "command": "glsl.showPreviewToSide",
-          "when": "editorLangId == glsl || editorLangId == gdshader",
-          "group": "navigation"
-        }
-      ],
-      "commandPalette": [
-        {
-          "command": "glsl.showPreviewToSide",
-          "when": "editorLangId == glsl || editorLangId == gdshader"
-        }
-      ]
-    },
-    "keybindings": [
-      {
-        "command": "glsl.showPreviewToSide",
-        "key": "ctrl+shift+v",
-        "mac": "cmd+shift+v",
-        "when": "editorLangId == glsl || editorLangId == gdshader"
-      }
-    ],
-    "configuration": {
-      "title": "GLSL",
-      "properties": {
-        "glsl.diagnostics.enable": {
-          "type": "boolean",
-          "default": true,
-          "description": "Report glslang errors and warnings in GLSL files."
-        },
-        "glsl.diagnostics.stages": {
-          "type": "object",
-          "default": {},
-          "markdownDescription": "Shader stage per glob, e.g. `{\"**/*_vs.glsl\": \"vertex\"}`. Takes priority over `#pragma shader_stage(...)` and the file extension. Unmatched files without a stage hint are checked as fragment shaders.",
-          "additionalProperties": {
-            "type": "string",
-            "enum": [
-              "vertex",
-              "tesscontrol",
-              "tesseval",
-              "geometry",
-              "fragment",
-              "compute",
-              "raygen",
-              "intersect",
-              "anyhit",
-              "closesthit",
-              "miss",
-              "callable",
-              "task",
-              "mesh"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "scripts": {
-    "compile": "tsc -p . && tsc -p tsconfig.webview.json",
-    "watch": "tsc -p . --watch & tsc -p tsconfig.webview.json --watch",
-    "test": "npm run compile && node --test out/src/test/*.test.js",
-    "gen:defs": "npm run compile && node out/tools/gen-defs.js",
-    "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
-    "package": "mkdir -p build && vsce package --out build/"
-  },
-  "devDependencies": {
-    "@asciidoctor/core": "^4.1.1",
-    "@types/node": "^26.6.5",
-    "@types/three": "^0.186.0",
-    "@types/vscode": "~1.82.0",
-    "@vscode/vsce": "^4.0.0",
-    "prettier": "3.9.10",
-    "typescript": "^7.0.2"
-  },
-  "overrides": {
-    "@azure/msal-node": "^7.1.1"
-  },
-  "dependencies": {
-    "@vscode/codicons": "^0.0.46-24",
-    "glslang-wasm": "^1.1.1",
-    "three": "^0.186.1"
-  }
+	"name": "glsl-vscode",
+	"displayName": "GLSL",
+	"description": "GLSL and Godot shader support: highlighting, hover docs, completion, signature help, outline, go to definition",
+	"version": "1.0.0",
+	"publisher": "1hue",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/1hue/glsl-vscode"
+	},
+	"engines": {
+		"vscode": "^1.82.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"glsl",
+		"essl",
+		"shader",
+		"opengl",
+		"godot",
+		"gdshader"
+	],
+	"main": "./out/src/extension.js",
+	"imports": {
+		"#src/*": "./out/src/*.js",
+		"#data/*": "./data/*.json"
+	},
+	"activationEvents": [
+		"onWebviewPanel:glsl.preview"
+	],
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": "limited",
+			"description": "`#include` isn't resolved in Restricted Mode."
+		}
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "glsl",
+				"aliases": [
+					"GLSL",
+					"OpenGL Shading Language",
+					"glsl"
+				],
+				"extensions": [
+					".vs",
+					".fs",
+					".gs",
+					".vsh",
+					".fsh",
+					".gsh",
+					".csh",
+					".vshader",
+					".fshader",
+					".gshader",
+					".comp",
+					".vert",
+					".tesc",
+					".tese",
+					".frag",
+					".geom",
+					".mesh",
+					".task",
+					".rgen",
+					".rint",
+					".rahit",
+					".rchit",
+					".rmiss",
+					".rcall",
+					".glsl",
+					".glslv",
+					".glslf",
+					".glslg",
+					".glsl.inc",
+					".glslinc"
+				],
+				"configuration": "./language-configuration.json"
+			},
+			{
+				"id": "gdshader",
+				"aliases": [
+					"Godot Shader",
+					"gdshader"
+				],
+				"extensions": [
+					".gdshader",
+					".gdshaderinc"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "glsl",
+				"scopeName": "source.glsl",
+				"path": "./syntaxes/glsl.tmLanguage"
+			},
+			{
+				"language": "gdshader",
+				"scopeName": "source.gdshader",
+				"path": "./syntaxes/gdshader.tmLanguage.json"
+			},
+			{
+				"scopeName": "text.html.glsl",
+				"path": "./syntaxes/glsl-html.tmLanguage.json",
+				"injectTo": [
+					"text.html"
+				],
+				"embeddedLanguages": {
+					"source.glsl": "glsl"
+				}
+			},
+			{
+				"scopeName": "source.cpp.glsl",
+				"path": "./syntaxes/glsl-cpp.tmLanguage.json",
+				"injectTo": [
+					"source.cpp"
+				],
+				"embeddedLanguages": {
+					"source.glsl": "glsl"
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "glsl.showPreviewToSide",
+				"title": "Open Shader Preview to the Side",
+				"category": "GLSL",
+				"icon": "assets/preview.svg"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"command": "glsl.showPreviewToSide",
+					"when": "editorLangId == glsl || editorLangId == gdshader",
+					"group": "navigation"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "glsl.showPreviewToSide",
+					"when": "editorLangId == glsl || editorLangId == gdshader"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "glsl.showPreviewToSide",
+				"key": "ctrl+shift+v",
+				"mac": "cmd+shift+v",
+				"when": "editorLangId == glsl || editorLangId == gdshader"
+			}
+		],
+		"configuration": {
+			"title": "GLSL",
+			"properties": {
+				"glsl.diagnostics.enable": {
+					"type": "boolean",
+					"default": true,
+					"description": "Report glslang errors and warnings in GLSL files."
+				},
+				"glsl.diagnostics.stages": {
+					"type": "object",
+					"default": {},
+					"markdownDescription": "Shader stage per glob, e.g. `{\"**/*_vs.glsl\": \"vertex\"}`. Takes priority over `#pragma shader_stage(...)` and the file extension. Unmatched files without a stage hint are checked as fragment shaders.",
+					"additionalProperties": {
+						"type": "string",
+						"enum": [
+							"vertex",
+							"tesscontrol",
+							"tesseval",
+							"geometry",
+							"fragment",
+							"compute",
+							"raygen",
+							"intersect",
+							"anyhit",
+							"closesthit",
+							"miss",
+							"callable",
+							"task",
+							"mesh"
+						]
+					}
+				}
+			}
+		}
+	},
+	"scripts": {
+		"compile": "tsc -p . && tsc -p tsconfig.webview.json",
+		"watch": "tsc -p . --watch & tsc -p tsconfig.webview.json --watch",
+		"test": "npm run compile && node --test out/src/test/*.test.js",
+		"gen:defs": "npm run compile && node out/tools/gen-defs.js",
+		"prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
+		"package": "mkdir -p build && vsce package --out build/"
+	},
+	"devDependencies": {
+		"@asciidoctor/core": "^4.1.1",
+		"@types/node": "^26.6.5",
+		"@types/three": "^0.186.0",
+		"@types/vscode": "~1.82.0",
+		"@vscode/vsce": "^4.0.0",
+		"prettier": "3.9.10",
+		"typescript": "^7.0.2"
+	},
+	"overrides": {
+		"@azure/msal-node": "^7.1.1"
+	},
+	"dependencies": {
+		"@vscode/codicons": "^0.0.46-24",
+		"glslang-wasm": "^1.1.1",
+		"three": "^0.186.1"
+	}
 }

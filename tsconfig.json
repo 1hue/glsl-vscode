@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "node16",
-    "target": "ES2022",
-    "lib": ["ES2022"],
-    "types": ["node", "vscode"],
-    "rootDir": ".",
-    "outDir": "out",
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true
-  },
-  "include": ["src", "tools"],
-  "exclude": ["src/webview"]
+	"compilerOptions": {
+		"module": "node16",
+		"target": "ES2022",
+		"lib": ["ES2022"],
+		"types": ["node", "vscode"],
+		"rootDir": ".",
+		"outDir": "out",
+		"strict": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true
+	},
+	"include": ["src", "tools"],
+	"exclude": ["src/webview"]
 }

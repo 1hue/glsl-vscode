@@ -39,19 +39,29 @@ export function gdshaderToGlsl(text: string): string {
 			.replace(/\b(global|instance)(?=\s+uniform\b)/g, blank)
 			.replace(/\bvarying(\s+(flat|smooth))?\b/g, blank)
 			// GDShader hints and defaults like `uniform float x : hint_range(0, 1) = 0.5`
-			.replace(/(\buniform\b[^;:=]*)([:=][^;]*)/g, (_match, declaration: string, hints: string) => declaration + blank(hints))
+			.replace(
+				/(\buniform\b[^;:=]*)([:=][^;]*)/g,
+				(_match, declaration: string, hints: string) => declaration + blank(hints),
+			)
 	);
 }
 
 /** Declare Godot built-ins in GLSL */
-export function gdshaderPreamble(godot: Definitions, glslFunctions: Set<string>, shaderType: string, es: boolean): string {
+export function gdshaderPreamble(
+	godot: Definitions,
+	glslFunctions: Set<string>,
+	shaderType: string,
+	es: boolean,
+): string {
 	const lines = es ? [...ES_PRECISION] : [];
 
 	for (const entries of Object.values(godot.variables)) {
 		const entry = entries.find((e) => e.shaderType === shaderType);
 		if (entry) {
 			const declaration = entry.decl.replace(/^(in|out|inout)\s+/, '');
-			lines.push(declaration.startsWith('sampler') ? `uniform ${declaration};` : `${declaration};`);
+			lines.push(
+				declaration.startsWith('sampler') ? `uniform ${declaration};` : `${declaration};`,
+			);
 		}
 	}
 
@@ -62,10 +72,16 @@ export function gdshaderPreamble(godot: Definitions, glslFunctions: Set<string>,
 		for (const group of groups.filter((g) => !g.shaderType || g.shaderType === shaderType)) {
 			for (const { returns, params } of group.signatures) {
 				// Skip unexpanded generic types like `vec_int_type`
-				if ([returns, ...params.map((p) => p.type)].some((type) => /_type$|^g(sampler|vec)/.test(type))) {
+				if (
+					[returns, ...params.map((p) => p.type)].some((type) =>
+						/_type$|^g(sampler|vec)/.test(type),
+					)
+				) {
 					continue;
 				}
-				lines.push(`${returns} ${name}(${params.map((p) => `${p.type} ${p.name}`).join(', ')});`);
+				lines.push(
+					`${returns} ${name}(${params.map((p) => `${p.type} ${p.name}`).join(', ')});`,
+				);
 			}
 		}
 	}

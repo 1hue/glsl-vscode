@@ -1,6 +1,13 @@
 import * as vscode from 'vscode';
 import { Context, contextAt, isAvailable } from '#src/language/definitions';
-import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, signatureLabel, variableMarkdown } from './format';
+import {
+	functionMarkdown,
+	hintMarkdown,
+	markdown,
+	namedDocMarkdown,
+	signatureLabel,
+	variableMarkdown,
+} from './format';
 import { DeclarationScope, constructsFor, nextQualifiers } from '#src/language/constructs';
 import {
 	GDSHADER_DIRECTIVES,
@@ -13,7 +20,13 @@ import {
 	STATEMENT_KEYWORDS,
 } from '#src/language/keywords';
 import { UserSymbol, scanDocument, visibleSymbols } from '#src/analysis/symbols';
-import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt } from '#src/analysis/textContext';
+import {
+	cursorContext,
+	isMemberAccess,
+	statementBefore,
+	statementKind,
+	wordAt,
+} from '#src/analysis/textContext';
 
 const Kind = vscode.CompletionItemKind;
 
@@ -56,7 +69,12 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 
 		const types = isGodot ? Object.keys(context.defs.types ?? {}) : GLSL_TYPES;
 		const qualifiers = isGodot ? GDSHADER_QUALIFIERS : GLSL_QUALIFIERS;
-		const cursor = cursorContext(document, position, new Set(qualifiers), new Set([...types, ...structs.map((s) => s.name)]));
+		const cursor = cursorContext(
+			document,
+			position,
+			new Set(qualifiers),
+			new Set([...types, ...structs.map((s) => s.name)]),
+		);
 
 		switch (cursor?.kind) {
 			case 'directive':
@@ -70,7 +88,10 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 
 			case 'declaration':
 				return [
-					...keywordItems(context, declarationKeywords(context, cursor.scope, cursor.qualifiers)),
+					...keywordItems(
+						context,
+						declarationKeywords(context, cursor.scope, cursor.qualifiers),
+					),
 					...typeItems(context, types),
 					...userSymbolItems(structs),
 				];
@@ -80,7 +101,10 @@ export const completionProvider: vscode.CompletionItemProvider<Item> = {
 					...userSymbolItems(symbols),
 					...builtinFunctionItems(context, language),
 					...builtinVariableItems(context, language),
-					...keywordItems(context, [...STATEMENT_KEYWORDS, ...declarationKeywords(context, 'local', [])]),
+					...keywordItems(context, [
+						...STATEMENT_KEYWORDS,
+						...declarationKeywords(context, 'local', []),
+					]),
 					...typeItems(context, types),
 				];
 
@@ -158,11 +182,14 @@ function builtinFunctionItems(context: Context, language: string): Item[] {
 			continue;
 		}
 
-		const item = new Item(name, Kind.Function, () => functionMarkdown(name, groups, context, language));
+		const item = new Item(name, Kind.Function, () =>
+			functionMarkdown(name, groups, context, language),
+		);
 		const first = available[0].signatures[0];
 		const overloads = available.reduce((count, group) => count + group.signatures.length, 0);
 
-		item.detail = signatureLabel(name, first) + (overloads > 1 ? ` (+${overloads - 1} overloads)` : '');
+		item.detail =
+			signatureLabel(name, first) + (overloads > 1 ? ` (+${overloads - 1} overloads)` : '');
 		item.sortText = `1${name}`;
 		withCallSnippet(item, name);
 		items.push(item);
@@ -181,7 +208,9 @@ function builtinVariableItems(context: Context, language: string): Item[] {
 		}
 
 		const isConstant = /^const\b/.test(available[0].decl);
-		const item = new Item(name, isConstant ? Kind.Constant : Kind.Variable, () => variableMarkdown(name, entries, context, language));
+		const item = new Item(name, isConstant ? Kind.Constant : Kind.Variable, () =>
+			variableMarkdown(name, entries, context, language),
+		);
 		item.detail = available[0].decl.split('\n')[0];
 		item.sortText = `1${name}`;
 		items.push(item);
@@ -195,7 +224,11 @@ function keywordItems(context: Context, keywords: string[]): Item[] {
 
 	return keywords.map((keyword) => {
 		const doc = defs.qualifiers?.[keyword] ?? defs.keywords?.[keyword];
-		const item = new Item(keyword, Kind.Keyword, doc ? () => namedDocMarkdown(keyword, doc, defs) : undefined);
+		const item = new Item(
+			keyword,
+			Kind.Keyword,
+			doc ? () => namedDocMarkdown(keyword, doc, defs) : undefined,
+		);
 		item.sortText = `2${keyword}`;
 		return item;
 	});
@@ -206,19 +239,30 @@ function typeItems(context: Context, types: string[]): Item[] {
 
 	return types.map((type) => {
 		const doc = defs.types?.[type];
-		const item = new Item(type, Kind.TypeParameter, doc ? () => namedDocMarkdown(type, doc, defs) : undefined);
+		const item = new Item(
+			type,
+			Kind.TypeParameter,
+			doc ? () => namedDocMarkdown(type, doc, defs) : undefined,
+		);
 		item.sortText = `2${type}`;
 		return item;
 	});
 }
 
 /** Suggest next qualifiers and `struct` at statement start */
-function declarationKeywords(context: Context, scope: DeclarationScope, present: string[]): string[] {
+function declarationKeywords(
+	context: Context,
+	scope: DeclarationScope,
+	present: string[],
+): string[] {
 	const starts = !present.length && (scope === 'global' || scope === 'local');
 
 	if (context.flavor === 'godot') {
 		// `shader_type`, `render_mode` etc. only start a statement
-		const godot = scope === 'global' && starts ? GDSHADER_KEYWORDS.filter((k) => !STATEMENT_KEYWORDS.includes(k)) : GDSHADER_QUALIFIERS;
+		const godot =
+			scope === 'global' && starts
+				? GDSHADER_KEYWORDS.filter((k) => !STATEMENT_KEYWORDS.includes(k))
+				: GDSHADER_QUALIFIERS;
 		return [...godot.filter((k) => !present.includes(k)), ...(starts ? ['struct'] : [])];
 	}
 
@@ -229,11 +273,17 @@ function directiveItems(context: Context): Item[] {
 	const directives =
 		context.flavor === 'godot'
 			? GDSHADER_DIRECTIVES
-			: constructsFor(context.flavor).filter((c) => c.kind === 'directive').flatMap((c) => c.names);
+			: constructsFor(context.flavor)
+					.filter((c) => c.kind === 'directive')
+					.flatMap((c) => c.names);
 
 	return [...new Set(directives)].map((directive) => {
 		const doc = context.defs.keywords?.[directive];
-		return new Item(directive.slice(1), Kind.Keyword, doc ? () => namedDocMarkdown(directive, doc, context.defs) : undefined);
+		return new Item(
+			directive.slice(1),
+			Kind.Keyword,
+			doc ? () => namedDocMarkdown(directive, doc, context.defs) : undefined,
+		);
 	});
 }
 
@@ -251,12 +301,17 @@ function layoutItems(context: Context): Item[] {
 
 	return [...new Set(names)].map((name) => {
 		const doc = defs.qualifiers?.[name];
-		return new Item(name, Kind.Property, doc ? () => namedDocMarkdown(name, doc, defs) : undefined);
+		return new Item(
+			name,
+			Kind.Property,
+			doc ? () => namedDocMarkdown(name, doc, defs) : undefined,
+		);
 	});
 }
 
 function modeItems(context: Context, kind: 'renderMode' | 'stencilMode'): Item[] {
-	const byType = (kind === 'renderMode' ? context.defs.renderModes : context.defs.stencilModes) ?? {};
+	const byType =
+		(kind === 'renderMode' ? context.defs.renderModes : context.defs.stencilModes) ?? {};
 	const types = context.shaderType ? [context.shaderType] : Object.keys(byType);
 	const keyword = kind === 'renderMode' ? 'render_mode' : 'stencil_mode';
 
@@ -264,7 +319,12 @@ function modeItems(context: Context, kind: 'renderMode' | 'stencilMode'): Item[]
 	for (const shaderType of types) {
 		for (const [name, doc] of Object.entries(byType[shaderType] ?? {})) {
 			if (!items.has(name)) {
-				items.set(name, new Item(name, Kind.EnumMember, () => namedDocMarkdown(`${keyword} ${name}`, doc, context.defs)));
+				items.set(
+					name,
+					new Item(name, Kind.EnumMember, () =>
+						namedDocMarkdown(`${keyword} ${name}`, doc, context.defs),
+					),
+				);
 			}
 		}
 	}

@@ -20,14 +20,25 @@ export function registerPreview(context: vscode.ExtensionContext) {
 	const assets = vscode.Uri.joinPath(context.extensionUri, 'assets');
 	const scripts = vscode.Uri.joinPath(context.extensionUri, 'out/webview');
 	const three = vscode.Uri.joinPath(context.extensionUri, 'node_modules/three');
-	const codicons = vscode.Uri.joinPath(context.extensionUri, 'node_modules/@vscode/codicons/dist');
+	const codicons = vscode.Uri.joinPath(
+		context.extensionUri,
+		'node_modules/@vscode/codicons/dist',
+	);
 	const panels = new Map<string, vscode.WebviewPanel>();
 
 	const vertexShader = (name: string) =>
-		withoutVersion(fs.readFileSync(vscode.Uri.joinPath(assets, `vertex/${name}`).fsPath, 'utf8'));
+		withoutVersion(
+			fs.readFileSync(vscode.Uri.joinPath(assets, `vertex/${name}`).fsPath, 'utf8'),
+		);
 	const vertex: VertexShaders = {
-		'300 es': { mesh: vertexShader('mesh_es300.vert'), fullscreen: vertexShader('fullscreen_es300.vert') },
-		100: { mesh: vertexShader('mesh_es100.vert'), fullscreen: vertexShader('fullscreen_es100.vert') },
+		'300 es': {
+			mesh: vertexShader('mesh_es300.vert'),
+			fullscreen: vertexShader('fullscreen_es300.vert'),
+		},
+		100: {
+			mesh: vertexShader('mesh_es100.vert'),
+			fullscreen: vertexShader('fullscreen_es100.vert'),
+		},
 	};
 
 	const attach = (panel: vscode.WebviewPanel, document: vscode.TextDocument) => {
@@ -36,7 +47,13 @@ export function registerPreview(context: vscode.ExtensionContext) {
 		const post = (message: ToWebview) => panel.webview.postMessage(message);
 
 		// Workspace and folders of picked textures
-		const roots = [assets, scripts, three, codicons, ...(vscode.workspace.workspaceFolders ?? []).map((f) => f.uri)];
+		const roots = [
+			assets,
+			scripts,
+			three,
+			codicons,
+			...(vscode.workspace.workspaceFolders ?? []).map((f) => f.uri),
+		];
 		const allow = (file: vscode.Uri) => {
 			if (!roots.some((root) => file.fsPath.startsWith(root.fsPath + path.sep))) {
 				roots.push(vscode.Uri.file(path.dirname(file.fsPath)));
@@ -48,7 +65,8 @@ export function registerPreview(context: vscode.ExtensionContext) {
 		panel.webview.options = { enableScripts: true, localResourceRoots: roots };
 		panel.webview.html = html(panel.webview, { assets, scripts, three, codicons });
 
-		const textureUrl = (file: string) => panel.webview.asWebviewUri(vscode.Uri.parse(file)).toString();
+		const textureUrl = (file: string) =>
+			panel.webview.asWebviewUri(vscode.Uri.parse(file)).toString();
 
 		let text = document.getText();
 		let latest = 0;
@@ -56,7 +74,11 @@ export function registerPreview(context: vscode.ExtensionContext) {
 			const request = ++latest;
 			const result =
 				document.languageId === 'gdshader'
-					? gdshaderToWebGL(text, definitionsFor('godot'), gdshaderIncludes(document, text))
+					? gdshaderToWebGL(
+							text,
+							definitionsFor('godot'),
+							gdshaderIncludes(document, text),
+						)
 					: await toWebGL(await sharedGlslang(), text);
 			// Drop results of outdated edits
 			if (request === latest) {
@@ -70,7 +92,12 @@ export function registerPreview(context: vscode.ExtensionContext) {
 				// Sent on every webview load - hidden panels lose their content
 				case 'ready': {
 					const current = loadScene(context.workspaceState, document.uri);
-					const textures = Object.fromEntries(Object.entries(current.textures).map(([name, file]) => [name, textureUrl(file)]));
+					const textures = Object.fromEntries(
+						Object.entries(current.textures).map(([name, file]) => [
+							name,
+							textureUrl(file),
+						]),
+					);
 					post({ type: 'scene', uri: key, scene: current, textures, vertex });
 					postShader();
 					break;
@@ -92,7 +119,11 @@ export function registerPreview(context: vscode.ExtensionContext) {
 						const current = loadScene(context.workspaceState, document.uri);
 						current.textures[message.name] = file.toString();
 						await saveScene(context.workspaceState, document.uri, current);
-						post({ type: 'texture', name: message.name, url: textureUrl(file.toString()) });
+						post({
+							type: 'texture',
+							name: message.name,
+							url: textureUrl(file.toString()),
+						});
 					}
 					break;
 				}
@@ -155,7 +186,9 @@ export function registerPreview(context: vscode.ExtensionContext) {
 
 /** Fill placeholders in preview.html */
 function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): string {
-	const nonce = Array.from({ length: 32 }, () => Math.floor(Math.random() * 36).toString(36)).join('');
+	const nonce = Array.from({ length: 32 }, () =>
+		Math.floor(Math.random() * 36).toString(36),
+	).join('');
 	let text = fs
 		.readFileSync(vscode.Uri.joinPath(folders.assets, 'preview.html').fsPath, 'utf8')
 		.replaceAll('{{nonce}}', nonce)
@@ -167,7 +200,12 @@ function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): str
 }
 
 /** Nested includes come first, each once. Restricted Mode reads none */
-function gdshaderIncludes(document: vscode.TextDocument, text: string, includer = document.uri.fsPath, seen = new Set<string>()): string[] {
+function gdshaderIncludes(
+	document: vscode.TextDocument,
+	text: string,
+	includer = document.uri.fsPath,
+	seen = new Set<string>(),
+): string[] {
 	if (!vscode.workspace.isTrusted) {
 		return [];
 	}

@@ -1,7 +1,13 @@
 // Fragment shader for WebGL2 and its uniform controls
 
 import type { Diagnostic, Glslang } from 'glslang-wasm' with { 'resolution-mode': 'import' };
-import { ES_PRECISION, INCLUDE, blank, gdshaderToGlsl, shaderTypeOf } from '#src/diagnostics/gdshader';
+import {
+	ES_PRECISION,
+	INCLUDE,
+	blank,
+	gdshaderToGlsl,
+	shaderTypeOf,
+} from '#src/diagnostics/gdshader';
 import type { Definitions } from '#src/language/types';
 import { isVulkan } from '#src/language/vulkan';
 import type { Control, Shader, Value, WebGLVersion } from '#src/webview/protocol';
@@ -30,7 +36,8 @@ const BUILTINS = new Set([
 ]);
 
 // e.g. `uniform highp vec3 color`
-const UNIFORM = /^[ \t]*uniform\s+(?:(?:lowp|mediump|highp)\s+)?(\w+)\s+(\w+)\s*(?:\[\s*\d+\s*\])?\s*;/gm;
+const UNIFORM =
+	/^[ \t]*uniform\s+(?:(?:lowp|mediump|highp)\s+)?(\w+)\s+(\w+)\s*(?:\[\s*\d+\s*\])?\s*;/gm;
 // Annotated uniforms and block members like `name; // [0, 1] = 0.5`
 const COMMENTED = /\b(\w+)\s*(?:\[\s*\d+\s*\])?\s*;[ \t]*\/\/([^\n]*)/g;
 const ANNOTATION = /^\s*(?:\[\s*([-+.\deE]+)\s*,\s*([-+.\deE]+)\s*\])?\s*(?:=\s*(.+?))?\s*$/;
@@ -46,7 +53,11 @@ export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLRe
 	}
 
 	const client = isVulkan(source) ? 'vulkan' : 'opengl';
-	const { diagnostics, spirv } = await glslang.compile(source, { stage: 'fragment', client, autoMap: true });
+	const { diagnostics, spirv } = await glslang.compile(source, {
+		stage: 'fragment',
+		client,
+		autoMap: true,
+	});
 	if (!spirv) {
 		return { errors: format(diagnostics) };
 	}
@@ -68,7 +79,11 @@ export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLRe
 	};
 }
 
-const GODOT_CONSTANTS: Record<string, string> = { PI: '3.141592653589793', TAU: '6.283185307179586', E: '2.718281828459045' };
+const GODOT_CONSTANTS: Record<string, string> = {
+	PI: '3.141592653589793',
+	TAU: '6.283185307179586',
+	E: '2.718281828459045',
+};
 
 // Godot inputs and output defaults in assignment order
 const GODOT_FRAGMENT: Record<string, [string, string][]> = {
@@ -97,7 +112,11 @@ const GODOT_FRAGMENT: Record<string, [string, string][]> = {
 };
 
 /** Insert `includes` before source, nested ones first */
-export function gdshaderToWebGL(source: string, godot: Definitions, includes: string[] = []): WebGLResult {
+export function gdshaderToWebGL(
+	source: string,
+	godot: Definitions,
+	includes: string[] = [],
+): WebGLResult {
 	const shaderType = shaderTypeOf(source);
 	const inputs = shaderType && GODOT_FRAGMENT[shaderType];
 	if (!inputs) {
@@ -107,13 +126,19 @@ export function gdshaderToWebGL(source: string, godot: Definitions, includes: st
 	const declared = new Set<string>();
 	const globals: string[] = [];
 	for (const [name, entries] of Object.entries(godot.variables)) {
-		const declaration = entries.find((e) => e.shaderType === shaderType)?.decl.replace(/^(in|out|inout)\s+/, '');
+		const declaration = entries
+			.find((e) => e.shaderType === shaderType)
+			?.decl.replace(/^(in|out|inout)\s+/, '');
 		if (!declaration || declaration.includes('[')) {
 			continue;
 		}
 		const [type] = declaration.split(/\s+/);
 		declared.add(name);
-		globals.push(type.startsWith('sampler') ? `uniform ${declaration};` : `${declaration} = ${GODOT_CONSTANTS[name] ?? `${type}(0)`};`);
+		globals.push(
+			type.startsWith('sampler')
+				? `uniform ${declaration};`
+				: `${declaration} = ${GODOT_CONSTANTS[name] ?? `${type}(0)`};`,
+		);
 	}
 
 	const toGlsl = (text: string) => gdshaderToGlsl(text).replace(INCLUDE, blank);
@@ -146,7 +171,9 @@ export function gdshaderToWebGL(source: string, godot: Definitions, includes: st
 					];
 	const main = [
 		'void main() {',
-		...inputs.filter(([name]) => declared.has(name)).map(([name, value]) => `${name} = ${value};`),
+		...inputs
+			.filter(([name]) => declared.has(name))
+			.map(([name, value]) => `${name} = ${value};`),
 		...(/\bvoid\s+fragment\s*\(\s*\)/.test(source) ? ['fragment();'] : []),
 		...output,
 		'}',
@@ -172,7 +199,10 @@ export function withoutVersion(source: string): string {
 
 /** Add precision without shifting lines */
 function rewrite(source: string, version: WebGLVersion): Shader {
-	const prefix = ['precision highp float;', ...(version === '300 es' ? ['precision highp int;'] : [])];
+	const prefix = [
+		'precision highp float;',
+		...(version === '300 es' ? ['precision highp int;'] : []),
+	];
 	const body = source.replace(VERSION, '');
 	const annotations = annotationsOf(source);
 
@@ -187,7 +217,12 @@ function rewrite(source: string, version: WebGLVersion): Shader {
 	};
 }
 
-function control(name: string, label: string, type: string, annotation?: Partial<Control>): Control {
+function control(
+	name: string,
+	label: string,
+	type: string,
+	annotation?: Partial<Control>,
+): Control {
 	return { name, label, type, min: 0, max: 1, ...annotation };
 }
 
@@ -213,7 +248,10 @@ function parseValue(text: string): Value {
 	if (text === 'true' || text === 'false') {
 		return text === 'true';
 	}
-	const numbers = text.replace(/^\(|\)$/g, '').split(',').map(Number);
+	const numbers = text
+		.replace(/^\(|\)$/g, '')
+		.split(',')
+		.map(Number);
 	return numbers.length === 1 ? numbers[0] : numbers;
 }
 
@@ -221,6 +259,9 @@ function parseValue(text: string): Value {
 function format(diagnostics: Diagnostic[]): string {
 	return diagnostics
 		.filter((d) => d.severity === 'error')
-		.map((d) => `ERROR: ${[d.source, d.line, d.column].filter((part) => part !== undefined).join(':')}: ${d.message}`)
+		.map(
+			(d) =>
+				`ERROR: ${[d.source, d.line, d.column].filter((part) => part !== undefined).join(':')}: ${d.message}`,
+		)
 		.join('\n');
 }

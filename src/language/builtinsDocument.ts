@@ -31,7 +31,9 @@ export function builtinLocation(flavor: Flavor, name: string): vscode.Location |
 
 export const builtinsContentProvider: vscode.TextDocumentContentProvider = {
 	provideTextDocumentContent(uri) {
-		const flavor = (Object.keys(FILE_NAMES) as Flavor[]).find((f) => uri.path === `/${FILE_NAMES[f]}`);
+		const flavor = (Object.keys(FILE_NAMES) as Flavor[]).find(
+			(f) => uri.path === `/${FILE_NAMES[f]}`,
+		);
 		return flavor ? documentFor(flavor).text : '';
 	},
 };
@@ -85,7 +87,10 @@ function documentFor(flavor: Flavor): BuiltinsDocument {
 			if (!lines.has(name)) {
 				lines.set(name, out.length);
 			}
-			const decl = /[;}]\s*$/.test(variable.decl) || variable.decl.includes('//') ? variable.decl : variable.decl + ';';
+			const decl =
+				/[;}]\s*$/.test(variable.decl) || variable.decl.includes('//')
+					? variable.decl
+					: variable.decl + ';';
 			out.push(decl, '');
 		}
 	}

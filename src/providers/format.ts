@@ -26,8 +26,17 @@ function contextLabel(entry: { stage?: string; shaderType?: string }): string {
 	return [entry.shaderType, entry.stage].filter(Boolean).join(' · ');
 }
 
-export function functionGroupMarkdown(name: string, group: FunctionGroup, language: string): string {
-	const parts = [codeBlock(language, group.signatures.map((s) => signatureLabel(name, s)))];
+export function functionGroupMarkdown(
+	name: string,
+	group: FunctionGroup,
+	language: string,
+): string {
+	const parts = [
+		codeBlock(
+			language,
+			group.signatures.map((s) => signatureLabel(name, s)),
+		),
+	];
 
 	const label = contextLabel(group);
 	if (label) {
@@ -51,7 +60,12 @@ export function functionGroupMarkdown(name: string, group: FunctionGroup, langua
 }
 
 /** List matching overloads first, the rest after a divider */
-export function functionMarkdown(name: string, groups: FunctionGroup[], context: Context, language: string): string {
+export function functionMarkdown(
+	name: string,
+	groups: FunctionGroup[],
+	context: Context,
+	language: string,
+): string {
 	const available = groups.filter((g) => isAvailable(g, context));
 	const shown = available.length ? available : groups;
 
@@ -59,7 +73,12 @@ export function functionMarkdown(name: string, groups: FunctionGroup[], context:
 	return [...sections, sourceFooter(context.defs)].join('\n\n---\n\n');
 }
 
-export function variableMarkdown(name: string, contexts: Variable[], context: Context, language: string): string {
+export function variableMarkdown(
+	name: string,
+	contexts: Variable[],
+	context: Context,
+	language: string,
+): string {
 	const available = contexts.filter((c) => isAvailable(c, context));
 	const shown = available.length ? available : contexts;
 
@@ -85,7 +104,12 @@ export function namedDocMarkdown(title: string, doc: string, defs: Definitions):
 }
 
 export function hintMarkdown(name: string, hint: Hint, defs: Definitions): string {
-	return [codeBlock('gdshader', [hint.label]), `*${hint.types}*`, hint.doc, sourceFooter(defs)].join('\n\n');
+	return [
+		codeBlock('gdshader', [hint.label]),
+		`*${hint.types}*`,
+		hint.doc,
+		sourceFooter(defs),
+	].join('\n\n');
 }
 
 export function userSymbolMarkdown(symbol: UserSymbol, language: string): string {

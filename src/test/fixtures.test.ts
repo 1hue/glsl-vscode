@@ -41,7 +41,11 @@ function expectedOf(source: string): Expected[] {
 
 		if (marker) {
 			const [, severity, underlined, message] = marker;
-			const entry = { severity: severity as Result['severity'], message, ...(underlined ? { text: underlined } : {}) };
+			const entry = {
+				severity: severity as Result['severity'],
+				message,
+				...(underlined ? { text: underlined } : {}),
+			};
 			if (comment) {
 				pending.push(entry);
 				return;
@@ -61,7 +65,9 @@ function expectedOf(source: string): Expected[] {
 /** Underlined text only compared where the marker gives it */
 function comparable(results: Result[], expected: Expected[]): Expected[] {
 	return results.map(({ line, text, message, severity }) => {
-		const wantsText = expected.some((e) => e.line === line && e.message === message && e.text !== undefined);
+		const wantsText = expected.some(
+			(e) => e.line === line && e.message === message && e.text !== undefined,
+		);
 		return { line, message, severity, ...(wantsText ? { text } : {}) };
 	});
 }
@@ -71,7 +77,9 @@ function byPosition(a: Expected, b: Expected): number {
 }
 
 function shaderFiles(directory: string): string[] {
-	return fs.readdirSync(directory, { recursive: true, encoding: 'utf8' }).filter((f) => path.extname(f) in LANGUAGES);
+	return fs
+		.readdirSync(directory, { recursive: true, encoding: 'utf8' })
+		.filter((f) => path.extname(f) in LANGUAGES);
 }
 
 for (const workspace of fs.readdirSync(FIXTURES)) {
@@ -85,7 +93,10 @@ for (const workspace of fs.readdirSync(FIXTURES)) {
 
 			const [results] = await diagnose([shader], { workspaceFolder: root });
 
-			assert.deepEqual(comparable(results, expected).sort(byPosition), expected.sort(byPosition));
+			assert.deepEqual(
+				comparable(results, expected).sort(byPosition),
+				expected.sort(byPosition),
+			);
 		});
 	}
 }

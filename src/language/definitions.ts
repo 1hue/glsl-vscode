@@ -42,7 +42,8 @@ export function flavorOf(document: vscode.TextDocument): Flavor {
 	return 'glsl';
 }
 
-interface Version { // e.g. #version 450 core
+// e.g. #version 450 core
+interface Version {
 	number: number;
 	profile?: 'core' | 'compatibility' | 'es';
 }
@@ -50,7 +51,9 @@ interface Version { // e.g. #version 450 core
 function versionOf(document: vscode.TextDocument): Version | undefined {
 	const head = document.getText(new vscode.Range(0, 0, 50, 0));
 	const version = /^\s*#\s*version\s+(\d+)(?:[ \t]+(core|compatibility|es))?/m.exec(head);
-	return version ? { number: Number(version[1]), profile: version[2] as Version['profile'] } : undefined;
+	return version
+		? { number: Number(version[1]), profile: version[2] as Version['profile'] }
+		: undefined;
 }
 
 export function contextAt(document: vscode.TextDocument, position: vscode.Position): Context {
@@ -60,13 +63,16 @@ export function contextAt(document: vscode.TextDocument, position: vscode.Positi
 	if (flavor !== 'godot') {
 		const stage = STAGE_BY_EXTENSION[path.extname(document.uri.path).toLowerCase()];
 		const version = versionOf(document);
-		const compatibility = flavor === 'glsl' && (!version || version.number < 150 || version.profile === 'compatibility');
+		const compatibility =
+			flavor === 'glsl'
+			&& (!version || version.number < 150 || version.profile === 'compatibility');
 		return { flavor, defs, stage, compatibility };
 	}
 
 	const scan = scanDocument(document);
 	const enclosing = enclosingFunction(scan, document.offsetAt(position));
-	const stage = enclosing && GDSHADER_STAGE_FUNCTIONS.includes(enclosing.name) ? enclosing.name : undefined;
+	const stage =
+		enclosing && GDSHADER_STAGE_FUNCTIONS.includes(enclosing.name) ? enclosing.name : undefined;
 
 	return { flavor, defs, stage, shaderType: scan.shaderType };
 }

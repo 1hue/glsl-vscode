@@ -1,6 +1,16 @@
 // Godot shading language built-ins from Godot docs source (reStructuredText)
 
-import { Definitions, FunctionGroup, Hint, ReadFile, Source, SourceConfig, Variable, parseParams, tidy } from './common';
+import {
+	Definitions,
+	FunctionGroup,
+	Hint,
+	ReadFile,
+	Source,
+	SourceConfig,
+	Variable,
+	parseParams,
+	tidy,
+} from './common';
 
 const DIRECTORY = 'tutorials/shaders/shader_reference';
 
@@ -39,13 +49,20 @@ interface GridTable {
 
 export const godot: Source = { generate };
 
-async function generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>> {
+async function generate(
+	config: SourceConfig,
+	commit: string,
+	read: ReadFile,
+): Promise<Record<string, Definitions>> {
 	const fetchPage = (page: string) => read(`${DIRECTORY}/${page}.rst`);
 
 	const functionsPage = await fetchPage('shader_functions');
 	const languagePage = await fetchPage('shading_language');
 	const shaderPages = await Promise.all(
-		Object.entries(SHADER_TYPES).map(async ([shaderType, page]) => ({ shaderType, text: await fetchPage(page) })),
+		Object.entries(SHADER_TYPES).map(async ([shaderType, page]) => ({
+			shaderType,
+			text: await fetchPage(page),
+		})),
 	);
 
 	const substitutions = parseSubstitutions(functionsPage);
@@ -76,7 +93,8 @@ function parseSubstitutions(text: string): Record<string, string> {
 
 	for (const match of text.matchAll(/^\.\. \|(\w+)\| replace:: (.*)$/gm)) {
 		const [, name, value] = match;
-		substitutions[name] = name === 'componentwise' ? '*Component-wise function.*' : inline(value, {});
+		substitutions[name] =
+			name === 'componentwise' ? '*Component-wise function.*' : inline(value, {});
 	}
 
 	return substitutions;
@@ -86,8 +104,10 @@ function parseSubstitutions(text: string): Record<string, string> {
 function inline(text: string, substitutions: Record<string, string>): string {
 	const codeSpans: string[] = [];
 	// Swap code span for placeholder
-	const protect = (_match: string, code: string) => `\u0000${codeSpans.push('`' + code + '`') - 1}\u0000`;
-	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
+	const protect = (_match: string, code: string) =>
+		`\u0000${codeSpans.push('`' + code + '`') - 1}\u0000`;
+	const restore = (s: string) =>
+		s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
 	const markdown = text
 		.replace(/``(.+?)``/g, protect)
@@ -109,7 +129,11 @@ function indentOf(line: string): number {
 }
 
 /** Dedent and keep blank lines */
-function indentedBlock(lines: string[], start: number, indent: number): { lines: string[]; end: number } {
+function indentedBlock(
+	lines: string[],
+	start: number,
+	indent: number,
+): { lines: string[]; end: number } {
 	const body: string[] = [];
 	let end = start;
 
@@ -123,7 +147,10 @@ function indentedBlock(lines: string[], start: number, indent: number): { lines:
 }
 
 /** Parse signature lines like `|vec_type| **mix**\ (...)` and their indented body */
-function parseFunctions(text: string, substitutions: Record<string, string>): Record<string, FunctionGroup[]> {
+function parseFunctions(
+	text: string,
+	substitutions: Record<string, string>,
+): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 	const lines = text.split('\n');
 
@@ -135,7 +162,11 @@ function parseFunctions(text: string, substitutions: Record<string, string>): Re
 		const match = signatureLine.exec(lines[i]);
 		if (match) {
 			const [, returns, name, params] = match;
-			pending.push({ name, returns: inline(returns, substitutions), params: inline(params, substitutions) });
+			pending.push({
+				name,
+				returns: inline(returns, substitutions),
+				params: inline(params, substitutions),
+			});
 			continue;
 		}
 
@@ -161,7 +192,10 @@ function parseFunctions(text: string, substitutions: Record<string, string>): Re
 	return functions;
 }
 
-function parseFunctionBody(lines: string[], substitutions: Record<string, string>): Omit<FunctionGroup, 'signatures'> {
+function parseFunctionBody(
+	lines: string[],
+	substitutions: Record<string, string>,
+): Omit<FunctionGroup, 'signatures'> {
 	const doc: string[] = [];
 	const params: Record<string, string> = {};
 	let returns: string | undefined;
@@ -235,10 +269,10 @@ function isHeading(lines: string[], i: number): boolean {
 	const text = lines[i];
 	const underline = lines[i + 1] ?? '';
 	return (
-		text.trim() !== '' &&
-		!/^[\s+|.]/.test(text) &&
-		/^([=\-~^"'`#*])\1{2,}\s*$/.test(underline) &&
-		underline.trim().length >= text.trim().length
+		text.trim() !== ''
+		&& !/^[\s+|.]/.test(text)
+		&& /^([=\-~^"'`#*])\1{2,}\s*$/.test(underline)
+		&& underline.trim().length >= text.trim().length
 	);
 }
 
@@ -308,7 +342,8 @@ function parseGridTable(lines: string[]): GridTable {
 		const cells = cellsOf(line);
 
 		// A new bold name in the first column starts a row when the separator is missing
-		const startsNewEntry = current.length && /\*\*/.test(cells[0]) && current[0].some((l) => /\*\*/.test(l));
+		const startsNewEntry =
+			current.length && /\*\*/.test(cells[0]) && current[0].some((l) => /\*\*/.test(l));
 		if (startsNewEntry) {
 			flushRow();
 		}
@@ -332,7 +367,12 @@ function stageFor(heading: string, current: string | undefined): string | undefi
 	return current;
 }
 
-function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: string, substitutions: Record<string, string>) {
+function addShaderPage(
+	definitions: GodotDefinitions,
+	shaderType: string,
+	text: string,
+	substitutions: Record<string, string>,
+) {
 	let stage: string | undefined;
 	let lastHeading = '';
 
@@ -349,7 +389,8 @@ function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: 
 
 			if (kind === 'Render mode' || kind === 'Stencil mode') {
 				const name = /\*\*(\w+)\*\*/.exec(first)?.[1];
-				const target = kind === 'Render mode' ? definitions.renderModes : definitions.stencilModes;
+				const target =
+					kind === 'Render mode' ? definitions.renderModes : definitions.stencilModes;
 				if (name) {
 					(target[shaderType] ??= {})[name] = doc;
 				}
@@ -389,7 +430,11 @@ function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: 
 }
 
 /** Add data types, interpolation qualifiers and uniform hints */
-function addLanguagePage(definitions: GodotDefinitions, text: string, substitutions: Record<string, string>) {
+function addLanguagePage(
+	definitions: GodotDefinitions,
+	text: string,
+	substitutions: Record<string, string>,
+) {
 	for (const { table } of gridTables(text)) {
 		const [first, second, third] = table.header;
 
@@ -399,7 +444,10 @@ function addLanguagePage(definitions: GodotDefinitions, text: string, substituti
 			}
 		} else if (first === 'Qualifier') {
 			for (const [qualifier, description] of table.rows) {
-				definitions.qualifiers[qualifier.replace(/\*/g, '')] = inline(description, substitutions);
+				definitions.qualifiers[qualifier.replace(/\*/g, '')] = inline(
+					description,
+					substitutions,
+				);
 			}
 		} else if (first === 'Type' && second === 'Hint' && third === 'Description') {
 			for (const [types, hint, description] of table.rows) {
@@ -424,7 +472,9 @@ function expandHint(text: string): string[] {
 	}
 
 	const [, base, bracketPart] = match;
-	const groups = [...bracketPart.matchAll(/\[([^\]]+)\]/g)].map((g) => g[1].split(',').map((o) => o.trim()));
+	const groups = [...bracketPart.matchAll(/\[([^\]]+)\]/g)].map((g) =>
+		g[1].split(',').map((o) => o.trim()),
+	);
 
 	if (!groups.length) {
 		return [base];

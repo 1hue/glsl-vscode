@@ -12,7 +12,9 @@ export const signatureHelpProvider: vscode.SignatureHelpProvider = {
 			return undefined;
 		}
 
-		const signatures = userSignatures(document, position, call.name) ?? builtinSignatures(document, position, call.name);
+		const signatures =
+			userSignatures(document, position, call.name)
+			?? builtinSignatures(document, position, call.name);
 		if (!signatures?.length) {
 			return undefined;
 		}
@@ -29,9 +31,16 @@ export const signatureHelpProvider: vscode.SignatureHelpProvider = {
 	},
 };
 
-function signatureInformation(name: string, signature: Signature, group?: FunctionGroup): vscode.SignatureInformation {
+function signatureInformation(
+	name: string,
+	signature: Signature,
+	group?: FunctionGroup,
+): vscode.SignatureInformation {
 	const label = signatureLabel(name, signature);
-	const info = new vscode.SignatureInformation(label, group?.doc ? markdown(group.doc) : undefined);
+	const info = new vscode.SignatureInformation(
+		label,
+		group?.doc ? markdown(group.doc) : undefined,
+	);
 
 	// Param ranges as label offsets for highlighting
 	let searchFrom = label.indexOf('(') + 1;
@@ -42,7 +51,9 @@ function signatureInformation(name: string, signature: Signature, group?: Functi
 		searchFrom = end;
 
 		const doc = group?.params?.[param.name];
-		info.parameters.push(new vscode.ParameterInformation([start, end], doc ? markdown(doc) : undefined));
+		info.parameters.push(
+			new vscode.ParameterInformation([start, end], doc ? markdown(doc) : undefined),
+		);
 	}
 
 	return info;

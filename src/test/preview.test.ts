@@ -26,8 +26,18 @@ async function check({ fragment, version }: Shader) {
 
 test('desktop, Vulkan and ES 3.00 sources become valid ES 3.00', async () => {
 	const sources = [
-		lines('#version 330 core', 'out vec4 color;', 'uniform float time;', 'void main() { color = vec4(time); }'),
-		lines('#version 460', 'layout(location = 0) out vec4 color;', 'uniform float time;', 'void main() { color = vec4(time); }'),
+		lines(
+			'#version 330 core',
+			'out vec4 color;',
+			'uniform float time;',
+			'void main() { color = vec4(time); }',
+		),
+		lines(
+			'#version 460',
+			'layout(location = 0) out vec4 color;',
+			'uniform float time;',
+			'void main() { color = vec4(time); }',
+		),
 		lines(
 			'#version 460',
 			'layout(set = 0, binding = 0) uniform Params { vec3 tint; } params;',
@@ -35,7 +45,12 @@ test('desktop, Vulkan and ES 3.00 sources become valid ES 3.00', async () => {
 			'layout(location = 0) out vec4 color;',
 			'void main() { color = vec4(params.tint * vUv.x, 1.0); }',
 		),
-		lines('#version 300 es', 'out vec4 color;', 'uniform float time;', 'void main() { color = vec4(time); }'),
+		lines(
+			'#version 300 es',
+			'out vec4 color;',
+			'uniform float time;',
+			'void main() { color = vec4(time); }',
+		),
 	];
 
 	for (const source of sources) {
@@ -47,7 +62,8 @@ test('desktop, Vulkan and ES 3.00 sources become valid ES 3.00', async () => {
 });
 
 test('legacy and versionless sources become valid ES 1.00', async () => {
-	const body = 'uniform vec2 resolution; void main() { gl_FragColor = vec4(gl_FragCoord.xy / resolution, 0.0, 1.0); }';
+	const body =
+		'uniform vec2 resolution; void main() { gl_FragColor = vec4(gl_FragCoord.xy / resolution, 0.0, 1.0); }';
 
 	for (const source of [body, lines('#version 100', body), lines('#version 120', body)]) {
 		const result = await webgl(source);
@@ -58,7 +74,12 @@ test('legacy and versionless sources become valid ES 1.00', async () => {
 });
 
 test('lineOffset maps WebGL errors back to original lines', async () => {
-	const source = lines('// header comment', '#version 300 es', 'out highp vec4 color;', 'void main() { color = foo; }');
+	const source = lines(
+		'// header comment',
+		'#version 300 es',
+		'out highp vec4 color;',
+		'void main() { color = foo; }',
+	);
 	const result = await webgl(source);
 
 	const [error] = await check(result);
@@ -114,9 +135,22 @@ test('annotations: range, default, both or neither', () => {
 test('canvas_item and spatial GDShaders become valid ES 3.00', async () => {
 	const godot = require('#data/godot') as Definitions;
 	const sources = [
-		lines('shader_type canvas_item;', 'uniform vec4 tint : source_color = vec4(1.0);', 'void fragment() { COLOR = tint * vec4(UV, sin(TIME), 1.0); }'),
-		lines('shader_type spatial;', 'render_mode unshaded;', 'uniform float amount : hint_range(0, 1) = 0.5;', 'void fragment() { ALBEDO = amount * NORMAL; }'),
-		lines('shader_type spatial;', 'void vertex() { VERTEX.y += 1.0; }', 'void fragment() { ALBEDO = vec3(UV, 0.0); EMISSION = vec3(PI / TAU); }'),
+		lines(
+			'shader_type canvas_item;',
+			'uniform vec4 tint : source_color = vec4(1.0);',
+			'void fragment() { COLOR = tint * vec4(UV, sin(TIME), 1.0); }',
+		),
+		lines(
+			'shader_type spatial;',
+			'render_mode unshaded;',
+			'uniform float amount : hint_range(0, 1) = 0.5;',
+			'void fragment() { ALBEDO = amount * NORMAL; }',
+		),
+		lines(
+			'shader_type spatial;',
+			'void vertex() { VERTEX.y += 1.0; }',
+			'void fragment() { ALBEDO = vec3(UV, 0.0); EMISSION = vec3(PI / TAU); }',
+		),
 	];
 
 	for (const source of sources) {
@@ -129,7 +163,11 @@ test('canvas_item and spatial GDShaders become valid ES 3.00', async () => {
 
 test('GDShader uniforms become controls, hints ignored', () => {
 	const godot = require('#data/godot') as Definitions;
-	const source = lines('shader_type canvas_item;', 'uniform vec4 tint : source_color = vec4(1.0);', 'uniform sampler2D noise : filter_linear;');
+	const source = lines(
+		'shader_type canvas_item;',
+		'uniform vec4 tint : source_color = vec4(1.0);',
+		'uniform sampler2D noise : filter_linear;',
+	);
 
 	const result = gdshaderToWebGL(source, godot);
 
@@ -157,9 +195,15 @@ test('rim example with its include becomes valid ES 3.00', async () => {
 
 test('GDShader lineOffset maps errors back to original lines', async () => {
 	const godot = require('#data/godot') as Definitions;
-	const source = lines('shader_type canvas_item;', '#include "lib.gdshaderinc"', 'void fragment() { COLOR = foo; }');
+	const source = lines(
+		'shader_type canvas_item;',
+		'#include "lib.gdshaderinc"',
+		'void fragment() { COLOR = foo; }',
+	);
 
-	const result = gdshaderToWebGL(source, godot, [lines('float helper() {', '\treturn 1.0;', '}')]);
+	const result = gdshaderToWebGL(source, godot, [
+		lines('float helper() {', '\treturn 1.0;', '}'),
+	]);
 
 	assert.ok(!('errors' in result));
 	const [error] = await check(result);

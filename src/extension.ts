@@ -13,7 +13,10 @@ const SELECTOR: vscode.DocumentSelector = [{ language: 'glsl' }, { language: 'gd
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
-		vscode.workspace.registerTextDocumentContentProvider(BUILTINS_SCHEME, builtinsContentProvider),
+		vscode.workspace.registerTextDocumentContentProvider(
+			BUILTINS_SCHEME,
+			builtinsContentProvider,
+		),
 		vscode.languages.registerHoverProvider(SELECTOR, hoverProvider),
 		vscode.languages.registerCompletionItemProvider(SELECTOR, completionProvider),
 		vscode.languages.registerSignatureHelpProvider(SELECTOR, signatureHelpProvider, '(', ','),

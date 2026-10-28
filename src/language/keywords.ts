@@ -10,10 +10,28 @@ function namesOf(kinds: Construct['kind'][]): string[] {
 export const STATEMENT_KEYWORDS = namesOf(['statement']);
 
 export const GDSHADER_QUALIFIERS = [
-	'global', 'instance', 'uniform', 'varying', 'const', 'in', 'out', 'inout', 'flat', 'smooth', 'lowp', 'mediump', 'highp',
+	'global',
+	'instance',
+	'uniform',
+	'varying',
+	'const',
+	'in',
+	'out',
+	'inout',
+	'flat',
+	'smooth',
+	'lowp',
+	'mediump',
+	'highp',
 ];
 
-const GODOT_KEYWORDS = ['shader_type', 'render_mode', 'stencil_mode', 'group_uniforms', ...GDSHADER_QUALIFIERS];
+const GODOT_KEYWORDS = [
+	'shader_type',
+	'render_mode',
+	'stencil_mode',
+	'group_uniforms',
+	...GDSHADER_QUALIFIERS,
+];
 
 function vectorAndMatrixTypes(): string[] {
 	const types = ['void', 'bool', 'int', 'uint', 'float', 'double', 'atomic_uint'];
@@ -31,13 +49,29 @@ function vectorAndMatrixTypes(): string[] {
 }
 
 function opaqueTypes(): string[] {
-	const dimensions = ['1D', '2D', '3D', 'Cube', '2DRect', '1DArray', '2DArray', 'CubeArray', 'Buffer', '2DMS', '2DMSArray'];
+	const dimensions = [
+		'1D',
+		'2D',
+		'3D',
+		'Cube',
+		'2DRect',
+		'1DArray',
+		'2DArray',
+		'CubeArray',
+		'Buffer',
+		'2DMS',
+		'2DMSArray',
+	];
 	const shadowDimensions = ['1D', '2D', 'Cube', '2DRect', '1DArray', '2DArray', 'CubeArray'];
 	const types = ['sampler', 'samplerShadow'];
 
 	for (const prefix of ['', 'i', 'u']) {
 		for (const dimension of dimensions) {
-			types.push(`${prefix}sampler${dimension}`, `${prefix}image${dimension}`, `${prefix}texture${dimension}`);
+			types.push(
+				`${prefix}sampler${dimension}`,
+				`${prefix}image${dimension}`,
+				`${prefix}texture${dimension}`,
+			);
 		}
 	}
 
@@ -54,12 +88,40 @@ export const GLSL_TYPES = [...vectorAndMatrixTypes(), ...opaqueTypes()];
 
 export const GDSHADER_KEYWORDS = [...STATEMENT_KEYWORDS, ...GODOT_KEYWORDS];
 
-export const GDSHADER_DIRECTIVES = ['#define', '#undef', '#if', '#ifdef', '#ifndef', '#elif', '#else', '#endif', '#include', '#pragma', '#error'];
+export const GDSHADER_DIRECTIVES = [
+	'#define',
+	'#undef',
+	'#if',
+	'#ifdef',
+	'#ifndef',
+	'#elif',
+	'#else',
+	'#endif',
+	'#include',
+	'#pragma',
+	'#error',
+];
 
-export const GDSHADER_SHADER_TYPES = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
+export const GDSHADER_SHADER_TYPES = [
+	'spatial',
+	'canvas_item',
+	'particles',
+	'sky',
+	'fog',
+	'texture_blit',
+];
 
 // Godot processing functions
-export const GDSHADER_STAGE_FUNCTIONS = ['vertex', 'fragment', 'light', 'start', 'process', 'sky', 'fog', 'blit'];
+export const GDSHADER_STAGE_FUNCTIONS = [
+	'vertex',
+	'fragment',
+	'light',
+	'start',
+	'process',
+	'sky',
+	'fog',
+	'blit',
+];
 
 export const STAGE_BY_EXTENSION: Record<string, string> = {
 	'.vert': 'vertex',

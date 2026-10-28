@@ -33,15 +33,51 @@ export interface DocumentScan {
 }
 
 const QUALIFIERS = new Set([
-	'const', 'uniform', 'buffer', 'shared', 'attribute', 'varying', 'in', 'out', 'inout',
-	'centroid', 'flat', 'smooth', 'noperspective', 'patch', 'sample', 'invariant', 'precise',
-	'coherent', 'volatile', 'restrict', 'readonly', 'writeonly', 'lowp', 'mediump', 'highp',
-	'global', 'instance',
+	'const',
+	'uniform',
+	'buffer',
+	'shared',
+	'attribute',
+	'varying',
+	'in',
+	'out',
+	'inout',
+	'centroid',
+	'flat',
+	'smooth',
+	'noperspective',
+	'patch',
+	'sample',
+	'invariant',
+	'precise',
+	'coherent',
+	'volatile',
+	'restrict',
+	'readonly',
+	'writeonly',
+	'lowp',
+	'mediump',
+	'highp',
+	'global',
+	'instance',
 ]);
 
 const NOT_A_TYPE = new Set([
-	'return', 'else', 'if', 'for', 'while', 'switch', 'case', 'do', 'discard', 'struct',
-	'precision', 'shader_type', 'render_mode', 'stencil_mode', 'group_uniforms',
+	'return',
+	'else',
+	'if',
+	'for',
+	'while',
+	'switch',
+	'case',
+	'do',
+	'discard',
+	'struct',
+	'precision',
+	'shader_type',
+	'render_mode',
+	'stencil_mode',
+	'group_uniforms',
 ]);
 
 const cache = new Map<string, { version: number; scan: DocumentScan }>();
@@ -67,7 +103,9 @@ export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[]
 		(s) => s.scope && s.scope.start <= offset && offset <= s.scope.end && s.nameStart <= offset,
 	);
 
-	const blockMembers = scan.globals.filter((s) => s.exposesMembers).flatMap((s) => s.children ?? []);
+	const blockMembers = scan.globals
+		.filter((s) => s.exposesMembers)
+		.flatMap((s) => s.children ?? []);
 
 	// Innermost first to shadow globals
 	return [...locals.reverse(), ...scan.globals, ...blockMembers];
@@ -103,12 +141,15 @@ function scan_(text: string): DocumentScan {
 
 	const shaderType = /^\s*shader_type\s+(\w+)\s*;/m.exec(source)?.[1];
 
-	const globals = [...functions, ...structs, ...blocks, ...variables, ...macros].sort((a, b) => a.start - b.start);
+	const globals = [...functions, ...structs, ...blocks, ...variables, ...macros].sort(
+		(a, b) => a.start - b.start,
+	);
 
 	return {
 		globals,
 		locals,
-		shaderType: shaderType && GDSHADER_SHADER_TYPES.includes(shaderType) ? shaderType : undefined,
+		shaderType:
+			shaderType && GDSHADER_SHADER_TYPES.includes(shaderType) ? shaderType : undefined,
 	};
 }
 
@@ -267,7 +308,14 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 			// List prototype only without definition
 			const defined = new RegExp(`\\b${name}\\s*\\([^()]*\\)\\s*\\{`).test(source);
 			if (!defined) {
-				functions.push({ name, kind: 'function', detail: signature + ';', start, end: start + whole.length, nameStart });
+				functions.push({
+					name,
+					kind: 'function',
+					detail: signature + ';',
+					start,
+					end: start + whole.length,
+					nameStart,
+				});
 			}
 			continue;
 		}
@@ -276,7 +324,15 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 		const close = braces.get(open) ?? source.length;
 		const scope = { start: paramsStart, end: close };
 
-		functions.push({ name, kind: 'function', detail: signature, start, end: close + 1, nameStart, scope });
+		functions.push({
+			name,
+			kind: 'function',
+			detail: signature,
+			start,
+			end: close + 1,
+			nameStart,
+			scope,
+		});
 		locals.push(...findParameters(paramText, paramsStart, scope));
 		locals.push(...findLocals(source, open + 1, close, typeNames, braces));
 	}
@@ -284,7 +340,11 @@ function findFunctions(source: string, braces: Map<number, number>, typeNames: S
 	return { functions, locals };
 }
 
-function findParameters(paramText: string, paramsStart: number, scope: { start: number; end: number }): UserSymbol[] {
+function findParameters(
+	paramText: string,
+	paramsStart: number,
+	scope: { start: number; end: number },
+): UserSymbol[] {
 	const params: UserSymbol[] = [];
 	let offset = 0;
 
@@ -312,10 +372,17 @@ function findParameters(paramText: string, paramsStart: number, scope: { start: 
 	return params;
 }
 
-function findLocals(source: string, bodyStart: number, bodyEnd: number, typeNames: Set<string>, braces: Map<number, number>): UserSymbol[] {
+function findLocals(
+	source: string,
+	bodyStart: number,
+	bodyEnd: number,
+	typeNames: Set<string>,
+	braces: Map<number, number>,
+): UserSymbol[] {
 	const locals: UserSymbol[] = [];
 	const body = source.slice(bodyStart, bodyEnd);
-	const pattern = /(?:^|[;{}(\s])((?:(?:const|lowp|mediump|highp)\s+)*)(\w+)(\s*\[[^\]]*\])?\s+(\w+)\s*(?=[=;,[)])/g;
+	const pattern =
+		/(?:^|[;{}(\s])((?:(?:const|lowp|mediump|highp)\s+)*)(\w+)(\s*\[[^\]]*\])?\s+(\w+)\s*(?=[=;,[)])/g;
 
 	for (const match of body.matchAll(pattern)) {
 		const [whole, , type, , name] = match;
@@ -347,7 +414,12 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 		locals.push({
 			name,
 			kind: 'variable',
-			detail: collapse(source.slice(bodyStart + (match.index ?? 0), statementEnd === -1 ? nameStart + name.length : statementEnd)),
+			detail: collapse(
+				source.slice(
+					bodyStart + (match.index ?? 0),
+					statementEnd === -1 ? nameStart + name.length : statementEnd,
+				),
+			),
 			start: nameStart,
 			end: nameStart + name.length,
 			nameStart,
@@ -401,7 +473,10 @@ function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] 
 	return globals;
 }
 
-function* topLevelStatements(source: string, braces: Map<number, number>): Generator<{ text: string; start: number }> {
+function* topLevelStatements(
+	source: string,
+	braces: Map<number, number>,
+): Generator<{ text: string; start: number }> {
 	let start = 0;
 	let text = '';
 

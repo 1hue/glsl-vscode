@@ -1,6 +1,14 @@
 import type { Definitions, Param, Signature, SourceInfo } from '#src/language/types';
 
-export type { Definitions, FunctionGroup, Hint, Param, Signature, SourceInfo, Variable } from '#src/language/types';
+export type {
+	Definitions,
+	FunctionGroup,
+	Hint,
+	Param,
+	Signature,
+	SourceInfo,
+	Variable,
+} from '#src/language/types';
 
 // Entry in sources.json
 export interface SourceConfig {
@@ -14,7 +22,11 @@ export interface SourceConfig {
 export type ReadFile = (path: string) => Promise<string>;
 
 export interface Source {
-	generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>>;
+	generate(
+		config: SourceConfig,
+		commit: string,
+		read: ReadFile,
+	): Promise<Record<string, Definitions>>;
 }
 
 /** Prototype like `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */

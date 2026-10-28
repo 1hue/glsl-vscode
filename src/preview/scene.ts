@@ -3,7 +3,12 @@
 import * as vscode from 'vscode';
 import type { Scene } from '#src/webview/protocol';
 
-const DEFAULT: Scene = { mesh: 'fullscreen', light: { azimuth: 45, elevation: 45 }, uniforms: {}, textures: {} };
+const DEFAULT: Scene = {
+	mesh: 'fullscreen',
+	light: { azimuth: 45, elevation: 45 },
+	uniforms: {},
+	textures: {},
+};
 
 const key = (uri: vscode.Uri) => `preview.scene:${uri.toString()}`;
 

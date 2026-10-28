@@ -47,7 +47,8 @@ body.vscode-high-contrast:not(.vscode-high-contrast-light) {
 	position: absolute;
 	color: var(--vscode-foreground);
 	background: var(--vscode-debugToolBar-background, var(--vscode-editorWidget-background));
-	border: var(--stroke) solid var(--vscode-debugToolBar-border, var(--vscode-editorWidget-border, transparent));
+	border: var(--stroke) solid
+		var(--vscode-debugToolBar-border, var(--vscode-editorWidget-border, transparent));
 	border-radius: var(--vscode-cornerRadius-large);
 	font-family: var(--vscode-font-family);
 	font-size: var(--vscode-fontSize-body1);
@@ -203,17 +204,17 @@ body.fullscreen .separator {
 	align-items: center;
 }
 
-.control input[type="range"] {
+.control input[type='range'] {
 	flex: 1;
 	min-width: calc(3 * var(--vscode-spacing-size400));
 }
 
-.control input[type="number"] {
+.control input[type='number'] {
 	width: calc(2 * var(--vscode-spacing-size280));
 }
 
 /* Number field */
-input[type="number"] {
+input[type='number'] {
 	padding: var(--padding) var(--vscode-spacing-size60);
 	font: inherit;
 	color: var(--vscode-input-foreground);
@@ -240,7 +241,7 @@ input[type="number"] {
 }
 
 /* Checkbox */
-input[type="checkbox"] {
+input[type='checkbox'] {
 	appearance: none;
 	display: flex;
 	align-items: center;
@@ -255,17 +256,17 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
-input[type="checkbox"]:hover {
+input[type='checkbox']:hover {
 	background: var(--vscode-inputOption-hoverBackground);
 }
 
-input[type="checkbox"]:checked::before {
-	content: "\eab2"; /* codicon-check */
+input[type='checkbox']:checked::before {
+	content: '\eab2'; /* codicon-check */
 	font-family: codicon;
 	font-size: var(--vscode-codiconFontSize);
 }
 
-input[type="color"] {
+input[type='color'] {
 	width: var(--vscode-spacing-size320);
 	height: var(--vscode-spacing-size200);
 	padding: var(--vscode-spacing-sizeNone);
@@ -274,7 +275,7 @@ input[type="color"] {
 }
 
 /* Slider */
-input[type="range"] {
+input[type='range'] {
 	--track: var(--vscode-spacing-size40);
 	--thumb: var(--vscode-spacing-size160);
 	appearance: none;
@@ -283,13 +284,13 @@ input[type="range"] {
 	background: none;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
+input[type='range']::-webkit-slider-runnable-track {
 	height: var(--track);
 	border-radius: var(--vscode-cornerRadius-xSmall);
 	background: var(--vscode-scrollbarSlider-background);
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
 	/* Like other inputs */
 	appearance: none;
 	box-sizing: border-box;
@@ -301,15 +302,15 @@ input[type="range"]::-webkit-slider-thumb {
 	border: var(--stroke) solid var(--vscode-input-border, var(--vscode-input-foreground));
 }
 
-input[type="range"]:hover::-webkit-slider-thumb {
+input[type='range']:hover::-webkit-slider-thumb {
 	border-color: var(--vscode-focusBorder);
 }
 
-input[type="range"]:hover::-webkit-slider-runnable-track {
+input[type='range']:hover::-webkit-slider-runnable-track {
 	background: var(--vscode-scrollbarSlider-hoverBackground);
 }
 
-input[type="range"]:active::-webkit-slider-runnable-track {
+input[type='range']:active::-webkit-slider-runnable-track {
 	background: var(--vscode-scrollbarSlider-activeBackground);
 }
 

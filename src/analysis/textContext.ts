@@ -23,7 +23,9 @@ export function isMemberAccess(document: vscode.TextDocument, start: vscode.Posi
 export function statementBefore(document: vscode.TextDocument, position: vscode.Position): string {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 2000);
-	const text = stripComments(document.getText(new vscode.Range(document.positionAt(from), position)));
+	const text = stripComments(
+		document.getText(new vscode.Range(document.positionAt(from), position)),
+	);
 
 	const boundary = Math.max(text.lastIndexOf(';'), text.lastIndexOf('{'), text.lastIndexOf('}'));
 	return text.slice(boundary + 1);
@@ -61,7 +63,10 @@ export function cursorContext(
 	qualifierNames: Set<string>,
 	typeNames: Set<string>,
 ): CursorContext | undefined {
-	const line = document.lineAt(position.line).text.slice(0, position.character).replace(/\w*$/, '');
+	const line = document
+		.lineAt(position.line)
+		.text.slice(0, position.character)
+		.replace(/\w*$/, '');
 	if (/^\s*#\s*$/.test(line)) {
 		return { kind: 'directive' };
 	}
@@ -70,23 +75,30 @@ export function cursorContext(
 	}
 
 	// Text before word being typed minus comments and preprocessor lines
-	const before = document.getText(new vscode.Range(new vscode.Position(0, 0), position)).replace(/\w*$/, '');
+	const before = document
+		.getText(new vscode.Range(new vscode.Position(0, 0), position))
+		.replace(/\w*$/, '');
 	const text = stripComments(before).replace(/^[ \t]*#.*$/gm, '');
 
 	const scope = braceScope(text);
-	const statement = text.slice(Math.max(text.lastIndexOf(';'), text.lastIndexOf('{'), text.lastIndexOf('}')) + 1);
+	const statement = text.slice(
+		Math.max(text.lastIndexOf(';'), text.lastIndexOf('{'), text.lastIndexOf('}')) + 1,
+	);
 
 	if (/\blayout\s*\([^()]*$/.test(statement)) {
 		return { kind: 'layout' };
 	}
 
-	const openParens = (statement.match(/\(/g)?.length ?? 0) - (statement.match(/\)/g)?.length ?? 0);
+	const openParens =
+		(statement.match(/\(/g)?.length ?? 0) - (statement.match(/\)/g)?.length ?? 0);
 	if (openParens > 0) {
 		// `vec4 shade(in |` at global scope is params, other parens an expression
 		if (scope !== 'global' || statement.includes('=')) {
 			return { kind: 'expression' };
 		}
-		const parameter = statement.slice(Math.max(statement.lastIndexOf('('), statement.lastIndexOf(',')) + 1);
+		const parameter = statement.slice(
+			Math.max(statement.lastIndexOf('('), statement.lastIndexOf(',')) + 1,
+		);
 		return declarationContext(parameter, 'parameter', qualifierNames, typeNames, line);
 	}
 
@@ -110,7 +122,9 @@ function declarationContext(
 	const words = text.replace(/\blayout\s*\([^()]*\)/g, ' layout ').match(/\w+/g) ?? [];
 
 	if (!words.length) {
-		return scope === 'local' ? { kind: 'statement' } : { kind: 'declaration', scope, qualifiers: [] };
+		return scope === 'local'
+			? { kind: 'statement' }
+			: { kind: 'declaration', scope, qualifiers: [] };
 	}
 	if (words.every((w) => qualifierNames.has(w))) {
 		return { kind: 'declaration', scope, qualifiers: words };
@@ -142,10 +156,15 @@ function braceScope(text: string): 'global' | 'member' | 'local' {
 }
 
 /** Find innermost unclosed call */
-export function callAt(document: vscode.TextDocument, position: vscode.Position): { name: string; argument: number } | undefined {
+export function callAt(
+	document: vscode.TextDocument,
+	position: vscode.Position,
+): { name: string; argument: number } | undefined {
 	const offset = document.offsetAt(position);
 	const from = Math.max(0, offset - 4000);
-	const text = stripComments(document.getText(new vscode.Range(document.positionAt(from), position)));
+	const text = stripComments(
+		document.getText(new vscode.Range(document.positionAt(from), position)),
+	);
 
 	let depth = 0;
 	let argument = 0;

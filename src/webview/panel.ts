@@ -29,7 +29,12 @@ export function buildControls(
 	root.replaceChildren(...elements);
 }
 
-function editorOf(control: Control, value: Value, set: (value: Value) => void, pick: () => void): HTMLElement[] | undefined {
+function editorOf(
+	control: Control,
+	value: Value,
+	set: (value: Value) => void,
+	pick: () => void,
+): HTMLElement[] | undefined {
 	const { type, label } = control;
 
 	if (type === 'bool') {
@@ -68,7 +73,12 @@ function editorOf(control: Control, value: Value, set: (value: Value) => void, p
 }
 
 /** Keep range and number field in sync */
-function slider(control: Control, value: number, integer: boolean, set: (value: Value) => void): HTMLElement {
+function slider(
+	control: Control,
+	value: number,
+	integer: boolean,
+	set: (value: Value) => void,
+): HTMLElement {
 	const row = document.createElement('div');
 	row.className = 'row';
 	const range = input('range');
@@ -102,10 +112,16 @@ function colorRow(values: number[], set: (value: Value) => void): HTMLElement {
 	const picker = input('color');
 	picker.value = `#${values
 		.slice(0, 3)
-		.map((component) => Math.round(Math.min(Math.max(component, 0), 1) * 255).toString(16).padStart(2, '0'))
+		.map((component) =>
+			Math.round(Math.min(Math.max(component, 0), 1) * 255)
+				.toString(16)
+				.padStart(2, '0'),
+		)
 		.join('')}`;
 	picker.addEventListener('input', () => {
-		const rgb = [1, 3, 5].map((start) => parseInt(picker.value.slice(start, start + 2), 16) / 255);
+		const rgb = [1, 3, 5].map(
+			(start) => parseInt(picker.value.slice(start, start + 2), 16) / 255,
+		);
 		values.splice(0, 3, ...rgb);
 		set([...values]);
 	});

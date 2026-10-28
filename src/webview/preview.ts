@@ -3,9 +3,21 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { buildControls } from './panel.js';
-import type { Control, FromWebview, Mesh, Scene, Shader, ToWebview, Value, VertexShaders } from './protocol.js';
+import type {
+	Control,
+	FromWebview,
+	Mesh,
+	Scene,
+	Shader,
+	ToWebview,
+	Value,
+	VertexShaders,
+} from './protocol.js';
 
-declare function acquireVsCodeApi(): { postMessage(message: FromWebview): void; setState(state: { uri: string }): void };
+declare function acquireVsCodeApi(): {
+	postMessage(message: FromWebview): void;
+	setState(state: { uri: string }): void;
+};
 
 const vscode = acquireVsCodeApi();
 const element = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -46,7 +58,10 @@ orbit.enableDamping = true;
 const mesh = new THREE.Mesh(GEOMETRIES.fullscreen());
 mesh.frustumCulled = false;
 // Light marker
-const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.06, 16, 8), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+const lamp = new THREE.Mesh(
+	new THREE.SphereGeometry(0.06, 16, 8),
+	new THREE.MeshBasicMaterial({ color: 0xffffff }),
+);
 world.add(mesh, lamp);
 
 // Built-ins with aliases sharing one value
@@ -67,7 +82,12 @@ const BUILTINS: Record<string, THREE.IUniform> = {
 	lightPosition,
 };
 
-let scene: Scene = { mesh: 'fullscreen', light: { azimuth: 45, elevation: 45 }, uniforms: {}, textures: {} };
+let scene: Scene = {
+	mesh: 'fullscreen',
+	light: { azimuth: 45, elevation: 45 },
+	uniforms: {},
+	textures: {},
+};
 let shader: Shader | undefined;
 let vertex: VertexShaders | undefined;
 let lineOffset = 0;
@@ -77,7 +97,10 @@ const clock = new THREE.Clock();
 
 renderer.debug.onShaderError = (gl, program, vertexShader, fragmentShader) => {
 	const log =
-		gl.getShaderInfoLog(fragmentShader) || gl.getShaderInfoLog(vertexShader) || gl.getProgramInfoLog(program) || 'Link failed';
+		gl.getShaderInfoLog(fragmentShader)
+		|| gl.getShaderInfoLog(vertexShader)
+		|| gl.getProgramInfoLog(program)
+		|| 'Link failed';
 	errors.textContent = shiftLines(log, lineOffset);
 };
 
@@ -119,7 +142,10 @@ for (const button of meshButtons) {
 }
 for (const input of [azimuthInput, elevationInput]) {
 	input.addEventListener('input', () => {
-		scene.light = { azimuth: Number(azimuthInput.value), elevation: Number(elevationInput.value) };
+		scene.light = {
+			azimuth: Number(azimuthInput.value),
+			elevation: Number(elevationInput.value),
+		};
 		updateLight();
 		save();
 	});
@@ -135,7 +161,10 @@ orbit.addEventListener('end', () => {
 });
 
 canvas.addEventListener('mousemove', (event) => {
-	mouse.value.set(event.offsetX * devicePixelRatio, canvas.height - event.offsetY * devicePixelRatio);
+	mouse.value.set(
+		event.offsetX * devicePixelRatio,
+		canvas.height - event.offsetY * devicePixelRatio,
+	);
 });
 
 new ResizeObserver(() => {
@@ -323,7 +352,7 @@ function checkerTexture(): THREE.Texture {
 	const size = 64;
 	const data = new Uint8Array(size * size * 4);
 	for (let index = 0; index < size * size; index++) {
-		const shade = ((index % size >> 3) + ((index / size) >> 3)) % 2 ? 230 : 70;
+		const shade = (((index % size) >> 3) + ((index / size) >> 3)) % 2 ? 230 : 70;
 		data.set([shade, shade, shade, 255], index * 4);
 	}
 	const texture = new THREE.DataTexture(data, size, size);
@@ -341,5 +370,8 @@ function save() {
 
 /** Map WebGL error lines back to original source */
 function shiftLines(log: string, offset: number): string {
-	return log.replace(/^(\w+: \d+:)(\d+)/gm, (_, prefix: string, line: string) => `${prefix}${Number(line) - offset}`);
+	return log.replace(
+		/^(\w+: \d+:)(\d+)/gm,
+		(_, prefix: string, line: string) => `${prefix}${Number(line) - offset}`,
+	);
 }

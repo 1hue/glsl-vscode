@@ -2,7 +2,17 @@
 
 import { AbstractBlock, load } from '@asciidoctor/core';
 import { Flavor, constructsFor } from '#src/language/constructs';
-import { Definitions, FunctionGroup, ReadFile, Signature, Source, SourceConfig, Variable, parseSignature, tidy } from './common';
+import {
+	Definitions,
+	FunctionGroup,
+	ReadFile,
+	Signature,
+	Source,
+	SourceConfig,
+	Variable,
+	parseSignature,
+	tidy,
+} from './common';
 
 type Block =
 	| { kind: 'heading'; level: number; text: string; id?: string }
@@ -51,7 +61,10 @@ const FILES = {
 type Chapter = keyof typeof FILES;
 
 // AsciiDoc conditionals (`ifdef::GLSL[]`) and document attributes per output file
-const FLAVORS: Record<Flavor, { conditional: string; title: string; attributes: Record<string, string> }> = {
+const FLAVORS: Record<
+	Flavor,
+	{ conditional: string; title: string; attributes: Record<string, string> }
+> = {
 	glsl: {
 		conditional: 'GLSL',
 		title: 'OpenGL Shading Language specification',
@@ -96,7 +109,11 @@ const SYMBOLS: Record<string, string> = {
 
 export const khronos: Source = { generate };
 
-async function generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>> {
+async function generate(
+	config: SourceConfig,
+	commit: string,
+	read: ReadFile,
+): Promise<Record<string, Definitions>> {
 	const chapters = Object.keys(FILES) as Chapter[];
 	const texts = await Promise.all(chapters.map((c) => read(FILES[c])));
 
@@ -105,14 +122,20 @@ async function generate(config: SourceConfig, commit: string, read: ReadFile): P
 	for (const [name, flavor] of Object.entries(FLAVORS) as [Flavor, (typeof FLAVORS)[Flavor]][]) {
 		const attributes = { ...SYMBOLS, ...flavor.attributes };
 		const parsed = await Promise.all(texts.map((t) => toBlocks(t, flavor.conditional)));
-		const blocksOf = Object.fromEntries(chapters.map((chapter, index) => [chapter, parsed[index]])) as Record<Chapter, Block[]>;
+		const blocksOf = Object.fromEntries(
+			chapters.map((chapter, index) => [chapter, parsed[index]]),
+		) as Record<Chapter, Block[]>;
 
 		const { types, qualifiers } = parseTypeTables(blocksOf.variables, attributes);
 		const keywords: Record<string, string> = {};
 		addConstructDocs(name, parsed.flat(), attributes, { qualifiers, keywords });
 
 		outputs[name] = {
-			source: { ...config.attribution, name: `${config.attribution.name} ${flavor.title}`, commit },
+			source: {
+				...config.attribution,
+				name: `${config.attribution.name} ${flavor.title}`,
+				commit,
+			},
 			functions: parseFunctions(blocksOf.functions, attributes),
 			variables: parseVariables(blocksOf.builtins, attributes),
 			types,
@@ -133,7 +156,12 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 		for (const child of node.getBlocks()) {
 			switch (child.getContext()) {
 				case 'section':
-					blocks.push({ kind: 'heading', level: (child.getLevel() ?? 0) + 1, text: child.getTitle() ?? '', id: child.getId() });
+					blocks.push({
+						kind: 'heading',
+						level: (child.getLevel() ?? 0) + 1,
+						text: child.getTitle() ?? '',
+						id: child.getId(),
+					});
 					visit(child);
 					break;
 
@@ -165,7 +193,9 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 						kind: 'para',
 						lines: (child as DescriptionListNode)
 							.getItems()
-							.flatMap(([, description]) => (description ? rawText(description).split(/\s\+\n/) : []))
+							.flatMap(([, description]) =>
+								description ? rawText(description).split(/\s\+\n/) : [],
+							)
 							.map((i) => `* ${i.replace(/\s*\n\s*/g, ' ').replace(/\s\+$/, '')}`),
 					});
 					break;
@@ -176,7 +206,10 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 					if (child.getBlocks().length) {
 						visit(child);
 					} else {
-						blocks.push({ kind: 'para', lines: (child as SourceNode).getSourceLines() });
+						blocks.push({
+							kind: 'para',
+							lines: (child as SourceNode).getSourceLines(),
+						});
 					}
 
 					const first = blocks.slice(start).find((b) => b.kind === 'para');
@@ -212,7 +245,10 @@ function grammarLines(node: AbstractBlock): string[] {
 		if (child.getContext() === 'dlist') {
 			return (child as DescriptionListNode)
 				.getItems()
-				.flatMap(([terms, description]) => [...(terms as ItemNode[]), ...(description ? [description] : [])])
+				.flatMap(([terms, description]) => [
+					...(terms as ItemNode[]),
+					...(description ? [description] : []),
+				])
 				.map(rawText);
 		}
 		return grammarLines(child);
@@ -263,7 +299,11 @@ function tableBlock(table: TableNode): Block {
 
 			const cell = pending.shift()!;
 			// ` +` ends a line in a cell
-			const text = cell.source().replace(/\s\+\n\s*/g, '<br>').replace(/\s*\n\s*/g, ' ').trim();
+			const text = cell
+				.source()
+				.replace(/\s\+\n\s*/g, '<br>')
+				.replace(/\s*\n\s*/g, ' ')
+				.trim();
 			spans[row.length] = { text, remaining: (cell.rowspan ?? 1) - 1 };
 			row.push(text);
 		}
@@ -283,7 +323,8 @@ function blockToMarkdown(block: Block, attributes: Record<string, string>): stri
 			return '```\n' + block.lines.join('\n').trim() + '\n```';
 
 		case 'table': {
-			const row = (cells: string[]) => '| ' + cells.map((c) => inline(c, attributes)).join(' | ') + ' |';
+			const row = (cells: string[]) =>
+				'| ' + cells.map((c) => inline(c, attributes)).join(' | ') + ' |';
 			const columns = block.rows[0].length;
 			const separator = '|' + ' --- |'.repeat(columns);
 			const emptyHeader = '|' + '   |'.repeat(columns);
@@ -332,7 +373,8 @@ function inline(text: string, attributes: Record<string, string>): string {
 	// Set code spans aside from emphasis rules
 	const codeSpans: string[] = [];
 	const protect = (code: string) => `\u0000${codeSpans.push(code) - 1}\u0000`;
-	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
+	const restore = (s: string) =>
+		s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
 	// Drop emphasis in code and equations but keep sub/superscripts
 	const plain = (s: string) =>
@@ -351,14 +393,23 @@ function inline(text: string, attributes: Record<string, string>): string {
 		.replace(/\[eq\]#([\s\S]*?)#/g, (_, math) => protect('`' + plain(math) + '`'))
 		.replace(/`([^`]+)`/g, (_, code) => protect('`' + plain(code) + '`'))
 		// Passthrough like `+__LINE__+`
-		.replace(/(^|[^\w+])\+(\S(?:[^+\n]*?\S)?)\+(?![\w+])/gm, (_, before, code) => before + protect('`' + code + '`'))
+		.replace(
+			/(^|[^\w+])\+(\S(?:[^+\n]*?\S)?)\+(?![\w+])/gm,
+			(_, before, code) => before + protect('`' + code + '`'),
+		)
 		.replace(/<<[^,>]+,([^>]+)>>/g, '$1')
 		.replace(/<<([^>]+)>>/g, (_, anchor: string) => anchor.replace(/-/g, ' '))
 		.replace(/\*\*\*/g, () => protect('`*`'))
 		.replace(/\*\*(?=\S)([^*\n]*?\S)\*\*/g, (_, name) => protect('`' + plain(name) + '`'))
 		// Spec uses _x_ for params and *x* for types, functions and keywords. Both become code
-		.replace(/(^|[^\w\\])_(?=\S)(.*?\S)_(?!\w)/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
-		.replace(/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm, (_, before, name) => before + protect('`' + plain(name) + '`'))
+		.replace(
+			/(^|[^\w\\])_(?=\S)(.*?\S)_(?!\w)/gm,
+			(_, before, name) => before + protect('`' + plain(name) + '`'),
+		)
+		.replace(
+			/(^|[^\w*\\])\*(?=\S)([^*\n]*?\S)\*(?![\w*])/gm,
+			(_, before, name) => before + protect('`' + plain(name) + '`'),
+		)
 		.replace(/~([^~\s]+)~/g, '_$1')
 		.replace(/\^([^^\s]+)\^/g, '^$1')
 		.replace(/\\(?=[<*_{])/g, '');
@@ -378,7 +429,14 @@ function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 
 		// Header from first row when table has no header option
 		const [first, second] = block.rows[0];
-		const target = second !== 'Meaning' ? undefined : first === 'Type' ? types : /Qualifier$/.test(first) ? qualifiers : undefined;
+		const target =
+			second !== 'Meaning'
+				? undefined
+				: first === 'Type'
+					? types
+					: /Qualifier$/.test(first)
+						? qualifiers
+						: undefined;
 		if (!target) {
 			continue;
 		}
@@ -405,7 +463,6 @@ function addDoc(target: Record<string, string>, name: string, doc: string) {
 		target[name] = `${target[name]}\n\n${doc}`;
 	}
 }
-
 
 /** Fails on missing section */
 function addConstructDocs(
@@ -439,7 +496,10 @@ function addConstructDocs(
 		// Section's own text before subsections
 		const end = blocks.findIndex((b, i) => i > start && b.kind === 'heading');
 		const section = blocks.slice(start + 1, end < 0 ? undefined : end);
-		const target = construct.kind === 'qualifier' || construct.kind === 'layout' ? targets.qualifiers : targets.keywords;
+		const target =
+			construct.kind === 'qualifier' || construct.kind === 'layout'
+				? targets.qualifiers
+				: targets.keywords;
 
 		for (const name of construct.names) {
 			const named = sectionDoc(section, name);
@@ -449,7 +509,11 @@ function addConstructDocs(
 
 			const doc = named ?? sectionDoc(section);
 			if (doc) {
-				addDoc(target, name, tidy(doc.map((b) => blockToMarkdown(b, attributes)).join('\n\n')));
+				addDoc(
+					target,
+					name,
+					tidy(doc.map((b) => blockToMarkdown(b, attributes)).join('\n\n')),
+				);
 			} else {
 				missing.push(`${name} (section ${construct.section} has no paragraph)`);
 			}
@@ -457,7 +521,9 @@ function addConstructDocs(
 	}
 
 	if (unnamed.length) {
-		console.log(`${flavor}: not named in their section, using its first paragraph: ${unnamed.join(' ')}`);
+		console.log(
+			`${flavor}: not named in their section, using its first paragraph: ${unnamed.join(' ')}`,
+		);
 	}
 	if (missing.length) {
 		throw new Error(`${flavor}: no docs for ${missing.join('; ')}`);
@@ -481,10 +547,14 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	const plain = new RegExp(`(?<![\\w#])${escaped}(?!\\w)`);
 
 	// Skip lists like `__LINE__ __FILE__ __VERSION__` - they just enumerate
-	const proseOf = (block: Block) => (block.kind === 'para' && !block.lines.every((l) => /^[*.]+ /.test(l)) ? block.lines.join('\n') : '');
+	const proseOf = (block: Block) =>
+		block.kind === 'para' && !block.lines.every((l) => /^[*.]+ /.test(l))
+			? block.lines.join('\n')
+			: '';
 
 	// Prefer a paragraph about it ("The *std430* qualifier ...") over mere mentions
-	const firstNamed = (block: Block) => /(?<![\w#])[*+](#?\w+)[*+](?!\w)/.exec(proseOf(block))?.[1];
+	const firstNamed = (block: Block) =>
+		/(?<![\w#])[*+](#?\w+)[*+](?!\w)/.exec(proseOf(block))?.[1];
 	const about = section.findIndex((b) => firstNamed(b) === name);
 	const named = about >= 0 ? about : section.findIndex((b) => emphasized.test(proseOf(b)));
 	if (named >= 0) {
@@ -543,7 +613,10 @@ function paragraphRun(section: Block[], index: number): Block[] {
 	return section.slice(start, end + 1).filter((b) => b.kind !== 'grammar');
 }
 
-function parseFunctions(blocks: Block[], attributes: Record<string, string>): Record<string, FunctionGroup[]> {
+function parseFunctions(
+	blocks: Block[],
+	attributes: Record<string, string>,
+): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 
 	let current: { signatures: Map<string, Signature[]>; doc: string[] } | undefined;
@@ -614,11 +687,17 @@ function stageFor(heading: string): string | undefined | false {
 		return 'all stages' + profile;
 	}
 
-	const stage = /^(vertex|tessellation control|tessellation evaluation|geometry|fragment|compute|mesh|task) shader/i.exec(heading);
+	const stage =
+		/^(vertex|tessellation control|tessellation evaluation|geometry|fragment|compute|mesh|task) shader/i.exec(
+			heading,
+		);
 	return stage ? stage[1].toLowerCase() : undefined;
 }
 
-function parseVariables(blocks: Block[], attributes: Record<string, string>): Record<string, Variable[]> {
+function parseVariables(
+	blocks: Block[],
+	attributes: Record<string, string>,
+): Record<string, Variable[]> {
 	const variables = new Map<string, { stage: string; decl: string; doc: string[] }[]>();
 
 	let stage: string | undefined;
@@ -742,8 +821,11 @@ function parseDeclarations(lines: string[]): Map<string, string> {
 			}
 		}
 
-		const qualifiers = '(?:(?:patch|in|out|const|uniform|flat|centroid|highp|mediump|lowp)\\s+)*';
-		const declaration = new RegExp(`^\\s*(${qualifiers})(\\w+)\\s+(gl_\\w+)(\\s*\\[[^\\]]*\\])?\\s*(=\\s*[^;]+)?;`).exec(line);
+		const qualifiers =
+			'(?:(?:patch|in|out|const|uniform|flat|centroid|highp|mediump|lowp)\\s+)*';
+		const declaration = new RegExp(
+			`^\\s*(${qualifiers})(\\w+)\\s+(gl_\\w+)(\\s*\\[[^\\]]*\\])?\\s*(=\\s*[^;]+)?;`,
+		).exec(line);
 		if (!declaration) {
 			continue;
 		}

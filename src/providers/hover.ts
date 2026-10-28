@@ -1,6 +1,13 @@
 import * as vscode from 'vscode';
 import { contextAt } from '#src/language/definitions';
-import { functionMarkdown, hintMarkdown, markdown, namedDocMarkdown, userSymbolMarkdown, variableMarkdown } from './format';
+import {
+	functionMarkdown,
+	hintMarkdown,
+	markdown,
+	namedDocMarkdown,
+	userSymbolMarkdown,
+	variableMarkdown,
+} from './format';
 import { scanDocument, visibleSymbols } from '#src/analysis/symbols';
 import { isMemberAccess, statementBefore, statementKind, wordAt } from '#src/analysis/textContext';
 import { includeAt } from './navigation';
@@ -9,7 +16,9 @@ export const hoverProvider: vscode.HoverProvider = {
 	provideHover(document, position) {
 		const include = includeAt(document, position);
 		if (include) {
-			const text = new vscode.MarkdownString().appendCodeblock(`file "${vscode.workspace.asRelativePath(include.file)}"`);
+			const text = new vscode.MarkdownString().appendCodeblock(
+				`file "${vscode.workspace.asRelativePath(include.file)}"`,
+			);
 			return new vscode.Hover(text, include.range);
 		}
 
@@ -23,7 +32,12 @@ export const hoverProvider: vscode.HoverProvider = {
 	},
 };
 
-function hoverText(document: vscode.TextDocument, position: vscode.Position, word: string, range: vscode.Range): string | undefined {
+function hoverText(
+	document: vscode.TextDocument,
+	position: vscode.Position,
+	word: string,
+	range: vscode.Range,
+): string | undefined {
 	const context = contextAt(document, position);
 	const { defs } = context;
 	const language = document.languageId === 'gdshader' ? 'gdshader' : 'glsl';
@@ -37,7 +51,11 @@ function hoverText(document: vscode.TextDocument, position: vscode.Position, wor
 		for (const shaderType of types) {
 			const doc = byType[shaderType]?.[word];
 			if (doc !== undefined) {
-				return namedDocMarkdown(`${kind === 'renderMode' ? 'render_mode' : 'stencil_mode'} ${word}`, doc, defs);
+				return namedDocMarkdown(
+					`${kind === 'renderMode' ? 'render_mode' : 'stencil_mode'} ${word}`,
+					doc,
+					defs,
+				);
 			}
 		}
 	}

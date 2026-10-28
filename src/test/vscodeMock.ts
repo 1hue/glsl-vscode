@@ -21,7 +21,12 @@ export class Range {
 	readonly start: Position;
 	readonly end: Position;
 
-	constructor(start: Position | number, end: Position | number, endLine?: number, endCharacter?: number) {
+	constructor(
+		start: Position | number,
+		end: Position | number,
+		endLine?: number,
+		endCharacter?: number,
+	) {
 		if (start instanceof Position && end instanceof Position) {
 			this.start = start;
 			this.end = end;
@@ -125,9 +130,11 @@ const vscode = {
 		get textDocuments() {
 			return state.documents;
 		},
-		getWorkspaceFolder: () => (state.workspaceFolder ? { uri: { fsPath: state.workspaceFolder } } : undefined),
+		getWorkspaceFolder: () =>
+			state.workspaceFolder ? { uri: { fsPath: state.workspaceFolder } } : undefined,
 		getConfiguration: () => ({ get: <T>(_key: string, fallback: T) => fallback }),
-		asRelativePath: (file: string) => (state.workspaceFolder ? path.relative(state.workspaceFolder, file) : file),
+		asRelativePath: (file: string) =>
+			state.workspaceFolder ? path.relative(state.workspaceFolder, file) : file,
 		onDidOpenTextDocument: () => ({ dispose() {} }),
 		onDidChangeTextDocument: () => ({ dispose() {} }),
 		onDidSaveTextDocument: () => ({ dispose() {} }),
@@ -170,7 +177,8 @@ export async function diagnose(
 	state.diagnostics.clear();
 	state.done.clear();
 
-	const { registerDiagnostics } = require('#src/diagnostics/diagnostics') as typeof import('#src/diagnostics/diagnostics');
+	const { registerDiagnostics } =
+		require('#src/diagnostics/diagnostics') as typeof import('#src/diagnostics/diagnostics');
 	registerDiagnostics({ extensionPath: ROOT, subscriptions: [] } as never);
 
 	const deadline = Date.now() + 10000;

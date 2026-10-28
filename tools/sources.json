@@ -5,7 +5,9 @@
 			"name": "Khronos",
 			"url": "https://github.com/KhronosGroup/GLSL",
 			"copyright": "Copyright 2008-2026 The Khronos Group Inc.",
-			"licenses": [{ "id": "CC-BY-4.0", "url": "https://creativecommons.org/licenses/by/4.0/" }],
+			"licenses": [
+				{ "id": "CC-BY-4.0", "url": "https://creativecommons.org/licenses/by/4.0/" }
+			],
 			"modified": "Modified by 1hue (glsl-vscode), 2026: converted from AsciiDoc to JSON and Markdown; markup simplified."
 		}
 	},

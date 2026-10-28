@@ -1,55 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<meta
-		http-equiv="Content-Security-Policy"
-		content="default-src 'none'; script-src 'nonce-{{nonce}}' {{csp}}; style-src {{csp}} 'unsafe-inline'; font-src {{csp}}; img-src {{csp}} data: blob:"
-	>
-	<link rel="stylesheet" href="{{codicons}}/codicon.css">
-	<link rel="stylesheet" href="{{assets}}/preview.css">
-	<script type="importmap" nonce="{{nonce}}">
-		{
-			"imports": {
-				"three": "{{three}}/build/three.module.js",
-				"three/addons/": "{{three}}/examples/jsm/"
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'none'; script-src 'nonce-{{nonce}}' {{csp}}; style-src {{csp}} 'unsafe-inline'; font-src {{csp}}; img-src {{csp}} data: blob:"
+		/>
+		<link rel="stylesheet" href="{{codicons}}/codicon.css" />
+		<link rel="stylesheet" href="{{assets}}/preview.css" />
+		<script type="importmap" nonce="{{nonce}}">
+			{
+				"imports": {
+					"three": "{{three}}/build/three.module.js",
+					"three/addons/": "{{three}}/examples/jsm/"
+				}
 			}
-		}
-	</script>
-</head>
-<body>
-	<canvas id="canvas"></canvas>
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
 
-	<div id="toolbar" class="widget toolbar" role="toolbar">
-		<div class="group">
-			<button class="action codicon codicon-screen-full" data-mesh="fullscreen" title="Fullscreen"></button>
-			<button class="action codicon codicon-primitive-square" data-mesh="plane" title="Plane"></button>
-			<button class="action codicon codicon-package" data-mesh="box" title="Box"></button>
-			<button class="action codicon codicon-circle-large-filled" data-mesh="sphere" title="Sphere"></button>
-			<button class="action codicon codicon-circle-large" data-mesh="torus" title="Torus"></button>
+		<div id="toolbar" class="widget toolbar" role="toolbar">
+			<div class="group">
+				<button
+					class="action codicon codicon-screen-full"
+					data-mesh="fullscreen"
+					title="Fullscreen"
+				></button>
+				<button
+					class="action codicon codicon-primitive-square"
+					data-mesh="plane"
+					title="Plane"
+				></button>
+				<button class="action codicon codicon-package" data-mesh="box" title="Box"></button>
+				<button
+					class="action codicon codicon-circle-large-filled"
+					data-mesh="sphere"
+					title="Sphere"
+				></button>
+				<button
+					class="action codicon codicon-circle-large"
+					data-mesh="torus"
+					title="Torus"
+				></button>
+			</div>
+			<div class="separator"></div>
+			<div id="light" class="group">
+				<span class="codicon codicon-lightbulb" title="Light"></span>
+				<input id="azimuth" type="range" min="-180" max="180" title="Light azimuth" />
+				<input id="elevation" type="range" min="-90" max="90" title="Light elevation" />
+			</div>
+			<button id="reset" class="action codicon codicon-discard" title="Reset view"></button>
 		</div>
-		<div class="separator"></div>
-		<div id="light" class="group">
-			<span class="codicon codicon-lightbulb" title="Light"></span>
-			<input id="azimuth" type="range" min="-180" max="180" title="Light azimuth">
-			<input id="elevation" type="range" min="-90" max="90" title="Light elevation">
-		</div>
-		<button id="reset" class="action codicon codicon-discard" title="Reset view"></button>
-	</div>
 
-	<details class="widget panel" open>
-		<summary class="pane-header">
-			<span class="codicon codicon-chevron-right collapsed"></span>
-			<span class="codicon codicon-chevron-down expanded"></span>
-			<h3 class="title">Uniforms</h3>
-		</summary>
-		<div id="controls" class="controls"></div>
-	</details>
+		<details class="widget panel" open>
+			<summary class="pane-header">
+				<span class="codicon codicon-chevron-right collapsed"></span>
+				<span class="codicon codicon-chevron-down expanded"></span>
+				<h3 class="title">Uniforms</h3>
+			</summary>
+			<div id="controls" class="controls"></div>
+		</details>
 
-	<div id="fps" class="fps"></div>
+		<div id="fps" class="fps"></div>
 
-	<pre id="errors" class="errors"></pre>
+		<pre id="errors" class="errors"></pre>
 
-	<script type="module" nonce="{{nonce}}" src="{{scripts}}/preview.js"></script>
-</body>
+		<script type="module" nonce="{{nonce}}" src="{{scripts}}/preview.js"></script>
+	</body>
 </html>

@@ -15,7 +15,9 @@ const SOURCES: Record<string, Source> = {
 };
 
 async function main() {
-	const config: Record<string, SourceConfig> = JSON.parse(await fs.readFile('tools/sources.json', 'utf8'));
+	const config: Record<string, SourceConfig> = JSON.parse(
+		await fs.readFile('tools/sources.json', 'utf8'),
+	);
 	const requested = process.argv.slice(2);
 	const names = requested.length ? requested : Object.keys(SOURCES);
 
@@ -26,9 +28,13 @@ async function main() {
 			throw new Error(`Unknown source '${name}'`);
 		}
 		const directory = sourceConfig.directory;
-		const commit = execFileSync('git', ['-C', directory, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+		const commit = execFileSync('git', ['-C', directory, 'rev-parse', 'HEAD'], {
+			encoding: 'utf8',
+		}).trim();
 
-		const outputs = await source.generate(sourceConfig, commit, (file) => fs.readFile(`${directory}/${file}`, 'utf8'));
+		const outputs = await source.generate(sourceConfig, commit, (file) =>
+			fs.readFile(`${directory}/${file}`, 'utf8'),
+		);
 
 		for (const [file, data] of Object.entries(outputs)) {
 			await writeJson(`data/${file}.json`, data);

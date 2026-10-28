@@ -18,14 +18,26 @@ const SYMBOL_KINDS: Record<UserSymbol['kind'], vscode.SymbolKind> = {
 };
 
 function nameRange(document: vscode.TextDocument, symbol: UserSymbol): vscode.Range {
-	return new vscode.Range(document.positionAt(symbol.nameStart), document.positionAt(symbol.nameStart + symbol.name.length));
+	return new vscode.Range(
+		document.positionAt(symbol.nameStart),
+		document.positionAt(symbol.nameStart + symbol.name.length),
+	);
 }
 
 function documentSymbol(document: vscode.TextDocument, symbol: UserSymbol): vscode.DocumentSymbol {
-	const range = new vscode.Range(document.positionAt(symbol.start), document.positionAt(symbol.end));
+	const range = new vscode.Range(
+		document.positionAt(symbol.start),
+		document.positionAt(symbol.end),
+	);
 	const selection = nameRange(document, symbol);
 
-	const result = new vscode.DocumentSymbol(symbol.name, symbol.detail, SYMBOL_KINDS[symbol.kind], range.union(selection), selection);
+	const result = new vscode.DocumentSymbol(
+		symbol.name,
+		symbol.detail,
+		SYMBOL_KINDS[symbol.kind],
+		range.union(selection),
+		selection,
+	);
 	result.children = (symbol.children ?? []).map((c) => documentSymbol(document, c));
 	return result;
 }
@@ -40,7 +52,13 @@ export const definitionProvider: vscode.DefinitionProvider = {
 	provideDefinition(document, position) {
 		const include = includeAt(document, position);
 		if (include) {
-			return [{ originSelectionRange: include.range, targetUri: vscode.Uri.file(include.file), targetRange: new vscode.Range(0, 0, 0, 0) }];
+			return [
+				{
+					originSelectionRange: include.range,
+					targetUri: vscode.Uri.file(include.file),
+					targetRange: new vscode.Range(0, 0, 0, 0),
+				},
+			];
 		}
 
 		const found = wordAt(document, position);
@@ -48,7 +66,9 @@ export const definitionProvider: vscode.DefinitionProvider = {
 			return undefined;
 		}
 
-		const symbol = visibleSymbols(scanDocument(document), document.offsetAt(position)).find((s) => s.name === found.word);
+		const symbol = visibleSymbols(scanDocument(document), document.offsetAt(position)).find(
+			(s) => s.name === found.word,
+		);
 		if (symbol) {
 			return new vscode.Location(document.uri, nameRange(document, symbol));
 		}
@@ -65,6 +85,8 @@ export function includeAt(document: vscode.TextDocument, position: vscode.Positi
 	}
 	const start = line.indexOf('"') + 1;
 	const range = new vscode.Range(position.line, start, position.line, start + match[1].length);
-	const file = range.contains(position) ? includePath(document, match[1], document.uri.fsPath) : undefined;
+	const file = range.contains(position)
+		? includePath(document, match[1], document.uri.fsPath)
+		: undefined;
 	return file ? { range, file } : undefined;
 }
