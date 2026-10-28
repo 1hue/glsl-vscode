@@ -15,13 +15,13 @@ interface State {
 
 export function registerPreview(context: vscode.ExtensionContext) {
 	const assets = vscode.Uri.joinPath(context.extensionUri, 'assets');
-	const scripts = vscode.Uri.joinPath(context.extensionUri, 'out', 'webview');
-	const three = vscode.Uri.joinPath(context.extensionUri, 'node_modules', 'three');
-	const codicons = vscode.Uri.joinPath(context.extensionUri, 'node_modules', '@vscode', 'codicons', 'dist');
+	const scripts = vscode.Uri.joinPath(context.extensionUri, 'out/webview');
+	const three = vscode.Uri.joinPath(context.extensionUri, 'node_modules/three');
+	const codicons = vscode.Uri.joinPath(context.extensionUri, 'node_modules/@vscode/codicons/dist');
 	const panels = new Map<string, vscode.WebviewPanel>();
 
 	const vertexShader = (name: string) =>
-		withoutVersion(fs.readFileSync(vscode.Uri.joinPath(assets, 'vertex', name).fsPath, 'utf8'));
+		withoutVersion(fs.readFileSync(vscode.Uri.joinPath(assets, `vertex/${name}`).fsPath, 'utf8'));
 	const vertex: VertexShaders = {
 		'300 es': { mesh: vertexShader('mesh_es300.vert'), fullscreen: vertexShader('fullscreen_es300.vert') },
 		100: { mesh: vertexShader('mesh_es100.vert'), fullscreen: vertexShader('fullscreen_es100.vert') },
@@ -32,7 +32,7 @@ export function registerPreview(context: vscode.ExtensionContext) {
 		panels.set(key, panel);
 		const post = (message: ToWebview) => panel.webview.postMessage(message);
 
-		// Textures from workspace, plus folders of files picked outside it
+		// Workspace and folders of picked textures
 		const roots = [assets, scripts, three, codicons, ...(vscode.workspace.workspaceFolders ?? []).map((f) => f.uri)];
 		const allow = (file: vscode.Uri) => {
 			if (!roots.some((root) => file.fsPath.startsWith(root.fsPath + path.sep))) {
@@ -147,7 +147,7 @@ export function registerPreview(context: vscode.ExtensionContext) {
 	);
 }
 
-/** assets/preview.html with `{{nonce}}`, `{{csp}}` and folder URIs (`{{assets}}` etc.) filled in */
+/** preview.html with placeholders filled in */
 function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): string {
 	const nonce = Array.from({ length: 32 }, () => Math.floor(Math.random() * 36).toString(36)).join('');
 	let text = fs

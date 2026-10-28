@@ -29,7 +29,6 @@ export function buildControls(
 	root.replaceChildren(...elements);
 }
 
-/** Inputs for control, undefined for types without input (matrices, other samplers) */
 function editorOf(control: Control, value: Value, set: (value: Value) => void, pick: () => void): HTMLElement[] | undefined {
 	const { type, label } = control;
 
@@ -96,7 +95,7 @@ function slider(control: Control, value: number, integer: boolean, set: (value: 
 	return row;
 }
 
-/** Native color picker, alpha slider for vec4 */
+/** Color picker plus alpha slider for vec4 */
 function colorRow(values: number[], set: (value: Value) => void): HTMLElement {
 	const row = document.createElement('div');
 	row.className = 'row';

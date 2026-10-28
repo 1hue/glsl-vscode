@@ -1,6 +1,5 @@
 // Built-ins from data/*.json that apply at document position
 
-import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { GDSHADER_STAGE_FUNCTIONS, STAGE_BY_EXTENSION } from './keywords';
@@ -14,33 +13,18 @@ export const BUILTINS_SCHEME = 'glsl-defs';
 export interface Context {
 	flavor: Flavor;
 	defs: Definitions;
-
 	/** GLSL: stage from file extension. Godot: enclosing processing function */
 	stage?: string;
-
 	/** Godot `shader_type` */
 	shaderType?: string;
-
-	/** GLSL compatibility profile - `#version 450 compatibility` or before 150 */
+	/** `#version 450 compatibility` or older than 150 */
 	compatibility?: boolean;
 }
 
 const PIPELINE_STAGES = new Set(Object.values(STAGE_BY_EXTENSION));
 
-let dataDirectory = '';
-const loaded = new Map<Flavor, Definitions>();
-
-export function initDefinitions(extensionPath: string) {
-	dataDirectory = path.join(extensionPath, 'data');
-}
-
 export function definitionsFor(flavor: Flavor): Definitions {
-	let defs = loaded.get(flavor);
-	if (!defs) {
-		defs = JSON.parse(fs.readFileSync(path.join(dataDirectory, `${flavor}.json`), 'utf8')) as Definitions;
-		loaded.set(flavor, defs);
-	}
-	return defs;
+	return require(`#data/${flavor}`) as Definitions;
 }
 
 export function flavorOf(document: vscode.TextDocument): Flavor {
@@ -51,7 +35,6 @@ export function flavorOf(document: vscode.TextDocument): Flavor {
 		return 'godot';
 	}
 
-	// `#version 300 es` or ES-only `#version 100`: GLSL ES
 	const version = versionOf(document);
 	if (version && (version.profile === 'es' || version.number === 100)) {
 		return 'essl';
@@ -59,11 +42,15 @@ export function flavorOf(document: vscode.TextDocument): Flavor {
 	return 'glsl';
 }
 
-/** `#version 450 core` near top of file */
-function versionOf(document: vscode.TextDocument): { number: number; profile?: string } | undefined {
+interface Version { // e.g. #version 450 core
+	number: number;
+	profile?: 'core' | 'compatibility' | 'es';
+}
+
+function versionOf(document: vscode.TextDocument): Version | undefined {
 	const head = document.getText(new vscode.Range(0, 0, 50, 0));
-	const version = /^\s*#\s*version\s+(\d+)(?:[ \t]+(\w+))?/m.exec(head);
-	return version ? { number: Number(version[1]), profile: version[2] } : undefined;
+	const version = /^\s*#\s*version\s+(\d+)(?:[ \t]+(core|compatibility|es))?/m.exec(head);
+	return version ? { number: Number(version[1]), profile: version[2] as Version['profile'] } : undefined;
 }
 
 export function contextAt(document: vscode.TextDocument, position: vscode.Position): Context {
@@ -84,7 +71,6 @@ export function contextAt(document: vscode.TextDocument, position: vscode.Positi
 	return { flavor, defs, stage, shaderType: scan.shaderType };
 }
 
-/** Built-in available for file's stage/shader type (unknown context allows all) */
 export function isAvailable(entry: Variable | FunctionGroup, context: Context): boolean {
 	if (context.flavor === 'godot') {
 		if (context.shaderType && entry.shaderType && entry.shaderType !== context.shaderType) {

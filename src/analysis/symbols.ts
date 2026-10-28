@@ -1,4 +1,4 @@
-// User symbols from text scan - not a parser, good enough for typical shaders
+// User symbols from text scan
 
 import * as vscode from 'vscode';
 import { GDSHADER_SHADER_TYPES, GLSL_TYPES } from '#src/language/keywords';
@@ -8,23 +8,17 @@ export type UserSymbolKind = 'function' | 'struct' | 'member' | 'variable' | 'pa
 export interface UserSymbol {
 	name: string;
 	kind: UserSymbolKind;
-
 	/** Short declaration for outline and completion */
 	detail: string;
-
-	/** Full declaration for hover e.g. struct with members */
+	/** Full declaration for hover like struct with members */
 	declaration?: string;
-
 	/** Offsets of declaration and name */
 	start: number;
 	end: number;
 	nameStart: number;
-
 	/** Function body where params and locals are visible */
 	scope?: { start: number; end: number };
-
 	children?: UserSymbol[];
-
 	/** Block without instance name - members used like globals */
 	exposesMembers?: boolean;
 }
@@ -32,10 +26,8 @@ export interface UserSymbol {
 export interface DocumentScan {
 	/** Top level: functions, structs, globals, macros */
 	globals: UserSymbol[];
-
 	/** Params and locals each with `scope` */
 	locals: UserSymbol[];
-
 	/** Godot `shader_type` */
 	shaderType?: string;
 }
@@ -70,7 +62,6 @@ export function forgetDocument(document: vscode.TextDocument) {
 	cache.delete(document.uri.toString());
 }
 
-/** Globals plus params/locals in scope and declared before `offset` */
 export function visibleSymbols(scan: DocumentScan, offset: number): UserSymbol[] {
 	const locals = scan.locals.filter(
 		(s) => s.scope && s.scope.start <= offset && offset <= s.scope.end && s.nameStart <= offset,
@@ -88,7 +79,7 @@ export function enclosingFunction(scan: DocumentScan, offset: number): UserSymbo
 	);
 }
 
-/** Blank comments and strings, keep offsets and newlines */
+/** Blank comments and strings in place */
 export function stripComments(text: string): string {
 	const blank = (s: string) => s.replace(/[^\n]/g, ' ');
 	return text.replace(/\/\*[\s\S]*?(\*\/|$)|\/\/[^\n]*|"(?:[^"\\\n]|\\.)*"/g, blank);
@@ -121,7 +112,6 @@ function scan_(text: string): DocumentScan {
 	};
 }
 
-/** `{` offset -> matching `}` offset */
 function matchBraces(source: string): Map<number, number> {
 	const pairs = new Map<number, number>();
 	const open: number[] = [];
@@ -134,7 +124,7 @@ function matchBraces(source: string): Map<number, number> {
 		}
 	}
 
-	// Unclosed braces (while typing) run to end of document
+	// Unclosed braces run to end of document
 	for (const start of open) {
 		pairs.set(start, source.length);
 	}
@@ -174,7 +164,6 @@ function findMacros(code: string): UserSymbol[] {
 	return macros;
 }
 
-/** Struct/block text through closing brace and instance name without blank lines */
 function fullDeclaration(source: string, start: number, close: number): string {
 	const instance = /^[^;{}]*;/.exec(source.slice(close + 1))?.[0] ?? '';
 	return (source.slice(start, close + 1) + instance)
@@ -184,7 +173,6 @@ function fullDeclaration(source: string, start: number, close: number): string {
 		.join('\n');
 }
 
-/** Member declarations in `{ ... }` body at `open` */
 function findMembers(source: string, open: number, close: number): UserSymbol[] {
 	const members: UserSymbol[] = [];
 	const body = source.slice(open + 1, close);
@@ -227,7 +215,6 @@ function findStructs(source: string, braces: Map<number, number>): UserSymbol[] 
 	return structs;
 }
 
-/** Top-level `uniform Params { ... };`, `buffer Data { ... } data;` */
 function findInterfaceBlocks(source: string, braces: Map<number, number>): UserSymbol[] {
 	const blocks: UserSymbol[] = [];
 
@@ -258,7 +245,6 @@ function findInterfaceBlocks(source: string, braces: Map<number, number>): UserS
 	return blocks;
 }
 
-/** Top-level function definitions and prototypes with params and locals */
 function findFunctions(source: string, braces: Map<number, number>, typeNames: Set<string>) {
 	const functions: UserSymbol[] = [];
 	const locals: UserSymbol[] = [];
@@ -326,7 +312,6 @@ function findParameters(paramText: string, paramsStart: number, scope: { start: 
 	return params;
 }
 
-/** Locals of built-in or struct type e.g. `vec3 n = ...` */
 function findLocals(source: string, bodyStart: number, bodyEnd: number, typeNames: Set<string>, braces: Map<number, number>): UserSymbol[] {
 	const locals: UserSymbol[] = [];
 	const body = source.slice(bodyStart, bodyEnd);
@@ -349,7 +334,7 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 			}
 		}
 
-		// `for (int i = 0; ...) { ... }`: loop only
+		// For-loop variables are visible in the loop only
 		const inForHeader = /\bfor\s*\([^{}]*$/.test(source.slice(bodyStart, nameStart));
 		if (inForHeader) {
 			const loopBody = source.indexOf('{', nameStart);
@@ -373,7 +358,6 @@ function findLocals(source: string, bodyStart: number, bodyEnd: number, typeName
 	return locals;
 }
 
-/** Top-level uniforms, ins/outs, consts, varyings, blocks */
 function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] {
 	const globals: UserSymbol[] = [];
 
@@ -417,7 +401,6 @@ function findGlobals(source: string, braces: Map<number, number>): UserSymbol[] 
 	return globals;
 }
 
-/** `;`-terminated statements at depth 0, block bodies removed */
 function* topLevelStatements(source: string, braces: Map<number, number>): Generator<{ text: string; start: number }> {
 	let start = 0;
 	let text = '';
@@ -433,7 +416,7 @@ function* topLevelStatements(source: string, braces: Map<number, number>): Gener
 				text = '';
 				start = close + 1;
 			} else {
-				// Keep text around struct/block body, padded to source offsets
+				// Keep text around struct/block body at source offsets
 				text += ' '.repeat(close - i + 1);
 			}
 			i = close;

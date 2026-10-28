@@ -1,8 +1,8 @@
-// Godot shader as GLSL for glslang, Godot-only syntax blanked - positions match
+// GDShader as GLSL for glslang with Godot syntax blanked
 
 import { Definitions } from '#src/language/types';
 
-// GLSL ES types without default precision - Godot doesn't need it declared
+// Godot declares precision for these GLSL ES types itself
 const ES_PRECISION = [
 	'float',
 	'int',
@@ -36,12 +36,12 @@ export function gdshaderToGlsl(text: string): string {
 			.replace(/\b(shader_type|render_mode|stencil_mode|group_uniforms)\b[^;]*;/g, blank)
 			.replace(/\b(global|instance)(?=\s+uniform\b)/g, blank)
 			.replace(/\bvarying(\s+(flat|smooth))?\b/g, blank)
-			// Hints and defaults, none in GLSL ES: `uniform float x : hint_range(0, 1) = 0.5;`
+			// GDShader hints and defaults like `uniform float x : hint_range(0, 1) = 0.5`
 			.replace(/(\buniform\b[^;:=]*)([:=][^;]*)/g, (_match, declaration: string, hints: string) => declaration + blank(hints))
 	);
 }
 
-/** Godot built-ins for shader type, plus Godot-only functions (`texture_sdf` etc.) as prototypes */
+/** Godot built-ins as GLSL declarations */
 export function gdshaderPreamble(godot: Definitions, glslFunctions: Set<string>, shaderType: string, es: boolean): string {
 	const lines = es ? [...ES_PRECISION] : [];
 
@@ -59,7 +59,7 @@ export function gdshaderPreamble(godot: Definitions, glslFunctions: Set<string>,
 		}
 		for (const group of groups.filter((g) => !g.shaderType || g.shaderType === shaderType)) {
 			for (const { returns, params } of group.signatures) {
-				// Unexpanded generic types (`vec_int_type`, `gsampler2D`)
+				// Skip unexpanded generic types like `vec_int_type`
 				if ([returns, ...params.map((p) => p.type)].some((type) => /_type$|^g(sampler|vec)/.test(type))) {
 					continue;
 				}

@@ -2,22 +2,22 @@ import type { Definitions, Param, Signature, SourceInfo } from '#src/language/ty
 
 export type { Definitions, FunctionGroup, Hint, Param, Signature, SourceInfo, Variable } from '#src/language/types';
 
-/** Entry in tools/sources.json */
+// Entry in sources.json
 export interface SourceConfig {
-	/** Submodule, e.g. `vendor/godot-docs` */
+	/** Submodule like `vendor/godot-docs` */
 	directory: string;
 	/** Written into generated data */
 	attribution: Omit<SourceInfo, 'commit'>;
 }
 
-/** File in submodule */
+// File in submodule
 export type ReadFile = (path: string) => Promise<string>;
 
 export interface Source {
 	generate(config: SourceConfig, commit: string, read: ReadFile): Promise<Record<string, Definitions>>;
 }
 
-/** Parse prototype, e.g. `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */
+/** Prototype like `gvec4 texture(gsampler2D sampler, vec2 P [, float bias])` */
 export function parseSignature(text: string): (Signature & { name: string }) | undefined {
 	const match = /^\s*((?:\w+\s+)*?)(\w+)\s*\((.*)\)\s*;?\s*$/.exec(text);
 	if (!match) {

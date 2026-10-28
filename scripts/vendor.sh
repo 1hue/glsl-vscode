@@ -1,7 +1,6 @@
 #!/bin/sh
-# Check out submodules with `sparse` paths in .gitmodules at pinned commit, only those paths
+# Sparse checkout of submodules with `sparse` paths in .gitmodules at pinned commit
 set -eu
-cd "$(dirname "$0")/.."
 
 git config -f .gitmodules --get-regexp '\.sparse$' | while read -r key paths; do
 	name=${key#submodule.}
@@ -25,7 +24,7 @@ git config -f .gitmodules --get-regexp '\.sparse$' | while read -r key paths; do
 	git -C "$path" fetch --depth 1 --filter=blob:none origin "$commit"
 	git -C "$path" checkout --detach "$commit"
 
-	# Git dir into .git/modules and registered in .git/config like any submodule
+	# Register like any submodule
 	if [ -n "$fresh" ]; then
 		git submodule absorbgitdirs "$path"
 		git submodule init "$path"

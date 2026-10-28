@@ -1,11 +1,10 @@
-// Just enough vscode API to run diagnostics in plain Node - import before anything that imports vscode
+// vscode API mock for diagnostics in plain Node - import first
 
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-/** Repo root, from out/src/test/ */
-export const ROOT = path.resolve(__dirname, '../../..');
+export const ROOT = process.cwd();
 
 export class Position {
 	constructor(
@@ -142,12 +141,12 @@ const loader = require('module') as { _load: (request: string, ...rest: unknown[
 const load = loader._load;
 loader._load = (request, ...rest) => (request === 'vscode' ? vscode : load(request, ...rest));
 
-/** Temp directory with files, e.g. `{ 'lib/a.glsl': '...' }` */
+/** Temp directory with files like `{ 'lib/a.glsl': '...' }` */
 export function fixture(files: Record<string, string>): string {
-	const directory = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'glsl-vscode-')));
+	const directory = fs.realpathSync(fs.mkdtempSync(`${os.tmpdir()}/glsl-vscode-`));
 	for (const [file, text] of Object.entries(files)) {
-		fs.mkdirSync(path.dirname(path.join(directory, file)), { recursive: true });
-		fs.writeFileSync(path.join(directory, file), text);
+		fs.mkdirSync(path.dirname(`${directory}/${file}`), { recursive: true });
+		fs.writeFileSync(`${directory}/${file}`, text);
 	}
 	return directory;
 }
@@ -161,7 +160,6 @@ export interface Result {
 	severity: 'error' | 'warning';
 }
 
-/** Diagnostics per document */
 export async function diagnose(
 	documents: MockDocument[],
 	{ workspaceFolder, trusted = true }: { workspaceFolder?: string; trusted?: boolean } = {},
@@ -172,9 +170,7 @@ export async function diagnose(
 	state.diagnostics.clear();
 	state.done.clear();
 
-	const { initDefinitions } = require('#src/language/definitions') as typeof import('#src/language/definitions');
 	const { registerDiagnostics } = require('#src/diagnostics/diagnostics') as typeof import('#src/diagnostics/diagnostics');
-	initDefinitions(ROOT);
 	registerDiagnostics({ extensionPath: ROOT, subscriptions: [] } as never);
 
 	const deadline = Date.now() + 10000;

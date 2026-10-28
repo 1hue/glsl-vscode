@@ -11,7 +11,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { test } from 'node:test';
 
-const FIXTURES = path.join(ROOT, 'src/test/fixtures');
+const FIXTURES = `${ROOT}/src/test/fixtures`;
 
 const MARKER = /\/\/ (error|warning)(?: `([^`]+)`)?: (.*)$/;
 
@@ -75,12 +75,12 @@ function shaderFiles(directory: string): string[] {
 }
 
 for (const workspace of fs.readdirSync(FIXTURES)) {
-	const root = path.join(FIXTURES, workspace);
+	const root = `${FIXTURES}/${workspace}`;
 
 	for (const file of shaderFiles(root)) {
 		test(`${workspace}/${file}`, async () => {
-			const source = fs.readFileSync(path.join(root, file), 'utf8');
-			const shader = document(path.join(root, file), source, LANGUAGES[path.extname(file)]);
+			const source = fs.readFileSync(`${root}/${file}`, 'utf8');
+			const shader = document(`${root}/${file}`, source, LANGUAGES[path.extname(file)]);
 			const expected = expectedOf(source);
 
 			const [results] = await diagnose([shader], { workspaceFolder: root });

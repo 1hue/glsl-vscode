@@ -1,4 +1,4 @@
-// Shape of data/*.json, shared by tools/ and extension
+// Shape of data/*.json
 
 export interface Param {
 	type: string;
@@ -14,7 +14,6 @@ export interface Signature {
 export interface FunctionGroup {
 	signatures: Signature[];
 	doc: string;
-
 	// Godot only
 	params?: Record<string, string>;
 	returns?: string;
@@ -25,10 +24,8 @@ export interface FunctionGroup {
 export interface Variable {
 	decl: string;
 	doc: string;
-
-	/** Khronos stage (`vertex`, `fragment`, ...) or Godot processing functions (`fragment`, `start, process`, ...) */
+	/** Khronos stage like `vertex` or Godot processing functions like `start, process` */
 	stage?: string;
-
 	/** Godot `shader_type` */
 	shaderType?: string;
 }
@@ -60,10 +57,8 @@ export interface Definitions {
 	variables: Record<string, Variable[]>;
 	types?: Record<string, string>;
 	qualifiers?: Record<string, string>;
-
 	// Khronos only: statements, directives (`#version`), predefined macros
 	keywords?: Record<string, string>;
-
 	// Godot only
 	renderModes?: Record<string, Record<string, string>>;
 	stencilModes?: Record<string, Record<string, string>>;

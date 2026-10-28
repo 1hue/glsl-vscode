@@ -75,7 +75,7 @@ export function variableMarkdown(name: string, contexts: Variable[], context: Co
 		return parts.join('\n\n');
 	});
 
-	// Same doc across stages/shader types (e.g. Godot TIME) shown once
+	// Doc shared by stages or shader types shown once
 	const unique = [...new Set(sections)];
 	return [...unique, sourceFooter(context.defs)].join('\n\n---\n\n');
 }

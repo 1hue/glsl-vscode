@@ -6,7 +6,7 @@ const DIRECTORY = 'tutorials/shaders/shader_reference';
 
 type GodotDefinitions = Required<Omit<Definitions, 'keywords'>>;
 
-// `shader_type` value -> documentation page
+// Doc page per `shader_type`
 const SHADER_TYPES: Record<string, string> = {
 	spatial: 'spatial_shader',
 	canvas_item: 'canvas_item_shader',
@@ -16,7 +16,7 @@ const SHADER_TYPES: Record<string, string> = {
 	texture_blit: 'texture_blit_shader',
 };
 
-// Section heading -> processing function of its built-ins. Unlisted headings keep current stage
+// Processing function per section heading. Unlisted headings keep current stage
 const STAGES: [RegExp, string | undefined][] = [
 	[/^built-ins$/i, undefined],
 	[/^global built-ins/i, 'global'],
@@ -70,7 +70,7 @@ async function generate(config: SourceConfig, commit: string, read: ReadFile): P
 	return { godot: definitions };
 }
 
-/** `.. |vec_type| replace:: :abbr:`vec_type (Any of: ...)`` */
+/** Substitution definitions like `.. |vec_type| replace:: ...` */
 function parseSubstitutions(text: string): Record<string, string> {
 	const substitutions: Record<string, string> = {};
 
@@ -85,7 +85,7 @@ function parseSubstitutions(text: string): Record<string, string> {
 /** reStructuredText inline markup to Markdown */
 function inline(text: string, substitutions: Record<string, string>): string {
 	const codeSpans: string[] = [];
-	// Code span to placeholder (`replace` passes the match and its capture)
+	// Code span to placeholder
 	const protect = (_match: string, code: string) => `\u0000${codeSpans.push('`' + code + '`') - 1}\u0000`;
 	const restore = (s: string) => s.replace(/\u0000(\d+)\u0000/g, (_, index) => codeSpans[Number(index)]);
 
@@ -108,7 +108,7 @@ function indentOf(line: string): number {
 	return line.length - line.trimStart().length;
 }
 
-/** Lines after `start` indented past `indent`, dedented with blank lines kept */
+/** Dedented with blank lines kept */
 function indentedBlock(lines: string[], start: number, indent: number): { lines: string[]; end: number } {
 	const body: string[] = [];
 	let end = start;
@@ -122,7 +122,7 @@ function indentedBlock(lines: string[], start: number, indent: number): { lines:
 	return { lines: body.map((l) => l.slice(minIndent)), end };
 }
 
-/** Function descriptions - signature lines like `|vec_type| **mix**\ (...)`, then indented body */
+/** Signature lines like `|vec_type| **mix**\ (...)` with indented body */
 function parseFunctions(text: string, substitutions: Record<string, string>): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 	const lines = text.split('\n');
@@ -230,7 +230,7 @@ function parseFunctionBody(lines: string[], substitutions: Record<string, string
 	};
 }
 
-/** Headings: text line underlined with one repeated character */
+/** Text line underlined with one repeated character */
 function isHeading(lines: string[], i: number): boolean {
 	const text = lines[i];
 	const underline = lines[i + 1] ?? '';
@@ -242,7 +242,6 @@ function isHeading(lines: string[], i: number): boolean {
 	);
 }
 
-/** Unindented grid tables with their heading */
 function* gridTables(text: string): Generator<{ heading: string; table: GridTable }> {
 	const lines = text.split('\n');
 	let heading = '';
@@ -333,7 +332,6 @@ function stageFor(heading: string, current: string | undefined): string | undefi
 	return current;
 }
 
-/** Built-ins, functions, render/stencil modes of one shader type page */
 function addShaderPage(definitions: GodotDefinitions, shaderType: string, text: string, substitutions: Record<string, string>) {
 	let stage: string | undefined;
 	let lastHeading = '';
@@ -418,7 +416,7 @@ function addLanguagePage(definitions: GodotDefinitions, text: string, substituti
 	}
 }
 
-/** Expand `filter[_nearest, _linear][_mipmap]` to all names - first group required, later groups extend */
+/** `filter[_nearest, _linear][_mipmap]` to all names */
 function expandHint(text: string): string[] {
 	const match = /^(\w+)((?:\[[^\]]+\])*)/.exec(text);
 	if (!match) {

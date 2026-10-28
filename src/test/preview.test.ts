@@ -1,4 +1,4 @@
-// Preview source for WebGL2, checked with glslang as ES
+// Preview source for WebGL2 checked with glslang as ES
 
 import * as assert from 'node:assert/strict';
 import { test } from 'node:test';
@@ -16,7 +16,7 @@ async function webgl(source: string): Promise<Shader> {
 	return result;
 }
 
-/** Diagnostics for WebGL source with `#version` three.js adds */
+/** Adds the `#version` three.js would */
 async function check({ fragment, version }: Shader) {
 	const source = version === '300 es' ? `#version 300 es\n${fragment}` : fragment;
 	return (await (await glslang).check(source, { stage: 'fragment' })).diagnostics;

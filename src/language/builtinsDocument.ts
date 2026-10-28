@@ -1,4 +1,4 @@
-// Read-only document of all built-ins as declarations - go to definition target
+// Built-in declarations document for go to definition
 
 import * as vscode from 'vscode';
 import { BUILTINS_SCHEME, Flavor, definitionsFor } from './definitions';

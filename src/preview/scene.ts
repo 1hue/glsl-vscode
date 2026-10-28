@@ -1,4 +1,4 @@
-// Preview scene per shader file, kept in workspace state
+// Preview scene per shader file in workspace state
 
 import * as vscode from 'vscode';
 import type { Scene } from '#src/webview/protocol';

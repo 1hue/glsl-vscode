@@ -1,4 +1,4 @@
-// Keywords and types for completion, built-ins are in data/*.json
+// Completion keywords and types
 
 import { Construct, GLSL_CONSTRUCTS } from './constructs';
 
@@ -54,16 +54,13 @@ export const GLSL_TYPES = [...vectorAndMatrixTypes(), ...opaqueTypes()];
 
 export const GDSHADER_KEYWORDS = [...STATEMENT_KEYWORDS, ...GODOT_KEYWORDS];
 
-// Godot's preprocessor, with `#include`
 export const GDSHADER_DIRECTIVES = ['#define', '#undef', '#if', '#ifdef', '#ifndef', '#elif', '#else', '#endif', '#include', '#pragma', '#error'];
 
-// Godot `shader_type` values
 export const GDSHADER_SHADER_TYPES = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
 
-// Godot processing functions, built-ins scoped to these
+// Godot processing functions
 export const GDSHADER_STAGE_FUNCTIONS = ['vertex', 'fragment', 'light', 'start', 'process', 'sky', 'fog', 'blit'];
 
-// GLSL stage by file extension
 export const STAGE_BY_EXTENSION: Record<string, string> = {
 	'.vert': 'vertex',
 	'.vs': 'vertex',

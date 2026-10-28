@@ -11,7 +11,7 @@ export type QualifierGroup =
 	| 'precise'
 	| 'memory'
 	| 'layout'
-	| 'declaration'; // Own declaration: `precision highp float;`, `subroutine ...`
+	| 'declaration'; // Own declarations like `precision highp float` and `subroutine ...`
 
 export interface Construct {
 	names: string[];
@@ -19,7 +19,7 @@ export interface Construct {
 	// No docs for C basics and obvious keywords
 	section?: string;
 	only?: Flavor; // Only in desktop GLSL or only in GLSL ES
-	group?: QualifierGroup; // Qualifiers
+	group?: QualifierGroup;
 	stages?: string[]; // Layout ids specific to these stages
 }
 
@@ -132,7 +132,7 @@ export const GLSL_CONSTRUCTS: Construct[] = [
 	{ names: ['GL_core_profile', 'GL_compatibility_profile', 'GL_es_profile'], kind: 'macro', section: 'preprocessor', only: 'glsl' },
 ];
 
-// Groups allowed with each storage qualifier, per spec storage/interpolation/memory sections
+// Groups allowed with each storage qualifier
 export const STORAGE_COMPANIONS: Record<string, QualifierGroup[]> = {
 	const: ['precision', 'precise'],
 	in: ['auxiliary', 'interpolation', 'precision', 'precise', 'layout'],
@@ -171,7 +171,6 @@ export function constructsFor(flavor: Flavor): Construct[] {
 	return GLSL_CONSTRUCTS.filter((c) => !c.only || c.only === flavor);
 }
 
-/** Qualifiers that can follow `present` at `scope` */
 export function nextQualifiers(flavor: Flavor, scope: DeclarationScope, present: string[]): string[] {
 	const qualifiers = constructsFor(flavor).filter((c) => c.kind === 'qualifier');
 	const groupOf = new Map(qualifiers.flatMap((c) => c.names.map((n) => [n, c.group!] as const)));
@@ -179,7 +178,7 @@ export function nextQualifiers(flavor: Flavor, scope: DeclarationScope, present:
 	const presentGroups = present.map((n) => groupOf.get(n));
 	const { groups, storage } = SCOPE_QUALIFIERS[scope];
 
-	// Storage qualifier decides the rest, else only storage fitting what's there
+	// Only storage qualifiers compatible with those already typed
 	const storageNow = present.find((n) => groupOf.get(n) === 'storage');
 	const storageOptions = storage.filter((name) =>
 		presentGroups.every((group) => !group || group === 'storage' || STORAGE_COMPANIONS[name]?.includes(group)),

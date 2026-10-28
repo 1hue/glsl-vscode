@@ -1,17 +1,17 @@
-// Extension and preview webview messages - types only, used by both builds
+// Message types shared by extension and webview builds
 
 export type Value = number | number[] | boolean;
 
-/** Panel control for a user uniform */
+// Panel control for a user uniform
 export interface Control {
-	/** Name in WebGL source, e.g. `material.color` for block members */
+	/** Name in WebGL source like `material.color` for block members */
 	name: string;
 	/** Declared name */
 	label: string;
 	type: string;
 	min: number;
 	max: number;
-	/** Default from `// = ...` */
+	/** Default from `= ...` comment */
 	value?: Value;
 }
 
@@ -21,10 +21,10 @@ export interface Shader {
 	/** Without `#version` - three.js adds it */
 	fragment: string;
 	version: WebGLVersion;
-	/** Lines before original line 1 - subtract from WebGL log. None when cross-compiled */
+	/** Lines before original line 1 */
 	lineOffset?: number;
 	controls: Control[];
-	/** Built-ins under another name, e.g. `Time_.time` for `time` in a Vulkan block */
+	/** Built-ins under another name like `Time_.time` for `time` in a Vulkan block */
 	builtins: { name: string; label: string }[];
 }
 
@@ -41,7 +41,7 @@ export interface Scene {
 	textures: Record<string, string>;
 }
 
-/** Vertex shaders by fragment version, without `#version` */
+// Vertex shaders without `#version` by fragment version
 export type VertexShaders = Record<WebGLVersion, Record<'mesh' | 'fullscreen', string>>;
 
 export type ToWebview =

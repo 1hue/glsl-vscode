@@ -10,7 +10,7 @@ type Block =
 	| { kind: 'latex'; lines: string[] }
 	| { kind: 'table'; rows: string[][]; header: boolean }
 	| { kind: 'para'; lines: string[] }
-	// Syntax (`[role="bnf"]`), never shown
+	// Hidden syntax blocks like `[role="bnf"]`
 	| { kind: 'grammar'; lines: string[] };
 
 // Parts of asciidoctor nodes its type definitions leave out
@@ -80,7 +80,7 @@ const FLAVORS: Record<Flavor, { conditional: string; title: string; attributes: 
 	},
 };
 
-// Math attributes used in prose, e.g. `{pi}`
+// Math attributes used in prose like `{pi}`
 const SYMBOLS: Record<string, string> = {
 	pi: 'π',
 	cdot: '·',
@@ -124,7 +124,7 @@ async function generate(config: SourceConfig, commit: string, read: ReadFile): P
 	return outputs;
 }
 
-/** AsciiDoc flattened in order, `conditional` is `ifdef::GLSL[]` or `ifdef::ESSL[]` */
+/** `conditional` like `ifdef::GLSL[]` */
 async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 	const document = await load(text, { attributes: { [conditional]: '' } });
 	const blocks: Block[] = [];
@@ -204,7 +204,6 @@ async function toBlocks(text: string, conditional: string): Promise<Block[]> {
 	return blocks;
 }
 
-/** Grammar block text: `_rule_ : ::` lists of `*name* +` lines */
 function grammarLines(node: AbstractBlock): string[] {
 	return node.getBlocks().flatMap((child) => {
 		if (child.getContext() === 'paragraph') {
@@ -220,7 +219,7 @@ function grammarLines(node: AbstractBlock): string[] {
 	});
 }
 
-/** List item text as written with markup left for `inline()` */
+/** Markup left for `inline()` */
 function rawText(item: ItemNode): string {
 	for (const substitution of [...item.getSubstitutions()]) {
 		item.removeSubstitution(substitution);
@@ -245,7 +244,7 @@ function listLines(list: ListNode, depth: number): string[] {
 	return lines;
 }
 
-/** Cell text with row-spanning cells repeated below */
+/** Row-spanning cells repeated below */
 function tableBlock(table: TableNode): Block {
 	const spans: { text: string; remaining: number }[] = [];
 	const rows: string[][] = [];
@@ -351,7 +350,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 		.replace(/latexmath:\[(.*?)\]/g, (_, math) => protect('`' + math + '`'))
 		.replace(/\[eq\]#([\s\S]*?)#/g, (_, math) => protect('`' + plain(math) + '`'))
 		.replace(/`([^`]+)`/g, (_, code) => protect('`' + plain(code) + '`'))
-		// Passthrough e.g. `+__LINE__+`
+		// Passthrough like `+__LINE__+`
 		.replace(/(^|[^\w+])\+(\S(?:[^+\n]*?\S)?)\+(?![\w+])/gm, (_, before, code) => before + protect('`' + code + '`'))
 		.replace(/<<[^,>]+,([^>]+)>>/g, '$1')
 		.replace(/<<([^>]+)>>/g, (_, anchor: string) => anchor.replace(/-/g, ' '))
@@ -367,7 +366,7 @@ function inline(text: string, attributes: Record<string, string>): string {
 	return restore(markdown);
 }
 
-/** Types and qualifiers from spec tables, qualifier in several tables keeps all meanings */
+/** Qualifier in several tables keeps all meanings */
 function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 	const types: Record<string, string> = {};
 	const qualifiers: Record<string, string> = {};
@@ -377,7 +376,7 @@ function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 			continue;
 		}
 
-		// Some tables lack header option: go by first row
+		// Header from first row when table has no header option
 		const [first, second] = block.rows[0];
 		const target = second !== 'Meaning' ? undefined : first === 'Type' ? types : /Qualifier$/.test(first) ? qualifiers : undefined;
 		if (!target) {
@@ -398,7 +397,7 @@ function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 	return { types, qualifiers };
 }
 
-/** Add doc, keep earlier docs for same name */
+/** Keeps earlier docs for same name */
 function addDoc(target: Record<string, string>, name: string, doc: string) {
 	if (!target[name]) {
 		target[name] = doc;
@@ -408,7 +407,7 @@ function addDoc(target: Record<string, string>, name: string, doc: string) {
 }
 
 
-/** Docs for constructs.ts names from spec sections - missing section fails */
+/** Fails on missing section */
 function addConstructDocs(
 	flavor: Flavor,
 	blocks: Block[],
@@ -515,7 +514,7 @@ function sectionDoc(section: Block[], name?: string): Block[] | undefined {
 	return blocks.length ? blocks : undefined;
 }
 
-/** Paragraph at `index` - from first part when continued after code, through what it introduces when ending in `:` */
+/** Paragraph at `index` plus its continuation and what it introduces */
 function paragraphRun(section: Block[], index: number): Block[] {
 	const textOf = (block: Block) => (block.kind === 'para' ? block.lines.join('\n') : '');
 
@@ -544,7 +543,6 @@ function paragraphRun(section: Block[], index: number): Block[] {
 	return section.slice(start, end + 1).filter((b) => b.kind !== 'grammar');
 }
 
-/** Functions - each prototype block plus prose, tables and examples up to next heading or prototype */
 function parseFunctions(blocks: Block[], attributes: Record<string, string>): Record<string, FunctionGroup[]> {
 	const functions: Record<string, FunctionGroup[]> = {};
 
@@ -595,7 +593,7 @@ function parseFunctions(blocks: Block[], attributes: Record<string, string>): Re
 	return functions;
 }
 
-/** Stage for a built-in variables heading (`undefined` keeps current, `false` stops) */
+/** `undefined` keeps current stage, `false` stops */
 function stageFor(heading: string): string | undefined | false {
 	if (/redeclaring/i.test(heading)) {
 		return false;
@@ -620,7 +618,6 @@ function stageFor(heading: string): string | undefined | false {
 	return stage ? stage[1].toLowerCase() : undefined;
 }
 
-/** Variables - declarations from code blocks, docs from paragraphs naming them */
 function parseVariables(blocks: Block[], attributes: Record<string, string>): Record<string, Variable[]> {
 	const variables = new Map<string, { stage: string; decl: string; doc: string[] }[]>();
 
@@ -678,7 +675,7 @@ function parseVariables(blocks: Block[], attributes: Record<string, string>): Re
 				}
 				describing = [];
 			} else {
-				// Example code e.g. how gl_GlobalInvocationID is computed
+				// Example code like gl_GlobalInvocationID computation
 				attach(describing, blockToMarkdown(block, attributes));
 			}
 			continue;
@@ -715,7 +712,7 @@ function parseVariables(blocks: Block[], attributes: Record<string, string>): Re
 	return result;
 }
 
-/** Built-in declarations in code block, incl. `gl_PerVertex` members and `gl_DepthRangeParameters` */
+/** Includes `gl_PerVertex` members and `gl_DepthRangeParameters` */
 function parseDeclarations(lines: string[]): Map<string, string> {
 	const found = new Map<string, string>();
 

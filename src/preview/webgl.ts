@@ -1,4 +1,4 @@
-// Fragment shader as source WebGL2 runs, plus controls for its own uniforms
+// Fragment shader for WebGL2 and its uniform controls
 
 import type { Diagnostic, Glslang } from 'glslang-wasm' with { 'resolution-mode': 'import' };
 import { isVulkan } from '#src/language/vulkan';
@@ -8,7 +8,7 @@ export type WebGLResult = Shader | { errors: string };
 
 const VERSION = /^[ \t]*#[ \t]*version[ \t]+(\d+)[^\n]*/m;
 
-// Set by the preview, no control
+// Preview-set uniforms
 const BUILTINS = new Set([
 	'time',
 	'u_time',
@@ -27,17 +27,12 @@ const BUILTINS = new Set([
 	'lightPosition',
 ]);
 
-// `uniform highp vec3 color;`
+// e.g. `uniform highp vec3 color`
 const UNIFORM = /^[ \t]*uniform\s+(?:(?:lowp|mediump|highp)\s+)?(\w+)\s+(\w+)\s*(?:\[\s*\d+\s*\])?\s*;/gm;
-// `name; // [0, 1] = 0.5` on uniforms and block members
+// Annotated uniforms and block members like `name; // [0, 1] = 0.5`
 const COMMENTED = /\b(\w+)\s*(?:\[\s*\d+\s*\])?\s*;[ \t]*\/\/([^\n]*)/g;
 const ANNOTATION = /^\s*(?:\[\s*([-+.\deE]+)\s*,\s*([-+.\deE]+)\s*\])?\s*(?:=\s*(.+?))?\s*$/;
 
-/**
- * Versionless, 100-120: text rewrite to ES 1.00
- * `300 es`: as is
- * Rest: glslang -> SPIR-V -> SPIRV-Cross -> ES 3.00
- */
 export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLResult> {
 	const match = VERSION.exec(source);
 	const version = match ? Number(match[1]) : 100;
@@ -71,12 +66,12 @@ export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLRe
 	};
 }
 
-/** `#version` line blanked - three.js adds its own */
+/** three.js adds its own `#version` */
 export function withoutVersion(source: string): string {
 	return source.replace(VERSION, '');
 }
 
-/** Precision added, `#version` blanked - keeps original line numbers */
+/** Add precision without shifting lines */
 function rewrite(source: string, version: WebGLVersion): Shader {
 	const prefix = ['precision highp float;', ...(version === '300 es' ? ['precision highp int;'] : [])];
 	const body = source.replace(VERSION, '');
@@ -97,7 +92,7 @@ function control(name: string, label: string, type: string, annotation?: Partial
 	return { name, label, type, min: 0, max: 1, ...annotation };
 }
 
-/** Declared name -> range and default from `// [min, max] = default` */
+/** Ranges and defaults from `[min, max] = default` comments */
 export function annotationsOf(source: string): Map<string, Partial<Control>> {
 	const annotations = new Map<string, Partial<Control>>();
 	for (const [, name, comment] of source.matchAll(COMMENTED)) {
@@ -114,7 +109,7 @@ export function annotationsOf(source: string): Map<string, Partial<Control>> {
 	return annotations;
 }
 
-/** `0.5`, `(1, 0.5, 0.2)`, `true` */
+/** Annotation default like `0.5`, `(1, 0.5, 0.2)`, `true` */
 function parseValue(text: string): Value {
 	if (text === 'true' || text === 'false') {
 		return text === 'true';
@@ -123,7 +118,7 @@ function parseValue(text: string): Value {
 	return numbers.length === 1 ? numbers[0] : numbers;
 }
 
-/** glslang errors as `ERROR: 0:12:5: message`, lines of original source */
+/** glslang errors like `ERROR: 0:12:5: message` */
 function format(diagnostics: Diagnostic[]): string {
 	return diagnostics
 		.filter((d) => d.severity === 'error')

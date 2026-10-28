@@ -1,4 +1,4 @@
-// Vulkan GLSL detection - syntax plain GLSL rejects
+// Vulkan-only syntax detection
 
 const VULKAN_ONLY =
 	/\blayout\s*\([^)]*\b(set|push_constant|input_attachment_index)\b|\bsubpassInput(MS)?\b|\bgl_(VertexIndex|InstanceIndex)\b/;

@@ -1,4 +1,4 @@
-// Preview webview - shader fullscreen or on mesh with orbit camera and light
+// Shader preview fullscreen or on mesh with orbit camera and light
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -33,7 +33,7 @@ const GEOMETRIES: Record<Mesh, () => THREE.BufferGeometry> = {
 	torus: () => new THREE.TorusGeometry(0.8, 0.3, 48, 96),
 };
 
-// Transparent clear - page background shows around mesh
+// Page background shows through
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(devicePixelRatio);
 
@@ -208,7 +208,6 @@ function updateLight() {
 	lamp.position.copy(lightPosition.value);
 }
 
-/** New material for current shader and mesh mode - vertex shader differs */
 function buildMaterial() {
 	if (!shader || !vertex) {
 		return;
@@ -225,7 +224,7 @@ function buildMaterial() {
 	previous.dispose();
 }
 
-/** three.js uniforms for controls and renamed built-ins, block members as struct values */
+/** three.js uniforms for controls and renamed built-ins */
 function userUniforms({ controls, builtins }: Shader): Record<string, THREE.IUniform> {
 	const uniforms: Record<string, THREE.IUniform> = {};
 	const assign = (path: string, value: unknown) => {
@@ -251,7 +250,6 @@ function userUniforms({ controls, builtins }: Shader): Record<string, THREE.IUni
 	return uniforms;
 }
 
-/** Built-ins inside blocks hold copies - refresh per frame */
 function copyBuiltinMembers() {
 	const { uniforms } = mesh.material as THREE.RawShaderMaterial;
 	for (const { name, label } of shader?.builtins ?? []) {
@@ -335,13 +333,13 @@ function checkerTexture(): THREE.Texture {
 }
 
 let saveTimer: number | undefined;
-/** Scene to extension, debounced */
+/** Debounced */
 function save() {
 	clearTimeout(saveTimer);
 	saveTimer = setTimeout(() => vscode.postMessage({ type: 'scene', scene }), 300);
 }
 
-/** `ERROR: 0:12: ...` -> line in original source */
+/** Map WebGL error lines back to original source */
 function shiftLines(log: string, offset: number): string {
 	return log.replace(/^(\w+: \d+:)(\d+)/gm, (_, prefix: string, line: string) => `${prefix}${Number(line) - offset}`);
 }

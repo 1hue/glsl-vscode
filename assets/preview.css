@@ -1,17 +1,17 @@
-/* Sizes from VS Code tokens (spacing, cornerRadius, strokeThickness, fontSize), see baseSizes.ts in VS Code */
+/* Sizes from baseSizes.ts tokens */
 :root {
 	--margin: var(--vscode-spacing-size80);
 	--padding: var(--vscode-spacing-size40);
 	--stroke: var(--vscode-strokeThickness);
-	/* Toolbar buttons: 32px, codicon size icon */
+	/* Toolbar buttons */
 	--action-size: var(--vscode-spacing-size320);
 	--action-icon-size: var(--vscode-codiconFontSize);
-	/* Pane header: 22px */
+	/* Pane header */
 	--header-height: calc(var(--vscode-spacing-size200) + var(--vscode-spacing-size20));
 	--input-height: calc(var(--vscode-spacing-size160) + var(--vscode-spacing-size20));
 }
 
-/* VS Code default webview style pads body. Canvas is transparent - body background shows around mesh */
+/* WebView pads body by default */
 html,
 body {
 	margin: var(--vscode-spacing-sizeNone);
@@ -30,19 +30,19 @@ canvas {
 	height: 100%;
 }
 
-/* Native controls follow theme - VS Code sets theme kind class but no color-scheme */
+/* VS Code in WebView doesn't set a color scheme */
 body.vscode-dark,
 body.vscode-high-contrast:not(.vscode-high-contrast-light) {
 	color-scheme: dark;
 }
 
-/* No focus outlines - VS Code default style outlines input:focus */
+/* WebView outlines focused inputs by default */
 *:focus,
 *:focus-visible {
 	outline: none;
 }
 
-/* Floating widget like VS Code's debug toolbar */
+/* Floating widget like debug toolbar */
 .widget {
 	position: absolute;
 	color: var(--vscode-foreground);
@@ -101,7 +101,7 @@ body.fullscreen .separator {
 	cursor: pointer;
 }
 
-/* Codicons have one weight - outline stroke thickens them */
+/* Thicker codicons */
 .action.codicon,
 .group > .codicon {
 	font-size: var(--action-icon-size);
@@ -138,7 +138,7 @@ body.fullscreen .separator {
 	overflow: auto;
 }
 
-/* Like sidebar section headers, e.g. Explorer */
+/* Like Explorer section headers */
 .pane-header {
 	display: flex;
 	align-items: center;
@@ -212,7 +212,7 @@ body.fullscreen .separator {
 	width: calc(2 * var(--vscode-spacing-size280));
 }
 
-/* Like VS Code text boxes */
+/* Number field */
 input[type="number"] {
 	padding: var(--padding) var(--vscode-spacing-size60);
 	font: inherit;
@@ -222,7 +222,7 @@ input[type="number"] {
 	border-radius: var(--vscode-cornerRadius-xSmall);
 }
 
-/* Like VS Code buttons */
+/* Button */
 .control button {
 	padding: var(--padding) var(--vscode-spacing-size120);
 	font-family: inherit;
@@ -239,7 +239,7 @@ input[type="number"] {
 	background: var(--vscode-button-hoverBackground);
 }
 
-/* Like VS Code checkboxes: 18px box, codicon check */
+/* Checkbox */
 input[type="checkbox"] {
 	appearance: none;
 	display: flex;
@@ -255,13 +255,12 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 
-/* codicon-check glyph */
 input[type="checkbox"]:hover {
 	background: var(--vscode-inputOption-hoverBackground);
 }
 
 input[type="checkbox"]:checked::before {
-	content: "\eab2";
+	content: "\eab2"; /* codicon-check */
 	font-family: codicon;
 	font-size: var(--vscode-codiconFontSize);
 }
@@ -274,7 +273,7 @@ input[type="color"] {
 	background: none;
 }
 
-/* Range not themeable natively: track like scrollbar slider, thumb like other inputs. Whole height clickable */
+/* Slider */
 input[type="range"] {
 	--track: var(--vscode-spacing-size40);
 	--thumb: var(--vscode-spacing-size160);
@@ -291,6 +290,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-webkit-slider-thumb {
+	/* Like other inputs */
 	appearance: none;
 	box-sizing: border-box;
 	width: var(--thumb);
@@ -305,7 +305,6 @@ input[type="range"]:hover::-webkit-slider-thumb {
 	border-color: var(--vscode-focusBorder);
 }
 
-/* Track like scrollbar slider on hover and drag */
 input[type="range"]:hover::-webkit-slider-runnable-track {
 	background: var(--vscode-scrollbarSlider-hoverBackground);
 }

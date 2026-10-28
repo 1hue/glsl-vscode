@@ -1,4 +1,4 @@
-// glslang-wasm is an ES module - loaded with import(), not require()
+// glslang-wasm is an ES module loaded with import()
 
 import type * as GlslangWasm from 'glslang-wasm' with { 'resolution-mode': 'import' };
 

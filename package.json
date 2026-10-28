@@ -25,7 +25,8 @@
   ],
   "main": "./out/src/extension.js",
   "imports": {
-    "#src/*": "./out/src/*.js"
+    "#src/*": "./out/src/*.js",
+    "#data/*": "./data/*.json"
   },
   "activationEvents": [
     "onWebviewPanel:glsl.preview"

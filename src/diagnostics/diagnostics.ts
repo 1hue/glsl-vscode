@@ -1,4 +1,4 @@
-// glslang errors and warnings for GLSL and Godot shaders
+// glslang errors and warnings for GLSL and GDShaders
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -20,7 +20,7 @@ import { isVulkan } from '#src/language/vulkan';
 
 const DEBOUNCE_MS = 300;
 
-// STAGE_BY_EXTENSION spec names -> glslang
+// Spec stage names to glslang's
 const GLSLANG_STAGES: Record<string, Stage> = {
 	vertex: 'vertex',
 	fragment: 'fragment',
@@ -43,7 +43,7 @@ const RAY_TRACING_EXTENSIONS: Record<string, Stage> = {
 
 const STAGES = new Set<string>([...Object.values(GLSLANG_STAGES), ...Object.values(RAY_TRACING_EXTENSIONS)]);
 
-// Godot RD shader sections (RDShaderFile::parse_versions_from_text), `#[versions]` isn't code
+// Godot RD shader sections
 const GODOT_SECTIONS: Record<string, Stage> = {
 	vertex: 'vertex',
 	fragment: 'fragment',
@@ -57,7 +57,7 @@ const GODOT_SECTIONS: Record<string, Stage> = {
 	intersection: 'intersect',
 };
 
-/** Shader source checked as one stage. Godot RD files have several */
+// Shader source checked as one stage. Godot RD files have several
 interface Unit {
 	source: string;
 	stage: Stage;
@@ -81,14 +81,14 @@ const LEGACY_DEFAULTS = { version: 110, profile: 'none' } as const;
 // Godot's compile_glslang_shader for RD shader files
 const GODOT_RD = { ...GLSL_DEFAULTS, client: 'vulkan', vulkanVersion: '1.1', spirvVersion: '1.4', link: true } as const;
 
-/** Included file -> where it was included from */
+// Where each file was included from
 type Includes = Map<string, { includer: string; header: string }>;
 
 export function registerDiagnostics(context: vscode.ExtensionContext) {
 	const collection = vscode.languages.createDiagnosticCollection('glslang');
 	const timers = new Map<string, NodeJS.Timeout>();
 
-	// Document -> files it includes, rechecked on include change
+	// Included files per document for rechecks
 	const dependencies = new Map<string, Set<string>>();
 
 	let glslang: Promise<Glslang> | undefined;
@@ -136,7 +136,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 				}
 			}
 		} catch {
-			// Stack overflow on huge expressions etc - nothing to report
+			// Nothing to report on stack overflow from huge expressions
 		}
 
 		if (document.isClosed || document.version !== version) {
@@ -213,18 +213,18 @@ function unitsOf(document: vscode.TextDocument): Unit[] {
 		return godotUnits(text, sections);
 	}
 
-	// Neither `#version` nor `main`: include file, checked through its includers
+	// No `#version` or `main` means include file checked through its includers
 	if (!/^\s*#\s*version\b/m.test(text) && !/\bmain\s*\(/.test(text)) {
 		return [];
 	}
 
 	const client = clientOf(text);
-	// Vulkan needs 140+
+	// Vulkan needs version 140 or later
 	const defaults = client === 'none' ? LEGACY_DEFAULTS : GLSL_DEFAULTS;
 	return [{ source: text, stage: stageOf(document, text), client, lineOffset: 0, ...defaults }];
 }
 
-/** All Godot processing functions in one unit - compatibility renderer GLSL ES 3.0, others Vulkan GLSL 450 */
+/** One unit for all processing functions */
 function gdshaderUnits(document: vscode.TextDocument, text: string): Unit[] {
 	// No `shader_type` (.gdshaderinc): checked through its includers
 	const shaderType = shaderTypeOf(text);
@@ -250,11 +250,11 @@ function gdshaderUnits(document: vscode.TextDocument, text: string): Unit[] {
 
 function compatibilityRenderer(document: vscode.TextDocument): boolean {
 	const root = godotRoot(document);
-	const project = root && readSource(path.join(root, 'project.godot'));
+	const project = root && readSource(`${root}/project.godot`);
 	return !!project && /^renderer\/rendering_method="gl_compatibility"/m.test(project);
 }
 
-/** Godot RD shader like RDShaderFile::parse_versions_from_text - one unit per stage and version, defines in preamble */
+/** Split like Godot's RDShaderFile::parse_versions_from_text */
 function godotUnits(text: string, sections: RegExpMatchArray[]): Unit[] {
 	const body = (i: number) => {
 		const start = (sections[i].index ?? 0) + sections[i][0].length + 1;
@@ -323,19 +323,18 @@ function clientOf(text: string): Client {
 	return isVulkan(text) ? 'vulkan' : 'none';
 }
 
-/** Includes and `project.godot` stay inside this - workspace folder, else document directory */
+/** Workspace folder, else document directory */
 function includeRoot(document: vscode.TextDocument): string {
 	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath ?? path.dirname(document.uri.fsPath);
 }
 
-/** `res://` from Godot project root, else relative to includer. Undefined outside includeRoot */
 function includePath(document: vscode.TextDocument, header: string, includer: string): string | undefined {
 	const root = includeRoot(document);
 
 	let file: string | undefined;
 	if (header.startsWith('res://')) {
 		const project = godotRoot(document, root);
-		file = project && path.join(project, header.slice('res://'.length));
+		file = project && `${project}/${header.slice('res://'.length)}`;
 	} else {
 		file = path.resolve(path.dirname(includer), header);
 	}
@@ -343,7 +342,7 @@ function includePath(document: vscode.TextDocument, header: string, includer: st
 	return file && isInside(root, file) ? file : undefined;
 }
 
-/** Real paths - symlinks can't escape. False for missing files */
+/** Compares real paths */
 function isInside(root: string, file: string): boolean {
 	try {
 		const relative = path.relative(fs.realpathSync(root), fs.realpathSync(file));
@@ -356,7 +355,7 @@ function isInside(root: string, file: string): boolean {
 /** Nearest `project.godot` up from document, not above root */
 function godotRoot(document: vscode.TextDocument, root = includeRoot(document)): string | undefined {
 	for (let current = path.dirname(document.uri.fsPath); isInside(root, current); current = path.dirname(current)) {
-		if (fs.existsSync(path.join(current, 'project.godot'))) {
+		if (fs.existsSync(`${current}/project.godot`)) {
 			return current;
 		}
 		if (current === path.dirname(current)) {
@@ -391,7 +390,7 @@ function toDiagnostic(
 
 	if (!includes.has(diagnostic.source)) {
 		const token = /^'([^']+)'/.exec(diagnostic.message)?.[1];
-		// Link errors have no line - unit's first line, Godot's section header
+		// Link errors go on unit's first line
 		const line = diagnostic.line === undefined ? lineOffset - 1 : diagnostic.line - 1 + lineOffset;
 		const range = rangeAt(document, line, diagnostic.column, token);
 		return withSource(new vscode.Diagnostic(range, message, severity));
@@ -423,7 +422,6 @@ function withSource(diagnostic: vscode.Diagnostic): vscode.Diagnostic {
 	return diagnostic;
 }
 
-/** `'foo' : undeclared identifier ` -> `'foo': undeclared identifier` */
 function cleanMessage(message: string): string {
 	return message
 		.replace(/^'' : +/, '')
@@ -472,7 +470,7 @@ function tokenIndex(text: string, token: string, index: number): number | undefi
 	return found;
 }
 
-/** Same error from several Godot versions once */
+/** Godot versions repeat the same error */
 function unique(diagnostics: vscode.Diagnostic[]): vscode.Diagnostic[] {
 	const seen = new Set<string>();
 	return diagnostics.filter((d) => {

@@ -7,7 +7,7 @@ TTY := $(shell [ -t 0 ] && echo -t)
 RUN = podman run --rm $(TTY) --pull=newer --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w
 NODE = docker.io/library/node:latest
 
-# VS Code CLI, e.g. make install VSCODE=code
+# Override VS Code CLI with make install VSCODE=code
 VSCODE ?= codium
 
 build:
@@ -30,7 +30,7 @@ setup:
 node_modules:
 	$(MAKE) setup
 
-# Shell into container, colored ls and prompt
+# Shell into container with colored ls and prompt
 sh:
 	$(RUN) -i -e TERM $(NODE) bash --rcfile /etc/skel/.bashrc
 
@@ -50,7 +50,7 @@ wasm-link: | node_modules
 # Back to npm package
 wasm-unlink: setup
 
-# Check out doc submodules, only paths gen:defs reads
+# Check out doc submodules
 vendor:
 	sh scripts/vendor.sh
 

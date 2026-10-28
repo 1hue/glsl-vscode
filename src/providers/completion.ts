@@ -17,7 +17,7 @@ import { cursorContext, isMemberAccess, statementBefore, statementKind, wordAt }
 
 const Kind = vscode.CompletionItemKind;
 
-/** Docs built on resolve rather than up front */
+// Docs built on resolve rather than up front
 class Item extends vscode.CompletionItem {
 	constructor(
 		label: string,
@@ -212,7 +212,7 @@ function typeItems(context: Context, types: string[]): Item[] {
 	});
 }
 
-/** Next qualifiers in declaration, plus `struct` at statement start */
+/** Next qualifiers in declaration and `struct` at statement start */
 function declarationKeywords(context: Context, scope: DeclarationScope, present: string[]): string[] {
 	const starts = !present.length && (scope === 'global' || scope === 'local');
 
@@ -225,7 +225,6 @@ function declarationKeywords(context: Context, scope: DeclarationScope, present:
 	return [...nextQualifiers(context.flavor, scope, present), ...(starts ? ['struct'] : [])];
 }
 
-/** `#version`, `#extension` etc. after `#` */
 function directiveItems(context: Context): Item[] {
 	const directives =
 		context.flavor === 'godot'
@@ -238,7 +237,7 @@ function directiveItems(context: Context): Item[] {
 	});
 }
 
-/** Layout ids in `layout(...)`, minus other stages' */
+/** Layout ids for current stage */
 function layoutItems(context: Context): Item[] {
 	if (context.flavor === 'godot') {
 		return [];
@@ -278,7 +277,7 @@ function hintItems(context: Context): Item[] {
 		const item = new Item(name, Kind.EnumMember, () => hintMarkdown(name, hint, context.defs));
 		item.detail = hint.types;
 
-		// `hint_range(min, max[, step])`: insert with placeholders
+		// Insert hint arguments as placeholders
 		const args = /\((.*)\)/.exec(hint.label)?.[1];
 		if (args) {
 			const placeholders = args

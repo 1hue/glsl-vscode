@@ -33,7 +33,7 @@ function signatureInformation(name: string, signature: Signature, group?: Functi
 	const label = signatureLabel(name, signature);
 	const info = new vscode.SignatureInformation(label, group?.doc ? markdown(group.doc) : undefined);
 
-	// Param ranges as label offsets - VS Code highlights current param
+	// Param ranges as label offsets for highlighting
 	let searchFrom = label.indexOf('(') + 1;
 	for (const param of signature.params) {
 		const text = `${param.type} ${param.name}`.trim();
@@ -61,7 +61,6 @@ function builtinSignatures(document: vscode.TextDocument, position: vscode.Posit
 	);
 }
 
-/** User functions: params read from declaration text */
 function userSignatures(document: vscode.TextDocument, position: vscode.Position, name: string) {
 	const symbol = visibleSymbols(scanDocument(document), document.offsetAt(position)).find(
 		(s) => s.name === name && s.kind === 'function',

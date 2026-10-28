@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { builtinsContentProvider } from '#src/language/builtinsDocument';
-import { BUILTINS_SCHEME, initDefinitions } from '#src/language/definitions';
+import { BUILTINS_SCHEME } from '#src/language/definitions';
 import { registerDiagnostics } from '#src/diagnostics/diagnostics';
 import { registerPreview } from '#src/preview/preview';
 import { completionProvider } from './providers/completion';
@@ -12,8 +12,6 @@ import { forgetDocument } from '#src/analysis/symbols';
 const SELECTOR: vscode.DocumentSelector = [{ language: 'glsl' }, { language: 'gdshader' }];
 
 export function activate(context: vscode.ExtensionContext) {
-	initDefinitions(context.extensionPath);
-
 	context.subscriptions.push(
 		vscode.workspace.registerTextDocumentContentProvider(BUILTINS_SCHEME, builtinsContentProvider),
 		vscode.languages.registerHoverProvider(SELECTOR, hoverProvider),

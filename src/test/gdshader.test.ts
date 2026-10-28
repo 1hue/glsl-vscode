@@ -1,21 +1,20 @@
-// Godot built-ins preamble, Godot diagnostics are in fixtures/
+// Godot built-ins preamble
 
-import { ROOT } from './vscodeMock';
+import './vscodeMock';
 
 import * as assert from 'node:assert/strict';
-import * as path from 'path';
 import { test } from 'node:test';
 import { loadGlslang } from '#src/diagnostics/glslang';
 import { gdshaderPreamble } from '#src/diagnostics/gdshader';
 import { Definitions } from '#src/language/types';
 
 test('preamble is valid GLSL for every shader type and profile', async () => {
-	const godot = require(path.join(ROOT, 'data/godot.json')) as Definitions;
+	const godot = require('#data/godot') as Definitions;
 	const glslang = await loadGlslang();
 	const shaderTypes = ['spatial', 'canvas_item', 'particles', 'sky', 'fog', 'texture_blit'];
 
 	for (const es of [true, false]) {
-		const glsl = require(path.join(ROOT, `data/${es ? 'essl' : 'glsl'}.json`)) as Definitions;
+		const glsl = require(`#data/${es ? 'essl' : 'glsl'}`) as Definitions;
 		const glslFunctions = new Set(Object.keys(glsl.functions));
 
 		for (const shaderType of shaderTypes) {
