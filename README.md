@@ -43,6 +43,7 @@ are checked as GLSL ES 3.0, others as GLSL 460. Not a replacement for Godot's ow
 ## Preview
 
 `Ctrl+Shift+V` or the preview button in the editor title renders the fragment shader beside the editor with WebGL2, updating as you type.
+Fullscreen or on a mesh you can orbit, with a movable light.
 
 Uniforms, when declared:
 
@@ -52,9 +53,15 @@ Uniforms, when declared:
 | `vec2 resolution` / `u_resolution` | Canvas size (px) |
 | `vec2 mouse` / `u_mouse` | Mouse position (px), origin bottom-left |
 | `int frame` / `u_frame` | Frame count |
+| `vec3 lightPosition`, `cameraPosition` | World space |
 
-`#version` is replaced: none or up to 120 runs as GLSL ES 1.00, everything else as ES 3.00. Typical desktop
-fragment shaders work as is. No `#include`, textures, custom varyings (use `gl_FragCoord`), `.gdshader` or Vulkan-only features.
+Mesh inputs are `vPosition`, `vNormal` and `vUv`, as in three.js. Your own uniforms get sliders, set the range in a comment:
+
+```glsl
+uniform float roughness; // [0, 1] = 0.5
+```
+
+Desktop and Vulkan GLSL work too, cross-compiled to ES 3.00. No `#include` or `.gdshader`.
 
 ## Files
 
@@ -82,5 +89,6 @@ markup simplified. Per-file details in `REUSE.toml`.
 
 Pinned commits are in `package.json` under `config`.
 
-glslang is BSD and others ([LICENSE-glslang](https://github.com/1hue/glslang-wasm/blob/main/LICENSE-glslang)), built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
+glslang is BSD and others ([LICENSE-glslang](https://github.com/1hue/glslang-wasm/blob/main/LICENSE-glslang)), SPIRV-Cross is Apache-2.0, both built with Emscripten (MIT). See [glslang-wasm](https://github.com/1hue/glslang-wasm).
+Preview uses [three.js](https://github.com/mrdoob/three.js) (MIT) and [Codicons](https://github.com/microsoft/vscode-codicons) © Microsoft, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 GLSL extension specs (ray tracing built-ins etc.) aren't openly licensed - no docs for them here.

@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-{{nonce}}'; style-src 'unsafe-inline'">
-<style>
-html, body { margin: 0; height: 100%; overflow: hidden; background: var(--vscode-editor-background); }
-canvas { display: block; width: 100%; height: 100%; }
-pre {
-	position: absolute; inset: auto 0 0 0; margin: 0; padding: 8px; max-height: 50%; overflow: auto;
-	white-space: pre-wrap; font: var(--vscode-editor-font-size) var(--vscode-editor-font-family);
-	color: var(--vscode-errorForeground); background: var(--vscode-editorWidget-background);
-}
-pre:empty { display: none; }
-</style>
+	<meta charset="UTF-8">
+	<meta
+		http-equiv="Content-Security-Policy"
+		content="default-src 'none'; script-src 'nonce-{{nonce}}' {{csp}}; style-src {{csp}} 'unsafe-inline'; font-src {{csp}}; img-src {{csp}} data: blob:"
+	>
+	<link rel="stylesheet" href="{{codicons}}/codicon.css">
+	<link rel="stylesheet" href="{{assets}}/preview.css">
+	<script type="importmap" nonce="{{nonce}}">
+		{
+			"imports": {
+				"three": "{{three}}/build/three.module.js",
+				"three/addons/": "{{three}}/examples/jsm/"
+			}
+		}
+	</script>
 </head>
 <body>
-<canvas></canvas>
-<pre></pre>
-<script nonce="{{nonce}}" src="{{script}}"></script>
+	<canvas id="canvas"></canvas>
+
+	<div id="toolbar" class="widget toolbar" role="toolbar">
+		<div class="group">
+			<button class="action codicon codicon-screen-full" data-mesh="fullscreen" title="Fullscreen"></button>
+			<button class="action codicon codicon-primitive-square" data-mesh="plane" title="Plane"></button>
+			<button class="action codicon codicon-package" data-mesh="box" title="Box"></button>
+			<button class="action codicon codicon-circle-large-filled" data-mesh="sphere" title="Sphere"></button>
+			<button class="action codicon codicon-circle-large" data-mesh="torus" title="Torus"></button>
+		</div>
+		<div class="separator"></div>
+		<div id="light" class="group">
+			<span class="codicon codicon-lightbulb" title="Light"></span>
+			<input id="azimuth" type="range" min="-180" max="180" title="Light azimuth">
+			<input id="elevation" type="range" min="-90" max="90" title="Light elevation">
+		</div>
+		<button id="reset" class="action codicon codicon-discard" title="Reset view"></button>
+	</div>
+
+	<details class="widget panel" open>
+		<summary class="pane-header">
+			<span class="codicon codicon-chevron-right collapsed"></span>
+			<span class="codicon codicon-chevron-down expanded"></span>
+			<h3 class="title">Uniforms</h3>
+		</summary>
+		<div id="controls" class="controls"></div>
+	</details>
+
+	<div id="fps" class="fps"></div>
+
+	<pre id="errors" class="errors"></pre>
+
+	<script type="module" nonce="{{nonce}}" src="{{scripts}}/preview.js"></script>
 </body>
 </html>

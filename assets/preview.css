@@ -1,0 +1,343 @@
+/* Sizes from VS Code tokens (spacing, cornerRadius, strokeThickness, fontSize), see baseSizes.ts in VS Code */
+:root {
+	--margin: var(--vscode-spacing-size80);
+	--padding: var(--vscode-spacing-size40);
+	--stroke: var(--vscode-strokeThickness);
+	/* Toolbar buttons: 32px, codicon size icon */
+	--action-size: var(--vscode-spacing-size320);
+	--action-icon-size: var(--vscode-codiconFontSize);
+	/* Pane header: 22px */
+	--header-height: calc(var(--vscode-spacing-size200) + var(--vscode-spacing-size20));
+	--input-height: calc(var(--vscode-spacing-size160) + var(--vscode-spacing-size20));
+}
+
+/* VS Code default webview style pads body. Canvas is transparent - body background shows around mesh */
+html,
+body {
+	margin: var(--vscode-spacing-sizeNone);
+	padding: var(--vscode-spacing-sizeNone);
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background: var(--vscode-sideBar-background);
+}
+
+canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* Native controls follow theme - VS Code sets theme kind class but no color-scheme */
+body.vscode-dark,
+body.vscode-high-contrast:not(.vscode-high-contrast-light) {
+	color-scheme: dark;
+}
+
+/* No focus outlines - VS Code default style outlines input:focus */
+*:focus,
+*:focus-visible {
+	outline: none;
+}
+
+/* Floating widget like VS Code's debug toolbar */
+.widget {
+	position: absolute;
+	color: var(--vscode-foreground);
+	background: var(--vscode-debugToolBar-background, var(--vscode-editorWidget-background));
+	border: var(--stroke) solid var(--vscode-debugToolBar-border, var(--vscode-editorWidget-border, transparent));
+	border-radius: var(--vscode-cornerRadius-large);
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-fontSize-body1);
+	font-weight: var(--vscode-fontWeight-regular);
+}
+
+/* Bottom center, wraps only when too wide */
+.toolbar {
+	inset: auto var(--margin) var(--margin);
+	width: fit-content;
+	margin: var(--vscode-spacing-sizeNone) auto;
+	padding: var(--padding);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--padding);
+}
+
+.group {
+	display: flex;
+	align-items: center;
+	gap: var(--padding);
+}
+
+body.fullscreen #light,
+body.fullscreen #reset,
+body.fullscreen .separator {
+	display: none;
+}
+
+/* Like action bar separators */
+.separator {
+	width: var(--stroke);
+	height: var(--vscode-codiconFontSize);
+	margin: var(--vscode-spacing-sizeNone) var(--padding);
+	background: var(--vscode-icon-foreground);
+}
+
+/* Activity bar icons, toolbar hover and active backgrounds */
+.action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--action-size);
+	height: var(--action-size);
+	padding: var(--vscode-spacing-sizeNone);
+	border: none;
+	border-radius: var(--vscode-cornerRadius-medium);
+	color: var(--vscode-activityBar-inactiveForeground);
+	background: none;
+	cursor: pointer;
+}
+
+/* Codicons have one weight - outline stroke thickens them */
+.action.codicon,
+.group > .codicon {
+	font-size: var(--action-icon-size);
+	-webkit-text-stroke: calc(var(--stroke) / 2) currentColor;
+}
+
+.group > .codicon {
+	color: var(--vscode-activityBar-inactiveForeground);
+}
+
+.action:hover,
+.action.checked {
+	color: var(--vscode-activityBar-foreground);
+}
+
+.action:hover {
+	background: var(--vscode-toolbar-hoverBackground);
+}
+
+.action.checked {
+	background: var(--vscode-toolbar-activeBackground, var(--vscode-toolbar-hoverBackground));
+}
+
+#light input {
+	width: calc(2 * var(--vscode-spacing-size400));
+}
+
+.panel {
+	top: var(--margin);
+	left: var(--margin);
+	width: max-content;
+	max-width: calc(100% - 2 * var(--margin));
+	max-height: calc(100% - 2 * var(--margin));
+	overflow: auto;
+}
+
+/* Like sidebar section headers, e.g. Explorer */
+.pane-header {
+	display: flex;
+	align-items: center;
+	height: var(--header-height);
+	padding: var(--padding);
+	color: var(--vscode-sideBarSectionHeader-foreground);
+	background: var(--vscode-sideBarSectionHeader-background);
+	border-top: var(--stroke) solid var(--vscode-sideBarSectionHeader-border, transparent);
+	list-style: none;
+	cursor: pointer;
+	user-select: none;
+}
+
+.pane-header::-webkit-details-marker {
+	display: none;
+}
+
+.pane-header .codicon {
+	margin: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size20);
+	font-size: var(--vscode-codiconFontSize);
+}
+
+.panel[open] .pane-header .codicon {
+	transform: translateY(var(--stroke));
+}
+
+.panel[open] .collapsed,
+.panel:not([open]) .expanded {
+	display: none;
+}
+
+.pane-header .title {
+	margin: var(--vscode-spacing-sizeNone);
+	font-size: var(--vscode-fontSize-label2);
+	font-weight: var(--vscode-fontWeight-semiBold);
+	text-transform: uppercase;
+}
+
+.panel:not(:has(.control)) {
+	display: none;
+}
+
+.controls {
+	display: flex;
+	flex-direction: column;
+	gap: var(--margin);
+	padding: var(--padding) var(--margin) var(--margin);
+}
+
+/* Inputs left aligned, rows full width */
+.control {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--vscode-spacing-size20);
+}
+
+.control .row {
+	display: flex;
+	align-self: stretch;
+	gap: var(--padding);
+	align-items: center;
+}
+
+.control input[type="range"] {
+	flex: 1;
+	min-width: calc(3 * var(--vscode-spacing-size400));
+}
+
+.control input[type="number"] {
+	width: calc(2 * var(--vscode-spacing-size280));
+}
+
+/* Like VS Code text boxes */
+input[type="number"] {
+	padding: var(--padding) var(--vscode-spacing-size60);
+	font: inherit;
+	color: var(--vscode-input-foreground);
+	background: var(--vscode-input-background);
+	border: var(--stroke) solid var(--vscode-input-border, transparent);
+	border-radius: var(--vscode-cornerRadius-xSmall);
+}
+
+/* Like VS Code buttons */
+.control button {
+	padding: var(--padding) var(--vscode-spacing-size120);
+	font-family: inherit;
+	font-size: var(--vscode-fontSize-body1);
+	line-height: var(--input-height);
+	color: var(--vscode-button-foreground);
+	background: var(--vscode-button-background);
+	border: var(--stroke) solid var(--vscode-button-border, transparent);
+	border-radius: var(--vscode-cornerRadius-xSmall);
+	cursor: pointer;
+}
+
+.control button:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+/* Like VS Code checkboxes: 18px box, codicon check */
+input[type="checkbox"] {
+	appearance: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--input-height);
+	height: var(--input-height);
+	margin: var(--vscode-spacing-sizeNone);
+	color: var(--vscode-checkbox-foreground);
+	background: var(--vscode-checkbox-background);
+	border: var(--stroke) solid var(--vscode-checkbox-border);
+	border-radius: var(--vscode-cornerRadius-small);
+	cursor: pointer;
+}
+
+/* codicon-check glyph */
+input[type="checkbox"]:hover {
+	background: var(--vscode-inputOption-hoverBackground);
+}
+
+input[type="checkbox"]:checked::before {
+	content: "\eab2";
+	font-family: codicon;
+	font-size: var(--vscode-codiconFontSize);
+}
+
+input[type="color"] {
+	width: var(--vscode-spacing-size320);
+	height: var(--vscode-spacing-size200);
+	padding: var(--vscode-spacing-sizeNone);
+	border: none;
+	background: none;
+}
+
+/* Range not themeable natively: track like scrollbar slider, thumb like other inputs. Whole height clickable */
+input[type="range"] {
+	--track: var(--vscode-spacing-size40);
+	--thumb: var(--vscode-spacing-size160);
+	appearance: none;
+	height: var(--input-height);
+	margin: var(--vscode-spacing-sizeNone);
+	background: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+	height: var(--track);
+	border-radius: var(--vscode-cornerRadius-xSmall);
+	background: var(--vscode-scrollbarSlider-background);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	appearance: none;
+	box-sizing: border-box;
+	width: var(--thumb);
+	height: var(--thumb);
+	margin-top: calc((var(--track) - var(--thumb)) / 2);
+	border-radius: var(--vscode-cornerRadius-circle);
+	background: var(--vscode-checkbox-background);
+	border: var(--stroke) solid var(--vscode-input-border, var(--vscode-input-foreground));
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+	border-color: var(--vscode-focusBorder);
+}
+
+/* Track like scrollbar slider on hover and drag */
+input[type="range"]:hover::-webkit-slider-runnable-track {
+	background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+input[type="range"]:active::-webkit-slider-runnable-track {
+	background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+.fps {
+	position: absolute;
+	right: var(--margin);
+	bottom: var(--margin);
+	font-family: var(--vscode-editor-font-family);
+	font-size: var(--vscode-fontSize-label1);
+	color: var(--vscode-descriptionForeground);
+	pointer-events: none;
+}
+
+.errors {
+	position: absolute;
+	inset: auto var(--vscode-spacing-sizeNone) var(--vscode-spacing-sizeNone);
+	margin: var(--vscode-spacing-sizeNone);
+	padding: var(--margin);
+	max-height: 50%;
+	overflow: auto;
+	white-space: pre-wrap;
+	font-family: var(--vscode-editor-font-family);
+	font-size: var(--vscode-editor-font-size);
+	color: var(--vscode-errorForeground);
+	background: var(--vscode-editorWidget-background);
+}
+
+.errors:empty {
+	display: none;
+}

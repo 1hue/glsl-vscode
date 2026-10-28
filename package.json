@@ -203,8 +203,8 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p .",
-    "watch": "tsc -p . --watch",
+    "compile": "tsc -p . && tsc -p tsconfig.webview.json",
+    "watch": "tsc -p . --watch & tsc -p tsconfig.webview.json --watch",
     "test": "npm run compile && node --test out/src/test/*.test.js",
     "gen:defs": "npm run compile && node out/tools/gen-defs.js",
     "prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
@@ -213,6 +213,7 @@
   "devDependencies": {
     "@asciidoctor/core": "^4.1.1",
     "@types/node": "^26.6.5",
+    "@types/three": "^0.186.0",
     "@types/vscode": "~1.82.0",
     "@vscode/vsce": "^4.0.0",
     "typescript": "^7.0.2"
@@ -221,6 +222,8 @@
     "@azure/msal-node": "^7.1.1"
   },
   "dependencies": {
-    "glslang-wasm": "^1.0.6"
+    "@vscode/codicons": "^0.0.46-24",
+    "glslang-wasm": "^1.0.6",
+    "three": "^0.186.1"
   }
 }

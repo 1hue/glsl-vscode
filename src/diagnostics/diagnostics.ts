@@ -14,8 +14,9 @@ import type {
 } from 'glslang-wasm' with { 'resolution-mode': 'import' };
 import { BUILTINS_SCHEME, definitionsFor } from '#src/language/definitions';
 import { blank, gdshaderPreamble, gdshaderToGlsl, shaderTypeOf } from './gdshader';
-import { loadGlslang } from './glslang';
+import { sharedGlslang } from './glslang';
 import { STAGE_BY_EXTENSION } from '#src/language/keywords';
+import { isVulkan } from '#src/language/vulkan';
 
 const DEBOUNCE_MS = 300;
 
@@ -56,9 +57,6 @@ const GODOT_SECTIONS: Record<string, Stage> = {
 	intersection: 'intersect',
 };
 
-const VULKAN_ONLY =
-	/\blayout\s*\([^)]*\b(set|push_constant|input_attachment_index)\b|\bsubpassInput(MS)?\b|\bgl_(VertexIndex|InstanceIndex)\b/;
-
 /** Shader source checked as one stage. Godot RD files have several */
 interface Unit {
 	source: string;
@@ -94,7 +92,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 	const dependencies = new Map<string, Set<string>>();
 
 	let glslang: Promise<Glslang> | undefined;
-	const load = () => (glslang ??= loadGlslang());
+	const load = () => (glslang ??= sharedGlslang());
 
 	const check = async (document: vscode.TextDocument) => {
 		const key = document.uri.toString();
@@ -336,7 +334,7 @@ function stageOf(document: vscode.TextDocument, text: string): Stage {
 }
 
 function clientOf(text: string): Client {
-	return VULKAN_ONLY.test(text) ? 'vulkan' : 'none';
+	return isVulkan(text) ? 'vulkan' : 'none';
 }
 
 /** Includes and `project.godot` never resolve outside this: workspace folder, else document's directory */
