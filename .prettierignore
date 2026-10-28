@@ -1,7 +1,7 @@
 data/
 syntaxes/
 vendor/
+LICENSE*
 LICENSES/
-src/test/fixtures/
 package-lock.json
 *.md
