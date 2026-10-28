@@ -223,7 +223,7 @@
   },
   "dependencies": {
     "@vscode/codicons": "^0.0.46-24",
-    "glslang-wasm": "^1.0.6",
+    "glslang-wasm": "^1.1.1",
     "three": "^0.186.1"
   }
 }
