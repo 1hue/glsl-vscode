@@ -435,7 +435,7 @@ function addLanguagePage(definitions: GodotDefinitions, text: string, substituti
 	}
 }
 
-/** Expand `filter[_nearest, _linear][_mipmap]` to all names - first group required, later ones extend */
+/** Expand `filter[_nearest, _linear][_mipmap]` to all names - first group required, later groups extend */
 function expandHint(text: string): string[] {
 	const match = /^(\w+)((?:\[[^\]]+\])*)/.exec(text);
 	if (!match) {

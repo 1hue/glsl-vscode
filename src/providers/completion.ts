@@ -212,7 +212,7 @@ function typeItems(context: Context, types: string[]): Item[] {
 	});
 }
 
-/** Next qualifiers in a declaration plus `struct` where one can start */
+/** Next qualifiers in declaration, plus `struct` at statement start */
 function declarationKeywords(context: Context, scope: DeclarationScope, present: string[]): string[] {
 	const starts = !present.length && (scope === 'global' || scope === 'local');
 

@@ -33,7 +33,7 @@ function signatureInformation(name: string, signature: Signature, group?: Functi
 	const label = signatureLabel(name, signature);
 	const info = new vscode.SignatureInformation(label, group?.doc ? markdown(group.doc) : undefined);
 
-	// Param ranges as label offsets - VS Code highlights the right one
+	// Param ranges as label offsets - VS Code highlights current param
 	let searchFrom = label.indexOf('(') + 1;
 	for (const param of signature.params) {
 		const text = `${param.type} ${param.name}`.trim();

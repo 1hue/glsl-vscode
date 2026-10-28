@@ -88,7 +88,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 	const collection = vscode.languages.createDiagnosticCollection('glslang');
 	const timers = new Map<string, NodeJS.Timeout>();
 
-	// Document -> files it includes, to recheck when one changes
+	// Document -> files it includes, rechecked on include change
 	const dependencies = new Map<string, Set<string>>();
 
 	let glslang: Promise<Glslang> | undefined;

@@ -406,7 +406,7 @@ function parseTypeTables(blocks: Block[], attributes: Record<string, string>) {
 	return { types, qualifiers };
 }
 
-/** Add doc keeping earlier ones for same name */
+/** Add doc, keep earlier docs for same name */
 function addDoc(target: Record<string, string>, name: string, doc: string) {
 	if (!target[name]) {
 		target[name] = doc;

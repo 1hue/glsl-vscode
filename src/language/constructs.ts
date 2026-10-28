@@ -16,7 +16,7 @@ export type QualifierGroup =
 export interface Construct {
 	names: string[];
 	kind: 'statement' | 'qualifier' | 'layout' | 'directive' | 'macro';
-	// No docs for C basics and obvious ones
+	// No docs for C basics and obvious keywords
 	section?: string;
 	only?: Flavor; // Only in desktop GLSL or only in GLSL ES
 	group?: QualifierGroup; // Qualifiers

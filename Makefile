@@ -1,8 +1,10 @@
 # Development commands, run in containers - see CONTRIBUTING.md
 .PHONY: build install compile test setup sh clean submodule wasm-link wasm-unlink
 
+# Colors when run in terminal
+TTY := $(shell [ -t 0 ] && echo -t)
 # Container with project at /w, image follows
-RUN = podman run --rm --pull=newer --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w
+RUN = podman run --rm $(TTY) --pull=newer --userns=keep-id -e HOME=/tmp -v .:/w:Z -w /w
 NODE = docker.io/library/node:latest
 
 # VS Code CLI, e.g. make install VSCODE=code
@@ -28,9 +30,9 @@ setup:
 node_modules:
 	$(MAKE) setup
 
-# Shell into container, e.g. for npm update
+# Shell into container, colored ls and prompt
 sh:
-	$(RUN) -it $(NODE) bash
+	$(RUN) -i -e TERM $(NODE) bash --rcfile /etc/skel/.bashrc
 
 clean:
 	rm -rf out build/*.vsix build/reuse.spdx

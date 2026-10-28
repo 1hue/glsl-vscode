@@ -29,7 +29,7 @@ export function buildControls(
 	root.replaceChildren(...elements);
 }
 
-/** Inputs for control, undefined for types without one (matrices, other samplers) */
+/** Inputs for control, undefined for types without input (matrices, other samplers) */
 function editorOf(control: Control, value: Value, set: (value: Value) => void, pick: () => void): HTMLElement[] | undefined {
 	const { type, label } = control;
 
