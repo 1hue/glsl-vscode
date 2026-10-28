@@ -1,12 +1,15 @@
 // Fragment shader for WebGL2 and its uniform controls
 
 import type { Diagnostic, Glslang } from 'glslang-wasm' with { 'resolution-mode': 'import' };
+import { ES_PRECISION, blank, gdshaderToGlsl, shaderTypeOf } from '#src/diagnostics/gdshader';
+import type { Definitions } from '#src/language/types';
 import { isVulkan } from '#src/language/vulkan';
 import type { Control, Shader, Value, WebGLVersion } from '#src/webview/protocol';
 
 export type WebGLResult = Shader | { errors: string };
 
 const VERSION = /^[ \t]*#[ \t]*version[ \t]+(\d+)[^\n]*/m;
+export const INCLUDE = /^[ \t]*#[ \t]*include[ \t]+"([^"]+)"[^\n]*/gm;
 
 // Preview-set uniforms
 const BUILTINS = new Set([
@@ -63,6 +66,103 @@ export async function toWebGL(glslang: Glslang, source: string): Promise<WebGLRe
 		builtins: result.uniforms
 			.filter((u) => BUILTINS.has(u.label) && u.name !== u.label)
 			.map(({ name, label }) => ({ name, label })),
+	};
+}
+
+const GODOT_CONSTANTS: Record<string, string> = { PI: '3.141592653589793', TAU: '6.283185307179586', E: '2.718281828459045' };
+
+// Godot inputs and output defaults, in assignment order
+const GODOT_FRAGMENT: Record<string, [string, string][]> = {
+	canvas_item: [
+		['UV', 'vUv'],
+		['TIME', 'time'],
+		['FRAGCOORD', 'gl_FragCoord'],
+		['VERTEX', 'gl_FragCoord.xy'],
+		['SCREEN_UV', 'gl_FragCoord.xy / resolution'],
+		['SCREEN_PIXEL_SIZE', '1.0 / resolution'],
+		['COLOR', 'vec4(1.0)'],
+	],
+	spatial: [
+		['UV', 'vUv'],
+		['TIME', 'time'],
+		['FRAGCOORD', 'gl_FragCoord'],
+		['SCREEN_UV', 'gl_FragCoord.xy / resolution'],
+		['VERTEX', '(viewMatrix * vec4(vPosition, 1.0)).xyz'],
+		['NORMAL', 'normalize(mat3(viewMatrix) * vNormal)'],
+		['VIEW', 'normalize(-VERTEX)'],
+		['ALBEDO', 'vec3(1.0)'],
+		['ALPHA', '1.0'],
+		['ROUGHNESS', '1.0'],
+		['SPECULAR', '0.5'],
+	],
+};
+
+/** `includes` nested first, inserted before source */
+export function gdshaderToWebGL(source: string, godot: Definitions, includes: string[] = []): WebGLResult {
+	const shaderType = shaderTypeOf(source);
+	const inputs = shaderType && GODOT_FRAGMENT[shaderType];
+	if (!inputs) {
+		return { errors: 'Preview runs canvas_item and spatial shaders' };
+	}
+
+	const declared = new Set<string>();
+	const globals: string[] = [];
+	for (const [name, entries] of Object.entries(godot.variables)) {
+		const declaration = entries.find((e) => e.shaderType === shaderType)?.decl.replace(/^(in|out|inout)\s+/, '');
+		if (!declaration || declaration.includes('[')) {
+			continue;
+		}
+		const [type] = declaration.split(/\s+/);
+		declared.add(name);
+		globals.push(type.startsWith('sampler') ? `uniform ${declaration};` : `${declaration} = ${GODOT_CONSTANTS[name] ?? `${type}(0)`};`);
+	}
+
+	const toGlsl = (text: string) => gdshaderToGlsl(text).replace(INCLUDE, blank);
+	const included = includes.map(toGlsl);
+	const body = toGlsl(source);
+
+	const prefix = [
+		...ES_PRECISION,
+		'in vec3 vPosition;',
+		'in vec3 vNormal;',
+		'in vec2 vUv;',
+		'uniform float time;',
+		'uniform vec2 resolution;',
+		'uniform mat4 viewMatrix;',
+		'uniform vec3 lightPosition;',
+		'out vec4 fragColor;',
+		...globals,
+		...included,
+	];
+
+	const unshaded = /\brender_mode\b[^;]*\bunshaded\b/.test(source);
+	const output =
+		shaderType === 'canvas_item'
+			? ['fragColor = COLOR;']
+			: unshaded
+				? ['fragColor = vec4(ALBEDO + EMISSION, ALPHA);']
+				: [
+						'vec3 light = normalize((viewMatrix * vec4(lightPosition, 1.0)).xyz - VERTEX);',
+						'fragColor = vec4(ALBEDO * (0.2 + 0.8 * max(dot(normalize(NORMAL), light), 0.0)) + EMISSION, ALPHA);',
+					];
+	const main = [
+		'void main() {',
+		...inputs.filter(([name]) => declared.has(name)).map(([name, value]) => `${name} = ${value};`),
+		...(/\bvoid\s+fragment\s*\(\s*\)/.test(source) ? ['fragment();'] : []),
+		...output,
+		'}',
+	];
+
+	const annotations = annotationsOf([...includes, source].join('\n'));
+	return {
+		fragment: [...prefix, body, ...main].join('\n'),
+		version: '300 es',
+		lineOffset: prefix.join('\n').split('\n').length + 1,
+		controls: [...included, body]
+			.flatMap((text) => [...text.matchAll(UNIFORM)])
+			.filter(([, , name]) => !BUILTINS.has(name))
+			.map(([, type, name]) => control(name, name, type, annotations.get(name))),
+		builtins: [],
 	};
 }
 

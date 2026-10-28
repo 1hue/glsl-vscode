@@ -3,7 +3,7 @@
 import { Definitions } from '#src/language/types';
 
 // Godot declares precision for these GLSL ES types itself
-const ES_PRECISION = [
+export const ES_PRECISION = [
 	'float',
 	'int',
 	'sampler3D',

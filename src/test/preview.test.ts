@@ -1,10 +1,12 @@
 // Preview source for WebGL2 checked with glslang as ES
 
 import * as assert from 'node:assert/strict';
+import * as fs from 'node:fs';
 import { test } from 'node:test';
 import { loadGlslang } from '#src/diagnostics/glslang';
 import type { Shader } from '#src/webview/protocol';
-import { annotationsOf, toWebGL } from '#src/preview/webgl';
+import { annotationsOf, gdshaderToWebGL, toWebGL } from '#src/preview/webgl';
+import type { Definitions } from '#src/language/types';
 
 const lines = (...text: string[]) => text.join('\n');
 
@@ -107,4 +109,59 @@ test('annotations: range, default, both or neither', () => {
 		d: { value: true },
 		f: { min: 1, max: 2, value: 1.5 },
 	});
+});
+
+test('canvas_item and spatial GDShaders become valid ES 3.00', async () => {
+	const godot = require('#data/godot') as Definitions;
+	const sources = [
+		lines('shader_type canvas_item;', 'uniform vec4 tint : source_color = vec4(1.0);', 'void fragment() { COLOR = tint * vec4(UV, sin(TIME), 1.0); }'),
+		lines('shader_type spatial;', 'render_mode unshaded;', 'uniform float amount : hint_range(0, 1) = 0.5;', 'void fragment() { ALBEDO = amount * NORMAL; }'),
+		lines('shader_type spatial;', 'void vertex() { VERTEX.y += 1.0; }', 'void fragment() { ALBEDO = vec3(UV, 0.0); EMISSION = vec3(PI / TAU); }'),
+	];
+
+	for (const source of sources) {
+		const result = gdshaderToWebGL(source, godot);
+
+		assert.ok(!('errors' in result), 'errors' in result ? result.errors : '');
+		assert.deepEqual(await check(result), [], source);
+	}
+});
+
+test('GDShader uniforms become controls, hints ignored', () => {
+	const godot = require('#data/godot') as Definitions;
+	const source = lines('shader_type canvas_item;', 'uniform vec4 tint : source_color = vec4(1.0);', 'uniform sampler2D noise : filter_linear;');
+
+	const result = gdshaderToWebGL(source, godot);
+
+	assert.ok(!('errors' in result));
+	assert.deepEqual(result.controls, [
+		{ name: 'tint', label: 'tint', type: 'vec4', min: 0, max: 1 },
+		{ name: 'noise', label: 'noise', type: 'sampler2D', min: 0, max: 1 },
+	]);
+});
+
+test('rim example with its include becomes valid ES 3.00', async () => {
+	const godot = require('#data/godot') as Definitions;
+	const source = fs.readFileSync('examples/rim.gdshader', 'utf8');
+	const include = fs.readFileSync('examples/rim.gdshaderinc', 'utf8');
+
+	const result = gdshaderToWebGL(source, godot, [include]);
+
+	assert.ok(!('errors' in result), 'errors' in result ? result.errors : '');
+	assert.deepEqual(await check(result), [], source);
+	assert.deepEqual(
+		result.controls.map((c) => c.name),
+		['base_color', 'rim_color', 'rim_width', 'pulse_speed'],
+	);
+});
+
+test('GDShader lineOffset maps errors back to original lines', async () => {
+	const godot = require('#data/godot') as Definitions;
+	const source = lines('shader_type canvas_item;', '#include "lib.gdshaderinc"', 'void fragment() { COLOR = foo; }');
+
+	const result = gdshaderToWebGL(source, godot, [lines('float helper() {', '\treturn 1.0;', '}')]);
+
+	assert.ok(!('errors' in result));
+	const [error] = await check(result);
+	assert.equal(error.line! - result.lineOffset!, 3);
 });

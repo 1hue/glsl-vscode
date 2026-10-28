@@ -328,7 +328,7 @@ function includeRoot(document: vscode.TextDocument): string {
 	return vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath ?? path.dirname(document.uri.fsPath);
 }
 
-function includePath(document: vscode.TextDocument, header: string, includer: string): string | undefined {
+export function includePath(document: vscode.TextDocument, header: string, includer: string): string | undefined {
 	const root = includeRoot(document);
 
 	let file: string | undefined;
@@ -366,7 +366,7 @@ function godotRoot(document: vscode.TextDocument, root = includeRoot(document)):
 }
 
 /** Unsaved editor contents first */
-function readSource(file: string): string | undefined {
+export function readSource(file: string): string | undefined {
 	const open = vscode.workspace.textDocuments.find((d) => d.uri.fsPath === file);
 	if (open) {
 		return open.getText();

@@ -1,10 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { includePath, readSource } from '#src/diagnostics/diagnostics';
 import { sharedGlslang } from '#src/diagnostics/glslang';
+import { definitionsFor } from '#src/language/definitions';
 import type { FromWebview, ToWebview, VertexShaders } from '#src/webview/protocol';
 import { loadScene, saveScene } from './scene';
-import { toWebGL, withoutVersion } from './webgl';
+import { INCLUDE, gdshaderToWebGL, toWebGL, withoutVersion } from './webgl';
 
 const VIEW_TYPE = 'glsl.preview';
 const DEBOUNCE_MS = 300;
@@ -51,7 +53,10 @@ export function registerPreview(context: vscode.ExtensionContext) {
 		let latest = 0;
 		const postShader = async () => {
 			const request = ++latest;
-			const result = await toWebGL(await sharedGlslang(), text);
+			const result =
+				document.languageId === 'gdshader'
+					? gdshaderToWebGL(text, definitionsFor('godot'), gdshaderIncludes(document, text))
+					: await toWebGL(await sharedGlslang(), text);
 			// Newer edit already sent
 			if (request === latest) {
 				post({ type: 'shader', ...result });
@@ -158,4 +163,20 @@ function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): str
 		text = text.replaceAll(`{{${name}}}`, webview.asWebviewUri(folder).toString());
 	}
 	return text;
+}
+
+/** Nested first, each once. None in Restricted Mode */
+function gdshaderIncludes(document: vscode.TextDocument, text: string, includer = document.uri.fsPath, seen = new Set<string>()): string[] {
+	if (!vscode.workspace.isTrusted) {
+		return [];
+	}
+	return [...text.matchAll(INCLUDE)].flatMap(([, header]) => {
+		const file = includePath(document, header, includer);
+		const source = file && !seen.has(file) ? readSource(file) : undefined;
+		if (!file || source === undefined) {
+			return [];
+		}
+		seen.add(file);
+		return [...gdshaderIncludes(document, source, file, seen), source];
+	});
 }

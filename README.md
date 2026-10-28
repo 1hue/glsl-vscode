@@ -45,6 +45,8 @@ are checked as GLSL ES 3.0, others as GLSL 460. Not a replacement for Godot's ow
 `Ctrl+Shift+V` or the preview button in the editor title renders the fragment shader beside the editor with WebGL2, updating as you type.
 Fullscreen or on a mesh you can orbit, with a movable light.
 
+GDShaders work too, `canvas_item` and `spatial` with `#include`. Only `fragment()` runs, with Godot built-ins like `UV`, `TIME`, `COLOR` and `ALBEDO`.
+
 Uniforms, when declared:
 
 | Uniform | |
