@@ -4,8 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="default-src 'none'; script-src 'nonce-{{nonce}}' {{csp}}; style-src {{csp}} 'unsafe-inline'; font-src {{csp}}; img-src {{csp}} data: blob:"
+			content="default-src 'none'; script-src 'nonce-{{nonce}}' {{csp}}; style-src {{csp}} 'unsafe-inline'; font-src {{csp}}; img-src {{csp}} data: blob:; connect-src {{csp}}"
 		/>
+		{{head}}
 		<link rel="stylesheet" href="{{codicons}}/codicon.css" />
 		<link rel="stylesheet" href="{{assets}}/preview.css" />
 		<script type="importmap" nonce="{{nonce}}">
@@ -17,7 +18,7 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body class="vscode-dark">
 		<canvas id="canvas"></canvas>
 
 		<div id="toolbar" class="widget toolbar" role="toolbar">

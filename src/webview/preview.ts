@@ -14,12 +14,27 @@ import type {
 	VertexShaders,
 } from './protocol.js';
 
-declare function acquireVsCodeApi(): {
+interface VsCodeApi {
 	postMessage(message: FromWebview): void;
 	setState(state: { uri: string }): void;
-};
+}
 
-const vscode = acquireVsCodeApi();
+declare function acquireVsCodeApi(): VsCodeApi;
+
+// Stand-in outside VS Code, fed by make web
+function shimVsCoveApi(): VsCodeApi {
+	return {
+		postMessage(message) {
+			if (message.type === 'ready') {
+				new EventSource('/events').onmessage = (event) =>
+					window.postMessage(JSON.parse(event.data));
+			}
+		},
+		setState() { },
+	};
+}
+
+const vscode = typeof acquireVsCodeApi === 'function' ? acquireVsCodeApi() : shimVsCoveApi();
 const element = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
 const canvas = element<HTMLCanvasElement>('canvas');

@@ -29,17 +29,6 @@ const TYPES: Record<string, string> = {
 
 const SCENE: Scene = { mesh: 'fullscreen', light: { azimuth: 45, elevation: 45 }, uniforms: {}, textures: {} };
 
-// Stands in for the VS Code webview API
-const SHIM = `
-window.acquireVsCodeApi = () => ({
-	postMessage(message) {
-		if (message.type === 'ready') {
-			new EventSource('/events').onmessage = (event) => window.postMessage(JSON.parse(event.data));
-		}
-	},
-	setState() {},
-});`;
-
 const vertexShader = (name: string) => withoutVersion(fs.readFileSync(`assets/vertex/${name}`, 'utf8'));
 const vertex: VertexShaders = {
 	'300 es': { mesh: vertexShader('mesh_es300.vert'), fullscreen: vertexShader('fullscreen_es300.vert') },
@@ -64,14 +53,12 @@ function send(response: http.ServerResponse, message: ToWebview) {
 	response.write(`data: ${JSON.stringify(message)}\n\n`);
 }
 
-// Drop CSP - dev page connects back for events
 function html(): string {
 	let text = fs
 		.readFileSync('assets/preview.html', 'utf8')
-		.replace(/<meta\s+http-equiv="Content-Security-Policy"[^>]*>/, '')
-		.replaceAll(' nonce="{{nonce}}"', '')
-		.replace('</head>', `<link rel="stylesheet" href="{{assets}}/web.css" />\n<script>${SHIM}</script>\n</head>`)
-		.replace('<body>', '<body class="vscode-dark">');
+		.replace('{{head}}', '<link rel="stylesheet" href="{{assets}}/web.css" />')
+		.replaceAll('{{nonce}}', crypto.randomUUID())
+		.replaceAll('{{csp}}', "'self'");
 	for (const [name, folder] of Object.entries(FOLDERS)) {
 		text = text.replaceAll(`{{${name}}}`, folder);
 	}

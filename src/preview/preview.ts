@@ -191,6 +191,7 @@ function html(webview: vscode.Webview, folders: Record<string, vscode.Uri>): str
 	).join('');
 	let text = fs
 		.readFileSync(vscode.Uri.joinPath(folders.assets, 'preview.html').fsPath, 'utf8')
+		.replace('{{head}}', '')
 		.replaceAll('{{nonce}}', nonce)
 		.replaceAll('{{csp}}', webview.cspSource);
 	for (const [name, folder] of Object.entries(folders)) {
