@@ -93,7 +93,7 @@ let vertex: VertexShaders | undefined;
 let lineOffset = 0;
 const textures: Record<string, THREE.Texture> = {};
 const checker = checkerTexture();
-const clock = new THREE.Clock();
+const timer = new THREE.Timer();
 
 renderer.debug.onShaderError = (gl, program, vertexShader, fragmentShader) => {
 	const log =
@@ -173,11 +173,12 @@ new ResizeObserver(() => {
 	camera.updateProjectionMatrix();
 }).observe(canvas);
 
-renderer.setAnimationLoop(() => {
+renderer.setAnimationLoop((timestamp) => {
+	timer.update(timestamp);
 	if (document.hidden || !shader) {
 		return;
 	}
-	time.value = clock.getElapsedTime();
+	time.value = timer.getElapsed();
 	renderer.getDrawingBufferSize(resolution.value);
 	copyBuiltinMembers();
 	orbit.update();

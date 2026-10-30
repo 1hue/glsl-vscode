@@ -1,5 +1,5 @@
 # Development commands in containers
-.PHONY: build install compile test format setup sh clean clean-npm submodule wasm-link wasm-unlink vendor defs
+.PHONY: build install compile test format web setup sh clean clean-npm submodule wasm-link wasm-unlink vendor defs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
@@ -12,6 +12,8 @@ NODE = -v .:/app:z -w /app $(NODE_IMAGE)
 
 # VS Code CLI
 VSCODE ?= codium
+# Shader for make web
+FILE ?= examples/lit.frag
 
 build:
 	sh scripts/build.sh
@@ -28,6 +30,10 @@ test: node_modules/.package-lock.json
 # Format TS, JS, JSON and CSS
 format: node_modules/.package-lock.json
 	$(RUN_OFFLINE) $(NODE) node_modules/.bin/prettier --write .
+
+# Serve preview of FILE at localhost:8080 without VS Code
+web: node_modules/.package-lock.json
+	$(RUN) -p 127.0.0.1:8080:8080 $(NODE) sh -c 'npm run compile && node out/tools/web.js $(FILE)'
 
 # Update image, drop wasm-link, install deps and audit
 setup:

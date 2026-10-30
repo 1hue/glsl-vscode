@@ -27,5 +27,6 @@ LICENSES/**
 package-lock.json
 *.glsl
 examples/**
+assets/web.css
 CONTRIBUTING.md
 Makefile
