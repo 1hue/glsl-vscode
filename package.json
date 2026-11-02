@@ -2,7 +2,7 @@
 	"name": "glsl-vscode",
 	"displayName": "GLSL",
 	"description": "Full GLSL and GDShader support. Code completion, hover docs for everything, syntax highlighting, compile errors, and live preview.",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"publisher": "1hue",
 	"license": "MIT",
 	"repository": {
