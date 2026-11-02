@@ -9,8 +9,12 @@ src/**
 out/tools/**
 out/src/test/**
 out/**/*.map
+out/**/protocol.js
 node_modules/**
-!node_modules/glslang-wasm/**
+!node_modules/glslang-wasm/package.json
+!node_modules/glslang-wasm/LICENSE*
+!node_modules/glslang-wasm/dist/*.js
+!node_modules/glslang-wasm/dist/glslang.wasm
 !node_modules/@vscode/codicons/package.json
 !node_modules/@vscode/codicons/LICENSE
 !node_modules/@vscode/codicons/LICENSE-CODE
