@@ -1,0 +1,72 @@
+# Build .vsix, attach to release and publish to Open VSX
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build .vsix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      # Version from release tag like v1.2.0
+      - run: npm pkg set version="${GITHUB_REF_NAME#v}"
+
+      - run: mkdir -p build
+
+      - uses: fsfe/reuse-action@v6
+
+      - uses: fsfe/reuse-action@v6
+        with:
+          args: spdx --output build/reuse.spdx
+
+      - run: sh scripts/package.sh
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: vsix
+          path: build/*.vsix
+
+  attach:
+    name: Attach to release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: vsix
+
+      - run: gh release upload "$GITHUB_REF_NAME" *.vsix --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  open-vsx:
+    name: Publish to Open VSX
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: vsix
+
+      - run: npx --yes ovsx publish *.vsix --trusted-publishing
