@@ -19,6 +19,7 @@ Other commands:
 ```sh
 make test
 make format # Prettier
+make audit # fix vulnerable deps
 make web # preview in browser at localhost:8080, no VS Code
 make web FILE=examples/rim.gdshader
 ```

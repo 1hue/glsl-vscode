@@ -1,5 +1,5 @@
 # Development commands in containers
-.PHONY: build install compile test format web setup sh clean clean-npm submodule wasm-link wasm-unlink vendor defs
+.PHONY: build install compile test format audit web setup sh clean clean-npm submodule wasm-link wasm-unlink vendor defs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
@@ -30,6 +30,11 @@ test: node_modules/.package-lock.json
 # Format TS, JS, JSON and CSS
 format: node_modules/.package-lock.json
 	$(RUN_OFFLINE) $(NODE) node_modules/.bin/prettier --write .
+
+# Fix vulnerable deps, drop wasm-link
+audit: node_modules/.package-lock.json
+	test ! -L node_modules/glslang-wasm || rm node_modules/glslang-wasm
+	$(RUN) $(NODE) sh -c 'npm audit fix && npm audit --audit-level=moderate'
 
 # Serve preview of FILE at localhost:8080 without VS Code
 web: node_modules/.package-lock.json
