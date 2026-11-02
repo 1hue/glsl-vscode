@@ -1,12 +1,12 @@
 # Development
 
-Needs podman only. `make` runs on the host, while all actual work happens insde a node container.
+Needs podman only. `make` runs on your machine, while all actual work happens insde a node container.
 
 ```sh
 make setup # then F5 in VS Code
 ```
 
-Without F5:
+Or without the F5 hot reload:
 
 ```sh
 make install # build and install into codium
@@ -24,7 +24,7 @@ make web # preview in browser at localhost:8080, no VS Code
 make web FILE=examples/rim.gdshader
 ```
 
-`make web` takes VS Code's theme from `assets/web.css`, copied from a real preview's `<html>` style in Webview Developer Tools.
+`make web` takes VS Code's theme from `assets/web.css` - to update, copy the `<html>` style of the WebView preview in VSCode Developer Tools.
 
 ## Local `glslang-wasm`
 
