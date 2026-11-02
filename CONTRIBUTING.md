@@ -1,8 +1,6 @@
-# Contributing
+# Development
 
-## Build
-
-Needs podman only. After cloning:
+Needs podman only. `make` runs on the host, while all actual work happens insde a node container.
 
 ```sh
 make setup # then F5 in VS Code
@@ -11,38 +9,34 @@ make setup # then F5 in VS Code
 Without F5:
 
 ```sh
-# Build and install extension:
-make install
-make install VSCODE=code # for regular VS Code instead of codium
-# Or:
+make install # build and install into codium
+make install VSCODE=code # or regular VS Code
 make build # build/*.vsix only
 ```
 
-Format with Prettier:
+Other commands:
 
 ```sh
-make format
+make test
+make format # Prettier
+make web # preview in browser at localhost:8080, no VS Code
+make web FILE=examples/rim.gdshader
 ```
 
-> [!NOTE]
-> | Commands | | |
-> | --- | --- | --- |
-> | `make` | on host | Provides development environment via podman |
-> | `package.json` scripts | in container | Actual work: compile, test, package |
+`make web` takes VS Code's theme from `assets/web.css`, copied from a real preview's `<html>` style in Webview Developer Tools.
 
-## Local `glslang-wasm` as submodule
+## Local `glslang-wasm`
 
-The [glslang-wasm](.gitmodules) git submodule isn't cloned by default - can replace the npm package.
+The [`glslang-wasm`](.gitmodules) submodule isn't cloned by default and can replace the npm package.
 
 ```sh
-make submodule # git update submodule
-make wasm-link # put it in `node_modules`
+make submodule # clone or reset to pinned commit
+make wasm-link # use it in node_modules
 make wasm-unlink # back to npm package
 ```
 
-> [!NOTE]
-> `make build` always uses the npm package.
+`make build` always uses the npm package.
 
 ## Docs
 
-Regenerate with `make defs`. To update docs, check out another commit in `vendor/glsl-spec` or `vendor/godot-docs`, `git add` it, then `make defs`.
+Built-in docs come from the GLSL spec and Godot docs, pinned as submodules in `vendor/`. To update, check out another commit there, `git add` it, then `make defs`.

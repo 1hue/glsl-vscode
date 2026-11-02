@@ -21,7 +21,6 @@ interface VsCodeApi {
 
 declare function acquireVsCodeApi(): VsCodeApi;
 
-// Stand-in outside VS Code, fed by make web
 function shimVsCoveApi(): VsCodeApi {
 	return {
 		postMessage(message) {
