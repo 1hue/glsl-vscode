@@ -32,5 +32,6 @@ package-lock.json
 *.glsl
 examples/**
 assets/web.css
+assets/screenshot_*.png
 CONTRIBUTING.md
 Makefile

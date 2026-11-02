@@ -1,13 +1,21 @@
 # GLSL for VS Code
 
-Language support and a live preview for GLSL, GLSL ES and Godot shaders. Works without a language server.
+Comprehensive language support for GLSL, GLSL ES and GDShader.
 
-- Hover docs and completion for built-ins and your own code
-- Go to definition, outline and signature help
-- Errors from [glslang](https://github.com/KhronosGroup/glslang) for OpenGL and Vulkan GLSL
-- WebGL2 preview with meshes and uniform sliders
+All that's necessary is bundled, with nothing unnecessary.
 
-## Preview
+- Hover docs and completion
+- Go to definition and outline
+- Errors from [glslang](https://github.com/KhronosGroup/glslang)
+- WebGL2 preview
+
+![GLSL hover docs and lit sphere preview with uniform sliders](assets/screenshot_1.png)
+
+![GDShader completion with Godot docs and compile errors](assets/screenshot_2.png)
+
+![GDShader render_mode completion](assets/screenshot_3.png)
+
+## Live Preview
 
 Press `Ctrl+Shift+V` to open the preview for a given shader file.
 
