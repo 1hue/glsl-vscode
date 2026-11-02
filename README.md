@@ -6,7 +6,7 @@ All that's necessary is bundled, with nothing unnecessary.
 
 - Hover docs and completion
 - Go to definition and outline
-- Errors from [glslang](https://github.com/KhronosGroup/glslang)
+- Compile errors from [glslang](https://github.com/KhronosGroup/glslang)
 - WebGL2 preview
 
 ![GLSL hover docs and lit sphere preview with uniform sliders](assets/screenshot_1.png)
@@ -19,7 +19,7 @@ All that's necessary is bundled, with nothing unnecessary.
 
 Press `Ctrl+Shift+V` to open the preview for a given shader file.
 
-Preview sliders for a uniform are controlled via comment `[range] = default value`:
+Preview sliders for a uniform are controlled via `[range] = default value` comment:
 
 ```glsl
 uniform float roughness; // [0, 1] = 0.5
