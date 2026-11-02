@@ -4,6 +4,7 @@
 	"description": "Full GLSL & GDShader support. All included. Autocomplete, hover for everything, syntax highlighting, compile errors, and live preview.",
 	"version": "0.1.0",
 	"publisher": "1hue",
+	"icon": "assets/icon.png",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
