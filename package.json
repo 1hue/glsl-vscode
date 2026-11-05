@@ -225,7 +225,7 @@
 		"package": "mkdir -p build && vsce package --out build/"
 	},
 	"devDependencies": {
-		"@asciidoctor/core": "^4.1.1",
+		"@asciidoctor/core": "^4.2.1",
 		"@types/node": "^26.6.5",
 		"@types/three": "^0.187.0",
 		"@types/vscode": "~1.82.0",
