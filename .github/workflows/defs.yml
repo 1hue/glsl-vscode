@@ -1,0 +1,42 @@
+# Regenerate data/*.json on Dependabot submodule bumps
+name: Defs
+
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  defs:
+    name: Regenerate defs
+    if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/submodules/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: false # Never clone full doc repos - vendor.sh fetches sparse paths
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      - run: sh scripts/vendor.sh
+
+      - run: npm ci
+
+      - run: npm run gen:defs
+
+      - run: npm test # Push with GITHUB_TOKEN doesn't trigger test.yml
+
+      - name: Commit defs
+        env:
+          NAME: ${{ github.actor }}
+          EMAIL: ${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com
+        run: |
+          git add data
+          git diff --cached --quiet && exit 0
+          git -c user.name="$NAME" -c user.email="$EMAIL" commit -m 'Regenerate defs'
+          git push
