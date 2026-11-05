@@ -1,5 +1,5 @@
 // Generate data/*.json from doc submodules in vendor/
-// Usage: node out/tools/gen-defs.js [source...]
+// Usage: node out/tools/gen-docs.js [source...]
 
 import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs/promises';

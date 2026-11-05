@@ -27,7 +27,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run gen:defs
+      - run: npm run gen:docs
 
       - run: npm test # Push with GITHUB_TOKEN doesn't trigger test.yml
 

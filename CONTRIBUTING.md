@@ -44,4 +44,4 @@ Built-in docs come from [GLSL spec](https://github.com/KhronosGroup/GLSL) and [G
 
 Dependabot runs weekly and opens PR, with `data/*.json` regenerated via [docs.yml](.github/workflows/docs.yml).
 
-To update manually, check out another commit in the submodule and run `make defs`.
+To update manually, check out another commit in the submodule and run `make docs`.

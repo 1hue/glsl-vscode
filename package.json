@@ -220,7 +220,7 @@
 		"compile": "tsc -p . && tsc -p tsconfig.webview.json",
 		"watch": "tsc -p . --watch & tsc -p tsconfig.webview.json --watch",
 		"test": "npm run compile && node --test out/src/test/*.test.js",
-		"gen:defs": "npm run compile && node out/tools/gen-defs.js",
+		"gen:docs": "npm run compile && node out/tools/gen-docs.js",
 		"prepackage": "npm audit --audit-level=moderate && npm audit --omit=dev --audit-level=moderate && npm run compile",
 		"package": "mkdir -p build && vsce package --out build/"
 	},

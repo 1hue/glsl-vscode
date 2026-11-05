@@ -1,5 +1,5 @@
 # Development commands in containers
-.PHONY: build install compile test format audit web setup sh clean clean-npm submodule wasm-link wasm-unlink vendor defs
+.PHONY: build install compile test format audit web setup sh clean clean-npm submodule wasm-link wasm-unlink vendor docs
 
 # Colors when run in terminal
 TTY := $(shell [ -t 0 ] && echo -t)
@@ -78,5 +78,5 @@ vendor:
 	sh scripts/vendor.sh
 
 # Regenerate data/*.json from doc submodules
-defs: vendor node_modules/.package-lock.json
-	$(RUN_OFFLINE) $(NODE) npm run gen:defs
+docs: vendor node_modules/.package-lock.json
+	$(RUN_OFFLINE) $(NODE) npm run gen:docs
