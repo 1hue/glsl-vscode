@@ -42,6 +42,6 @@ make wasm-unlink # back to npm package
 
 Built-in docs come from [GLSL spec](https://github.com/KhronosGroup/GLSL) and [Godot docs](https://github.com/godotengine/godot-docs), as submodules under `vendor/`.
 
-Dependabot runs weekly and opens PR, with `data/*.json` regenerated via defs.yml.
+Dependabot runs weekly and opens PR, with `data/*.json` regenerated via [defs.yml](.github/workflows/defs.yml).
 
 To update manually, check out another commit in the submodule and run `make defs`.
