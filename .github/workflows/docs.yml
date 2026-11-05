@@ -1,5 +1,5 @@
 # Regenerate data/*.json on Dependabot submodule bumps
-name: Defs
+name: Docs
 
 on: pull_request
 
@@ -7,8 +7,8 @@ permissions:
   contents: read
 
 jobs:
-  defs:
-    name: Regenerate defs
+  docs:
+    name: Regenerate docs
     if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/submodules/')
     runs-on: ubuntu-latest
     permissions:
@@ -31,12 +31,12 @@ jobs:
 
       - run: npm test # Push with GITHUB_TOKEN doesn't trigger test.yml
 
-      - name: Commit defs
+      - name: Commit docs
         env:
           NAME: ${{ github.actor }}
           EMAIL: ${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com
         run: |
           git add data
           git diff --cached --quiet && exit 0
-          git -c user.name="$NAME" -c user.email="$EMAIL" commit -m 'Regenerate defs'
+          git -c user.name="$NAME" -c user.email="$EMAIL" commit -m 'Regenerate docs'
           git push

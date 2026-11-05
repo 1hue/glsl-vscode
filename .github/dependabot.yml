@@ -8,7 +8,7 @@ updates:
     directory: /
     schedule:
       interval: weekly
-  # Doc sources - defs.yml regenerates data/*.json on bumps
+  # Doc sources - docs.yml regenerates data/*.json on bumps
   - package-ecosystem: gitsubmodule
     directory: /
     schedule:
