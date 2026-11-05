@@ -6,9 +6,11 @@
 	path = vendor/glsl-spec
 	url = https://github.com/KhronosGroup/GLSL
 	update = none
+	fetchRecurseSubmodules = false
 	sparse = chapters
 [submodule "vendor/godot-docs"]
 	path = vendor/godot-docs
 	url = https://github.com/godotengine/godot-docs
 	update = none
+	fetchRecurseSubmodules = false
 	sparse = tutorials/shaders/shader_reference
