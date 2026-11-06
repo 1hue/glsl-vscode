@@ -42,6 +42,64 @@ const STAGES: [RegExp, string | undefined][] = [
 	[/^sdf functions/i, undefined],
 ];
 
+// Built-ins missing from Godot docs
+const UNDOCUMENTED: Record<string, Variable[]> = {
+	FRAGCOORD: [
+		{
+			decl: 'in vec4 FRAGCOORD',
+			doc: 'Coordinate of pixel center, in pixels.',
+			shaderType: 'sky',
+			stage: 'sky',
+		},
+	],
+	EXPOSURE: [
+		{
+			decl: 'in float EXPOSURE',
+			doc: 'Inverse of camera exposure normalization.',
+			shaderType: 'spatial',
+			stage: 'global',
+		},
+	],
+	STREAMING_LOD: [
+		{
+			decl: 'out float STREAMING_LOD',
+			doc: 'Texture streaming level of detail.',
+			shaderType: 'spatial',
+			stage: 'fragment',
+		},
+	],
+	LIGHT_IS_AREA: [
+		{
+			decl: 'in bool LIGHT_IS_AREA',
+			doc: '`true` if the light is an area light.',
+			shaderType: 'spatial',
+			stage: 'light',
+		},
+	],
+	LIGHT_AREA_DIFFUSE_MULTIPLIER: [
+		{
+			decl: 'in vec3 LIGHT_AREA_DIFFUSE_MULTIPLIER',
+			doc: 'Diffuse multiplier of area light.',
+			shaderType: 'spatial',
+			stage: 'light',
+		},
+	],
+	LIGHT_AREA_SPECULAR_MULTIPLIER: [
+		{
+			decl: 'in vec3 LIGHT_AREA_SPECULAR_MULTIPLIER',
+			doc: 'Specular multiplier of area light.',
+			shaderType: 'spatial',
+			stage: 'light',
+		},
+	],
+};
+
+// Numbered built-ins documented once with `X`
+const NUMBERED: Record<string, string[]> = {
+	LIGHTX: ['LIGHT0', 'LIGHT1', 'LIGHT2', 'LIGHT3'],
+	USERDATAX: ['USERDATA1', 'USERDATA2', 'USERDATA3', 'USERDATA4', 'USERDATA5', 'USERDATA6'],
+};
+
 interface GridTable {
 	header: string[];
 	rows: string[][];
@@ -83,6 +141,15 @@ async function generate(
 	}
 
 	addLanguagePage(definitions, languagePage, substitutions);
+
+	for (const [name, entries] of Object.entries(UNDOCUMENTED)) {
+		const documented = (definitions.variables[name] ??= []);
+		// Godot docs may add them later
+		const missing = entries.filter(
+			(entry) => !documented.some((d) => d.shaderType === entry.shaderType),
+		);
+		documented.push(...missing);
+	}
 
 	return { godot: definitions };
 }
@@ -276,13 +343,14 @@ function isHeading(lines: string[], i: number): boolean {
 	);
 }
 
-function* gridTables(text: string): Generator<{ heading: string; table: GridTable }> {
+/** Yield tables with headings passed since previous table */
+function* gridTables(text: string): Generator<{ headings: string[]; table: GridTable }> {
 	const lines = text.split('\n');
-	let heading = '';
+	let headings: string[] = [];
 
 	for (let i = 0; i < lines.length; i++) {
 		if (isHeading(lines, i)) {
-			heading = lines[i].trim();
+			headings.push(lines[i].trim());
 			i++;
 			continue;
 		}
@@ -296,7 +364,8 @@ function* gridTables(text: string): Generator<{ heading: string; table: GridTabl
 			tableLines.push(lines[i++]);
 		}
 
-		yield { heading, table: parseGridTable(tableLines) };
+		yield { headings, table: parseGridTable(tableLines) };
+		headings = [];
 	}
 }
 
@@ -374,12 +443,10 @@ function addShaderPage(
 	substitutions: Record<string, string>,
 ) {
 	let stage: string | undefined;
-	let lastHeading = '';
 
-	for (const { heading, table } of gridTables(text)) {
-		if (heading !== lastHeading) {
+	for (const { headings, table } of gridTables(text)) {
+		for (const heading of headings) {
 			stage = stageFor(heading, stage);
-			lastHeading = heading;
 		}
 
 		const kind = table.header[0];
@@ -422,11 +489,26 @@ function addShaderPage(
 					doc,
 					shaderType,
 					...(stage ? { stage } : {}),
+					...(/^Removed in Godot/.test(doc) ? { removed: true } : {}),
 				};
-				(definitions.variables[name] ??= []).push(entry);
+				for (const [expandedName, expanded] of expandNumbered(name, entry)) {
+					(definitions.variables[expandedName] ??= []).push(expanded);
+				}
 			}
 		}
 	}
+}
+
+/** Split `LIGHTX_COLOR` into `LIGHT0_COLOR` and so on */
+function expandNumbered(name: string, entry: Variable): [string, Variable][] {
+	const placeholder = Object.keys(NUMBERED).find((p) => name === p || name.startsWith(`${p}_`));
+	if (!placeholder) {
+		return [[name, entry]];
+	}
+	return NUMBERED[placeholder].map((numbered) => [
+		name.replace(placeholder, numbered),
+		{ ...entry, decl: entry.decl.replace(placeholder, numbered) },
+	]);
 }
 
 /** Add data types, interpolation qualifiers and uniform hints */

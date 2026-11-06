@@ -29,3 +29,28 @@ test('preamble is valid GLSL for every shader type and profile', async () => {
 		}
 	}
 });
+
+test('preamble declares numbered and undocumented built-ins', () => {
+	const godot = require('#data/godot') as Definitions;
+	const expected = {
+		sky: ['FRAGCOORD', 'LIGHT0_ENABLED', 'LIGHT3_COLOR'],
+		particles: ['USERDATA1', 'USERDATA6'],
+		spatial: ['EXPOSURE', 'STREAMING_LOD', 'LIGHT_IS_AREA'],
+	};
+
+	for (const [shaderType, names] of Object.entries(expected)) {
+		const preamble = gdshaderPreamble(godot, new Set(), shaderType, false);
+		for (const name of names) {
+			assert.match(preamble, new RegExp(`\\b${name};`), `${shaderType} ${name}`);
+		}
+		assert.doesNotMatch(preamble, /\b(LIGHTX|USERDATAX)\b/, shaderType);
+	}
+});
+
+test('preamble leaves out removed built-ins', () => {
+	const godot = require('#data/godot') as Definitions;
+	for (const shaderType of ['spatial', 'canvas_item']) {
+		const preamble = gdshaderPreamble(godot, new Set(), shaderType, false);
+		assert.doesNotMatch(preamble, /\b(SCREEN_TEXTURE|DEPTH_TEXTURE)\b/, shaderType);
+	}
+});

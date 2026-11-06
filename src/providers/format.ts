@@ -88,6 +88,9 @@ export function variableMarkdown(
 		if (label) {
 			parts.push(`*${label}*`);
 		}
+		if (entry.removed) {
+			parts.push('$(error) **Removed**');
+		}
 		if (entry.doc) {
 			parts.push(entry.doc);
 		}
@@ -121,5 +124,7 @@ export function markdown(text: string): vscode.MarkdownString {
 
 	// For the <small> source footer
 	result.supportHtml = true;
+	// For the removed built-in icon
+	result.supportThemeIcons = true;
 	return result;
 }

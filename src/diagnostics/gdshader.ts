@@ -57,7 +57,7 @@ export function gdshaderPreamble(
 
 	for (const entries of Object.values(godot.variables)) {
 		const entry = entries.find((e) => e.shaderType === shaderType);
-		if (entry) {
+		if (entry && !entry.removed) {
 			const declaration = entry.decl.replace(/^(in|out|inout)\s+/, '');
 			lines.push(
 				declaration.startsWith('sampler') ? `uniform ${declaration};` : `${declaration};`,

@@ -213,6 +213,9 @@ function builtinVariableItems(context: Context, language: string): Item[] {
 		);
 		item.detail = available[0].decl.split('\n')[0];
 		item.sortText = `1${name}`;
+		if (available.every((e) => e.removed)) {
+			item.tags = [vscode.CompletionItemTag.Deprecated];
+		}
 		items.push(item);
 	}
 

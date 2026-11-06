@@ -28,6 +28,8 @@ export interface Variable {
 	stage?: string;
 	/** Godot `shader_type` */
 	shaderType?: string;
+	/** Listed in docs but no longer declared by engine */
+	removed?: boolean;
 }
 
 export interface License {
