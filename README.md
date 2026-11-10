@@ -1,4 +1,4 @@
-# GLSL for VS Code
+# GLSL & GDShader for VS Code
 
 Comprehensive language support for GLSL, GLSL ES and GDShader.
 
