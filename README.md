@@ -1,4 +1,4 @@
-# GLSL & GDShader for VS Code
+# <img src="assets/icon-sm.png" alt="" height="28" valign="middle"> GLSL & GDShader for VS Code
 
 Comprehensive language support for GLSL, GLSL ES and GDShader.
 
@@ -19,7 +19,7 @@ All that's necessary is bundled, with nothing unnecessary.
 
 ## Live Preview
 
-Press `Ctrl+Shift+V` to open the preview for a given shader file.
+Press `Ctrl+Shift+V` or the <img src="assets/icon-sm.png" alt="preview" height="16"> button in the editor title bar to open the preview for a given shader file.
 
 Preview sliders for a uniform are controlled via `[range] = default value` comment:
 
