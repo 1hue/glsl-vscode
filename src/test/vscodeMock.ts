@@ -86,6 +86,8 @@ const state = {
 	documents: [] as MockDocument[],
 	workspaceFolder: undefined as string | undefined,
 	trusted: true,
+	/** `glsl` settings */
+	settings: {} as Record<string, unknown>,
 	diagnostics: new Map<string, Diagnostic[]>(),
 	/** Documents checked or skipped */
 	done: new Set<string>(),
@@ -132,7 +134,9 @@ const vscode = {
 		},
 		getWorkspaceFolder: () =>
 			state.workspaceFolder ? { uri: { fsPath: state.workspaceFolder } } : undefined,
-		getConfiguration: () => ({ get: <T>(_key: string, fallback: T) => fallback }),
+		getConfiguration: () => ({
+			get: <T>(key: string, fallback: T) => (state.settings[key] as T | undefined) ?? fallback,
+		}),
 		asRelativePath: (file: string) =>
 			state.workspaceFolder ? path.relative(state.workspaceFolder, file) : file,
 		onDidOpenTextDocument: () => ({ dispose() {} }),
@@ -169,11 +173,16 @@ export interface Result {
 
 export async function diagnose(
 	documents: MockDocument[],
-	{ workspaceFolder, trusted = true }: { workspaceFolder?: string; trusted?: boolean } = {},
+	{
+		workspaceFolder,
+		trusted = true,
+		settings = {},
+	}: { workspaceFolder?: string; trusted?: boolean; settings?: Record<string, unknown> } = {},
 ): Promise<Result[][]> {
 	state.documents = documents;
 	state.workspaceFolder = workspaceFolder;
 	state.trusted = trusted;
+	state.settings = settings;
 	state.diagnostics.clear();
 	state.done.clear();
 

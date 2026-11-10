@@ -52,3 +52,24 @@ test('Restricted Mode: includes not resolved at all', async () => {
 	assert.equal(results[0].line, 1);
 	assert.match(results[0].message, UNRESOLVED);
 });
+
+test('customBuiltins setting declares custom built-ins', async () => {
+	const root = fixture({ 'project.godot': '' });
+	const shader = document(
+		`${root}/a.gdshader`,
+		lines(
+			'shader_type spatial;',
+			'void fragment() {',
+			'	ALBEDO = vec3(TRANSMITTANCE_Z) * my_func(VERTEX);',
+			'}',
+		),
+		'gdshader',
+	);
+	const settings = { customBuiltins: ['float TRANSMITTANCE_Z', 'vec3 my_func(vec3 p);'] };
+
+	const [without] = await diagnose([shader], { workspaceFolder: root });
+	const [declared] = await diagnose([shader], { workspaceFolder: root, settings });
+
+	assert.ok(without.some((r) => r.text === 'TRANSMITTANCE_Z'));
+	assert.deepEqual(declared, []);
+});

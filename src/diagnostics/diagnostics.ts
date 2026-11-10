@@ -132,13 +132,15 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 			return undefined;
 		};
 
+		const declarations = userDeclarations(document);
 		const diagnostics: vscode.Diagnostic[] = [];
 		try {
 			const instance = await load();
-			for (const { source, lineOffset, version, profile, ...options } of units) {
+			for (const { source, lineOffset, version, profile, preamble, ...options } of units) {
 				const result = await instance.check(source, {
 					...options,
 					name,
+					preamble: (preamble ?? '') + declarations,
 					include,
 					defaultVersion: version,
 					defaultProfile: profile,
@@ -200,7 +202,7 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 			collection.delete(document.uri);
 		}),
 		vscode.workspace.onDidChangeConfiguration((event) => {
-			if (event.affectsConfiguration('glsl.diagnostics')) {
+			if (event.affectsConfiguration('glsl')) {
 				vscode.workspace.textDocuments.forEach(schedule);
 			}
 		}),
@@ -214,7 +216,16 @@ export function registerDiagnostics(context: vscode.ExtensionContext) {
 }
 
 function enabled(document: vscode.TextDocument): boolean {
-	return vscode.workspace.getConfiguration('glsl.diagnostics', document).get('enable', true);
+	return vscode.workspace.getConfiguration('glsl', document).get('errors.enable', true);
+}
+
+/** Join `glsl.customBuiltins` into preamble lines */
+function userDeclarations(document: vscode.TextDocument): string {
+	return vscode.workspace
+		.getConfiguration('glsl', document)
+		.get<string[]>('customBuiltins', [])
+		.map((declaration) => declaration.replace(/;?\s*$/, ';\n'))
+		.join('');
 }
 
 function unitsOf(document: vscode.TextDocument): Unit[] {
@@ -313,7 +324,7 @@ function unescape(text: string): string {
 /** Setting glob, `#pragma shader_stage`, file extension, else fragment */
 function stageOf(document: vscode.TextDocument, text: string): Stage {
 	const globs = vscode.workspace
-		.getConfiguration('glsl.diagnostics', document)
+		.getConfiguration('glsl', document)
 		.get<Record<string, string>>('stages', {});
 	for (const [pattern, stage] of Object.entries(globs)) {
 		if (STAGES.has(stage) && vscode.languages.match({ pattern }, document)) {
