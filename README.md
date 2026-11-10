@@ -7,7 +7,9 @@ All that's necessary is bundled, with nothing unnecessary.
 - Hover docs and completion
 - Go to definition and outline
 - Compile errors from [glslang](https://github.com/KhronosGroup/glslang)
-- WebGL2 preview (optional)
+- `#include` support
+- Custom built-ins - add declarations in Settings
+- Live preview (optional)
 
 ![GLSL hover docs and lit sphere preview with uniform sliders](assets/screenshot_1.png)
 
