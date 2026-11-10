@@ -2,7 +2,7 @@
 	"name": "glsl-vscode",
 	"displayName": "GLSL & GDShader",
 	"description": "Full GLSL & GDShader support. All included. Autocomplete, hover for everything, syntax highlighting, compile errors, and live preview.",
-	"version": "1.1.1",
+	"version": "0.1.0",
 	"publisher": "1hue",
 	"icon": "assets/icon.png",
 	"license": "MIT",
@@ -155,7 +155,7 @@
 				"command": "glsl.showPreviewToSide",
 				"title": "Open Shader Preview to the Side",
 				"category": "GLSL",
-				"icon": "assets/preview.svg"
+				"icon": "assets/icon-sm.png"
 			}
 		],
 		"menus": {
