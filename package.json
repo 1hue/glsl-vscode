@@ -155,7 +155,7 @@
 				"command": "glsl.showPreviewToSide",
 				"title": "Open Shader Preview to the Side",
 				"category": "GLSL",
-				"icon": "assets/icon-sm.png"
+				"icon": "assets/icon_sm.png"
 			}
 		],
 		"menus": {
