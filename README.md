@@ -17,6 +17,8 @@ No dependencies (almost).
 
 ![GDShader render_mode completion](assets/screenshot_3.png)
 
+![Settings screen](assets/settings.png)
+
 ## Live Preview
 
 Press `Ctrl+Shift+V` or the &nbsp; <img src="assets/icon_sm.png" alt="preview" height="16" valign="middle"> &nbsp; button in the editor title bar to open the preview for a given shader file.
