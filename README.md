@@ -1,4 +1,4 @@
-# <img src="assets/icon_sm.webp" alt="" height="28" valign="middle"> GLSL & GDShader for VS Code
+# <img src="assets/icon_sm.webp" alt="" height="24" valign="middle"> GLSL & GDShader for VS Code
 
 Comprehensive language support for GLSL, GLSL ES and GDShader.
 
