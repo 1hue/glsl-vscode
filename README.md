@@ -2,7 +2,7 @@
 
 Comprehensive language support for GLSL, GLSL ES and GDShader.
 
-All that's necessary is bundled, with nothing unnecessary.
+No dependencies (almost).
 
 - Hover docs and completion
 - Go to definition and outline
