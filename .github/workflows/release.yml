@@ -75,6 +75,8 @@ jobs:
     name: Publish to VS Code Marketplace
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/setup-node@v7
         with:
@@ -84,6 +86,4 @@ jobs:
         with:
           name: vsix
 
-      - run: npx --yes @vscode/vsce publish --packagePath *.vsix
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - run: npx --yes @vscode/vsce publish --packagePath *.vsix --oidc
