@@ -1,4 +1,4 @@
-# Build .vsix, attach to release and publish to Open VSX
+# Build .vsix, attach to release and publish to Open VSX and VS Code Marketplace
 name: Release
 
 on:
@@ -70,3 +70,20 @@ jobs:
           name: vsix
 
       - run: npx --yes ovsx publish *.vsix --trusted-publishing
+
+  marketplace:
+    name: Publish to VS Code Marketplace
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: vsix
+
+      - run: npx --yes @vscode/vsce publish --packagePath *.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

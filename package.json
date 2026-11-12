@@ -4,7 +4,7 @@
 	"description": "Docs, autocomplete, syntax highlighting, compile errors, and live preview.",
 	"version": "0.1.0",
 	"publisher": "1hue",
-	"icon": "assets/icon.webp",
+	"icon": "assets/icon.png",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -155,7 +155,7 @@
 				"command": "glsl.showPreviewToSide",
 				"title": "Open Shader Preview to the Side",
 				"category": "GLSL",
-				"icon": "assets/icon_sm.webp"
+				"icon": "assets/icon_sm.png"
 			}
 		],
 		"menus": {
