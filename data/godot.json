@@ -14,7 +14,7 @@
 			}
 		],
 		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages (https://registry.khronos.org/OpenGL-Refpages/gl4/).",
-		"commit": "0709b93758c40d26c91e1d9e4f3afd262c4ed386"
+		"commit": "2c6cc131ac13f14443e052ccc91393986f37ae26"
 	},
 	"functions": {
 		"radians": [
@@ -5818,6 +5818,11 @@
 			"types": "sampler2D",
 			"doc": "Used as albedo color.",
 			"label": "source_color"
+		},
+		"color_conversion_disabled": {
+			"types": "vec3, vec4",
+			"doc": "Disable non-linear to linear conversion.",
+			"label": "color_conversion_disabled"
 		},
 		"hint_enum": {
 			"types": "int",
