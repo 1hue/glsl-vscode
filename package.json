@@ -237,7 +237,7 @@
 		"@types/node": "^26.6.6",
 		"@types/three": "^0.187.0",
 		"@types/vscode": "~1.82.0",
-		"@vscode/vsce": "^4.1.0",
+		"@vscode/vsce": "^4.1.1",
 		"prettier": "3.10.1",
 		"typescript": "^7.0.2"
 	},
