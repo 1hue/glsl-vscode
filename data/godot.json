@@ -14,7 +14,7 @@
 			}
 		],
 		"modified": "Modified by 1hue (glsl-vscode), 2026: converted from reStructuredText to JSON and Markdown; markup simplified. Built-in function descriptions are adapted by Godot from the Khronos OpenGL reference pages (https://registry.khronos.org/OpenGL-Refpages/gl4/).",
-		"commit": "2c6cc131ac13f14443e052ccc91393986f37ae26"
+		"commit": "4b22866ffab240404ffa3d5da43cd6590b0e2324"
 	},
 	"functions": {
 		"radians": [
@@ -4875,6 +4875,14 @@
 			{
 				"decl": "out vec4 IRRADIANCE",
 				"doc": "If written to on any branch, blends environment map irradiance with `IRRADIANCE.rgb` based on `IRRADIANCE.a`.",
+				"shaderType": "spatial",
+				"stage": "fragment"
+			}
+		],
+		"STREAMING_UV": [
+			{
+				"decl": "out vec2 STREAMING_UV",
+				"doc": "The texture coordinates used to sample streamed textures, for texture streaming feedback. Only needs to be written to if the shader samples streamed textures with coordinates other than `UV`, such as a triplanar or world-space projection. Defaults to `UV`.",
 				"shaderType": "spatial",
 				"stage": "fragment"
 			}
